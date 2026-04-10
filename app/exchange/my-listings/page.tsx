@@ -135,6 +135,12 @@ export default function MyListingsPage() {
                           View
                         </Link>
                       )}
+                      <Link
+                        href={`/exchange/edit/${listing.id}`}
+                        className="px-3 py-1.5 rounded-lg bg-[#3B82F6]/10 hover:bg-[#3B82F6]/20 text-[#3B82F6] text-xs font-medium transition-colors"
+                      >
+                        Edit
+                      </Link>
                       <button
                         onClick={() => handleDelete(listing.id)}
                         className="px-3 py-1.5 rounded-lg bg-[#DC2626]/10 hover:bg-[#DC2626]/20 text-[#DC2626] text-xs font-medium transition-colors"

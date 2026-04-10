@@ -604,6 +604,117 @@ export async function moderateExchangeListing(listingId: number, action: "approv
   }
 }
 
+export async function getAllExchangeListings(opts: {
+  status?: string;
+  search?: string;
+  limit?: number;
+  offset?: number;
+} = {}) {
+  const sql = getDb();
+  const limit = opts.limit || 50;
+  const offset = opts.offset || 0;
+
+  if (opts.status && opts.search) {
+    const search = `%${opts.search}%`;
+    return sql`
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.email as author_email
+      FROM exchange_listings el
+      JOIN users u ON el.user_id = u.id
+      WHERE el.status = ${opts.status}
+        AND (el.title ILIKE ${search} OR el.description ILIKE ${search} OR u.email ILIKE ${search})
+      ORDER BY el.created_at DESC
+      LIMIT ${limit} OFFSET ${offset}
+    `;
+  } else if (opts.status) {
+    return sql`
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.email as author_email
+      FROM exchange_listings el
+      JOIN users u ON el.user_id = u.id
+      WHERE el.status = ${opts.status}
+      ORDER BY el.created_at DESC
+      LIMIT ${limit} OFFSET ${offset}
+    `;
+  } else if (opts.search) {
+    const search = `%${opts.search}%`;
+    return sql`
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.email as author_email
+      FROM exchange_listings el
+      JOIN users u ON el.user_id = u.id
+      WHERE (el.title ILIKE ${search} OR el.description ILIKE ${search} OR u.email ILIKE ${search})
+      ORDER BY el.created_at DESC
+      LIMIT ${limit} OFFSET ${offset}
+    `;
+  } else {
+    return sql`
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.email as author_email
+      FROM exchange_listings el
+      JOIN users u ON el.user_id = u.id
+      ORDER BY el.created_at DESC
+      LIMIT ${limit} OFFSET ${offset}
+    `;
+  }
+}
+
+export async function adminUpdateExchangeListing(id: number, data: {
+  title?: string;
+  description?: string;
+  category?: string;
+  platforms?: string[];
+  content?: string | null;
+  status?: string;
+}) {
+  const sql = getDb();
+  if (data.title !== undefined) await sql`UPDATE exchange_listings SET title = ${data.title}, updated_at = NOW() WHERE id = ${id}`;
+  if (data.description !== undefined) await sql`UPDATE exchange_listings SET description = ${data.description}, updated_at = NOW() WHERE id = ${id}`;
+  if (data.category !== undefined) await sql`UPDATE exchange_listings SET category = ${data.category}, updated_at = NOW() WHERE id = ${id}`;
+  if (data.platforms !== undefined) await sql`UPDATE exchange_listings SET platforms = ${data.platforms}, updated_at = NOW() WHERE id = ${id}`;
+  if (data.content !== undefined) await sql`UPDATE exchange_listings SET content = ${data.content}, updated_at = NOW() WHERE id = ${id}`;
+  if (data.status !== undefined) await sql`UPDATE exchange_listings SET status = ${data.status}, updated_at = NOW() WHERE id = ${id}`;
+  const updated = await sql`SELECT * FROM exchange_listings WHERE id = ${id}`;
+  return updated[0] || null;
+}
+
+export async function getExchangeListingById(id: number) {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.email as author_email
+    FROM exchange_listings el
+    JOIN users u ON el.user_id = u.id
+    WHERE el.id = ${id}
+  `;
+  return rows[0] || null;
+}
+
+export async function getAllExchangeReviews(limit = 50, offset = 0) {
+  const sql = getDb();
+  return sql`
+    SELECT er.*, u.name as reviewer_name, u.avatar_url as reviewer_avatar,
+           el.title as listing_title, el.slug as listing_slug
+    FROM exchange_reviews er
+    JOIN users u ON er.user_id = u.id
+    JOIN exchange_listings el ON er.listing_id = el.id
+    ORDER BY er.created_at DESC
+    LIMIT ${limit} OFFSET ${offset}
+  `;
+}
+
+export async function deleteExchangeReview(reviewId: number) {
+  const sql = getDb();
+  // Get the listing_id before deleting so we can update the rating
+  const review = await sql`SELECT listing_id FROM exchange_reviews WHERE id = ${reviewId}`;
+  await sql`DELETE FROM exchange_reviews WHERE id = ${reviewId}`;
+  // Update denormalized rating
+  if (review.length > 0) {
+    const listingId = review[0].listing_id;
+    await sql`
+      UPDATE exchange_listings SET
+        rating_avg = COALESCE((SELECT AVG(rating) FROM exchange_reviews WHERE listing_id = ${listingId}), 0),
+        rating_count = (SELECT COUNT(*) FROM exchange_reviews WHERE listing_id = ${listingId})
+      WHERE id = ${listingId}
+    `;
+  }
+}
+
 export async function getExchangeStats() {
   const sql = getDb();
   const [total, pending, approved, downloads] = await Promise.all([
