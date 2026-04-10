@@ -47,10 +47,10 @@ export default function Home() {
 
         <div className="flex flex-col sm:flex-row gap-4 mb-10">
           <a
-            href="https://github.com/russellsailors-hub/MakoBot/releases/latest/download/MakoBot.exe"
+            href="/get-key"
             className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-lg transition-colors"
           >
-            Download Free for Windows
+            Get Free Key + Download
           </a>
           <a
             href="#features"
@@ -443,10 +443,10 @@ export default function Home() {
           </p>
 
           <a
-            href="https://github.com/russellsailors-hub/MakoBot/releases/latest/download/MakoBot.exe"
+            href="/get-key"
             className="inline-flex items-center justify-center px-10 py-5 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-xl transition-colors blue-glow"
           >
-            Download MakoBot for Windows
+            Get Free Key + Download
           </a>
 
           <p className="mt-4 text-sm text-[#6B7280]">
