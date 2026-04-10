@@ -2,8 +2,57 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { CATEGORIES, PLATFORMS, getPlatformColor, getCategoryLabel } from "@/lib/exchange";
 import type { ExchangeListing, ExchangeReview } from "@/lib/exchange";
+
+/* ─── EXCHANGE SUB-NAV ─── */
+export function ExchangeNav() {
+  const pathname = usePathname();
+  const { data: session } = useSession();
+
+  const links = [
+    { href: "/exchange", label: "Browse", icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" },
+    { href: "/exchange/submit", label: "Submit", icon: "M12 5v14M5 12h14" },
+    { href: "/exchange/my-listings", label: "My Listings", icon: "M4 6h16M4 10h16M4 14h16M4 18h16", auth: true },
+  ];
+
+  return (
+    <div className="bg-[#252B3B]/80 backdrop-blur-md border-b border-[#374151]/50">
+      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+        <div className="flex items-center gap-1">
+          {links.map((link) => {
+            if (link.auth && !session?.user) return null;
+            const active = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
+                  active
+                    ? "text-[#3B82F6] border-[#3B82F6]"
+                    : "text-[#8B95A8] border-transparent hover:text-[#E8EDF3] hover:border-[#374151]"
+                }`}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                  <path d={link.icon} />
+                </svg>
+                {link.label}
+              </Link>
+            );
+          })}
+        </div>
+        <Link
+          href="/"
+          className="text-xs text-[#6B7280] hover:text-[#3B82F6] transition-colors hidden sm:block"
+        >
+          &larr; Back to MakoBot
+        </Link>
+      </div>
+    </div>
+  );
+}
 
 /* ─── CATEGORY TABS ─── */
 export function CategoryTabs({
@@ -288,19 +337,22 @@ export function ContentPreview({
   const [expanded, setExpanded] = useState(false);
   const lines = content.split("\n");
   const needsTruncation = lines.length > maxLines;
-  const displayContent = expanded ? content : lines.slice(0, maxLines).join("\n");
 
   return (
     <div className="relative">
-      <pre className="bg-[#1E2330] rounded-lg p-4 text-sm text-[#C0C8D8] font-mono overflow-x-auto whitespace-pre-wrap break-words leading-relaxed border border-[#374151]">
-        {displayContent}
+      <pre
+        className={`bg-[#1E2330] rounded-lg p-4 text-sm text-[#C0C8D8] font-mono overflow-x-auto whitespace-pre-wrap break-words leading-relaxed border border-[#374151] transition-all duration-300 ${
+          expanded ? "max-h-none" : "max-h-[400px] overflow-y-auto"
+        }`}
+      >
+        {content}
       </pre>
       {needsTruncation && (
         <button
           onClick={() => setExpanded(!expanded)}
           className="mt-2 text-sm text-[#3B82F6] hover:text-[#2563EB] font-medium"
         >
-          {expanded ? "Show less" : `Show all ${lines.length} lines`}
+          {expanded ? "Collapse" : "Expand all"}
         </button>
       )}
     </div>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { Nav, Footer } from "../../components";
+import { Footer } from "../../components";
 import { StatusBadge, PlatformPills } from "../components";
 import { getCategoryLabel } from "@/lib/exchange";
 import type { ExchangeListing } from "@/lib/exchange";
@@ -42,8 +42,7 @@ export default function MyListingsPage() {
   if (!session?.user) {
     return (
       <div className="min-h-screen">
-        <Nav />
-        <div className="pt-28 px-6 max-w-2xl mx-auto text-center">
+        <div className="pt-8 px-6 max-w-2xl mx-auto text-center">
           <h1 className="text-2xl font-bold text-[#E8EDF3] mb-4">Sign in required</h1>
           <Link href="/get-key" className="text-[#3B82F6] hover:text-[#2563EB]">
             Sign In
@@ -56,9 +55,7 @@ export default function MyListingsPage() {
 
   return (
     <div className="min-h-screen">
-      <Nav />
-
-      <div className="pt-28 pb-20 px-6">
+      <div className="pt-8 pb-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-2 text-sm text-[#6B7280] mb-6">
             <Link href="/exchange" className="hover:text-[#3B82F6] transition-colors">

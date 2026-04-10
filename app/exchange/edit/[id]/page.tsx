@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { Nav, Footer } from "../../../components";
+import { Footer } from "../../../components";
 import { CATEGORIES, PLATFORMS } from "@/lib/exchange";
 
 export default function EditListingPage() {
@@ -89,8 +89,7 @@ export default function EditListingPage() {
   if (!session?.user) {
     return (
       <div className="min-h-screen">
-        <Nav />
-        <div className="pt-28 px-6 max-w-2xl mx-auto text-center">
+        <div className="pt-8 px-6 max-w-2xl mx-auto text-center">
           <h1 className="text-2xl font-bold text-[#E8EDF3] mb-4">Sign in required</h1>
           <Link href="/get-key" className="text-[#3B82F6] hover:text-[#2563EB]">Sign In</Link>
         </div>
@@ -102,8 +101,7 @@ export default function EditListingPage() {
   if (loading) {
     return (
       <div className="min-h-screen">
-        <Nav />
-        <div className="pt-28 px-6 max-w-2xl mx-auto">
+        <div className="pt-8 px-6 max-w-2xl mx-auto">
           <div className="animate-pulse space-y-4">
             <div className="h-8 bg-[#374151] rounded w-1/3" />
             <div className="h-10 bg-[#374151] rounded" />
@@ -117,8 +115,7 @@ export default function EditListingPage() {
   if (notFound) {
     return (
       <div className="min-h-screen">
-        <Nav />
-        <div className="pt-28 px-6 max-w-2xl mx-auto text-center">
+        <div className="pt-8 px-6 max-w-2xl mx-auto text-center">
           <h1 className="text-2xl font-bold text-[#E8EDF3] mb-4">Listing not found</h1>
           <p className="text-[#8B95A8] mb-4">This listing doesn't exist or doesn't belong to you.</p>
           <Link href="/exchange/my-listings" className="text-[#3B82F6] hover:text-[#2563EB]">Back to My Listings</Link>
@@ -130,9 +127,7 @@ export default function EditListingPage() {
 
   return (
     <div className="min-h-screen">
-      <Nav />
-
-      <div className="pt-28 pb-20 px-6">
+      <div className="pt-8 pb-20 px-6">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center gap-2 text-sm text-[#6B7280] mb-6">
             <Link href="/exchange" className="hover:text-[#3B82F6] transition-colors">Exchange</Link>
