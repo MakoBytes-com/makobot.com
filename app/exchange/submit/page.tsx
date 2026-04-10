@@ -345,7 +345,7 @@ function SubmitForm() {
 
             {/* Remix notice */}
             {isRemix && (
-              <div className="bg-[#8B5CF6]/10 border border-[#8B5CF6]/30 rounded-lg px-4 py-3 text-sm text-[#8B5CF6]">
+              <div className="bg-[#3B82F6]/10 border border-[#3B82F6]/30 rounded-lg px-4 py-3 text-sm text-[#3B82F6]">
                 This is a remix. The original author will be credited automatically.
               </div>
             )}
