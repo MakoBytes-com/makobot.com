@@ -298,10 +298,14 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-[#374151]/30 text-center">
+        <div className="mt-8 pt-6 border-t border-[#374151]/30 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-[#4B5563]">
             &copy; {new Date().getFullYear()} Mako Logics. All rights reserved.
           </p>
+          <div className="flex gap-4 text-xs text-[#6B7280]">
+            <a href="/privacy" className="hover:text-[#C0C8D8] transition-colors">Privacy Policy</a>
+            <a href="/terms" className="hover:text-[#C0C8D8] transition-colors">Terms of Service</a>
+          </div>
         </div>
       </div>
     </footer>

@@ -13,7 +13,7 @@ import {
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <main className="flex flex-col min-h-screen">
       <Nav />
 
       {/* ─── HERO ─── */}
@@ -29,15 +29,15 @@ export default function Home() {
         </div>
 
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center max-w-3xl leading-tight mb-6">
-          Never Lose a Conversation{" "}
-          <span className="gradient-text">Again</span>
+          AI Memory That Never Forgets{" "}
+          <span className="gradient-text">Your Work</span>
         </h1>
 
         <p className="text-lg sm:text-xl text-[#C0C8D8] text-center max-w-2xl mb-4 leading-relaxed">
-          MakoBot gives your AI tools a permanent memory. It runs quietly on
-          your PC and automatically records everything — code changes,
-          conversations, notes — into one central brain that every AI tool can
-          read.
+          MakoBot gives your AI coding tools a permanent memory. It runs quietly
+          on your Windows PC and automatically records everything — code changes,
+          conversations, decisions — into one central brain that Claude Code,
+          Cursor, ChatGPT, and every AI tool can read.
         </p>
 
         <p className="text-base text-[#8B95A8] text-center mb-8">
@@ -98,7 +98,7 @@ export default function Home() {
       <section className="px-6 py-20 bg-[#252B3B]/50">
         <div className="max-w-4xl mx-auto text-center">
           <SectionHeading
-            title="Sound Familiar?"
+            title="The AI Session Memory Problem"
             subtitle="Every AI coder hits these walls"
           />
 
@@ -145,7 +145,7 @@ export default function Home() {
       <section id="how-it-works" className="px-6 py-20">
         <div className="max-w-4xl mx-auto">
           <SectionHeading
-            title="How It Works"
+            title="How MakoBot's AI Memory Works"
             subtitle="Three steps, zero configuration"
           />
 
@@ -173,7 +173,7 @@ export default function Home() {
       <section id="features" className="px-6 py-20 bg-[#252B3B]/50">
         <div className="max-w-6xl mx-auto">
           <SectionHeading
-            title="Everything You Need"
+            title="AI Memory Features for Developers"
             subtitle="Built by someone who lost too many AI sessions"
           />
 
@@ -246,7 +246,7 @@ export default function Home() {
       <section id="compatibility" className="px-6 py-20">
         <div className="max-w-4xl mx-auto">
           <SectionHeading
-            title="Works With Every AI Tool"
+            title="Compatible with Claude Code, Cursor, ChatGPT & More"
             subtitle="Automatic injection for local tools, one-click clipboard for web tools"
           />
 
@@ -330,7 +330,7 @@ export default function Home() {
       <section id="compare" className="px-6 py-20">
         <div className="max-w-4xl mx-auto">
           <SectionHeading
-            title="Nothing Else Does This"
+            title="MakoBot vs Other AI Memory Tools"
             subtitle="Other tools exist, but none are a simple desktop app that works passively across multiple AI tools"
           />
 
@@ -472,6 +472,6 @@ export default function Home() {
       </section>
 
       <Footer />
-    </div>
+    </main>
   );
 }
