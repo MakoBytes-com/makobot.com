@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { Nav, Footer } from "../../components";
+import { Footer } from "../../components";
 import {
   PlatformPills,
   StarRating,
@@ -115,8 +115,7 @@ export default function ListingDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen">
-        <Nav />
-        <div className="pt-28 px-6 max-w-4xl mx-auto">
+        <div className="pt-8 px-6 max-w-4xl mx-auto">
           <div className="animate-pulse space-y-4">
             <div className="h-8 bg-[#374151] rounded w-2/3" />
             <div className="h-4 bg-[#374151] rounded w-full" />
@@ -131,8 +130,7 @@ export default function ListingDetailPage() {
   if (error || !listing) {
     return (
       <div className="min-h-screen">
-        <Nav />
-        <div className="pt-28 px-6 max-w-4xl mx-auto text-center">
+        <div className="pt-8 px-6 max-w-4xl mx-auto text-center">
           <h1 className="text-2xl font-bold text-[#E8EDF3] mb-4">
             {error || "Listing not found"}
           </h1>
@@ -150,9 +148,7 @@ export default function ListingDetailPage() {
 
   return (
     <div className="min-h-screen">
-      <Nav />
-
-      <div className="pt-28 pb-20 px-6">
+      <div className="pt-8 pb-20 px-6">
         <div className="max-w-4xl mx-auto">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-sm text-[#6B7280] mb-6">

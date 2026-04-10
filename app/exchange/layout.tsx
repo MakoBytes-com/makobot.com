@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ExchangeNavWrapper } from "./exchange-nav-wrapper";
 
 export const metadata: Metadata = {
   title: "AI Skills Exchange | MakoBot",
@@ -16,5 +17,10 @@ export default function ExchangeLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <ExchangeNavWrapper />
+      {children}
+    </>
+  );
 }

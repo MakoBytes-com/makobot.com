@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Nav, Footer } from "../../components";
+import { Footer } from "../../components";
 import { CATEGORIES, PLATFORMS } from "@/lib/exchange";
 
 export default function SubmitPage() {
@@ -74,8 +74,7 @@ export default function SubmitPage() {
   if (!session?.user) {
     return (
       <div className="min-h-screen">
-        <Nav />
-        <div className="pt-28 px-6 max-w-2xl mx-auto text-center">
+        <div className="pt-8 px-6 max-w-2xl mx-auto text-center">
           <h1 className="text-2xl font-bold text-[#E8EDF3] mb-4">
             Sign in to submit
           </h1>
@@ -96,9 +95,7 @@ export default function SubmitPage() {
 
   return (
     <div className="min-h-screen">
-      <Nav />
-
-      <div className="pt-28 pb-20 px-6">
+      <div className="pt-8 pb-20 px-6">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center gap-2 text-sm text-[#6B7280] mb-6">
             <Link href="/exchange" className="hover:text-[#3B82F6] transition-colors">

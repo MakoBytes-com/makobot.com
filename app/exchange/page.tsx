@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { Logo, Nav, Footer } from "../components";
+import { Logo, Footer } from "../components";
 import {
   CategoryTabs,
   PlatformFilter,
@@ -22,8 +22,11 @@ export default function ExchangePage() {
   const [platform, setPlatform] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("newest");
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
+  const PAGE_SIZE = 21;
 
-  const fetchListings = useCallback(async () => {
+  const fetchListings = useCallback(async (pageNum = 0) => {
     setLoading(true);
     try {
       const params = new URLSearchParams();
@@ -31,27 +34,37 @@ export default function ExchangePage() {
       if (platform) params.set("platform", platform);
       if (search.trim()) params.set("search", search.trim());
       params.set("sort", sort);
+      params.set("limit", String(PAGE_SIZE + 1)); // fetch one extra to check if more exist
+      params.set("offset", String(pageNum * PAGE_SIZE));
 
       const res = await fetch(`/api/exchange/listings?${params}`);
       const data = await res.json();
-      setListings(data.listings || []);
+      const items = data.listings || [];
+      setHasMore(items.length > PAGE_SIZE);
+      setListings(items.slice(0, PAGE_SIZE));
     } catch {
       setListings([]);
+      setHasMore(false);
     }
     setLoading(false);
   }, [category, platform, search, sort]);
 
   useEffect(() => {
-    const timeout = setTimeout(fetchListings, search ? 300 : 0);
+    setPage(0);
+    const timeout = setTimeout(() => fetchListings(0), search ? 300 : 0);
     return () => clearTimeout(timeout);
   }, [fetchListings, search]);
 
+  function goToPage(p: number) {
+    setPage(p);
+    fetchListings(p);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   return (
     <div className="min-h-screen">
-      <Nav />
-
       {/* Hero Section */}
-      <section className="pt-28 pb-12 px-6">
+      <section className="pt-8 pb-12 px-6">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
             <Logo size={48} />
@@ -143,11 +156,36 @@ export default function ExchangePage() {
               ))}
             </div>
           ) : listings.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {listings.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {listings.map((listing) => (
+                  <ListingCard key={listing.id} listing={listing} />
+                ))}
+              </div>
+
+              {/* Pagination */}
+              {(page > 0 || hasMore) && (
+                <div className="flex items-center justify-center gap-4 mt-10">
+                  <button
+                    onClick={() => goToPage(page - 1)}
+                    disabled={page === 0}
+                    className="px-5 py-2.5 rounded-lg bg-[#252B3B] border border-[#374151] text-sm font-medium text-[#E8EDF3] hover:bg-[#2D3548] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                  >
+                    Previous
+                  </button>
+                  <span className="text-sm text-[#8B95A8]">
+                    Page {page + 1}
+                  </span>
+                  <button
+                    onClick={() => goToPage(page + 1)}
+                    disabled={!hasMore}
+                    className="px-5 py-2.5 rounded-lg bg-[#252B3B] border border-[#374151] text-sm font-medium text-[#E8EDF3] hover:bg-[#2D3548] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             <ExchangeEmpty
               message={
