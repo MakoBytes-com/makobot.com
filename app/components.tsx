@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 /* ─── LOGO ─── */
 export function Logo({ size = 64 }: { size?: number }) {
@@ -140,6 +141,7 @@ export function SectionHeading({
 /* ─── NAV ─── */
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const { data: session } = useSession();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1E2330]/90 backdrop-blur-md border-b border-[#374151]/50">
@@ -181,6 +183,14 @@ export function Nav() {
           >
             Download
           </a>
+          {session?.user?.isAdmin && (
+            <a
+              href="/admin"
+              className="text-sm text-[#8B95A8] hover:text-[#E8EDF3] transition-colors"
+            >
+              Admin
+            </a>
+          )}
         </div>
 
         {/* Mobile menu button */}
@@ -243,6 +253,15 @@ export function Nav() {
           >
             Download
           </a>
+          {session?.user?.isAdmin && (
+            <a
+              href="/admin"
+              onClick={() => setOpen(false)}
+              className="text-sm text-[#8B95A8]"
+            >
+              Admin
+            </a>
+          )}
         </div>
       )}
     </nav>
