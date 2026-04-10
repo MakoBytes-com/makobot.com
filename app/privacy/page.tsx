@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { Logo } from "../components";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy — MakoBot",
+  description: "MakoBot privacy policy. The desktop app is 100% local — no data leaves your computer. Website collects only email for license keys.",
+};
 
 export default function PrivacyPage() {
   return (

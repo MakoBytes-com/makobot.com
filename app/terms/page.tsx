@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { Logo } from "../components";
+
+export const metadata: Metadata = {
+  title: "Terms of Service — MakoBot",
+  description: "MakoBot terms of service. Free license for personal use, non-transferable keys, software provided as-is.",
+};
 
 export default function TermsPage() {
   return (
