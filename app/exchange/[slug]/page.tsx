@@ -164,15 +164,15 @@ export default function ListingDetailPage() {
       <div className="pt-8 pb-20 px-6">
         <div className="max-w-4xl mx-auto">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-[#6B7280] mb-6">
+          <div className="flex items-center gap-2 text-sm mb-6">
             <Link
               href="/exchange"
-              className="hover:text-[#3B82F6] transition-colors"
+              className="text-[#3B82F6] hover:text-[#60A5FA] font-medium transition-colors"
             >
               Exchange
             </Link>
-            <span>/</span>
-            <span className="text-[#8B95A8]">{listing.title}</span>
+            <span className="text-[#4B5563]">/</span>
+            <span className="text-[#E8EDF3] font-medium">{listing.title}</span>
           </div>
 
           {/* Header */}

@@ -65,10 +65,10 @@ export default function UserProfilePage() {
       <div className="pt-8 pb-20 px-6">
         <div className="max-w-6xl mx-auto">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-[#6B7280] mb-8">
-            <Link href="/exchange" className="hover:text-[#3B82F6] transition-colors">Exchange</Link>
-            <span>/</span>
-            <span className="text-[#8B95A8]">{user.name}</span>
+          <div className="flex items-center gap-2 text-sm mb-8">
+            <Link href="/exchange" className="text-[#3B82F6] hover:text-[#60A5FA] font-medium transition-colors">Exchange</Link>
+            <span className="text-[#4B5563]">/</span>
+            <span className="text-[#E8EDF3] font-medium">{user.name}</span>
           </div>
 
           {/* Profile Header */}

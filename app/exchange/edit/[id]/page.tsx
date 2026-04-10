@@ -129,12 +129,12 @@ export default function EditListingPage() {
     <div className="min-h-screen">
       <div className="pt-8 pb-20 px-6">
         <div className="max-w-2xl mx-auto">
-          <div className="flex items-center gap-2 text-sm text-[#6B7280] mb-6">
-            <Link href="/exchange" className="hover:text-[#3B82F6] transition-colors">Exchange</Link>
-            <span>/</span>
-            <Link href="/exchange/my-listings" className="hover:text-[#3B82F6] transition-colors">My Listings</Link>
-            <span>/</span>
-            <span className="text-[#8B95A8]">Edit</span>
+          <div className="flex items-center gap-2 text-sm mb-6">
+            <Link href="/exchange" className="text-[#3B82F6] hover:text-[#60A5FA] font-medium transition-colors">Exchange</Link>
+            <span className="text-[#4B5563]">/</span>
+            <Link href="/exchange/my-listings" className="text-[#3B82F6] hover:text-[#60A5FA] font-medium transition-colors">My Listings</Link>
+            <span className="text-[#4B5563]">/</span>
+            <span className="text-[#E8EDF3] font-medium">Edit</span>
           </div>
 
           <h1 className="text-3xl font-bold text-[#E8EDF3] mb-2">Edit Listing</h1>
