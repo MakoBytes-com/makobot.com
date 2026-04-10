@@ -13,43 +13,59 @@ export function ExchangeNav() {
   const { data: session } = useSession();
 
   const links = [
-    { href: "/exchange", label: "Browse", icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" },
-    { href: "/exchange/collections", label: "Collections", icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" },
-    { href: "/exchange/requests", label: "Requests", icon: "M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01" },
-    { href: "/exchange/submit", label: "Submit", icon: "M12 5v14M5 12h14" },
-    { href: "/exchange/my-listings", label: "My Listings", icon: "M4 6h16M4 10h16M4 14h16M4 18h16", auth: true },
+    { href: "/exchange", label: "Browse", icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z", color: "#3B82F6" },
+    { href: "/exchange/collections", label: "Collections", icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10", color: "#8B5CF6" },
+    { href: "/exchange/requests", label: "Requests", icon: "M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01", color: "#F59E0B" },
+    { href: "/exchange/submit", label: "Submit", icon: "M12 5v14M5 12h14", color: "#10B981" },
+    { href: "/exchange/my-listings", label: "My Listings", icon: "M4 6h16M4 10h16M4 14h16M4 18h16", color: "#EC4899", auth: true },
   ];
 
   return (
-    <div className="bg-[#252B3B]/80 backdrop-blur-md border-b border-[#374151]/50">
+    <div className="bg-[#1a2035] border-b border-[#374151]/70">
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5">
           {links.map((link) => {
             if (link.auth && !session?.user) return null;
-            const active = pathname === link.href;
+            const active = pathname === link.href || (link.href !== "/exchange" && pathname.startsWith(link.href));
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
+                className={`flex items-center gap-2 px-4 py-3.5 text-sm font-semibold transition-all border-b-[3px] ${
                   active
-                    ? "text-[#3B82F6] border-[#3B82F6]"
-                    : "text-[#8B95A8] border-transparent hover:text-[#E8EDF3] hover:border-[#374151]"
+                    ? "border-current"
+                    : "border-transparent hover:border-current/30"
                 }`}
+                style={{ color: active ? link.color : undefined }}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke={active ? link.color : "#8B95A8"}
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="transition-colors"
+                >
                   <path d={link.icon} />
                 </svg>
-                {link.label}
+                <span className={active ? "" : "text-[#C0C8D8] hover:text-[#E8EDF3] transition-colors"}>
+                  {link.label}
+                </span>
               </Link>
             );
           })}
         </div>
         <Link
           href="/"
-          className="text-xs text-[#6B7280] hover:text-[#3B82F6] transition-colors hidden sm:block"
+          className="text-xs text-[#8B95A8] hover:text-[#3B82F6] transition-colors hidden sm:flex items-center gap-1 font-medium"
         >
-          &larr; Back to MakoBot
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          MakoBot
         </Link>
       </div>
     </div>
