@@ -32,6 +32,21 @@ export const metadata: Metadata = {
     url: "https://makobot.com",
     siteName: "MakoBot",
     type: "website",
+    images: [
+      {
+        url: "https://makobot.com/images/og.jpg",
+        width: 1392,
+        height: 752,
+        alt: "MakoBot — Never Lose a Conversation Again",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MakoBot — Never Lose a Conversation Again",
+    description:
+      "Give your AI tools a permanent memory. Free Windows desktop app.",
+    images: ["https://makobot.com/images/og.jpg"],
   },
 };
 

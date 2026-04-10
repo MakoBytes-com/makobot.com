@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   Logo,
   AiBadge,
@@ -46,7 +47,7 @@ export default function Home() {
 
         <div className="flex flex-col sm:flex-row gap-4 mb-10">
           <a
-            href="#download"
+            href="https://github.com/russellsailors-hub/MakoBot/releases/latest/download/MakoBot.exe"
             className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-lg transition-colors"
           >
             Download Free for Windows
@@ -72,6 +73,18 @@ export default function Home() {
         <p className="text-sm text-[#6B7280]">
           Works with every AI coding tool. Windows 10/11.
         </p>
+
+        {/* Hero mockup image */}
+        <div className="mt-16 w-full max-w-4xl mx-auto">
+          <Image
+            src="/images/hero.png"
+            alt="MakoBot dashboard showing activity feed, project management, and AI tool integration"
+            width={1024}
+            height={576}
+            className="rounded-xl shadow-2xl border border-[#374151]/50"
+            priority
+          />
+        </div>
       </section>
 
       {/* ─── THE PROBLEM ─── */}
@@ -430,7 +443,7 @@ export default function Home() {
           </p>
 
           <a
-            href="#"
+            href="https://github.com/russellsailors-hub/MakoBot/releases/latest/download/MakoBot.exe"
             className="inline-flex items-center justify-center px-10 py-5 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-xl transition-colors blue-glow"
           >
             Download MakoBot for Windows
