@@ -13,15 +13,15 @@ export function ExchangeNav() {
   const { data: session } = useSession();
 
   const links = [
-    { href: "/exchange", label: "Browse", icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z", color: "#3B82F6" },
-    { href: "/exchange/collections", label: "Collections", icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10", color: "#8B5CF6" },
-    { href: "/exchange/requests", label: "Requests", icon: "M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01", color: "#F59E0B" },
-    { href: "/exchange/submit", label: "Submit", icon: "M12 5v14M5 12h14", color: "#10B981" },
-    { href: "/exchange/my-listings", label: "My Listings", icon: "M4 6h16M4 10h16M4 14h16M4 18h16", color: "#EC4899", auth: true },
+    { href: "/exchange", label: "Browse", icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" },
+    { href: "/exchange/collections", label: "Collections", icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" },
+    { href: "/exchange/requests", label: "Requests", icon: "M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01" },
+    { href: "/exchange/submit", label: "Submit", icon: "M12 5v14M5 12h14" },
+    { href: "/exchange/my-listings", label: "My Listings", icon: "M4 6h16M4 10h16M4 14h16M4 18h16", auth: true },
   ];
 
   return (
-    <div className="bg-[#1a2035] border-b border-[#374151]/70">
+    <div className="bg-[#1E2330] border-b border-[#374151]">
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
         <div className="flex items-center gap-0.5">
           {links.map((link) => {
@@ -33,27 +33,24 @@ export function ExchangeNav() {
                 href={link.href}
                 className={`flex items-center gap-2 px-4 py-3.5 text-sm font-semibold transition-all border-b-[3px] ${
                   active
-                    ? "border-current"
-                    : "border-transparent hover:border-current/30"
+                    ? "text-white border-[#3B82F6] bg-[#252B3B]"
+                    : "text-[#8B95A8] border-transparent hover:text-[#E8EDF3] hover:bg-[#252B3B]/50"
                 }`}
-                style={{ color: active ? link.color : undefined }}
               >
                 <svg
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
                   fill="none"
-                  stroke={active ? link.color : "#8B95A8"}
-                  strokeWidth={2.5}
+                  stroke={active ? "#3B82F6" : "#8B95A8"}
+                  strokeWidth={2}
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className="transition-colors"
                 >
                   <path d={link.icon} />
                 </svg>
-                <span className={active ? "" : "text-[#C0C8D8] hover:text-[#E8EDF3] transition-colors"}>
-                  {link.label}
-                </span>
+                {link.label}
               </Link>
             );
           })}
@@ -566,7 +563,7 @@ export function RemixButton({ listing }: { listing: ExchangeListing }) {
   return (
     <Link
       href={`/exchange/submit?remix=${listing.id}&title=${encodeURIComponent("Remix of " + listing.title)}&category=${listing.category}&platforms=${encodeURIComponent(JSON.stringify(listing.platforms))}`}
-      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/30 hover:bg-[#8B5CF6]/20 text-sm text-[#8B5CF6] font-medium transition-colors"
+      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#3B82F6]/10 border border-[#3B82F6]/30 hover:bg-[#3B82F6]/20 text-sm text-[#3B82F6] font-medium transition-colors"
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
         <circle cx="12" cy="18" r="3" />

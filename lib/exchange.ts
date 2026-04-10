@@ -15,7 +15,7 @@ export const PLATFORMS = [
   { value: "gemini", label: "Gemini", color: "#EC4899" },
   { value: "cursor", label: "Cursor", color: "#F59E0B" },
   { value: "windsurf", label: "Windsurf", color: "#10B981" },
-  { value: "copilot", label: "Copilot", color: "#8B5CF6" },
+  { value: "copilot", label: "Copilot", color: "#0EA5E9" },
   { value: "midjourney", label: "Midjourney", color: "#06B6D4" },
   { value: "stable-diffusion", label: "Stable Diffusion", color: "#F97316" },
   { value: "universal", label: "Universal", color: "#6B7280" },
