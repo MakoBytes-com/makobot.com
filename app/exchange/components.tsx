@@ -328,7 +328,11 @@ export function ListingCard({ listing }: { listing: ExchangeListing }) {
 
       {/* Footer: rating + author */}
       <div className="mt-4 pt-3 border-t border-[#374151]/50 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <a
+          href={`/exchange/user/${listing.user_id}`}
+          onClick={(e) => e.stopPropagation()}
+          className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+        >
           {listing.author_avatar && (
             <img
               src={listing.author_avatar}
@@ -337,9 +341,9 @@ export function ListingCard({ listing }: { listing: ExchangeListing }) {
             />
           )}
           <span className="text-xs text-[#3B82F6] font-medium">
-            @{listing.author_username || listing.author_name}
+            @{listing.author_username || "user"}
           </span>
-        </div>
+        </a>
         {listing.rating_count > 0 && (
           <div className="flex items-center gap-1">
             <StarRating rating={listing.rating_avg} size={12} />
@@ -401,7 +405,7 @@ export function ReviewCard({ review }: { review: ExchangeReview }) {
             />
           )}
           <span className="text-sm font-medium text-[#3B82F6]">
-            @{review.reviewer_username || review.reviewer_name}
+            @{review.reviewer_username || "user"}
           </span>
         </Link>
         <StarRating rating={review.rating} size={14} />

@@ -14,7 +14,7 @@ export async function GET(request: Request) {
 
     const related = await getRelatedListings(id, category);
     const cleaned = related.map((l: Record<string, unknown>) => {
-      const { file_data, ...rest } = l;
+      const { file_data, author_name, author_email, ...rest } = l;
       return rest;
     });
 

@@ -175,7 +175,7 @@ export default function RequestsPage() {
                       <div className="flex items-center gap-3 text-xs text-[#6B7280]">
                         <Link href={`/exchange/user/${req.user_id}`} className="flex items-center gap-1.5 text-[#3B82F6] hover:opacity-80">
                           {req.author_avatar && <img src={req.author_avatar} alt="" className="w-4 h-4 rounded-full" />}
-                          @{req.author_username || req.author_name}
+                          @{req.author_username || "user"}
                         </Link>
                         <span>{new Date(req.created_at).toLocaleDateString()}</span>
                         {req.category && <span>{getCategoryLabel(req.category)}</span>}
