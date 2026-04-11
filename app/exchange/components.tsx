@@ -284,8 +284,18 @@ export function ListingCard({ listing }: { listing: ExchangeListing }) {
   return (
     <Link
       href={`/exchange/${listing.slug}`}
-      className="block bg-[#252B3B] rounded-xl p-5 border border-[#374151] feature-card"
+      className="block bg-[#252B3B] rounded-xl border border-[#374151] feature-card overflow-hidden"
     >
+      {/* Screenshot */}
+      {listing.screenshot_url && (
+        <img
+          src={listing.screenshot_url}
+          alt=""
+          className="w-full h-40 object-cover"
+        />
+      )}
+
+      <div className="p-5">
       {/* Category label */}
       <div className="flex items-center justify-between mb-3">
         <span className="text-xs font-semibold text-[#3B82F6] uppercase tracking-wide">
@@ -336,6 +346,7 @@ export function ListingCard({ listing }: { listing: ExchangeListing }) {
             </span>
           </div>
         )}
+      </div>
       </div>
     </Link>
   );
