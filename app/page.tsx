@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "https://makobot.com" },
+};
 import {
   Logo,
   AiBadge,
@@ -437,6 +442,30 @@ export default function Home() {
                 <p className="text-[#8B95A8] text-xs">{tab.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── EXCHANGE CTA ─── */}
+      <section className="px-6 py-16">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-[#252B3B] rounded-2xl p-8 sm:p-12 border border-[#374151] text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#E8EDF3] mb-3">
+              AI Skills Exchange
+            </h2>
+            <p className="text-lg text-[#8B95A8] mb-6 max-w-xl mx-auto">
+              Browse hundreds of skills, prompts, configs, and tools shared by
+              the community. Works with Claude, ChatGPT, Gemini, Cursor, and more.
+            </p>
+            <a
+              href="/exchange"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-lg transition-colors"
+            >
+              Browse the Exchange
+            </a>
+            <p className="mt-3 text-sm text-[#6B7280]">
+              Free to use. Free to share. No account needed to browse.
+            </p>
           </div>
         </div>
       </section>

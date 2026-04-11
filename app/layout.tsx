@@ -16,9 +16,6 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://makobot.com"),
-  alternates: {
-    canonical: "/",
-  },
   title: "MakoBot — AI Memory for Claude Code, Cursor & Every Coding Tool",
   description:
     "MakoBot is a free AI memory tool for Windows that gives Claude Code, Cursor, ChatGPT, and Gemini persistent session memory. It automatically records code changes, conversations, and decisions so every new AI session picks up where you left off.",

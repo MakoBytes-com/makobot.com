@@ -159,8 +159,44 @@ export default function ListingDetailPage() {
     );
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "MakoBot", item: "https://makobot.com" },
+          { "@type": "ListItem", position: 2, name: "AI Skills Exchange", item: "https://makobot.com/exchange" },
+          { "@type": "ListItem", position: 3, name: listing.title },
+        ],
+      },
+      {
+        "@type": "CreativeWork",
+        name: listing.title,
+        description: listing.description,
+        author: { "@type": "Person", name: listing.author_username || "Community" },
+        datePublished: listing.created_at,
+        dateModified: listing.updated_at,
+        url: `https://makobot.com/exchange/${listing.slug}`,
+        ...(listing.rating_count > 0 && {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: Number(listing.rating_avg).toFixed(1),
+            ratingCount: listing.rating_count,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        }),
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="pt-8 pb-20 px-6">
         <div className="max-w-4xl mx-auto">
           {/* Breadcrumb */}
