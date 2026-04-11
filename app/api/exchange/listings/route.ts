@@ -155,6 +155,7 @@ export async function POST(request: Request) {
     const content = formData.get("content") as string | null;
     const screenshotUrl = formData.get("screenshot_url") as string | null;
     const forkedFrom = formData.get("forked_from") as string | null;
+    const tagsRaw = formData.get("tags") as string | null;
     const file = formData.get("file") as File | null;
 
     // Validate required fields
@@ -220,6 +221,15 @@ export async function POST(request: Request) {
     if (forkedFrom && !isNaN(parseInt(forkedFrom))) {
       const sql = (await import("@neondatabase/serverless")).neon(process.env.DATABASE_URL!);
       await sql`UPDATE exchange_listings SET forked_from = ${parseInt(forkedFrom)} WHERE id = ${listing.id}`;
+    }
+
+    // Process tags
+    if (tagsRaw) {
+      const tags = tagsRaw.split(",").map((t) => t.trim().toLowerCase()).filter((t) => t.length > 0 && t.length < 30).slice(0, 10);
+      if (tags.length > 0) {
+        const sql = (await import("@neondatabase/serverless")).neon(process.env.DATABASE_URL!);
+        await sql`UPDATE exchange_listings SET tags = ${tags} WHERE id = ${listing.id}`;
+      }
     }
 
     // AI Auto-moderation: auto-approve if content passes quality checks
