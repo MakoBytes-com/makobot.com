@@ -38,6 +38,8 @@ export default function ListingDetailPage() {
   const [commentBody, setCommentBody] = useState("");
   const [submittingComment, setSubmittingComment] = useState(false);
   const [remixTree, setRemixTree] = useState<{ original: { id: number; title: string; slug: string; author_username: string } | null; forks: Array<{ id: number; title: string; slug: string; author_username: string }> }>({ original: null, forks: [] });
+  const [versions, setVersions] = useState<Array<{ id: number; version: string; changelog: string; created_at: string }>>([]);
+  const [showVersions, setShowVersions] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -61,6 +63,8 @@ export default function ListingDetailPage() {
           fetch(`/api/exchange/listings/${lid}/view`, { method: "POST" }).catch(() => {});
           fetch(`/api/exchange/listings/${lid}/remix-tree`)
             .then(r => r.json()).then(d => setRemixTree({ original: d.original, forks: d.forks || [] })).catch(() => {});
+          fetch(`/api/exchange/listings/${lid}/versions`)
+            .then(r => r.json()).then(d => setVersions(d.versions || [])).catch(() => {});
         }
       } catch {
         setError("Failed to load listing");
@@ -244,9 +248,45 @@ export default function ListingDetailPage() {
             <span className="text-xs font-semibold text-[#3B82F6] uppercase tracking-wide">
               {getCategoryLabel(listing.category)}
             </span>
-            <h1 className="text-3xl sm:text-4xl font-bold text-[#E8EDF3] mt-2 mb-3">
-              {listing.title}
-            </h1>
+            <div className="flex items-center gap-3 flex-wrap mt-2 mb-3">
+              <h1 className="text-3xl sm:text-4xl font-bold text-[#E8EDF3]">
+                {listing.title}
+              </h1>
+              {listing.current_version && (
+                <button
+                  onClick={() => setShowVersions(!showVersions)}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#374151] hover:bg-[#4B5563] text-xs font-mono text-[#C0C8D8] transition-colors"
+                  title="Show version history"
+                >
+                  v{listing.current_version}
+                  {versions.length > 0 && (
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  )}
+                </button>
+              )}
+            </div>
+
+            {/* Version history dropdown */}
+            {showVersions && versions.length > 0 && (
+              <div className="bg-[#252B3B] rounded-xl border border-[#374151] p-4 mb-4">
+                <p className="text-xs font-semibold text-[#8B95A8] uppercase tracking-wide mb-3">Version History</p>
+                <div className="space-y-3">
+                  {versions.map((v) => (
+                    <div key={v.id} className="flex gap-3 pb-3 border-b border-[#374151]/50 last:border-0 last:pb-0">
+                      <span className="inline-block px-2 py-0.5 rounded bg-[#3B82F6]/10 text-[#3B82F6] text-xs font-mono font-semibold shrink-0 h-fit">
+                        v{v.version}
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        {v.changelog && <p className="text-sm text-[#C0C8D8] whitespace-pre-wrap">{v.changelog}</p>}
+                        <p className="text-xs text-[#6B7280] mt-1">{new Date(v.created_at).toLocaleDateString()}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Author + stats row */}
             <div className="flex flex-wrap items-center gap-4 text-sm text-[#8B95A8]">
@@ -301,6 +341,21 @@ export default function ListingDetailPage() {
           <div className="mb-4">
             <PlatformPills platforms={listing.platforms} />
           </div>
+
+          {/* Tags */}
+          {listing.tags && listing.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {listing.tags.map((t) => (
+                <Link
+                  key={t}
+                  href={`/exchange/tags/${encodeURIComponent(t)}`}
+                  className="px-2.5 py-1 rounded-full text-xs font-medium bg-[#EC4899]/10 text-[#EC4899] hover:bg-[#EC4899]/20 transition-colors"
+                >
+                  #{t}
+                </Link>
+              ))}
+            </div>
+          )}
 
           {/* Action buttons */}
           <div className="flex flex-wrap items-center gap-3 mb-6">

@@ -18,6 +18,7 @@ function SubmitForm() {
   const [category, setCategory] = useState("");
   const [platforms, setPlatforms] = useState<string[]>([]);
   const [content, setContent] = useState("");
+  const [tags, setTags] = useState("");
   const [screenshotUrl, setScreenshotUrl] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -73,6 +74,7 @@ function SubmitForm() {
       formData.set("platforms", JSON.stringify(platforms));
       if (content.trim()) formData.set("content", content.trim());
       if (screenshotUrl.trim()) formData.set("screenshot_url", screenshotUrl.trim());
+      if (tags.trim()) formData.set("tags", tags.trim());
       if (file) formData.set("file", file);
       const remixId = searchParams.get("remix");
       if (remixId) formData.set("forked_from", remixId);
@@ -258,6 +260,19 @@ function SubmitForm() {
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* Tags */}
+            <div>
+              <label className="block text-sm font-medium text-[#E8EDF3] mb-2">Tags</label>
+              <input
+                type="text"
+                value={tags}
+                onChange={(e) => setTags(e.target.value)}
+                placeholder="react, typescript, seo, react-hooks"
+                className="w-full px-4 py-3 rounded-lg bg-[#252B3B] border border-[#374151] text-[#E8EDF3] text-sm placeholder-[#6B7280] focus:outline-none focus:border-[#3B82F6] transition-colors"
+              />
+              <p className="text-xs text-[#6B7280] mt-1">Comma-separated. Max 10 tags, 30 chars each.</p>
             </div>
 
             {/* Description */}

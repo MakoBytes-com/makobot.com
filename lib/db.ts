@@ -982,6 +982,180 @@ export async function getRelatedListings(listingId: number, category: string, li
   `;
 }
 
+// ─── EXCHANGE: FOLLOW CREATORS ───
+export async function followUser(followerId: number, followedId: number) {
+  const sql = getDb();
+  await sql`
+    INSERT INTO exchange_follows (follower_id, followed_id)
+    VALUES (${followerId}, ${followedId})
+    ON CONFLICT (follower_id, followed_id) DO NOTHING
+  `;
+}
+
+export async function unfollowUser(followerId: number, followedId: number) {
+  const sql = getDb();
+  await sql`DELETE FROM exchange_follows WHERE follower_id = ${followerId} AND followed_id = ${followedId}`;
+}
+
+export async function isFollowing(followerId: number, followedId: number): Promise<boolean> {
+  const sql = getDb();
+  const rows = await sql`SELECT 1 FROM exchange_follows WHERE follower_id = ${followerId} AND followed_id = ${followedId}`;
+  return rows.length > 0;
+}
+
+export async function getFollowerCount(userId: number): Promise<number> {
+  const sql = getDb();
+  const rows = await sql`SELECT COUNT(*) as count FROM exchange_follows WHERE followed_id = ${userId}`;
+  return parseInt(rows[0].count as string);
+}
+
+export async function getFollowingCount(userId: number): Promise<number> {
+  const sql = getDb();
+  const rows = await sql`SELECT COUNT(*) as count FROM exchange_follows WHERE follower_id = ${userId}`;
+  return parseInt(rows[0].count as string);
+}
+
+export async function getFollowingFeed(userId: number, limit = 30) {
+  const sql = getDb();
+  return sql`
+    SELECT el.*, u.username as author_username, u.avatar_url as author_avatar
+    FROM exchange_listings el
+    JOIN users u ON el.user_id = u.id
+    WHERE el.user_id IN (SELECT followed_id FROM exchange_follows WHERE follower_id = ${userId})
+      AND el.status = 'approved'
+    ORDER BY el.created_at DESC
+    LIMIT ${limit}
+  `;
+}
+
+// ─── EXCHANGE: TAGS ───
+export async function updateListingTags(listingId: number, userId: number, tags: string[]) {
+  const sql = getDb();
+  // Normalize tags: lowercase, trim, dedupe, max 10
+  const cleanTags = [...new Set(tags.map((t) => t.toLowerCase().trim()).filter((t) => t.length > 0 && t.length < 30))].slice(0, 10);
+  await sql`UPDATE exchange_listings SET tags = ${cleanTags} WHERE id = ${listingId} AND user_id = ${userId}`;
+}
+
+export async function getPopularTags(limit = 30) {
+  const sql = getDb();
+  return sql`
+    SELECT unnest(tags) as tag, COUNT(*) as count
+    FROM exchange_listings
+    WHERE status = 'approved' AND tags IS NOT NULL
+    GROUP BY tag
+    ORDER BY count DESC
+    LIMIT ${limit}
+  `;
+}
+
+export async function getListingsByTag(tag: string, limit = 30) {
+  const sql = getDb();
+  return sql`
+    SELECT el.*, u.username as author_username, u.avatar_url as author_avatar
+    FROM exchange_listings el
+    JOIN users u ON el.user_id = u.id
+    WHERE el.status = 'approved' AND ${tag} = ANY(el.tags)
+    ORDER BY el.download_count DESC, el.created_at DESC
+    LIMIT ${limit}
+  `;
+}
+
+// ─── EXCHANGE: SKILL STACKS ───
+export async function createStack(userId: number, title: string, description: string) {
+  const sql = getDb();
+  const slugBase = title.toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-").slice(0, 60);
+  const result = await sql`
+    INSERT INTO exchange_stacks (user_id, title, slug, description)
+    VALUES (${userId}, ${title}, ${"temp-" + Date.now()}, ${description})
+    RETURNING *
+  `;
+  const id = result[0].id;
+  const finalSlug = `${slugBase}-${id}`;
+  await sql`UPDATE exchange_stacks SET slug = ${finalSlug} WHERE id = ${id}`;
+  result[0].slug = finalSlug;
+  return result[0];
+}
+
+export async function getStack(slug: string) {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT es.*, u.username as author_username, u.display_name as author_display, u.avatar_url as author_avatar, u.is_verified
+    FROM exchange_stacks es
+    JOIN users u ON es.user_id = u.id
+    WHERE es.slug = ${slug} AND es.is_public = true
+  `;
+  if (rows.length === 0) return null;
+
+  const items = await sql`
+    SELECT el.*, u.username as author_username, u.avatar_url as author_avatar
+    FROM exchange_stack_items esi
+    JOIN exchange_listings el ON esi.listing_id = el.id
+    JOIN users u ON el.user_id = u.id
+    WHERE esi.stack_id = ${rows[0].id} AND el.status = 'approved'
+    ORDER BY esi.sort_order ASC, esi.added_at ASC
+  `;
+
+  return {
+    ...rows[0],
+    items: items.map((i: Record<string, unknown>) => { const { file_data, author_name, author_email, ...rest } = i; return rest; }),
+  };
+}
+
+export async function addToStack(stackId: number, listingId: number, userId: number) {
+  const sql = getDb();
+  // Verify ownership
+  const stack = await sql`SELECT user_id FROM exchange_stacks WHERE id = ${stackId}`;
+  if (stack.length === 0 || stack[0].user_id !== userId) return { error: "Not your stack" };
+  await sql`
+    INSERT INTO exchange_stack_items (stack_id, listing_id)
+    VALUES (${stackId}, ${listingId})
+    ON CONFLICT (stack_id, listing_id) DO NOTHING
+  `;
+  return { ok: true };
+}
+
+export async function removeFromStack(stackId: number, listingId: number, userId: number) {
+  const sql = getDb();
+  const stack = await sql`SELECT user_id FROM exchange_stacks WHERE id = ${stackId}`;
+  if (stack.length === 0 || stack[0].user_id !== userId) return { error: "Not your stack" };
+  await sql`DELETE FROM exchange_stack_items WHERE stack_id = ${stackId} AND listing_id = ${listingId}`;
+  return { ok: true };
+}
+
+export async function getPublicStacks(limit = 30) {
+  const sql = getDb();
+  return sql`
+    SELECT es.*, u.username as author_username, u.avatar_url as author_avatar,
+      (SELECT COUNT(*) FROM exchange_stack_items WHERE stack_id = es.id) as item_count
+    FROM exchange_stacks es
+    JOIN users u ON es.user_id = u.id
+    WHERE es.is_public = true
+    ORDER BY es.download_count DESC, es.created_at DESC
+    LIMIT ${limit}
+  `;
+}
+
+export async function getUserStacks(userId: number) {
+  const sql = getDb();
+  return sql`
+    SELECT es.*,
+      (SELECT COUNT(*) FROM exchange_stack_items WHERE stack_id = es.id) as item_count
+    FROM exchange_stacks es
+    WHERE es.user_id = ${userId}
+    ORDER BY es.created_at DESC
+  `;
+}
+
+export async function incrementStackDownload(stackId: number) {
+  const sql = getDb();
+  await sql`UPDATE exchange_stacks SET download_count = download_count + 1 WHERE id = ${stackId}`;
+}
+
+export async function deleteStack(stackId: number, userId: number) {
+  const sql = getDb();
+  await sql`DELETE FROM exchange_stacks WHERE id = ${stackId} AND user_id = ${userId}`;
+}
+
 // ─── EXCHANGE: VERSIONS ───
 export async function createExchangeVersion(listingId: number, version: string, changelog: string, content: string) {
   const sql = getDb();

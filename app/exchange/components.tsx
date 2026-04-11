@@ -14,9 +14,11 @@ export function ExchangeNav() {
 
   const links = [
     { href: "/exchange", label: "Browse", icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z", color: "#3B82F6" },
+    { href: "/exchange/stacks", label: "Stacks", icon: "M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5", color: "#3B82F6" },
     { href: "/exchange/collections", label: "Collections", icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10", color: "#EC4899" },
     { href: "/exchange/requests", label: "Requests", icon: "M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01", color: "#F59E0B" },
     { href: "/exchange/submit", label: "Submit", icon: "M12 5v14M5 12h14", color: "#10B981" },
+    { href: "/exchange/following", label: "Following", icon: "M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 11l-3 3-3-3", color: "#EC4899", auth: true },
     { href: "/exchange/my-listings", label: "My Listings", icon: "M4 6h16M4 10h16M4 14h16M4 18h16", color: "#3B82F6", auth: true },
     { href: "/exchange/creator-analytics", label: "Analytics", icon: "M3 3v18h18M7 12l3-3 4 4 5-5", color: "#10B981", auth: true },
     { href: "/exchange/profile", label: "My Profile", icon: "M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 3a4 4 0 110 8 4 4 0 010-8z", color: "#F59E0B", auth: true },

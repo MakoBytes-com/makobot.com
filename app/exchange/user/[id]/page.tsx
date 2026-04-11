@@ -14,6 +14,45 @@ interface UserProfile {
   stats: { totalListings: number; totalDownloads: number; avgRating: number; totalReviews: number };
 }
 
+function FollowButton({ userId }: { userId: number }) {
+  const { data: session } = useSession();
+  const [following, setFollowing] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!session?.user) { setLoading(false); return; }
+    fetch(`/api/exchange/follow/${userId}`)
+      .then((r) => r.json())
+      .then((d) => setFollowing(d.following || false))
+      .finally(() => setLoading(false));
+  }, [userId, session]);
+
+  async function toggle() {
+    if (!session?.user) { window.location.href = "/get-key"; return; }
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/exchange/follow/${userId}`, { method: following ? "DELETE" : "POST" });
+      const d = await res.json();
+      setFollowing(d.following);
+    } catch {}
+    setLoading(false);
+  }
+
+  return (
+    <button
+      onClick={toggle}
+      disabled={loading}
+      className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors disabled:opacity-50 ${
+        following
+          ? "bg-[#374151] text-[#E8EDF3] hover:bg-[#4B5563]"
+          : "bg-[#3B82F6] hover:bg-[#2563EB] text-white"
+      }`}
+    >
+      {following ? "Following" : "Follow"}
+    </button>
+  );
+}
+
 export default function UserProfilePage() {
   const { id } = useParams<{ id: string }>();
   const { data: session } = useSession();
@@ -96,13 +135,15 @@ export default function UserProfilePage() {
                       </svg>
                     </span>
                   )}
-                  {isOwnProfile && (
+                  {isOwnProfile ? (
                     <Link
                       href="/exchange/profile"
                       className="px-3 py-1 rounded-lg bg-[#3B82F6]/10 text-[#3B82F6] text-xs font-semibold hover:bg-[#3B82F6]/20 transition-colors"
                     >
                       Edit Profile
                     </Link>
+                  ) : (
+                    <FollowButton userId={user.id} />
                   )}
                 </div>
                 <p className="text-sm text-[#3B82F6] font-medium mb-2">@{user.username || "user"}</p>

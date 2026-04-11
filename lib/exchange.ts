@@ -38,6 +38,10 @@ export interface ExchangeListing {
   screenshot_url: string | null;
   source_url: string | null;
   source_author: string | null;
+  tags: string[];
+  forked_from: number | null;
+  view_count?: number;
+  current_version?: string;
   status: "pending" | "approved" | "rejected";
   rejection_reason: string | null;
   download_count: number;
