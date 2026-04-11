@@ -336,7 +336,9 @@ export function ListingCard({ listing }: { listing: ExchangeListing }) {
               className="w-5 h-5 rounded-full"
             />
           )}
-          <span className="text-xs text-[#6B7280]">{listing.author_name}</span>
+          <span className="text-xs text-[#3B82F6] font-medium">
+            @{listing.author_username || listing.author_name}
+          </span>
         </div>
         {listing.rating_count > 0 && (
           <div className="flex items-center gap-1">
@@ -390,7 +392,7 @@ export function ReviewCard({ review }: { review: ExchangeReview }) {
   return (
     <div className="bg-[#252B3B] rounded-lg p-4 border border-[#374151]">
       <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center gap-2">
+        <Link href={`/exchange/user/${review.user_id}`} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
           {review.reviewer_avatar && (
             <img
               src={review.reviewer_avatar}
@@ -398,10 +400,10 @@ export function ReviewCard({ review }: { review: ExchangeReview }) {
               className="w-6 h-6 rounded-full"
             />
           )}
-          <span className="text-sm font-medium text-[#E8EDF3]">
-            {review.reviewer_name}
+          <span className="text-sm font-medium text-[#3B82F6]">
+            @{review.reviewer_username || review.reviewer_name}
           </span>
-        </div>
+        </Link>
         <StarRating rating={review.rating} size={14} />
       </div>
       {review.comment && (

@@ -193,7 +193,7 @@ export default function AdminExchangePage() {
                 </div>
                 <div className="flex flex-wrap items-center gap-3 text-xs text-[#6B7280]">
                   <span>{getCategoryLabel(listing.category)}</span>
-                  <span>by {listing.author_name} ({listing.author_email})</span>
+                  <span>by <span className="text-[#3B82F6]">@{listing.author_username || listing.author_name}</span> ({listing.author_email})</span>
                   <span>{new Date(listing.created_at).toLocaleDateString()}</span>
                   <span>{listing.download_count} downloads</span>
                   {listing.rating_count > 0 && (
