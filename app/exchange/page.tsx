@@ -146,7 +146,7 @@ export default function ExchangePage() {
       {!search && !category && !platform && trending.length > 0 && (
         <div className="max-w-6xl mx-auto px-6 mb-6">
           <div className="border-t border-[#374151]/50" />
-          <h2 className="text-lg font-bold text-[#E8EDF3] mt-6 mb-2">All Listings</h2>
+          <h2 className="text-lg font-bold text-[#E8EDF3] mt-6 mb-2">Browse All AI Skills, Prompts, and Configs</h2>
         </div>
       )}
 

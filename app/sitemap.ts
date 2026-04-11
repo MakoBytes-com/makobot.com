@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
+import { neon } from "@neondatabase/serverless";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const entries: MetadataRoute.Sitemap = [
     {
       url: "https://makobot.com",
       lastModified: new Date(),
@@ -13,6 +14,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 0.9,
+    },
+    {
+      url: "https://makobot.com/exchange/collections",
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.7,
+    },
+    {
+      url: "https://makobot.com/exchange/requests",
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.7,
     },
     {
       url: "https://makobot.com/get-key",
@@ -33,4 +46,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
   ];
+
+  // Add all approved exchange listings
+  try {
+    const sql = neon(process.env.DATABASE_URL!);
+    const listings = await sql`
+      SELECT slug, updated_at FROM exchange_listings WHERE status = 'approved' ORDER BY created_at DESC
+    `;
+    for (const listing of listings) {
+      entries.push({
+        url: `https://makobot.com/exchange/${listing.slug}`,
+        lastModified: new Date(listing.updated_at as string),
+        changeFrequency: "weekly",
+        priority: 0.6,
+      });
+    }
+  } catch {
+    // If DB is unavailable, return static entries only
+  }
+
+  return entries;
 }

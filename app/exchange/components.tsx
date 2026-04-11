@@ -291,7 +291,7 @@ export function ListingCard({ listing }: { listing: ExchangeListing }) {
       {listing.screenshot_url && (
         <img
           src={listing.screenshot_url}
-          alt=""
+          alt={`Preview of ${listing.title}`}
           className="w-full h-40 object-cover"
         />
       )}
