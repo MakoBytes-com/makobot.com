@@ -76,7 +76,7 @@ export default function CollectionsPage() {
                   <div className="flex items-center justify-between text-xs text-[#6B7280]">
                     <div className="flex items-center gap-2">
                       {c.author_avatar && <img src={c.author_avatar} alt="" className="w-5 h-5 rounded-full" />}
-                      <span className="text-[#3B82F6]">@{c.author_username || c.author_name}</span>
+                      <span className="text-[#3B82F6]">@{c.author_username || "user"}</span>
                     </div>
                     <span>{c.item_count} items</span>
                   </div>

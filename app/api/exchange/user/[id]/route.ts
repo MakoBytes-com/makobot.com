@@ -14,7 +14,12 @@ export async function GET(
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    return NextResponse.json(profile);
+    // Strip real name from public profile -- only show username, display_name, bio
+    const { name, ...safeUser } = profile.user as Record<string, unknown>;
+    return NextResponse.json({
+      ...profile,
+      user: safeUser,
+    });
   } catch (error) {
     console.error("User profile error:", error);
     return NextResponse.json({ error: "Failed to load profile" }, { status: 500 });

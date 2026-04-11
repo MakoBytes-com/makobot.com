@@ -197,7 +197,7 @@ export default function ListingDetailPage() {
                     className="w-6 h-6 rounded-full"
                   />
                 )}
-                <span className="text-[#3B82F6] font-medium">@{listing.author_username || listing.author_name}</span>
+                <span className="text-[#3B82F6] font-medium">@{listing.author_username || "user"}</span>
               </Link>
               <span>
                 {new Date(listing.created_at).toLocaleDateString()}

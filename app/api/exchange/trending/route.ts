@@ -10,7 +10,7 @@ export async function GET() {
     ]);
 
     const clean = (items: Record<string, unknown>[]) =>
-      items.map(({ file_data, ...rest }) => rest);
+      items.map(({ file_data, author_name, author_email, ...rest }) => rest);
 
     return NextResponse.json({
       trending: clean(trending),

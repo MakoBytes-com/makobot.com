@@ -71,7 +71,7 @@ export default function UserProfilePage() {
           <div className="flex items-center gap-2 text-sm mb-8">
             <Link href="/exchange" className="text-[#3B82F6] hover:text-[#60A5FA] font-medium transition-colors">Exchange</Link>
             <span className="text-[#4B5563]">/</span>
-            <span className="text-[#E8EDF3] font-medium">@{user.username || user.name}</span>
+            <span className="text-[#E8EDF3] font-medium">@{user.username || "user"}</span>
           </div>
 
           {/* Profile Header */}
@@ -81,13 +81,13 @@ export default function UserProfilePage() {
                 <img src={user.avatar_url} alt="" className="w-20 h-20 rounded-full border-2 border-[#3B82F6]" />
               ) : (
                 <div className="w-20 h-20 rounded-full bg-[#374151] flex items-center justify-center text-[#6B7280] text-2xl font-bold border-2 border-[#3B82F6]">
-                  {(user.username || user.name || "?")[0].toUpperCase()}
+                  {(user.username || "U")[0].toUpperCase()}
                 </div>
               )}
               <div className="flex-1 text-center sm:text-left">
                 <div className="flex items-center gap-3 justify-center sm:justify-start mb-1">
                   <h1 className="text-2xl font-bold text-[#E8EDF3]">
-                    {user.display_name || user.name}
+                    {user.display_name || user.username || "User"}
                   </h1>
                   {isOwnProfile && (
                     <Link
@@ -98,7 +98,7 @@ export default function UserProfilePage() {
                     </Link>
                   )}
                 </div>
-                <p className="text-sm text-[#3B82F6] font-medium mb-2">@{user.username || user.name}</p>
+                <p className="text-sm text-[#3B82F6] font-medium mb-2">@{user.username || "user"}</p>
                 {user.bio && (
                   <p className="text-sm text-[#8B95A8] mb-3 leading-relaxed max-w-xl">{user.bio}</p>
                 )}

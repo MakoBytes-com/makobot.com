@@ -92,7 +92,7 @@ export async function GET(request: Request) {
         return NextResponse.json({ error: "Listing not found" }, { status: 404 });
       }
       const reviews = await getExchangeReviews(listing.id);
-      const { file_data, ...cleaned } = listing;
+      const { file_data, author_name, author_email, ...cleaned } = listing;
       return NextResponse.json({
         listing: { ...cleaned, has_file: !!file_data },
         reviews,
@@ -116,9 +116,9 @@ export async function GET(request: Request) {
       offset,
     });
 
-    // Strip file_data from browse results (too large)
+    // Strip file_data and real names from browse results
     const cleaned = listings.map((l: Record<string, unknown>) => {
-      const { file_data, ...rest } = l;
+      const { file_data, author_name, author_email, ...rest } = l;
       return rest;
     });
 

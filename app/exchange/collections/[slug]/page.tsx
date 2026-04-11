@@ -78,7 +78,7 @@ export default function CollectionDetailPage() {
             <div className="flex items-center gap-4 text-xs text-[#6B7280]">
               <Link href={`/exchange/user/${collection.user_id}`} className="flex items-center gap-2 hover:opacity-80">
                 {collection.author_avatar && <img src={collection.author_avatar} alt="" className="w-5 h-5 rounded-full" />}
-                <span className="text-[#3B82F6] font-medium">@{collection.author_username || collection.author_name}</span>
+                <span className="text-[#3B82F6] font-medium">@{collection.author_username || "user"}</span>
               </Link>
               <span>{collection.items.length} items</span>
               <span>{new Date(collection.created_at).toLocaleDateString()}</span>
