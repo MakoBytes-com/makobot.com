@@ -179,9 +179,13 @@ export function Nav() {
           </a>
           <a
             href="/exchange"
-            className="text-sm text-[#8B95A8] hover:text-[#E8EDF3] transition-colors"
+            className="relative text-sm font-semibold text-white px-3 py-1 rounded-full bg-gradient-to-r from-[#3B82F6] via-[#EC4899] to-[#F59E0B] hover:shadow-lg hover:shadow-[#3B82F6]/25 transition-all"
           >
-            Exchange
+            Skills Exchange
+            <span className="absolute -top-1.5 -right-1.5 flex h-3.5 w-3.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-[#10B981] border-2 border-[#1E2330]"></span>
+            </span>
           </a>
           <a
             href="/#download"
@@ -255,9 +259,10 @@ export function Nav() {
           <a
             href="/exchange"
             onClick={() => setOpen(false)}
-            className="text-sm text-[#C0C8D8]"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-white px-4 py-2 rounded-full bg-gradient-to-r from-[#3B82F6] via-[#EC4899] to-[#F59E0B] w-fit"
           >
-            Exchange
+            Skills Exchange
+            <span className="flex h-2 w-2 rounded-full bg-[#10B981] animate-pulse"></span>
           </a>
           <a
             href="/#download"
