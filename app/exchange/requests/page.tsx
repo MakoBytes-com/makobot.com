@@ -9,6 +9,7 @@ import { getCategoryLabel } from "@/lib/exchange";
 
 interface SkillRequest {
   id: number;
+  user_id: number;
   title: string;
   description: string;
   category: string | null;
@@ -16,6 +17,7 @@ interface SkillRequest {
   upvote_count: number;
   author_name: string;
   author_avatar: string;
+  author_username: string;
   created_at: string;
 }
 
@@ -171,10 +173,10 @@ export default function RequestsPage() {
                       <h3 className="text-base font-semibold text-[#E8EDF3] mb-1">{req.title}</h3>
                       <p className="text-sm text-[#8B95A8] mb-3 leading-relaxed">{req.description}</p>
                       <div className="flex items-center gap-3 text-xs text-[#6B7280]">
-                        <div className="flex items-center gap-1.5">
+                        <Link href={`/exchange/user/${req.user_id}`} className="flex items-center gap-1.5 text-[#3B82F6] hover:opacity-80">
                           {req.author_avatar && <img src={req.author_avatar} alt="" className="w-4 h-4 rounded-full" />}
-                          {req.author_name}
-                        </div>
+                          @{req.author_username || req.author_name}
+                        </Link>
                         <span>{new Date(req.created_at).toLocaleDateString()}</span>
                         {req.category && <span>{getCategoryLabel(req.category)}</span>}
                       </div>

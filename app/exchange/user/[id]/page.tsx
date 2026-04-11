@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Footer } from "../../../components";
@@ -8,13 +9,14 @@ import { ListingCard, StarRating } from "../../components";
 import type { ExchangeListing } from "@/lib/exchange";
 
 interface UserProfile {
-  user: { id: number; name: string; avatar_url: string; created_at: string };
+  user: { id: number; name: string; username: string; display_name: string; avatar_url: string; bio: string; created_at: string };
   listings: ExchangeListing[];
   stats: { totalListings: number; totalDownloads: number; avgRating: number; totalReviews: number };
 }
 
 export default function UserProfilePage() {
   const { id } = useParams<{ id: string }>();
+  const { data: session } = useSession();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -50,7 +52,7 @@ export default function UserProfilePage() {
       <div className="min-h-screen">
         <div className="pt-8 px-6 max-w-4xl mx-auto text-center">
           <h1 className="text-2xl font-bold text-[#E8EDF3] mb-4">User not found</h1>
-          <Link href="/exchange" className="text-[#3B82F6] hover:text-[#2563EB]">Back to Exchange</Link>
+          <Link href="/exchange" className="text-[#3B82F6] hover:text-[#60A5FA]">Back to Exchange</Link>
         </div>
         <Footer />
       </div>
@@ -59,6 +61,7 @@ export default function UserProfilePage() {
 
   const { user, listings, stats } = profile;
   const memberSince = new Date(user.created_at).toLocaleDateString("en-US", { month: "long", year: "numeric" });
+  const isOwnProfile = session?.user?.id === String(user.id);
 
   return (
     <div className="min-h-screen">
@@ -68,18 +71,38 @@ export default function UserProfilePage() {
           <div className="flex items-center gap-2 text-sm mb-8">
             <Link href="/exchange" className="text-[#3B82F6] hover:text-[#60A5FA] font-medium transition-colors">Exchange</Link>
             <span className="text-[#4B5563]">/</span>
-            <span className="text-[#E8EDF3] font-medium">{user.name}</span>
+            <span className="text-[#E8EDF3] font-medium">@{user.username || user.name}</span>
           </div>
 
           {/* Profile Header */}
           <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151] mb-8">
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
-              {user.avatar_url && (
+              {user.avatar_url ? (
                 <img src={user.avatar_url} alt="" className="w-20 h-20 rounded-full border-2 border-[#3B82F6]" />
+              ) : (
+                <div className="w-20 h-20 rounded-full bg-[#374151] flex items-center justify-center text-[#6B7280] text-2xl font-bold border-2 border-[#3B82F6]">
+                  {(user.username || user.name || "?")[0].toUpperCase()}
+                </div>
               )}
               <div className="flex-1 text-center sm:text-left">
-                <h1 className="text-2xl font-bold text-[#E8EDF3] mb-1">{user.name}</h1>
-                <p className="text-sm text-[#6B7280] mb-4">Member since {memberSince}</p>
+                <div className="flex items-center gap-3 justify-center sm:justify-start mb-1">
+                  <h1 className="text-2xl font-bold text-[#E8EDF3]">
+                    {user.display_name || user.name}
+                  </h1>
+                  {isOwnProfile && (
+                    <Link
+                      href="/exchange/profile"
+                      className="px-3 py-1 rounded-lg bg-[#3B82F6]/10 text-[#3B82F6] text-xs font-semibold hover:bg-[#3B82F6]/20 transition-colors"
+                    >
+                      Edit Profile
+                    </Link>
+                  )}
+                </div>
+                <p className="text-sm text-[#3B82F6] font-medium mb-2">@{user.username || user.name}</p>
+                {user.bio && (
+                  <p className="text-sm text-[#8B95A8] mb-3 leading-relaxed max-w-xl">{user.bio}</p>
+                )}
+                <p className="text-xs text-[#6B7280] mb-4">Member since {memberSince}</p>
 
                 {/* Stats */}
                 <div className="flex flex-wrap gap-6 justify-center sm:justify-start">
@@ -118,7 +141,7 @@ export default function UserProfilePage() {
             </div>
           ) : (
             <div className="text-center py-12 bg-[#252B3B] rounded-xl border border-[#374151]">
-              <p className="text-[#8B95A8]">This user has not published any listings yet.</p>
+              <p className="text-[#8B95A8]">No published listings yet.</p>
             </div>
           )}
         </div>

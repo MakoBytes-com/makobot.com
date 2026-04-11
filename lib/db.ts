@@ -23,6 +23,9 @@ export async function setupDatabase() {
       name VARCHAR(255),
       avatar_url TEXT,
       is_admin BOOLEAN DEFAULT FALSE,
+      username VARCHAR(50) UNIQUE,
+      display_name VARCHAR(100),
+      bio TEXT,
       created_at TIMESTAMP DEFAULT NOW()
     )
   `;
@@ -170,9 +173,11 @@ export async function findOrCreateUser(profile: {
   `;
   if (existing.length > 0) return existing[0];
 
+  // Generate default username from email
+  const defaultUsername = profile.email.split("@")[0].toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 30);
   const result = await sql`
-    INSERT INTO users (google_id, email, name, avatar_url)
-    VALUES (${profile.google_id}, ${profile.email}, ${profile.name}, ${profile.avatar_url})
+    INSERT INTO users (google_id, email, name, avatar_url, username, display_name)
+    VALUES (${profile.google_id}, ${profile.email}, ${profile.name}, ${profile.avatar_url}, ${defaultUsername}, ${profile.name})
     RETURNING *
   `;
   return result[0];
@@ -211,6 +216,32 @@ export async function getUserCount() {
 export async function setUserAdmin(userId: number, isAdmin: boolean) {
   const sql = getDb();
   await sql`UPDATE users SET is_admin = ${isAdmin} WHERE id = ${userId}`;
+}
+
+export async function updateUserProfile(userId: number, data: {
+  username?: string;
+  display_name?: string;
+  bio?: string;
+  avatar_url?: string;
+}) {
+  const sql = getDb();
+  if (data.username !== undefined) {
+    // Check uniqueness
+    const existing = await sql`SELECT id FROM users WHERE username = ${data.username} AND id != ${userId}`;
+    if (existing.length > 0) return { error: "Username is already taken" };
+    await sql`UPDATE users SET username = ${data.username} WHERE id = ${userId}`;
+  }
+  if (data.display_name !== undefined) await sql`UPDATE users SET display_name = ${data.display_name} WHERE id = ${userId}`;
+  if (data.bio !== undefined) await sql`UPDATE users SET bio = ${data.bio} WHERE id = ${userId}`;
+  if (data.avatar_url !== undefined) await sql`UPDATE users SET avatar_url = ${data.avatar_url} WHERE id = ${userId}`;
+  const updated = await sql`SELECT * FROM users WHERE id = ${userId}`;
+  return { user: updated[0] };
+}
+
+export async function getUserByUsername(username: string) {
+  const sql = getDb();
+  const rows = await sql`SELECT * FROM users WHERE username = ${username}`;
+  return rows[0] || null;
 }
 
 // ─── LICENSE KEYS ───
@@ -455,7 +486,7 @@ export async function getExchangeListings(opts: {
   if (opts.search && opts.category && opts.platform) {
     const search = `%${opts.search}%`;
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -468,7 +499,7 @@ export async function getExchangeListings(opts: {
   } else if (opts.search && opts.category) {
     const search = `%${opts.search}%`;
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -480,7 +511,7 @@ export async function getExchangeListings(opts: {
   } else if (opts.search && opts.platform) {
     const search = `%${opts.search}%`;
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -491,7 +522,7 @@ export async function getExchangeListings(opts: {
     `;
   } else if (opts.category && opts.platform) {
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -503,7 +534,7 @@ export async function getExchangeListings(opts: {
   } else if (opts.search) {
     const search = `%${opts.search}%`;
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -513,7 +544,7 @@ export async function getExchangeListings(opts: {
     `;
   } else if (opts.category) {
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -523,7 +554,7 @@ export async function getExchangeListings(opts: {
     `;
   } else if (opts.platform) {
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -533,7 +564,7 @@ export async function getExchangeListings(opts: {
     `;
   } else {
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -546,7 +577,7 @@ export async function getExchangeListings(opts: {
 export async function getExchangeListingBySlug(slug: string) {
   const sql = getDb();
   const rows = await sql`
-    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.email as author_email
+    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
     FROM exchange_listings el
     JOIN users u ON el.user_id = u.id
     WHERE el.slug = ${slug}
@@ -621,7 +652,7 @@ export async function createExchangeReview(listingId: number, userId: number, ra
 export async function getExchangeReviews(listingId: number) {
   const sql = getDb();
   return sql`
-    SELECT er.*, u.name as reviewer_name, u.avatar_url as reviewer_avatar
+    SELECT er.*, u.name as reviewer_name, u.avatar_url as reviewer_avatar, u.username as reviewer_username
     FROM exchange_reviews er
     JOIN users u ON er.user_id = u.id
     WHERE er.listing_id = ${listingId}
@@ -633,7 +664,7 @@ export async function getExchangeReviews(listingId: number) {
 export async function getPendingExchangeListings(limit = 50, offset = 0) {
   const sql = getDb();
   return sql`
-    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.email as author_email
+    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
     FROM exchange_listings el
     JOIN users u ON el.user_id = u.id
     WHERE el.status = 'pending'
@@ -664,7 +695,7 @@ export async function getAllExchangeListings(opts: {
   if (opts.status && opts.search) {
     const search = `%${opts.search}%`;
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.email as author_email
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${opts.status}
@@ -674,7 +705,7 @@ export async function getAllExchangeListings(opts: {
     `;
   } else if (opts.status) {
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.email as author_email
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${opts.status}
@@ -684,7 +715,7 @@ export async function getAllExchangeListings(opts: {
   } else if (opts.search) {
     const search = `%${opts.search}%`;
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.email as author_email
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE (el.title ILIKE ${search} OR el.description ILIKE ${search} OR u.email ILIKE ${search})
@@ -693,7 +724,7 @@ export async function getAllExchangeListings(opts: {
     `;
   } else {
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.email as author_email
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       ORDER BY el.created_at DESC
@@ -726,7 +757,7 @@ export async function adminUpdateExchangeListing(id: number, data: {
 export async function getExchangeListingById(id: number) {
   const sql = getDb();
   const rows = await sql`
-    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.email as author_email
+    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
     FROM exchange_listings el
     JOIN users u ON el.user_id = u.id
     WHERE el.id = ${id}
@@ -737,7 +768,7 @@ export async function getExchangeListingById(id: number) {
 export async function getAllExchangeReviews(limit = 50, offset = 0) {
   const sql = getDb();
   return sql`
-    SELECT er.*, u.name as reviewer_name, u.avatar_url as reviewer_avatar,
+    SELECT er.*, u.name as reviewer_name, u.avatar_url as reviewer_avatar, u.username as reviewer_username,
            el.title as listing_title, el.slug as listing_slug
     FROM exchange_reviews er
     JOIN users u ON er.user_id = u.id
@@ -813,7 +844,7 @@ export async function removeFromCollection(collectionId: number, listingId: numb
 export async function getCollection(slug: string) {
   const sql = getDb();
   const collection = await sql`
-    SELECT ec.*, u.name as author_name, u.avatar_url as author_avatar
+    SELECT ec.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
     FROM exchange_collections ec
     JOIN users u ON ec.user_id = u.id
     WHERE ec.slug = ${slug}
@@ -821,7 +852,7 @@ export async function getCollection(slug: string) {
   if (collection.length === 0) return null;
 
   const items = await sql`
-    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar
+    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
     FROM exchange_collection_items eci
     JOIN exchange_listings el ON eci.listing_id = el.id
     JOIN users u ON el.user_id = u.id
@@ -879,7 +910,7 @@ export async function getExchangeRequests(sort = "newest", limit = 50) {
   const sql = getDb();
   if (sort === "most-upvoted") {
     return sql`
-      SELECT er.*, u.name as author_name, u.avatar_url as author_avatar
+      SELECT er.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_requests er
       JOIN users u ON er.user_id = u.id
       WHERE er.status = 'open'
@@ -888,7 +919,7 @@ export async function getExchangeRequests(sort = "newest", limit = 50) {
     `;
   }
   return sql`
-    SELECT er.*, u.name as author_name, u.avatar_url as author_avatar
+    SELECT er.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
     FROM exchange_requests er
     JOIN users u ON er.user_id = u.id
     WHERE er.status = 'open'
@@ -921,7 +952,7 @@ export async function getUserUpvotes(userId: number) {
 export async function getRelatedListings(listingId: number, category: string, limit = 4) {
   const sql = getDb();
   return sql`
-    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar
+    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
     FROM exchange_listings el
     JOIN users u ON el.user_id = u.id
     WHERE el.status = 'approved' AND el.id != ${listingId} AND el.category = ${category}
@@ -952,7 +983,7 @@ export async function getFeaturedExchangeListings(limit = 3) {
   const sql = getDb();
   // Featured = highest rated with minimum 1 review, or newest with most downloads
   return sql`
-    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar
+    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
     FROM exchange_listings el
     JOIN users u ON el.user_id = u.id
     WHERE el.status = 'approved'
@@ -964,12 +995,12 @@ export async function getFeaturedExchangeListings(limit = 3) {
 // ─── EXCHANGE: USER PROFILES ───
 export async function getExchangeUserProfile(userId: number) {
   const sql = getDb();
-  const user = await sql`SELECT id, name, avatar_url, created_at FROM users WHERE id = ${userId}`;
+  const user = await sql`SELECT id, name, username, display_name, avatar_url, bio, created_at FROM users WHERE id = ${userId}`;
   if (user.length === 0) return null;
 
   const [listings, stats] = await Promise.all([
     sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar
+      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.user_id = ${userId} AND el.status = 'approved'

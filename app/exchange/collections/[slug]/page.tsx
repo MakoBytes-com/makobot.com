@@ -14,6 +14,7 @@ interface CollectionDetail {
   description: string;
   author_name: string;
   author_avatar: string;
+  author_username: string;
   user_id: number;
   created_at: string;
   items: ExchangeListing[];
@@ -75,9 +76,9 @@ export default function CollectionDetailPage() {
             <h1 className="text-2xl font-bold text-[#E8EDF3] mb-2">{collection.title}</h1>
             <p className="text-sm text-[#8B95A8] mb-4">{collection.description}</p>
             <div className="flex items-center gap-4 text-xs text-[#6B7280]">
-              <Link href={`/exchange/user/${collection.user_id}`} className="flex items-center gap-2 hover:text-[#3B82F6]">
+              <Link href={`/exchange/user/${collection.user_id}`} className="flex items-center gap-2 hover:opacity-80">
                 {collection.author_avatar && <img src={collection.author_avatar} alt="" className="w-5 h-5 rounded-full" />}
-                {collection.author_name}
+                <span className="text-[#3B82F6] font-medium">@{collection.author_username || collection.author_name}</span>
               </Link>
               <span>{collection.items.length} items</span>
               <span>{new Date(collection.created_at).toLocaleDateString()}</span>

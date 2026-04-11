@@ -46,6 +46,7 @@ export interface ExchangeListing {
   // Joined from users table
   author_name?: string;
   author_avatar?: string;
+  author_username?: string;
   author_email?: string;
 }
 
@@ -59,6 +60,7 @@ export interface ExchangeReview {
   // Joined
   reviewer_name?: string;
   reviewer_avatar?: string;
+  reviewer_username?: string;
 }
 
 export function generateSlug(title: string, id: number): string {

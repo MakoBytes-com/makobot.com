@@ -188,7 +188,7 @@ export default function ListingDetailPage() {
             <div className="flex flex-wrap items-center gap-4 text-sm text-[#8B95A8]">
               <Link
                 href={`/exchange/user/${listing.user_id}`}
-                className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors"
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity"
               >
                 {listing.author_avatar && (
                   <img
@@ -197,7 +197,7 @@ export default function ListingDetailPage() {
                     className="w-6 h-6 rounded-full"
                   />
                 )}
-                <span>{listing.author_name}</span>
+                <span className="text-[#3B82F6] font-medium">@{listing.author_username || listing.author_name}</span>
               </Link>
               <span>
                 {new Date(listing.created_at).toLocaleDateString()}
