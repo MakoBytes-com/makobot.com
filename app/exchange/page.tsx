@@ -27,6 +27,7 @@ export default function ExchangePage() {
   const [hasMore, setHasMore] = useState(false);
   const [trending, setTrending] = useState<ExchangeListing[]>([]);
   const [featured, setFeatured] = useState<ExchangeListing[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
   const PAGE_SIZE = 21;
 
   // Load trending/featured once
@@ -56,6 +57,7 @@ export default function ExchangePage() {
       const items = data.listings || [];
       setHasMore(items.length > PAGE_SIZE);
       setListings(items.slice(0, PAGE_SIZE));
+      if (data.totalCount !== undefined) setTotalCount(data.totalCount);
     } catch {
       setListings([]);
       setHasMore(false);
@@ -91,10 +93,16 @@ export default function ExchangePage() {
               </p>
             </div>
           </div>
-          <p className="text-lg text-[#8B95A8] max-w-2xl mx-auto mb-8">
+          <p className="text-lg text-[#8B95A8] max-w-2xl mx-auto mb-4">
             Browse, share, and download AI skills, prompts, configs, and tools
             across every platform. The universal hub for AI productivity.
           </p>
+          {totalCount > 0 && (
+            <p className="text-sm text-[#6B7280] mb-8">
+              <span className="text-2xl font-bold text-[#3B82F6]">{totalCount.toLocaleString()}</span>
+              <span className="ml-2">listings and growing</span>
+            </p>
+          )}
 
           {/* Action Buttons */}
           <div className="flex items-center justify-center gap-4 mb-8">

@@ -122,7 +122,12 @@ export async function GET(request: Request) {
       return rest;
     });
 
-    return NextResponse.json({ listings: cleaned });
+    // Get total count of approved listings
+    const sql = (await import("@neondatabase/serverless")).neon(process.env.DATABASE_URL!);
+    const countRows = await sql`SELECT COUNT(*) as count FROM exchange_listings WHERE status = 'approved'`;
+    const totalCount = parseInt(countRows[0].count as string);
+
+    return NextResponse.json({ listings: cleaned, totalCount });
   } catch (error) {
     console.error("Exchange browse error:", error);
     return NextResponse.json({ error: "Failed to load listings" }, { status: 500 });
