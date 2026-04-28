@@ -313,7 +313,7 @@ export function Footer() {
             <Logo size={32} />
             <div>
               <p className="text-sm font-semibold text-[#E8EDF3]">MakoBot</p>
-              <p className="text-xs text-[#6B7280]">by Mako Logics</p>
+              <p className="text-xs text-[#6B7280]">by <a href="https://makologics.com" target="_blank" rel="noopener" className="hover:text-[#C0C8D8] transition-colors">Mako Logics</a></p>
             </div>
           </div>
 
