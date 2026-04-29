@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { getUserByEmail, createExchangeVersion, getExchangeVersions } from "@/lib/db";
-import { neon } from "@neondatabase/serverless";
+import { getUserByEmail, createExchangeVersion, getExchangeVersions, getDb } from "@/lib/db";
 
 // GET /api/exchange/listings/[id]/versions — Get version history
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -30,7 +29,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     if (!version || !content) return NextResponse.json({ error: "version and content required" }, { status: 400 });
 
     // Verify ownership
-    const sql = neon(process.env.DATABASE_URL!);
+    const sql = getDb();
     const listing = await sql`SELECT user_id FROM exchange_listings WHERE id = ${parseInt(id)}`;
     if (listing.length === 0) return NextResponse.json({ error: "Listing not found" }, { status: 404 });
     if (listing[0].user_id !== user.id) return NextResponse.json({ error: "Not your listing" }, { status: 403 });

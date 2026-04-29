@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { neon } from "@neondatabase/serverless";
+import { getDb } from "@/lib/db";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [
@@ -49,7 +49,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Add all approved exchange listings
   try {
-    const sql = neon(process.env.DATABASE_URL!);
+    const sql = getDb();
     const listings = await sql`
       SELECT slug, updated_at FROM exchange_listings WHERE status = 'approved' ORDER BY created_at DESC
     `;

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { getUserByEmail, updateUserProfile } from "@/lib/db";
-import { neon } from "@neondatabase/serverless";
+import { getDb } from "@/lib/db";
 
 // GET /api/exchange/profile — Get current user's profile
 export async function GET() {
@@ -99,7 +99,7 @@ export async function POST(request: Request) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    const sql = neon(process.env.DATABASE_URL!);
+    const sql = getDb();
     await sql`UPDATE users SET avatar_data = ${buffer}, avatar_type = ${file.type}, avatar_url = ${`/api/exchange/avatar/${user.id}?v=${Date.now()}`} WHERE id = ${user.id}`;
 
     return NextResponse.json({

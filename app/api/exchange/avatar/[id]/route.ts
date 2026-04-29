@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { neon } from "@neondatabase/serverless";
+import { getDb } from "@/lib/db";
 
 // GET /api/exchange/avatar/[id] — Serve uploaded avatar image (public)
 export async function GET(
@@ -8,7 +8,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const sql = neon(process.env.DATABASE_URL!);
+    const sql = getDb();
     const rows = await sql`SELECT avatar_data, avatar_type FROM users WHERE id = ${parseInt(id)}`;
 
     if (rows.length === 0 || !rows[0].avatar_data) {
