@@ -6,6 +6,7 @@ import {
   getExchangeReviews,
   createExchangeListing,
   getUserByEmail,
+  getDb,
 } from "@/lib/db";
 import { CATEGORIES, PLATFORMS, MAX_FILE_SIZE, MAX_CONTENT_LENGTH } from "@/lib/exchange";
 import { moderateExchangeListing } from "@/lib/db";
@@ -123,7 +124,7 @@ export async function GET(request: Request) {
     });
 
     // Get total count of approved listings
-    const sql = (await import("@neondatabase/serverless")).neon(process.env.DATABASE_URL!);
+    const sql = getDb();
     const countRows = await sql`SELECT COUNT(*) as count FROM exchange_listings WHERE status = 'approved'`;
     const totalCount = parseInt(countRows[0].count as string);
 
@@ -219,7 +220,7 @@ export async function POST(request: Request) {
 
     // If this is a remix, set forked_from
     if (forkedFrom && !isNaN(parseInt(forkedFrom))) {
-      const sql = (await import("@neondatabase/serverless")).neon(process.env.DATABASE_URL!);
+      const sql = getDb();
       await sql`UPDATE exchange_listings SET forked_from = ${parseInt(forkedFrom)} WHERE id = ${listing.id}`;
     }
 
@@ -227,7 +228,7 @@ export async function POST(request: Request) {
     if (tagsRaw) {
       const tags = tagsRaw.split(",").map((t) => t.trim().toLowerCase()).filter((t) => t.length > 0 && t.length < 30).slice(0, 10);
       if (tags.length > 0) {
-        const sql = (await import("@neondatabase/serverless")).neon(process.env.DATABASE_URL!);
+        const sql = getDb();
         await sql`UPDATE exchange_listings SET tags = ${tags} WHERE id = ${listing.id}`;
       }
     }

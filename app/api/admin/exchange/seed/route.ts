@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { neon } from "@neondatabase/serverless";
+import { getDb } from "@/lib/db";
 
 const SEED_LISTINGS = [
   // ─── SKILLS ───
@@ -532,7 +532,7 @@ export async function POST() {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    const sql = neon(process.env.DATABASE_URL!);
+    const sql = getDb();
 
     // Check if listings already exist
     const existing = await sql`SELECT COUNT(*) as count FROM exchange_listings`;
@@ -544,6 +544,9 @@ export async function POST() {
     }
 
     // Get admin user ID
+    if (!session.user.email) {
+      return NextResponse.json({ error: "Session missing email" }, { status: 400 });
+    }
     const users = await sql`SELECT id FROM users WHERE email = ${session.user.email}`;
     if (users.length === 0) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });

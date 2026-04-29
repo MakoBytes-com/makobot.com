@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { neon } from "@neondatabase/serverless";
+import { getDb } from "@/lib/db";
 
 const SEARCH_QUERIES = [
   { q: "filename:CLAUDE.md path:/", cat: "configs", plat: ["claude"] },
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
   const body = await request.json();
   const maxResults = Math.min(body.maxResults || 50, 300);
 
-  const sql = neon(process.env.DATABASE_URL!);
+  const sql = getDb();
 
   // Get community user
   const communityUser = await sql`SELECT id FROM users WHERE email = 'community@makobot.com'`;

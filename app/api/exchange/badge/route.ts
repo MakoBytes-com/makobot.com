@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { neon } from "@neondatabase/serverless";
+import { getDb } from "@/lib/db";
 
 // GET /api/exchange/badge?slug=... — Returns an SVG badge for embedding
 export async function GET(request: Request) {
@@ -8,7 +8,7 @@ export async function GET(request: Request) {
     const slug = searchParams.get("slug");
     if (!slug) return NextResponse.json({ error: "slug required" }, { status: 400 });
 
-    const sql = neon(process.env.DATABASE_URL!);
+    const sql = getDb();
     const rows = await sql`SELECT title, download_count, rating_avg FROM exchange_listings WHERE slug = ${slug} AND status = 'approved'`;
     if (rows.length === 0) return NextResponse.json({ error: "Not found" }, { status: 404 });
 

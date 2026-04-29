@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { getUserByEmail } from "@/lib/db";
-import { neon } from "@neondatabase/serverless";
+import { getUserByEmail, getDb } from "@/lib/db";
 
 // POST /api/exchange/listings/[id]/claim — Claim an imported listing
 export async function POST(
@@ -17,7 +16,7 @@ export async function POST(
     const { id } = await params;
     const listingId = parseInt(id);
 
-    const sql = neon(process.env.DATABASE_URL!);
+    const sql = getDb();
 
     // Verify listing exists and is a community import
     const rows = await sql`SELECT id, source_url, source_author, title FROM exchange_listings WHERE id = ${listingId}`;
