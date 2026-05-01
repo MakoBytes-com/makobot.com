@@ -13,12 +13,12 @@ export default function PrivacyPage() {
         <div className="mb-12">
           <Logo size={48} />
           <h1 className="text-3xl font-bold mt-6 mb-2">Privacy Policy</h1>
-          <p className="text-sm text-[#6B7280]">Last updated: April 10, 2026</p>
+          <p className="text-sm text-[#999999]">Last updated: April 10, 2026</p>
         </div>
 
-        <div className="space-y-8 text-[#C0C8D8] text-base leading-relaxed">
+        <div className="space-y-8 text-[#555555] text-base leading-relaxed">
           <section>
-            <h2 className="text-xl font-semibold text-[#E8EDF3] mb-3">What We Collect</h2>
+            <h2 className="text-xl font-semibold text-[#333333] mb-3">What We Collect</h2>
             <p>
               When you sign in with Google to get a license key, we collect your
               name, email address, and profile picture. This information is used
@@ -28,7 +28,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-[#E8EDF3] mb-3">The MakoBot Desktop App</h2>
+            <h2 className="text-xl font-semibold text-[#333333] mb-3">The MakoBot Desktop App</h2>
             <p>
               MakoBot (the Windows desktop application) is 100% local. It does
               not send any data to our servers or any third party. All your
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-[#E8EDF3] mb-3">Website Analytics</h2>
+            <h2 className="text-xl font-semibold text-[#333333] mb-3">Website Analytics</h2>
             <p>
               We track basic page views on makobot.com (page path, referrer, and
               IP address) to understand how people find and use the site. This
@@ -49,7 +49,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-[#E8EDF3] mb-3">How We Use Your Data</h2>
+            <h2 className="text-xl font-semibold text-[#333333] mb-3">How We Use Your Data</h2>
             <ul className="list-disc list-inside space-y-2">
               <li>To generate and manage your license key</li>
               <li>To track downloads for internal analytics</li>
@@ -58,7 +58,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-[#E8EDF3] mb-3">Data Sharing</h2>
+            <h2 className="text-xl font-semibold text-[#333333] mb-3">Data Sharing</h2>
             <p>
               We do not sell, rent, or share your personal information with third
               parties. Your data is stored securely and accessed only by Mako
@@ -67,7 +67,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-[#E8EDF3] mb-3">Data Deletion</h2>
+            <h2 className="text-xl font-semibold text-[#333333] mb-3">Data Deletion</h2>
             <p>
               You can request deletion of your account and associated data by
               contacting us. We will remove your information from our database
@@ -76,7 +76,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-[#E8EDF3] mb-3">Contact</h2>
+            <h2 className="text-xl font-semibold text-[#333333] mb-3">Contact</h2>
             <p>
               Mako Logics<br />
               Email: admin@makobot.com
@@ -84,8 +84,8 @@ export default function PrivacyPage() {
           </section>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-[#374151]/30">
-          <a href="/" className="text-sm text-[#6B7280] hover:text-[#8B95A8]">
+        <div className="mt-12 pt-6 border-t border-[#dbdbdb]/30">
+          <a href="/" className="text-sm text-[#999999] hover:text-[#777777]">
             &larr; Back to makobot.com
           </a>
         </div>

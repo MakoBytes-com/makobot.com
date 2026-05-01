@@ -26,7 +26,7 @@ export default function Home() {
         className="relative flex flex-col items-center justify-center px-6 pt-32 pb-24 overflow-hidden"
       >
         {/* Background glow */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#3B82F6] opacity-[0.07] blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0061aa] opacity-[0.07] blur-[120px] pointer-events-none" />
 
         <div className="animate-float mb-8">
           <Logo size={120} />
@@ -37,25 +37,25 @@ export default function Home() {
           <span className="gradient-text">AI Workbench</span>
         </h1>
 
-        <p className="text-base sm:text-lg text-[#3B82F6] text-center font-semibold mb-6 tracking-wide">
+        <p className="text-base sm:text-lg text-[#0061aa] text-center font-semibold mb-6 tracking-wide">
           Memory · Search · AI Tools — every AI you use, smarter together.
         </p>
 
-        <p className="text-lg sm:text-xl text-[#C0C8D8] text-center max-w-3xl mb-4 leading-relaxed">
+        <p className="text-lg sm:text-xl text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
           MakoBot runs on your Windows PC. It captures every commit,
           conversation, and note across every project, gives you one search bar
           that reaches all of it, and adds one-line plug-ins
-          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@verify</code>
-          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@audit</code>
-          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@codereview</code>
-          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@designreview</code>
-          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@contractreview</code>
+          {" "}<code className="text-[#0061aa] bg-[#ffffff] px-1.5 py-0.5 rounded text-base font-mono">@verify</code>
+          {" "}<code className="text-[#0061aa] bg-[#ffffff] px-1.5 py-0.5 rounded text-base font-mono">@audit</code>
+          {" "}<code className="text-[#0061aa] bg-[#ffffff] px-1.5 py-0.5 rounded text-base font-mono">@codereview</code>
+          {" "}<code className="text-[#0061aa] bg-[#ffffff] px-1.5 py-0.5 rounded text-base font-mono">@designreview</code>
+          {" "}<code className="text-[#0061aa] bg-[#ffffff] px-1.5 py-0.5 rounded text-base font-mono">@contractreview</code>
           {" "}that fan out to GPT, Claude, and Gemini for second opinions —
           all auto-injected into Claude Code, Cursor, Antigravity, Windsurf,
           ChatGPT, and Gemini.
         </p>
 
-        <p className="text-base text-[#8B95A8] text-center max-w-2xl mb-8 leading-relaxed">
+        <p className="text-base text-[#777777] text-center max-w-2xl mb-8 leading-relaxed">
           When you start a new session, the AI already knows who you are, what
           you&apos;ve been working on, and where you left off — and you can
           call any plug-in to cross-check the answer in seconds.
@@ -64,13 +64,13 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row gap-4 mb-10">
           <a
             href="/get-key"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-lg transition-colors"
+            className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-lg transition-colors"
           >
             Get Free Key + Download
           </a>
           <a
             href="#features"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-lg border border-[#374151] hover:border-[#4B5563] text-[#C0C8D8] font-medium text-lg transition-colors"
+            className="inline-flex items-center justify-center px-8 py-4 rounded-lg border border-[#dbdbdb] hover:border-[#777777] text-[#555555] font-medium text-lg transition-colors"
           >
             See Features
           </a>
@@ -78,7 +78,7 @@ export default function Home() {
 
         {/* AI tool badges */}
         <div className="flex flex-wrap justify-center gap-3 mb-6">
-          <AiBadge name="Claude" color="#3B82F6" />
+          <AiBadge name="Claude" color="#0061aa" />
           <AiBadge name="Antigravity" color="#8B5CF6" />
           <AiBadge name="Cursor" color="#F59E0B" />
           <AiBadge name="Windsurf" color="#10B981" />
@@ -86,7 +86,7 @@ export default function Home() {
           <AiBadge name="ChatGPT" color="#6366F1" />
         </div>
 
-        <p className="text-sm text-[#6B7280]">
+        <p className="text-sm text-[#999999]">
           Works with every AI coding tool. Windows 10/11.
         </p>
 
@@ -97,7 +97,7 @@ export default function Home() {
       </section>
 
       {/* ─── THE PROBLEM ─── */}
-      <section className="px-6 py-20 bg-[#252B3B]/50">
+      <section className="px-6 py-20 bg-[#f8f9fb]/50">
         <div className="max-w-4xl mx-auto text-center">
           <SectionHeading
             title="The problem with AI today"
@@ -105,39 +105,39 @@ export default function Home() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <div className="text-3xl mb-4">💬</div>
-              <p className="text-[#E8EDF3] text-base font-medium mb-2">
+              <p className="text-[#333333] text-base font-medium mb-2">
                 &quot;Where did I leave off?&quot;
               </p>
-              <p className="text-[#8B95A8] text-sm">
+              <p className="text-[#777777] text-sm">
                 Every new AI session starts from zero. You spend 10 minutes
                 re-explaining your project before you can do any actual work.
               </p>
             </div>
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <div className="text-3xl mb-4">🔌</div>
-              <p className="text-[#E8EDF3] text-base font-medium mb-2">
+              <p className="text-[#333333] text-base font-medium mb-2">
                 &quot;Session crashed — everything&apos;s gone&quot;
               </p>
-              <p className="text-[#8B95A8] text-sm">
+              <p className="text-[#777777] text-sm">
                 Hours of decisions, progress, and context vanish when a session
                 disconnects or hits a context limit.
               </p>
             </div>
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <div className="text-3xl mb-4">🔀</div>
-              <p className="text-[#E8EDF3] text-base font-medium mb-2">
+              <p className="text-[#333333] text-base font-medium mb-2">
                 &quot;I use 3 AI tools and none of them talk&quot;
               </p>
-              <p className="text-[#8B95A8] text-sm">
+              <p className="text-[#777777] text-sm">
                 Claude doesn&apos;t know what you told ChatGPT. Cursor
                 doesn&apos;t know what Gemini decided. Each tool is an island.
               </p>
             </div>
           </div>
 
-          <p className="mt-10 text-xl text-[#3B82F6] font-semibold">
+          <p className="mt-10 text-xl text-[#0061aa] font-semibold">
             MakoBot fixes all of this — and adds the second opinion you&apos;ve been wishing for.
           </p>
         </div>
@@ -152,31 +152,31 @@ export default function Home() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <div className="text-3xl mb-3">🧠</div>
-              <h3 className="text-base font-semibold text-[#E8EDF3] mb-2">Memory</h3>
-              <p className="text-sm text-[#C0C8D8] leading-relaxed">
+              <h3 className="text-base font-semibold text-[#333333] mb-2">Memory</h3>
+              <p className="text-sm text-[#555555] leading-relaxed">
                 Cross-project timeline auto-injected into CLAUDE.md, AGENTS.md,
                 .cursorrules. Every AI tool you use sees the same context.
               </p>
             </div>
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <div className="text-3xl mb-3">🔍</div>
-              <h3 className="text-base font-semibold text-[#E8EDF3] mb-2">Search</h3>
-              <p className="text-sm text-[#C0C8D8] leading-relaxed">
+              <h3 className="text-base font-semibold text-[#333333] mb-2">Search</h3>
+              <p className="text-sm text-[#555555] leading-relaxed">
                 One bar that reaches every conversation, every commit, every
                 note, every transcript — across every project, every AI tool.
               </p>
             </div>
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <div className="text-3xl mb-3">🤖</div>
-              <h3 className="text-base font-semibold text-[#E8EDF3] mb-2">AI Tools</h3>
-              <p className="text-sm text-[#C0C8D8] leading-relaxed">
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@verify</code>{" "}
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@audit</code>{" "}
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@codereview</code>{" "}
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@designreview</code>{" "}
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@contractreview</code>{" "}
+              <h3 className="text-base font-semibold text-[#333333] mb-2">AI Tools</h3>
+              <p className="text-sm text-[#555555] leading-relaxed">
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@verify</code>{" "}
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@audit</code>{" "}
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@codereview</code>{" "}
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@designreview</code>{" "}
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@contractreview</code>{" "}
                 — fan out to GPT, Claude, and Gemini for second opinions.
               </p>
             </div>
@@ -194,35 +194,35 @@ export default function Home() {
 
           <div className="mt-10 grid grid-cols-1 md:grid-cols-5 gap-6 items-center">
             <div className="md:col-span-3">
-              <p className="text-[#C0C8D8] text-base leading-relaxed mb-4">
+              <p className="text-[#555555] text-base leading-relaxed mb-4">
                 You remember Claude solved this exact bug for you a few weeks
                 ago — but on a different project. Without MakoBot, you re-derive
                 the answer (10–30 minutes).{" "}
-                <span className="text-[#E8EDF3] font-semibold">
+                <span className="text-[#333333] font-semibold">
                   With MakoBot, you type one word and find the conversation in
                   five seconds.
                 </span>
               </p>
-              <p className="text-[#C0C8D8] text-base leading-relaxed mb-4">
+              <p className="text-[#555555] text-base leading-relaxed mb-4">
                 Search reaches every commit, every note, every transcript, every
                 skill, and every clipboard import — across every project and
                 every AI tool you use.
               </p>
               <a
                 href="#time-saved"
-                className="inline-flex items-center text-sm text-[#3B82F6] hover:text-[#2563EB] font-semibold"
+                className="inline-flex items-center text-sm text-[#0061aa] hover:text-[#004d88] font-semibold"
               >
                 See the time-saved math →
               </a>
             </div>
-            <div className="md:col-span-2 bg-[#1E2330] rounded-xl border border-[#374151] p-5">
-              <p className="text-xs text-[#8B95A8] mb-3 font-semibold tracking-wide">REAL SEARCHES USERS RUN</p>
+            <div className="md:col-span-2 bg-[#ffffff] rounded-xl border border-[#dbdbdb] p-5">
+              <p className="text-xs text-[#777777] mb-3 font-semibold tracking-wide">REAL SEARCHES USERS RUN</p>
               <ul className="space-y-2 text-sm font-mono">
-                <li><span className="text-[#3B82F6]">webhook</span> <span className="text-[#8B95A8] font-sans not-italic ml-2">which client?</span></li>
-                <li><span className="text-[#3B82F6]">deploy fix</span> <span className="text-[#8B95A8] font-sans not-italic ml-2">what command?</span></li>
-                <li><span className="text-[#3B82F6]">stripe</span> <span className="text-[#8B95A8] font-sans not-italic ml-2">that integration</span></li>
-                <li><span className="text-[#3B82F6]">404</span> <span className="text-[#8B95A8] font-sans not-italic ml-2">which project?</span></li>
-                <li><span className="text-[#3B82F6]">race condition</span> <span className="text-[#8B95A8] font-sans not-italic ml-2">last month&apos;s fix</span></li>
+                <li><span className="text-[#0061aa]">webhook</span> <span className="text-[#777777] font-sans not-italic ml-2">which client?</span></li>
+                <li><span className="text-[#0061aa]">deploy fix</span> <span className="text-[#777777] font-sans not-italic ml-2">what command?</span></li>
+                <li><span className="text-[#0061aa]">stripe</span> <span className="text-[#777777] font-sans not-italic ml-2">that integration</span></li>
+                <li><span className="text-[#0061aa]">404</span> <span className="text-[#777777] font-sans not-italic ml-2">which project?</span></li>
+                <li><span className="text-[#0061aa]">race condition</span> <span className="text-[#777777] font-sans not-italic ml-2">last month&apos;s fix</span></li>
               </ul>
             </div>
           </div>
@@ -258,7 +258,7 @@ export default function Home() {
       </section>
 
       {/* ─── FEATURES ─── */}
-      <section id="features" className="px-6 py-20 bg-[#252B3B]/50">
+      <section id="features" className="px-6 py-20 bg-[#f8f9fb]/50">
         <div className="max-w-6xl mx-auto">
           <SectionHeading
             title="What's in MakoBot"
@@ -345,19 +345,19 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
             {/* Fully Automatic */}
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <div className="flex items-center gap-2 mb-4">
                 <span className="w-3 h-3 rounded-full bg-[#10B981] animate-pulse-dot" />
-                <h3 className="text-lg font-semibold text-[#E8EDF3]">
+                <h3 className="text-lg font-semibold text-[#333333]">
                   Fully Automatic
                 </h3>
               </div>
-              <p className="text-sm text-[#8B95A8] mb-4">
+              <p className="text-sm text-[#777777] mb-4">
                 MakoBot writes context directly into their config files. No
                 manual steps.
               </p>
               <div className="flex flex-col gap-2">
-                <AiBadge name="Claude Code" color="#3B82F6" />
+                <AiBadge name="Claude Code" color="#0061aa" />
                 <AiBadge name="Antigravity" color="#8B5CF6" />
                 <AiBadge name="Cursor" color="#F59E0B" />
                 <AiBadge name="Windsurf" color="#10B981" />
@@ -365,40 +365,40 @@ export default function Home() {
             </div>
 
             {/* One-Click */}
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-[#3B82F6] text-lg">⚡</span>
-                <h3 className="text-lg font-semibold text-[#E8EDF3]">
+                <span className="text-[#0061aa] text-lg">⚡</span>
+                <h3 className="text-lg font-semibold text-[#333333]">
                   One Click
                 </h3>
               </div>
-              <p className="text-sm text-[#8B95A8] mb-4">
+              <p className="text-sm text-[#777777] mb-4">
                 Click the button in MakoBot&apos;s widget. It copies context and
                 opens the browser.
               </p>
               <div className="flex flex-col gap-2">
                 <AiBadge name="ChatGPT" color="#6366F1" />
-                <AiBadge name="Claude Web" color="#3B82F6" />
+                <AiBadge name="Claude Web" color="#0061aa" />
                 <AiBadge name="Google Gemini" color="#EC4899" />
               </div>
             </div>
 
             {/* Any Tool */}
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-[#8B95A8] text-lg">📋</span>
-                <h3 className="text-lg font-semibold text-[#E8EDF3]">
+                <span className="text-[#777777] text-lg">📋</span>
+                <h3 className="text-lg font-semibold text-[#333333]">
                   Any Tool
                 </h3>
               </div>
-              <p className="text-sm text-[#8B95A8] mb-4">
+              <p className="text-sm text-[#777777] mb-4">
                 Copy context to clipboard and paste into any AI tool. Import
                 conversations back with one click.
               </p>
-              <div className="text-sm text-[#C0C8D8]">
+              <div className="text-sm text-[#555555]">
                 <p>Copy Context → paste anywhere</p>
                 <p>Import Clipboard → save conversations back</p>
-                <p className="mt-2 text-[#8B95A8]">
+                <p className="mt-2 text-[#777777]">
                   Works with literally any AI tool
                 </p>
               </div>
@@ -408,7 +408,7 @@ export default function Home() {
       </section>
 
       {/* ─── STATS ─── */}
-      <section className="px-6 py-16 bg-[#252B3B]/50">
+      <section className="px-6 py-16 bg-[#f8f9fb]/50">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <StatCard value="53 MB" label="Signed installer, no warnings" />
@@ -416,9 +416,9 @@ export default function Home() {
             <StatCard value="6+" label="AI tools supported" />
             <StatCard value="∞" label="Sessions remembered" />
           </div>
-          <div className="flex items-center justify-center gap-3 mt-8 px-5 py-3 rounded-xl bg-[#1E2330] border border-[#374151]/50 max-w-lg mx-auto">
+          <div className="flex items-center justify-center gap-3 mt-8 px-5 py-3 rounded-xl bg-[#ffffff] border border-[#dbdbdb]/50 max-w-lg mx-auto">
             <svg className="w-5 h-5 text-[#10B981] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-            <span className="text-sm text-[#C0C8D8]">Digitally signed by <span className="text-[#E8EDF3] font-semibold">Mako Logics LLC</span> — verified by Microsoft Azure Trusted Signing</span>
+            <span className="text-sm text-[#555555]">Digitally signed by <span className="text-[#333333] font-semibold">Mako Logics LLC</span> — verified by Microsoft Azure Trusted Signing</span>
           </div>
         </div>
       </section>
@@ -433,12 +433,12 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
             {/* BEFORE */}
-            <div className="bg-[#1E2330] rounded-xl border border-[#374151] p-6">
+            <div className="bg-[#ffffff] rounded-xl border border-[#dbdbdb] p-6">
               <div className="text-xs font-bold text-[#DC2626] mb-3 tracking-wide">BEFORE MAKOBOT</div>
-              <h3 className="text-lg font-semibold text-[#E8EDF3] mb-4">
+              <h3 className="text-lg font-semibold text-[#333333] mb-4">
                 Starting a fresh Claude Code chat
               </h3>
-              <ol className="space-y-3 text-sm text-[#C0C8D8] leading-relaxed">
+              <ol className="space-y-3 text-sm text-[#555555] leading-relaxed">
                 <li><span className="text-[#DC2626] font-mono mr-2">10:00</span> Open Claude Code in VS Code</li>
                 <li><span className="text-[#DC2626] font-mono mr-2">10:01</span> Start a new chat — Claude has no memory of yesterday</li>
                 <li><span className="text-[#DC2626] font-mono mr-2">10:02</span> Type 6 paragraphs explaining the project, what you&apos;re working on, what was decided last week, what tools you use</li>
@@ -446,22 +446,22 @@ export default function Home() {
                 <li><span className="text-[#DC2626] font-mono mr-2">10:10</span> Realize Claude needs to know about the deploy issue from Tuesday. Search your old chats. Copy-paste.</li>
                 <li><span className="text-[#DC2626] font-mono mr-2">10:14</span> Finally start working</li>
               </ol>
-              <p className="mt-5 text-sm text-[#8B95A8] italic">14 minutes burned before any actual work happens. Five times a day = ~1 hour gone.</p>
+              <p className="mt-5 text-sm text-[#777777] italic">14 minutes burned before any actual work happens. Five times a day = ~1 hour gone.</p>
             </div>
 
             {/* AFTER */}
-            <div className="bg-gradient-to-br from-[#1E2330] to-[#252B3B] rounded-xl border border-[#3B82F6]/40 p-6">
+            <div className="bg-gradient-to-br from-[#ffffff] to-[#f8f9fb] rounded-xl border border-[#0061aa]/40 p-6">
               <div className="text-xs font-bold text-[#10B981] mb-3 tracking-wide">WITH MAKOBOT</div>
-              <h3 className="text-lg font-semibold text-[#E8EDF3] mb-4">
+              <h3 className="text-lg font-semibold text-[#333333] mb-4">
                 Starting a fresh Claude Code chat
               </h3>
-              <ol className="space-y-3 text-sm text-[#C0C8D8] leading-relaxed">
+              <ol className="space-y-3 text-sm text-[#555555] leading-relaxed">
                 <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Open Claude Code in VS Code</li>
-                <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Type <code className="bg-[#0F1419] px-2 py-0.5 rounded text-[#3B82F6]">Recover</code></li>
+                <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Type <code className="bg-[#0F1419] px-2 py-0.5 rounded text-[#0061aa]">Recover</code></li>
                 <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Claude reads MakoBot&apos;s injected context — already knows your projects, recent commits, last session, current build, open decisions</li>
                 <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Start working</li>
               </ol>
-              <p className="mt-5 text-sm text-[#3B82F6] italic">Under 30 seconds. ~1 hour back per day.</p>
+              <p className="mt-5 text-sm text-[#0061aa] italic">Under 30 seconds. ~1 hour back per day.</p>
             </div>
           </div>
         </div>
@@ -476,28 +476,28 @@ export default function Home() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151] text-center">
-              <p className="text-4xl font-bold text-[#3B82F6] mb-2">~10 min</p>
-              <p className="text-sm text-[#C0C8D8] leading-relaxed">
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] text-center">
+              <p className="text-4xl font-bold text-[#0061aa] mb-2">~10 min</p>
+              <p className="text-sm text-[#555555] leading-relaxed">
                 saved per fresh AI chat by skipping the &quot;re-explain the
                 project&quot; ritual
               </p>
             </div>
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151] text-center">
-              <p className="text-4xl font-bold text-[#3B82F6] mb-2">~15 min</p>
-              <p className="text-sm text-[#C0C8D8] leading-relaxed">
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] text-center">
+              <p className="text-4xl font-bold text-[#0061aa] mb-2">~15 min</p>
+              <p className="text-sm text-[#555555] leading-relaxed">
                 saved per &quot;I know I solved this before&quot; moment via search
               </p>
             </div>
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151] text-center">
-              <p className="text-4xl font-bold text-[#3B82F6] mb-2">~5 hrs</p>
-              <p className="text-sm text-[#C0C8D8] leading-relaxed">
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] text-center">
+              <p className="text-4xl font-bold text-[#0061aa] mb-2">~5 hrs</p>
+              <p className="text-sm text-[#555555] leading-relaxed">
                 saved per week for an active builder using AI 4–8 hours/day
               </p>
             </div>
           </div>
 
-          <p className="text-center mt-8 text-sm text-[#8B95A8] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-center mt-8 text-sm text-[#777777] max-w-2xl mx-auto leading-relaxed">
             Your mileage depends on how often you start fresh AI chats and how
             much you context-switch between projects.
           </p>
@@ -540,25 +540,25 @@ export default function Home() {
       {/* ─── STORY (folded in from /why) ─── */}
       <section className="px-6 py-20">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-br from-[#252B3B] to-[#1E2330] rounded-xl border border-[#3B82F6]/30 p-6 sm:p-10">
-            <div className="text-xs font-bold text-[#3B82F6] mb-3 tracking-wide">THE STORY</div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#E8EDF3] mb-5 leading-tight">
+          <div className="bg-gradient-to-br from-[#f8f9fb] to-[#ffffff] rounded-xl border border-[#0061aa]/30 p-6 sm:p-10">
+            <div className="text-xs font-bold text-[#0061aa] mb-3 tracking-wide">THE STORY</div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-5 leading-tight">
               Built by a developer who embraced AI
             </h2>
-            <p className="text-[#C0C8D8] text-base leading-relaxed mb-4">
+            <p className="text-[#555555] text-base leading-relaxed mb-4">
               Most AI tools are made by engineers who never left the terminal.
               They assume you know how to install an MCP server, configure
               CLAUDE.md by hand, manage API keys, set up a JSON-RPC bearer
               token, and write your own memory adapters.
             </p>
-            <p className="text-[#C0C8D8] text-base leading-relaxed mb-4">
+            <p className="text-[#555555] text-base leading-relaxed mb-4">
               MakoBot is built by a developer who changed career paths,
               embraced AI as a force multiplier, and watched it open doors
               he never expected. He runs a real business that ships real
               client work on top of AI tools — and wanted a workbench built
               for builders like him.
             </p>
-            <p className="text-[#E8EDF3] text-base leading-relaxed font-medium">
+            <p className="text-[#333333] text-base leading-relaxed font-medium">
               That&apos;s why MakoBot is a real Windows app with an installer,
               a license key, an in-app updater, big readable UI, and a search
               bar — not a CLI you have to spend a weekend wiring up before
@@ -569,7 +569,7 @@ export default function Home() {
       </section>
 
       {/* ─── WHAT'S INSIDE ─── */}
-      <section className="px-6 py-20 bg-[#252B3B]/50">
+      <section className="px-6 py-20 bg-[#f8f9fb]/50">
         <div className="max-w-4xl mx-auto">
           <SectionHeading
             title="What's Inside the Dashboard"
@@ -591,12 +591,12 @@ export default function Home() {
             ].map((tab) => (
               <div
                 key={tab.name}
-                className="bg-[#252B3B] rounded-lg p-4 border border-[#374151] text-center feature-card"
+                className="bg-[#f8f9fb] rounded-lg p-4 border border-[#dbdbdb] text-center feature-card"
               >
-                <p className="text-[#3B82F6] font-semibold text-base mb-1">
+                <p className="text-[#0061aa] font-semibold text-base mb-1">
                   {tab.name}
                 </p>
-                <p className="text-[#8B95A8] text-xs">{tab.desc}</p>
+                <p className="text-[#777777] text-xs">{tab.desc}</p>
               </div>
             ))}
           </div>
@@ -606,21 +606,21 @@ export default function Home() {
       {/* ─── EXCHANGE CTA ─── */}
       <section className="px-6 py-16">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-[#252B3B] rounded-2xl p-8 sm:p-12 border border-[#374151] text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#E8EDF3] mb-3">
+          <div className="bg-[#f8f9fb] rounded-2xl p-8 sm:p-12 border border-[#dbdbdb] text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-3">
               AI Skills Exchange
             </h2>
-            <p className="text-lg text-[#8B95A8] mb-6 max-w-xl mx-auto">
+            <p className="text-lg text-[#777777] mb-6 max-w-xl mx-auto">
               Browse hundreds of skills, prompts, configs, and tools shared by
               the community. Works with Claude, ChatGPT, Gemini, Cursor, and more.
             </p>
             <a
               href="/exchange"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-lg transition-colors"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-lg transition-colors"
             >
               Browse the Exchange
             </a>
-            <p className="mt-3 text-sm text-[#6B7280]">
+            <p className="mt-3 text-sm text-[#999999]">
               Free to use. Free to share. No account needed to browse.
             </p>
           </div>
@@ -634,7 +634,7 @@ export default function Home() {
           <h2 className="text-3xl sm:text-4xl font-bold mt-8 mb-4">
             Ready to set up your AI Workbench?
           </h2>
-          <p className="text-lg text-[#C0C8D8] mb-8 max-w-xl mx-auto">
+          <p className="text-lg text-[#555555] mb-8 max-w-xl mx-auto">
             Download MakoBot, add your project folders, never re-explain your
             work to an AI again — and call any plug-in for a second opinion
             when an answer matters. Free. Private. No account needed.
@@ -642,20 +642,20 @@ export default function Home() {
 
           <a
             href="/get-key"
-            className="inline-flex items-center justify-center px-10 py-5 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-xl transition-colors blue-glow"
+            className="inline-flex items-center justify-center px-10 py-5 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-xl transition-colors blue-glow"
           >
             Get Free Key + Download
           </a>
 
-          <p className="mt-4 text-sm text-[#6B7280]">
+          <p className="mt-4 text-sm text-[#999999]">
             Windows 10/11 · Digitally signed by Mako Logics LLC · Includes installer
           </p>
-          <p className="mt-2 text-xs text-[#4B5563]">
+          <p className="mt-2 text-xs text-[#777777]">
             Verified by Microsoft Azure Trusted Signing — no SmartScreen warnings
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <AiBadge name="Claude" color="#3B82F6" />
+            <AiBadge name="Claude" color="#0061aa" />
             <AiBadge name="Antigravity" color="#8B5CF6" />
             <AiBadge name="Cursor" color="#F59E0B" />
             <AiBadge name="Windsurf" color="#10B981" />

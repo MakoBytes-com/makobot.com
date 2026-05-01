@@ -15,7 +15,7 @@ export default function ComparePage() {
 
       {/* ─── HERO ─── */}
       <section className="relative flex flex-col items-center justify-center px-6 pt-32 pb-16 overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#3B82F6] opacity-[0.07] blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0061aa] opacity-[0.07] blur-[120px] pointer-events-none" />
 
         <div className="mb-8">
           <Logo size={80} />
@@ -26,12 +26,12 @@ export default function ComparePage() {
           <span className="gradient-text">where MakoBot fits</span>
         </h1>
 
-        <p className="text-lg sm:text-xl text-[#C0C8D8] text-center max-w-3xl mb-4 leading-relaxed">
+        <p className="text-lg sm:text-xl text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
           MakoBot makes your existing AI tools smarter — it&apos;s not a
           replacement for them.
         </p>
 
-        <p className="text-base text-[#8B95A8] text-center max-w-2xl">
+        <p className="text-base text-[#777777] text-center max-w-2xl">
           We checked the landscape. Here&apos;s the honest read: what other
           tools do well, where MakoBot overlaps, and where the bundle is
           genuinely different.
@@ -45,43 +45,43 @@ export default function ComparePage() {
           subtitle="Not beside the agent loop — above it."
         />
 
-        <div className="bg-[#252B3B] rounded-xl border border-[#374151] p-6 sm:p-10 mb-8">
-          <p className="text-[#C0C8D8] text-base leading-relaxed mb-6">
+        <div className="bg-[#f8f9fb] rounded-xl border border-[#dbdbdb] p-6 sm:p-10 mb-8">
+          <p className="text-[#555555] text-base leading-relaxed mb-6">
             Modern AI coding tools — Claude Code, Cursor, Windsurf, Aider —
             already run their own multi-step agent loops. They read files,
             grep for patterns, follow references, and build a plan, all
             autonomously. That&apos;s their whole product.
           </p>
-          <p className="text-[#C0C8D8] text-base leading-relaxed mb-6">
+          <p className="text-[#555555] text-base leading-relaxed mb-6">
             MakoBot doesn&apos;t try to replace that loop. It sits one layer
-            above as a <span className="text-[#3B82F6] font-semibold">multi-model
+            above as a <span className="text-[#0061aa] font-semibold">multi-model
             second-opinion service</span> and a{" "}
-            <span className="text-[#3B82F6] font-semibold">cross-project memory
+            <span className="text-[#0061aa] font-semibold">cross-project memory
             backbone</span>. When your agent reads a file and wants a sanity
             check, it calls{" "}
-            <code className="bg-[#1E2330] px-2 py-0.5 rounded text-[#3B82F6]">
+            <code className="bg-[#ffffff] px-2 py-0.5 rounded text-[#0061aa]">
               @verify
             </code>{" "}
             or{" "}
-            <code className="bg-[#1E2330] px-2 py-0.5 rounded text-[#3B82F6]">
+            <code className="bg-[#ffffff] px-2 py-0.5 rounded text-[#0061aa]">
               @audit
             </code>{" "}
             on MakoBot — Claude, GPT, and Gemini all weigh in. Your agent
             keeps driving; MakoBot just makes the answers better.
           </p>
-          <p className="text-[#C0C8D8] text-base leading-relaxed">
+          <p className="text-[#555555] text-base leading-relaxed">
             That&apos;s why MakoBot plays nicely with Claude Code, Cursor,
             Windsurf, and Aider all at once — instead of competing with any
             of them. The injected{" "}
-            <code className="bg-[#1E2330] px-2 py-0.5 rounded text-[#8B95A8]">
+            <code className="bg-[#ffffff] px-2 py-0.5 rounded text-[#777777]">
               CLAUDE.md
             </code>
             ,{" "}
-            <code className="bg-[#1E2330] px-2 py-0.5 rounded text-[#8B95A8]">
+            <code className="bg-[#ffffff] px-2 py-0.5 rounded text-[#777777]">
               AGENTS.md
             </code>
             , and{" "}
-            <code className="bg-[#1E2330] px-2 py-0.5 rounded text-[#8B95A8]">
+            <code className="bg-[#ffffff] px-2 py-0.5 rounded text-[#777777]">
               .cursorrules
             </code>{" "}
             files mean every tool you use sees the same context.
@@ -97,13 +97,13 @@ export default function ComparePage() {
             subtitle="What overlaps, what doesn't."
           />
 
-          <div className="bg-[#252B3B] rounded-xl border border-[#374151] overflow-hidden">
+          <div className="bg-[#f8f9fb] rounded-xl border border-[#dbdbdb] overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-[#1E2330] text-[#E8EDF3]">
+                  <tr className="bg-[#ffffff] text-[#333333]">
                     <th className="text-left py-4 px-4 font-semibold">Capability</th>
-                    <th className="text-center py-4 px-3 font-semibold text-[#3B82F6]">MakoBot</th>
+                    <th className="text-center py-4 px-3 font-semibold text-[#0061aa]">MakoBot</th>
                     <th className="text-center py-4 px-3 font-semibold">Zen MCP</th>
                     <th className="text-center py-4 px-3 font-semibold">Recallium</th>
                     <th className="text-center py-4 px-3 font-semibold">claude-mem</th>
@@ -161,7 +161,7 @@ export default function ComparePage() {
             </div>
           </div>
 
-          <p className="text-xs text-[#6B7280] mt-4 text-center">
+          <p className="text-xs text-[#999999] mt-4 text-center">
             Comparison data based on each project&apos;s public docs and pricing pages, April 2026.
           </p>
         </div>
@@ -217,10 +217,10 @@ export default function ComparePage() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-[#252B3B] rounded-xl border border-[#3B82F6]/40 p-6">
+            <div className="bg-[#f8f9fb] rounded-xl border border-[#0061aa]/40 p-6">
               <div className="text-2xl mb-3">✓</div>
-              <h3 className="text-lg font-semibold text-[#E8EDF3] mb-3">Pick MakoBot if…</h3>
-              <ul className="space-y-3 text-sm text-[#C0C8D8] leading-relaxed">
+              <h3 className="text-lg font-semibold text-[#333333] mb-3">Pick MakoBot if…</h3>
+              <ul className="space-y-3 text-sm text-[#555555] leading-relaxed">
                 <li>You use multiple AI coding tools and want them to share context.</li>
                 <li>You want second opinions from GPT and Gemini on Claude&apos;s answers (or vice versa).</li>
                 <li>You&apos;re not a CLI person and want a real Windows app with an installer.</li>
@@ -230,14 +230,14 @@ export default function ComparePage() {
               </ul>
             </div>
 
-            <div className="bg-[#252B3B] rounded-xl border border-[#374151] p-6">
+            <div className="bg-[#f8f9fb] rounded-xl border border-[#dbdbdb] p-6">
               <div className="text-2xl mb-3">→</div>
-              <h3 className="text-lg font-semibold text-[#E8EDF3] mb-3">Pick something else if…</h3>
-              <ul className="space-y-3 text-sm text-[#C0C8D8] leading-relaxed">
-                <li>You only need memory and nothing else — <span className="text-[#3B82F6]">Recallium</span> is leaner.</li>
-                <li>You want a fully autonomous agent that drives its own multi-step analysis — <span className="text-[#3B82F6]">Zen MCP</span> is heavier.</li>
-                <li>You need local model support (Ollama / LM Studio) today — <span className="text-[#3B82F6]">Zen MCP</span> has it; MakoBot doesn&apos;t yet.</li>
-                <li>You&apos;re building a SaaS that needs memory infrastructure as a feature — <span className="text-[#3B82F6]">Mem0</span> or <span className="text-[#3B82F6]">Letta</span>.</li>
+              <h3 className="text-lg font-semibold text-[#333333] mb-3">Pick something else if…</h3>
+              <ul className="space-y-3 text-sm text-[#555555] leading-relaxed">
+                <li>You only need memory and nothing else — <span className="text-[#0061aa]">Recallium</span> is leaner.</li>
+                <li>You want a fully autonomous agent that drives its own multi-step analysis — <span className="text-[#0061aa]">Zen MCP</span> is heavier.</li>
+                <li>You need local model support (Ollama / LM Studio) today — <span className="text-[#0061aa]">Zen MCP</span> has it; MakoBot doesn&apos;t yet.</li>
+                <li>You&apos;re building a SaaS that needs memory infrastructure as a feature — <span className="text-[#0061aa]">Mem0</span> or <span className="text-[#0061aa]">Letta</span>.</li>
                 <li>You only want side-by-side chat compare — a browser extension is enough.</li>
                 <li>You&apos;re on Mac or Linux only — MakoBot is Windows for now.</li>
               </ul>
@@ -253,22 +253,22 @@ export default function ComparePage() {
           subtitle="None of the parts are revolutionary. The combination is."
         />
 
-        <div className="bg-gradient-to-br from-[#252B3B] to-[#1E2330] rounded-xl border border-[#3B82F6]/30 p-6 sm:p-10">
-          <p className="text-[#C0C8D8] text-base leading-relaxed mb-4">
+        <div className="bg-gradient-to-br from-[#f8f9fb] to-[#ffffff] rounded-xl border border-[#0061aa]/30 p-6 sm:p-10">
+          <p className="text-[#555555] text-base leading-relaxed mb-4">
             Cross-IDE memory exists. Multi-LLM verification exists. MCP plug-in
             architectures exist. Skills exist. The honest read: each piece is
             available somewhere.
           </p>
-          <p className="text-[#C0C8D8] text-base leading-relaxed mb-4">
+          <p className="text-[#555555] text-base leading-relaxed mb-4">
             MakoBot is the first to combine all of them in a{" "}
-            <span className="text-[#3B82F6] font-semibold">single Windows-native
+            <span className="text-[#0061aa] font-semibold">single Windows-native
             desktop app, with a real UI, a signed installer, an in-app updater,
             and a license key</span> — designed for people who don&apos;t want to
             stitch four CLI tools together.
           </p>
-          <p className="text-[#C0C8D8] text-base leading-relaxed">
+          <p className="text-[#555555] text-base leading-relaxed">
             That&apos;s the bet:{" "}
-            <span className="text-[#E8EDF3] font-semibold">most people who would
+            <span className="text-[#333333] font-semibold">most people who would
             benefit from these tools never will, because the existing ones
             assume you live in a terminal.</span>{" "}
             MakoBot is for everyone else.
@@ -282,13 +282,13 @@ export default function ComparePage() {
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
             Try it on your own setup
           </h2>
-          <p className="text-[#C0C8D8] text-base mb-8">
+          <p className="text-[#555555] text-base mb-8">
             Free key, free download. Runs entirely on your machine. Your keys,
             your data, your bills.
           </p>
           <a
             href="/get-key"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-lg transition-colors"
+            className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-lg transition-colors"
           >
             Get Free Key + Download
           </a>
@@ -310,16 +310,16 @@ function Row({
   cells: (boolean | string)[];
 }) {
   return (
-    <tr className="border-b border-[#374151]/50 hover:bg-[#1E2330]/40">
-      <td className="py-3 px-4 text-sm text-[#C0C8D8]">{feature}</td>
+    <tr className="border-b border-[#dbdbdb]/50 hover:bg-[#ffffff]/40">
+      <td className="py-3 px-4 text-sm text-[#555555]">{feature}</td>
       {cells.map((v, i) => (
         <td key={i} className="py-3 px-3 text-center">
           {v === true ? (
             <span className="text-[#10B981] font-bold text-lg">✓</span>
           ) : v === false ? (
-            <span className="text-[#6B7280] font-bold text-lg">✗</span>
+            <span className="text-[#999999] font-bold text-lg">✗</span>
           ) : (
-            <span className="text-xs text-[#8B95A8] italic">{v}</span>
+            <span className="text-xs text-[#777777] italic">{v}</span>
           )}
         </td>
       ))}

@@ -65,23 +65,23 @@ export default function GetKeyPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-20">
       {/* Background glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-[#3B82F6] opacity-[0.05] blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-[#0061aa] opacity-[0.05] blur-[120px] pointer-events-none" />
 
       <Logo size={80} />
       <h1 className="text-3xl sm:text-4xl font-bold mt-8 mb-3 text-center">
         Get Your Free License Key
       </h1>
-      <p className="text-[#8B95A8] text-center max-w-md mb-10">
+      <p className="text-[#777777] text-center max-w-md mb-10">
         Sign in with Google to generate your personal MakoBot license key and download the app.
       </p>
 
       {status === "loading" ? (
-        <div className="bg-[#252B3B] rounded-xl p-8 border border-[#374151] w-full max-w-md text-center">
-          <p className="text-[#8B95A8]">Loading...</p>
+        <div className="bg-[#f8f9fb] rounded-xl p-8 border border-[#dbdbdb] w-full max-w-md text-center">
+          <p className="text-[#777777]">Loading...</p>
         </div>
       ) : !session ? (
         /* ─── SIGN IN ─── */
-        <div className="bg-[#252B3B] rounded-xl p-8 border border-[#374151] w-full max-w-md space-y-3">
+        <div className="bg-[#f8f9fb] rounded-xl p-8 border border-[#dbdbdb] w-full max-w-md space-y-3">
           <button
             onClick={() => signIn("google")}
             className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-lg bg-white hover:bg-gray-100 text-gray-800 font-semibold text-base transition-colors"
@@ -103,45 +103,45 @@ export default function GetKeyPage() {
             </svg>
             Sign in with GitHub
           </button>
-          <p className="text-xs text-[#6B7280] text-center mt-4">
+          <p className="text-xs text-[#999999] text-center mt-4">
             We only use your email to generate your key. No spam, ever.
           </p>
         </div>
       ) : (
         /* ─── KEY + DOWNLOAD ─── */
-        <div className="bg-[#252B3B] rounded-xl p-8 border border-[#374151] w-full max-w-lg">
+        <div className="bg-[#f8f9fb] rounded-xl p-8 border border-[#dbdbdb] w-full max-w-lg">
           {/* User info */}
           <div className="flex items-center gap-3 mb-6">
             {session.user.image && (
               <img src={session.user.image} alt="" className="w-10 h-10 rounded-full" />
             )}
             <div>
-              <p className="text-sm font-medium text-[#E8EDF3]">{session.user.name}</p>
-              <p className="text-xs text-[#6B7280]">{session.user.email}</p>
+              <p className="text-sm font-medium text-[#333333]">{session.user.name}</p>
+              <p className="text-xs text-[#999999]">{session.user.email}</p>
             </div>
           </div>
 
           {loading ? (
-            <p className="text-[#8B95A8] text-center py-4">Generating your key...</p>
+            <p className="text-[#777777] text-center py-4">Generating your key...</p>
           ) : licenseKey ? (
             <>
               {/* License key display */}
               <div className="mb-6">
-                <label className="text-xs text-[#8B95A8] uppercase tracking-wider mb-2 block">
+                <label className="text-xs text-[#777777] uppercase tracking-wider mb-2 block">
                   Your License Key
                 </label>
                 <div className="flex items-center gap-2">
-                  <code className="flex-1 bg-[#1E2330] border border-[#374151] rounded-lg px-4 py-3 text-[#3B82F6] font-mono text-lg tracking-wider select-all">
+                  <code className="flex-1 bg-[#ffffff] border border-[#dbdbdb] rounded-lg px-4 py-3 text-[#0061aa] font-mono text-lg tracking-wider select-all">
                     {licenseKey}
                   </code>
                   <button
                     onClick={copyKey}
-                    className="px-4 py-3 rounded-lg bg-[#374151] hover:bg-[#4B5563] text-sm text-[#E8EDF3] transition-colors whitespace-nowrap"
+                    className="px-4 py-3 rounded-lg bg-[#dbdbdb] hover:bg-[#777777] text-sm text-[#333333] transition-colors whitespace-nowrap"
                   >
                     {copied ? "Copied!" : "Copy"}
                   </button>
                 </div>
-                <p className="text-xs text-[#6B7280] mt-2">
+                <p className="text-xs text-[#999999] mt-2">
                   Tier: <span className="text-[#10B981] font-medium capitalize">{tier}</span> — Paste this key into MakoBot on first launch.
                 </p>
               </div>
@@ -150,22 +150,22 @@ export default function GetKeyPage() {
               <button
                 onClick={handleDownload}
                 disabled={downloading}
-                className="w-full px-6 py-4 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] disabled:opacity-50 text-white font-semibold text-lg transition-colors blue-glow"
+                className="w-full px-6 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] disabled:opacity-50 text-white font-semibold text-lg transition-colors blue-glow"
               >
                 {downloading ? "Starting download..." : "Download MakoBot Installer"}
               </button>
-              <p className="text-xs text-[#6B7280] text-center mt-3">
+              <p className="text-xs text-[#999999] text-center mt-3">
                 Windows 10/11 · Signed by Mako Logics LLC · ~53 MB · Includes installer
               </p>
-              <div className="flex items-center justify-center gap-2 mt-3 px-4 py-2 rounded-lg bg-[#1E2330] border border-[#374151]/50">
+              <div className="flex items-center justify-center gap-2 mt-3 px-4 py-2 rounded-lg bg-[#ffffff] border border-[#dbdbdb]/50">
                 <svg className="w-4 h-4 text-[#10B981] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
-                <span className="text-xs text-[#8B95A8]">Verified by <span className="text-[#E8EDF3] font-medium">Microsoft Azure Trusted Signing</span> — no SmartScreen warnings</span>
+                <span className="text-xs text-[#777777]">Verified by <span className="text-[#333333] font-medium">Microsoft Azure Trusted Signing</span> — no SmartScreen warnings</span>
               </div>
 
               {/* Instructions */}
-              <div className="mt-6 p-4 rounded-lg bg-[#1E2330] border border-[#374151]">
-                <p className="text-sm font-medium text-[#E8EDF3] mb-2">Quick Start:</p>
-                <ol className="text-sm text-[#8B95A8] space-y-1 list-decimal list-inside">
+              <div className="mt-6 p-4 rounded-lg bg-[#ffffff] border border-[#dbdbdb]">
+                <p className="text-sm font-medium text-[#333333] mb-2">Quick Start:</p>
+                <ol className="text-sm text-[#777777] space-y-1 list-decimal list-inside">
                   <li>Extract the zip and run MakoBot-Setup.exe</li>
                   <li>Follow the installer (choose desktop shortcut, start with Windows)</li>
                   <li>Paste your license key when prompted</li>
@@ -182,7 +182,7 @@ export default function GetKeyPage() {
       )}
 
       {/* Back to home */}
-      <a href="/" className="mt-8 text-sm text-[#6B7280] hover:text-[#8B95A8] transition-colors">
+      <a href="/" className="mt-8 text-sm text-[#999999] hover:text-[#777777] transition-colors">
         &larr; Back to makobot.com
       </a>
     </div>
