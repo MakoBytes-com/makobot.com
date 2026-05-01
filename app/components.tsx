@@ -17,8 +17,8 @@ export function Logo({ size = 64 }: { size?: number }) {
       }}
     >
       <span
-        className="font-bold text-white select-none"
-        style={{ fontSize, lineHeight: 1 }}
+        className="font-bold select-none"
+        style={{ fontSize, lineHeight: 1, color: "#0061aa" }}
       >
         M
       </span>
