@@ -78,38 +78,6 @@ export function StepCard({
   );
 }
 
-/* ─── COMPETITOR ROW ─── */
-export function CompetitorRow({
-  feature,
-  mako,
-  others,
-}: {
-  feature: string;
-  mako: boolean;
-  others: boolean[];
-}) {
-  const Check = () => (
-    <span className="text-[#10B981] font-bold text-lg">✓</span>
-  );
-  const Cross = () => (
-    <span className="text-[#DC2626] font-bold text-lg">✗</span>
-  );
-
-  return (
-    <tr className="border-b border-[#374151]/50">
-      <td className="py-3 px-4 text-sm text-[#C0C8D8]">{feature}</td>
-      <td className="py-3 px-4 text-center">
-        {mako ? <Check /> : <Cross />}
-      </td>
-      {others.map((v, i) => (
-        <td key={i} className="py-3 px-4 text-center">
-          {v ? <Check /> : <Cross />}
-        </td>
-      ))}
-    </tr>
-  );
-}
-
 /* ─── STAT CARD ─── */
 export function StatCard({ value, label }: { value: string; label: string }) {
   return (
@@ -158,12 +126,6 @@ export function Nav() {
             className="text-sm text-[#8B95A8] hover:text-[#E8EDF3] transition-colors"
           >
             How It Works
-          </a>
-          <a
-            href="/why"
-            className="text-sm text-[#8B95A8] hover:text-[#E8EDF3] transition-colors"
-          >
-            Why MakoBot
           </a>
           <a
             href="/#features"
@@ -237,13 +199,6 @@ export function Nav() {
       {/* Mobile dropdown */}
       {open && (
         <div className="md:hidden bg-[#252B3B] border-t border-[#374151] px-6 py-4 flex flex-col gap-4">
-          <a
-            href="/why"
-            onClick={() => setOpen(false)}
-            className="text-sm text-[#C0C8D8]"
-          >
-            Why MakoBot
-          </a>
           <a
             href="/#how-it-works"
             onClick={() => setOpen(false)}

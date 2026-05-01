@@ -9,7 +9,6 @@ import {
   AiBadge,
   FeatureCard,
   StepCard,
-  CompetitorRow,
   StatCard,
   SectionHeading,
   Nav,
@@ -172,10 +171,10 @@ export default function Home() {
                 every AI tool you use.
               </p>
               <a
-                href="/why"
+                href="#time-saved"
                 className="inline-flex items-center text-sm text-[#3B82F6] hover:text-[#2563EB] font-semibold"
               >
-                See more about how MakoBot saves time →
+                See the time-saved math →
               </a>
             </div>
             <div className="md:col-span-2 bg-[#1E2330] rounded-xl border border-[#374151] p-5">
@@ -381,78 +380,185 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── COMPETITOR COMPARISON ─── */}
-      <section id="compare" className="px-6 py-20">
-        <div className="max-w-4xl mx-auto">
+      {/* ─── BEFORE / AFTER (folded in from /why) ─── */}
+      <section id="before-after" className="px-6 py-20">
+        <div className="max-w-6xl mx-auto">
           <SectionHeading
-            title="MakoBot vs Other AI Memory Tools"
-            subtitle="Other tools exist, but none are a simple desktop app that works passively across multiple AI tools"
+            title="Before vs. after"
+            subtitle="A real fresh-chat workflow, side by side."
           />
 
-          <div className="mt-12 overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-[#374151]">
-                  <th className="py-4 px-4 text-[#8B95A8] font-medium text-sm">
-                    Feature
-                  </th>
-                  <th className="py-4 px-4 text-[#3B82F6] font-semibold text-sm">
-                    MakoBot
-                  </th>
-                  <th className="py-4 px-4 text-[#8B95A8] font-medium text-sm">
-                    Mem0
-                  </th>
-                  <th className="py-4 px-4 text-[#8B95A8] font-medium text-sm">
-                    Letta
-                  </th>
-                  <th className="py-4 px-4 text-[#8B95A8] font-medium text-sm">
-                    Others
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <CompetitorRow
-                  feature="Desktop app with GUI"
-                  mako={true}
-                  others={[false, false, false]}
-                />
-                <CompetitorRow
-                  feature="Works across multiple AI tools"
-                  mako={true}
-                  others={[false, false, false]}
-                />
-                <CompetitorRow
-                  feature="Zero configuration"
-                  mako={true}
-                  others={[false, false, false]}
-                />
-                <CompetitorRow
-                  feature="100% local / private"
-                  mako={true}
-                  others={[false, false, false]}
-                />
-                <CompetitorRow
-                  feature="Auto-captures git commits"
-                  mako={true}
-                  others={[false, false, false]}
-                />
-                <CompetitorRow
-                  feature="Floating widget"
-                  mako={true}
-                  others={[false, false, false]}
-                />
-                <CompetitorRow
-                  feature="Built-in MCP server"
-                  mako={true}
-                  others={[true, true, false]}
-                />
-                <CompetitorRow
-                  feature="No API key or cloud account needed"
-                  mako={true}
-                  others={[false, false, false]}
-                />
-              </tbody>
-            </table>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+            {/* BEFORE */}
+            <div className="bg-[#1E2330] rounded-xl border border-[#374151] p-6">
+              <div className="text-xs font-bold text-[#DC2626] mb-3 tracking-wide">BEFORE MAKOBOT</div>
+              <h3 className="text-lg font-semibold text-[#E8EDF3] mb-4">
+                Starting a fresh Claude Code chat
+              </h3>
+              <ol className="space-y-3 text-sm text-[#C0C8D8] leading-relaxed">
+                <li><span className="text-[#DC2626] font-mono mr-2">10:00</span> Open Claude Code in VS Code</li>
+                <li><span className="text-[#DC2626] font-mono mr-2">10:01</span> Start a new chat — Claude has no memory of yesterday</li>
+                <li><span className="text-[#DC2626] font-mono mr-2">10:02</span> Type 6 paragraphs explaining the project, what you&apos;re working on, what was decided last week, what tools you use</li>
+                <li><span className="text-[#DC2626] font-mono mr-2">10:08</span> Realize you forgot to mention the database schema. Paste it in.</li>
+                <li><span className="text-[#DC2626] font-mono mr-2">10:10</span> Realize Claude needs to know about the deploy issue from Tuesday. Search your old chats. Copy-paste.</li>
+                <li><span className="text-[#DC2626] font-mono mr-2">10:14</span> Finally start working</li>
+              </ol>
+              <p className="mt-5 text-sm text-[#8B95A8] italic">14 minutes burned before any actual work happens. Five times a day = ~1 hour gone.</p>
+            </div>
+
+            {/* AFTER */}
+            <div className="bg-gradient-to-br from-[#1E2330] to-[#252B3B] rounded-xl border border-[#3B82F6]/40 p-6">
+              <div className="text-xs font-bold text-[#10B981] mb-3 tracking-wide">WITH MAKOBOT</div>
+              <h3 className="text-lg font-semibold text-[#E8EDF3] mb-4">
+                Starting a fresh Claude Code chat
+              </h3>
+              <ol className="space-y-3 text-sm text-[#C0C8D8] leading-relaxed">
+                <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Open Claude Code in VS Code</li>
+                <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Type <code className="bg-[#0F1419] px-2 py-0.5 rounded text-[#3B82F6]">Recover</code></li>
+                <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Claude reads MakoBot&apos;s injected context — already knows your projects, recent commits, last session, current build, open decisions</li>
+                <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Start working</li>
+              </ol>
+              <p className="mt-5 text-sm text-[#3B82F6] italic">Under 30 seconds. ~1 hour back per day.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── TIME-SAVED MATH (folded in from /why) ─── */}
+      <section id="time-saved" className="px-6 py-20 bg-[#1A1F2E]">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading
+            title="The actual math on time saved"
+            subtitle="Conservative numbers from active users."
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151] text-center">
+              <p className="text-4xl font-bold text-[#3B82F6] mb-2">~10 min</p>
+              <p className="text-sm text-[#C0C8D8] leading-relaxed">
+                saved per fresh AI chat by skipping the &quot;re-explain the
+                project&quot; ritual
+              </p>
+            </div>
+            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151] text-center">
+              <p className="text-4xl font-bold text-[#3B82F6] mb-2">~15 min</p>
+              <p className="text-sm text-[#C0C8D8] leading-relaxed">
+                saved per &quot;I know I solved this before&quot; moment via search
+              </p>
+            </div>
+            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151] text-center">
+              <p className="text-4xl font-bold text-[#3B82F6] mb-2">~5 hrs</p>
+              <p className="text-sm text-[#C0C8D8] leading-relaxed">
+                saved per week for an active builder using AI 4–8 hours/day
+              </p>
+            </div>
+          </div>
+
+          <p className="text-center mt-8 text-sm text-[#8B95A8] max-w-2xl mx-auto leading-relaxed">
+            Your mileage depends on how often you start fresh AI chats and how
+            much you context-switch between projects.
+          </p>
+        </div>
+      </section>
+
+      {/* ─── THREE PILLARS (folded in from /why) ─── */}
+      <section id="pillars" className="px-6 py-20">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading
+            title="The big picture"
+            subtitle="MakoBot isn't a model. It's the layer that makes every model you use better."
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+              <div className="text-3xl mb-3">🧠</div>
+              <h3 className="text-base font-semibold text-[#E8EDF3] mb-2">Memory</h3>
+              <p className="text-sm text-[#C0C8D8] leading-relaxed">
+                Cross-project timeline auto-injected into CLAUDE.md, AGENTS.md,
+                .cursorrules. Every AI tool you use sees the same context.
+              </p>
+            </div>
+            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+              <div className="text-3xl mb-3">🔍</div>
+              <h3 className="text-base font-semibold text-[#E8EDF3] mb-2">Search</h3>
+              <p className="text-sm text-[#C0C8D8] leading-relaxed">
+                One bar that reaches every conversation, every commit, every
+                note, every transcript — across every project, every AI tool.
+              </p>
+            </div>
+            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+              <div className="text-3xl mb-3">🤖</div>
+              <h3 className="text-base font-semibold text-[#E8EDF3] mb-2">AI Tools</h3>
+              <p className="text-sm text-[#C0C8D8] leading-relaxed">
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@verify</code>{" "}
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@audit</code>{" "}
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@codereview</code>{" "}
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@designreview</code>{" "}
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@contractreview</code>{" "}
+                — fan out to GPT, Claude, and Gemini for second opinions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── WHO IT'S FOR (folded in from /why) ─── */}
+      <section id="who-its-for" className="px-6 py-20 bg-[#1A1F2E]">
+        <div className="max-w-6xl mx-auto">
+          <SectionHeading
+            title="Who actually needs this"
+            subtitle="Most AI productivity tools are made by engineers, for engineers. MakoBot isn't."
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+            <FeatureCard
+              icon="🚀"
+              title="Solo founders + non-developer builders"
+              description="You're running a real business on top of AI tools. You can't hire engineers, but you CAN direct AI. Your bottleneck isn't the AI — it's losing context every time you open a fresh chat."
+            />
+            <FeatureCard
+              icon="🧑‍💼"
+              title="Freelancers + small agencies"
+              description="Five to ten client projects. You context-switch every day. Without cross-project memory you re-onboard yourself into every chat. Search across every client's history is the killer feature for you."
+            />
+            <FeatureCard
+              icon="🏢"
+              title="MSPs + IT consultants"
+              description="Every job is different. Memory + Skills + Commands turn AI into an actual member of your team that remembers every client's stack, every quirk, every decision."
+            />
+            <FeatureCard
+              icon="⚖️"
+              title="Compliance-conscious builders"
+              description="Lawyers, healthcare, finance — you want AI productivity but can't paste sensitive data into ChatGPT. BYOK + 100% local + DPAPI-encrypted keys + Verify Mode for second opinions on AI output."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ─── STORY (folded in from /why) ─── */}
+      <section className="px-6 py-20">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-br from-[#252B3B] to-[#1E2330] rounded-xl border border-[#3B82F6]/30 p-6 sm:p-10">
+            <div className="text-xs font-bold text-[#3B82F6] mb-3 tracking-wide">THE STORY</div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#E8EDF3] mb-5 leading-tight">
+              Built by a non-developer, for non-developers
+            </h2>
+            <p className="text-[#C0C8D8] text-base leading-relaxed mb-4">
+              Most AI tools are made by engineers who already live in a terminal.
+              They assume you know how to install an MCP server, configure
+              CLAUDE.md by hand, manage API keys, set up a JSON-RPC bearer
+              token, and write your own memory adapters.
+            </p>
+            <p className="text-[#C0C8D8] text-base leading-relaxed mb-4">
+              MakoBot is built by someone who isn&apos;t an engineer — who runs
+              a real business that ships real client work using AI tools — and
+              who wanted a workbench that just works for someone like that.
+            </p>
+            <p className="text-[#E8EDF3] text-base leading-relaxed font-medium">
+              That&apos;s why MakoBot is a real Windows app with an installer,
+              a license key, an in-app updater, big readable UI, and a search
+              bar — instead of a CLI that assumes you can compile Rust.
+            </p>
           </div>
         </div>
       </section>
