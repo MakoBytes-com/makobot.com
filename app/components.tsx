@@ -172,7 +172,7 @@ export function Nav() {
             Compatibility
           </a>
           <a
-            href="/#compare"
+            href="/compare"
             className="text-sm text-[#8B95A8] hover:text-[#E8EDF3] transition-colors"
           >
             Compare
