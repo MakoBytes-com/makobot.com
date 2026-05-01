@@ -543,23 +543,26 @@ export default function Home() {
           <div className="bg-gradient-to-br from-[#252B3B] to-[#1E2330] rounded-xl border border-[#3B82F6]/30 p-6 sm:p-10">
             <div className="text-xs font-bold text-[#3B82F6] mb-3 tracking-wide">THE STORY</div>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#E8EDF3] mb-5 leading-tight">
-              Built by a non-developer, for non-developers
+              Built by a developer who embraced AI
             </h2>
             <p className="text-[#C0C8D8] text-base leading-relaxed mb-4">
-              Most AI tools are made by engineers who already live in a terminal.
+              Most AI tools are made by engineers who never left the terminal.
               They assume you know how to install an MCP server, configure
               CLAUDE.md by hand, manage API keys, set up a JSON-RPC bearer
               token, and write your own memory adapters.
             </p>
             <p className="text-[#C0C8D8] text-base leading-relaxed mb-4">
-              MakoBot is built by someone who isn&apos;t an engineer — who runs
-              a real business that ships real client work using AI tools — and
-              who wanted a workbench that just works for someone like that.
+              MakoBot is built by a developer who changed career paths,
+              embraced AI as a force multiplier, and watched it open doors
+              he never expected. He runs a real business that ships real
+              client work on top of AI tools — and wanted a workbench built
+              for builders like him.
             </p>
             <p className="text-[#E8EDF3] text-base leading-relaxed font-medium">
               That&apos;s why MakoBot is a real Windows app with an installer,
               a license key, an in-app updater, big readable UI, and a search
-              bar — instead of a CLI that assumes you can compile Rust.
+              bar — not a CLI you have to spend a weekend wiring up before
+              you can use it.
             </p>
           </div>
         </div>
