@@ -66,8 +66,8 @@ export default function StackDetailPage() {
     return (
       <div className="min-h-screen">
         <div className="pt-8 px-6 max-w-4xl mx-auto animate-pulse">
-          <div className="h-8 bg-[#374151] rounded w-1/3 mb-4" />
-          <div className="h-4 bg-[#374151] rounded w-2/3 mb-8" />
+          <div className="h-8 bg-[#dbdbdb] rounded w-1/3 mb-4" />
+          <div className="h-4 bg-[#dbdbdb] rounded w-2/3 mb-8" />
         </div>
       </div>
     );
@@ -77,8 +77,8 @@ export default function StackDetailPage() {
     return (
       <div className="min-h-screen">
         <div className="pt-8 px-6 max-w-4xl mx-auto text-center">
-          <h1 className="text-2xl font-bold text-[#E8EDF3] mb-4">Stack not found</h1>
-          <Link href="/exchange/stacks" className="text-[#3B82F6]">Back to Stacks</Link>
+          <h1 className="text-2xl font-bold text-[#333333] mb-4">Stack not found</h1>
+          <Link href="/exchange/stacks" className="text-[#0061aa]">Back to Stacks</Link>
         </div>
         <Footer />
       </div>
@@ -90,29 +90,29 @@ export default function StackDetailPage() {
       <div className="pt-8 pb-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-2 text-sm mb-6">
-            <Link href="/exchange" className="text-[#3B82F6] hover:text-[#60A5FA]">Exchange</Link>
-            <span className="text-[#4B5563]">/</span>
-            <Link href="/exchange/stacks" className="text-[#3B82F6] hover:text-[#60A5FA]">Stacks</Link>
-            <span className="text-[#4B5563]">/</span>
-            <span className="text-[#E8EDF3]">{stack.title}</span>
+            <Link href="/exchange" className="text-[#0061aa] hover:text-[#60A5FA]">Exchange</Link>
+            <span className="text-[#777777]">/</span>
+            <Link href="/exchange/stacks" className="text-[#0061aa] hover:text-[#60A5FA]">Stacks</Link>
+            <span className="text-[#777777]">/</span>
+            <span className="text-[#333333]">{stack.title}</span>
           </div>
 
           {/* Header */}
-          <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151] mb-6">
+          <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] mb-6">
             <div className="flex items-center gap-2 mb-3">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth={2}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0061aa" strokeWidth={2}>
                 <polygon points="12 2 2 7 12 12 22 7 12 2" />
                 <polyline points="2 17 12 22 22 17" />
                 <polyline points="2 12 12 17 22 12" />
               </svg>
-              <span className="text-sm font-semibold text-[#3B82F6] uppercase tracking-wide">Skill Stack</span>
+              <span className="text-sm font-semibold text-[#0061aa] uppercase tracking-wide">Skill Stack</span>
             </div>
-            <h1 className="text-3xl font-bold text-[#E8EDF3] mb-3">{stack.title}</h1>
-            <p className="text-sm text-[#C0C8D8] leading-relaxed mb-4">{stack.description}</p>
-            <div className="flex flex-wrap items-center gap-4 text-sm text-[#8B95A8] mb-4">
+            <h1 className="text-3xl font-bold text-[#333333] mb-3">{stack.title}</h1>
+            <p className="text-sm text-[#555555] leading-relaxed mb-4">{stack.description}</p>
+            <div className="flex flex-wrap items-center gap-4 text-sm text-[#777777] mb-4">
               <Link href={`/exchange/user/${stack.user_id}`} className="flex items-center gap-2 hover:opacity-80">
                 {stack.author_avatar && <img src={stack.author_avatar} alt="" className="w-6 h-6 rounded-full" />}
-                <span className="text-[#3B82F6] font-medium">@{stack.author_username}</span>
+                <span className="text-[#0061aa] font-medium">@{stack.author_username}</span>
               </Link>
               <span>{stack.items.length} items</span>
               <span>{stack.download_count} downloads</span>
@@ -122,7 +122,7 @@ export default function StackDetailPage() {
             {stack.items.length > 0 && (
               <button
                 onClick={handleDownloadAll}
-                className="inline-flex items-center px-6 py-2.5 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-sm transition-colors"
+                className="inline-flex items-center px-6 py-2.5 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-sm transition-colors"
               >
                 <svg className="mr-2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -135,7 +135,7 @@ export default function StackDetailPage() {
           </div>
 
           {/* Items */}
-          <h2 className="text-lg font-bold text-[#E8EDF3] mb-4">What's Inside ({stack.items.length})</h2>
+          <h2 className="text-lg font-bold text-[#333333] mb-4">What's Inside ({stack.items.length})</h2>
           {stack.items.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {stack.items.map((item) => (
@@ -143,10 +143,10 @@ export default function StackDetailPage() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12 bg-[#252B3B] rounded-xl border border-[#374151]">
-              <p className="text-[#8B95A8]">This stack is empty.</p>
+            <div className="text-center py-12 bg-[#f8f9fb] rounded-xl border border-[#dbdbdb]">
+              <p className="text-[#777777]">This stack is empty.</p>
               {session?.user?.id === String(stack.user_id) && (
-                <p className="text-sm text-[#6B7280] mt-2">Browse the exchange and add listings to your stack.</p>
+                <p className="text-sm text-[#999999] mt-2">Browse the exchange and add listings to your stack.</p>
               )}
             </div>
           )}

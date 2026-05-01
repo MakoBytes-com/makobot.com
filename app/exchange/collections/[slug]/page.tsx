@@ -38,10 +38,10 @@ export default function CollectionDetailPage() {
     return (
       <div className="min-h-screen">
         <div className="pt-8 px-6 max-w-6xl mx-auto animate-pulse">
-          <div className="h-8 bg-[#374151] rounded w-1/3 mb-4" />
-          <div className="h-4 bg-[#374151] rounded w-2/3 mb-8" />
+          <div className="h-8 bg-[#dbdbdb] rounded w-1/3 mb-4" />
+          <div className="h-4 bg-[#dbdbdb] rounded w-2/3 mb-8" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {[...Array(3)].map((_, i) => <div key={i} className="h-48 bg-[#374151] rounded-xl" />)}
+            {[...Array(3)].map((_, i) => <div key={i} className="h-48 bg-[#dbdbdb] rounded-xl" />)}
           </div>
         </div>
       </div>
@@ -52,8 +52,8 @@ export default function CollectionDetailPage() {
     return (
       <div className="min-h-screen">
         <div className="pt-8 px-6 max-w-4xl mx-auto text-center">
-          <h1 className="text-2xl font-bold text-[#E8EDF3] mb-4">Collection not found</h1>
-          <Link href="/exchange/collections" className="text-[#3B82F6]">Back to Collections</Link>
+          <h1 className="text-2xl font-bold text-[#333333] mb-4">Collection not found</h1>
+          <Link href="/exchange/collections" className="text-[#0061aa]">Back to Collections</Link>
         </div>
         <Footer />
       </div>
@@ -65,20 +65,20 @@ export default function CollectionDetailPage() {
       <div className="pt-8 pb-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-2 text-sm mb-6">
-            <Link href="/exchange" className="text-[#3B82F6] hover:text-[#60A5FA] font-medium transition-colors">Exchange</Link>
-            <span className="text-[#4B5563]">/</span>
-            <Link href="/exchange/collections" className="text-[#3B82F6] hover:text-[#60A5FA] font-medium transition-colors">Collections</Link>
-            <span className="text-[#4B5563]">/</span>
-            <span className="text-[#E8EDF3] font-medium">{collection.title}</span>
+            <Link href="/exchange" className="text-[#0061aa] hover:text-[#60A5FA] font-medium transition-colors">Exchange</Link>
+            <span className="text-[#777777]">/</span>
+            <Link href="/exchange/collections" className="text-[#0061aa] hover:text-[#60A5FA] font-medium transition-colors">Collections</Link>
+            <span className="text-[#777777]">/</span>
+            <span className="text-[#333333] font-medium">{collection.title}</span>
           </div>
 
-          <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151] mb-8">
-            <h1 className="text-2xl font-bold text-[#E8EDF3] mb-2">{collection.title}</h1>
-            <p className="text-sm text-[#8B95A8] mb-4">{collection.description}</p>
-            <div className="flex items-center gap-4 text-xs text-[#6B7280]">
+          <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] mb-8">
+            <h1 className="text-2xl font-bold text-[#333333] mb-2">{collection.title}</h1>
+            <p className="text-sm text-[#777777] mb-4">{collection.description}</p>
+            <div className="flex items-center gap-4 text-xs text-[#999999]">
               <Link href={`/exchange/user/${collection.user_id}`} className="flex items-center gap-2 hover:opacity-80">
                 {collection.author_avatar && <img src={collection.author_avatar} alt="" className="w-5 h-5 rounded-full" />}
-                <span className="text-[#3B82F6] font-medium">@{collection.author_username || "user"}</span>
+                <span className="text-[#0061aa] font-medium">@{collection.author_username || "user"}</span>
               </Link>
               <span>{collection.items.length} items</span>
               <span>{new Date(collection.created_at).toLocaleDateString()}</span>
@@ -92,8 +92,8 @@ export default function CollectionDetailPage() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12 bg-[#252B3B] rounded-xl border border-[#374151]">
-              <p className="text-[#8B95A8]">This collection is empty.</p>
+            <div className="text-center py-12 bg-[#f8f9fb] rounded-xl border border-[#dbdbdb]">
+              <p className="text-[#777777]">This collection is empty.</p>
             </div>
           )}
         </div>

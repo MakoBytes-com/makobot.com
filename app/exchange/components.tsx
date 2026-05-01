@@ -25,7 +25,7 @@ export function ExchangeNav() {
   ];
 
   return (
-    <div className="bg-[#ffffff] border-b border-[#dbdbdb]">
+    <div className="bg-[#eef2f7] border-b border-[#dbdbdb]">
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
         <div className="flex items-center gap-0.5">
           {links.map((link) => {
@@ -37,8 +37,8 @@ export function ExchangeNav() {
                 href={link.href}
                 className={`flex items-center gap-2 px-4 py-3.5 text-sm font-semibold transition-all border-b-[3px] ${
                   active
-                    ? "bg-[#f8f9fb]"
-                    : "border-transparent hover:bg-[#f8f9fb]/50"
+                    ? "bg-[#ffffff]"
+                    : "border-transparent hover:bg-[#ffffff]/60"
                 }`}
                 style={{ color: link.color, borderBottomColor: active ? link.color : "transparent" }}
               >
