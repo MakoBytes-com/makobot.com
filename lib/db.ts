@@ -963,12 +963,13 @@ export async function deleteExchangeReview(reviewId: number) {
 
 export async function getExchangeStats() {
   const sql = getDb();
-  const [total, pending, approved, downloads] = await Promise.all([
-    sql`SELECT COUNT(*) as count FROM exchange_listings`,
-    sql`SELECT COUNT(*) as count FROM exchange_listings WHERE status = 'pending'`,
-    sql`SELECT COUNT(*) as count FROM exchange_listings WHERE status = 'approved'`,
-    sql`SELECT COALESCE(SUM(download_count), 0) as count FROM exchange_listings`,
-  ]);
+  // Serial — Promise.all on this connection layer caused the admin
+  // dashboard / exchange to hang in production. Single query equivalent
+  // would be cleaner; for now serial works and is fast enough.
+  const total = await sql`SELECT COUNT(*) as count FROM exchange_listings`;
+  const pending = await sql`SELECT COUNT(*) as count FROM exchange_listings WHERE status = 'pending'`;
+  const approved = await sql`SELECT COUNT(*) as count FROM exchange_listings WHERE status = 'approved'`;
+  const downloads = await sql`SELECT COALESCE(SUM(download_count), 0) as count FROM exchange_listings`;
   return {
     totalListings: parseInt(total[0].count as string),
     pendingCount: parseInt(pending[0].count as string),
@@ -1359,33 +1360,32 @@ export async function incrementExchangeView(listingId: number) {
 
 export async function getCreatorAnalytics(userId: number) {
   const sql = getDb();
-  const [totals, topListings, monthlyDownloads] = await Promise.all([
-    sql`
-      SELECT
-        COUNT(*) as total_listings,
-        COALESCE(SUM(view_count), 0) as total_views,
-        COALESCE(SUM(download_count), 0) as total_downloads,
-        COALESCE(AVG(CASE WHEN rating_count > 0 THEN rating_avg ELSE NULL END), 0) as avg_rating,
-        COALESCE(SUM(rating_count), 0) as total_reviews
-      FROM exchange_listings
-      WHERE user_id = ${userId} AND status = 'approved'
-    `,
-    sql`
-      SELECT id, title, slug, view_count, download_count, rating_avg, rating_count
-      FROM exchange_listings
-      WHERE user_id = ${userId} AND status = 'approved'
-      ORDER BY download_count DESC
-      LIMIT 10
-    `,
-    sql`
-      SELECT DATE_TRUNC('day', created_at) as date, COUNT(*) as count
-      FROM exchange_downloads
-      WHERE listing_id IN (SELECT id FROM exchange_listings WHERE user_id = ${userId})
-      AND created_at > NOW() - INTERVAL '30 days'
-      GROUP BY DATE_TRUNC('day', created_at)
-      ORDER BY date ASC
-    `,
-  ]);
+  // Serial — Promise.all hangs in prod on this conn pool.
+  const totals = await sql`
+    SELECT
+      COUNT(*) as total_listings,
+      COALESCE(SUM(view_count), 0) as total_views,
+      COALESCE(SUM(download_count), 0) as total_downloads,
+      COALESCE(AVG(CASE WHEN rating_count > 0 THEN rating_avg ELSE NULL END), 0) as avg_rating,
+      COALESCE(SUM(rating_count), 0) as total_reviews
+    FROM exchange_listings
+    WHERE user_id = ${userId} AND status = 'approved'
+  `;
+  const topListings = await sql`
+    SELECT id, title, slug, view_count, download_count, rating_avg, rating_count
+    FROM exchange_listings
+    WHERE user_id = ${userId} AND status = 'approved'
+    ORDER BY download_count DESC
+    LIMIT 10
+  `;
+  const monthlyDownloads = await sql`
+    SELECT DATE_TRUNC('day', created_at) as date, COUNT(*) as count
+    FROM exchange_downloads
+    WHERE listing_id IN (SELECT id FROM exchange_listings WHERE user_id = ${userId})
+    AND created_at > NOW() - INTERVAL '30 days'
+    GROUP BY DATE_TRUNC('day', created_at)
+    ORDER BY date ASC
+  `;
 
   return {
     totals: {
@@ -1499,24 +1499,23 @@ export async function getExchangeUserProfile(userId: number) {
   const user = await sql`SELECT id, name, username, display_name, avatar_url, bio, created_at FROM users WHERE id = ${userId}`;
   if (user.length === 0) return null;
 
-  const [listings, stats] = await Promise.all([
-    sql`
-      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
-      FROM exchange_listings el
-      JOIN users u ON el.user_id = u.id
-      WHERE el.user_id = ${userId} AND el.status = 'approved'
-      ORDER BY el.created_at DESC
-    `,
-    sql`
-      SELECT
-        COUNT(*) as total_listings,
-        COALESCE(SUM(download_count), 0) as total_downloads,
-        COALESCE(AVG(CASE WHEN rating_count > 0 THEN rating_avg ELSE NULL END), 0) as avg_rating,
-        COALESCE(SUM(rating_count), 0) as total_reviews
-      FROM exchange_listings
-      WHERE user_id = ${userId} AND status = 'approved'
-    `,
-  ]);
+  // Serial — Promise.all hangs in prod on this conn pool.
+  const listings = await sql`
+    SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
+    FROM exchange_listings el
+    JOIN users u ON el.user_id = u.id
+    WHERE el.user_id = ${userId} AND el.status = 'approved'
+    ORDER BY el.created_at DESC
+  `;
+  const stats = await sql`
+    SELECT
+      COUNT(*) as total_listings,
+      COALESCE(SUM(download_count), 0) as total_downloads,
+      COALESCE(AVG(CASE WHEN rating_count > 0 THEN rating_avg ELSE NULL END), 0) as avg_rating,
+      COALESCE(SUM(rating_count), 0) as total_reviews
+    FROM exchange_listings
+    WHERE user_id = ${userId} AND status = 'approved'
+  `;
 
   return {
     user: user[0],
