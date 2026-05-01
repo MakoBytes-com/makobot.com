@@ -640,23 +640,25 @@ export function Walkthrough() {
               </div>
             </div>
             <div
-              className="absolute left-1/2 bottom-4 sm:bottom-6 -translate-x-1/2 w-[92%] max-w-[900px] text-center"
+              className="absolute inset-x-0 bottom-4 sm:bottom-6 flex justify-center px-4 sm:px-6 pointer-events-none"
               style={{
                 opacity: isActive ? 1 : 0,
-                transform: `translateX(-50%) translateY(${isActive ? "0" : "20px"})`,
+                transform: `translateY(${isActive ? "0" : "20px"})`,
                 transition: "opacity 500ms ease-out 200ms, transform 500ms ease-out 200ms",
               }}
             >
-              <div className="text-xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white"
-                   style={{ textShadow: "0 4px 20px rgba(0,0,0,0.8)" }}>
-                {sc.head}
-              </div>
-              {sc.sub && (
-                <div className="mt-2 text-xs sm:text-base text-[#CBD5E1] font-medium"
-                     style={{ textShadow: "0 2px 10px rgba(0,0,0,0.8)" }}>
-                  {sc.sub}
+              <div className="w-full max-w-3xl text-center">
+                <div className="text-xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white"
+                     style={{ textShadow: "0 4px 20px rgba(0,0,0,0.8)" }}>
+                  {sc.head}
                 </div>
-              )}
+                {sc.sub && (
+                  <div className="mt-2 text-xs sm:text-base text-[#CBD5E1] font-medium"
+                       style={{ textShadow: "0 2px 10px rgba(0,0,0,0.8)" }}>
+                    {sc.sub}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         );
