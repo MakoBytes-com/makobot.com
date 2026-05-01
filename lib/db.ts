@@ -11,7 +11,12 @@ export function getDb() {
   if (_sql) return _sql;
   const url = process.env.DATABASE_URL;
   if (!url) throw new Error("DATABASE_URL not set");
-  _sql = postgres(url, { ssl: "require", prepare: false, max: 1 });
+  // PERF: max=5 parallelizes the 13 queries that /api/admin/stats fires in
+  // Promise.all. Pre-fix max=1 forced them to serialize through a single
+  // connection — even fast queries summed to multi-second total latency,
+  // and a single slow query stalled the whole dashboard. Supabase pooler
+  // handles 5 simultaneous connections per Vercel function fine.
+  _sql = postgres(url, { ssl: "require", prepare: false, max: 5 });
   return _sql;
 }
 
