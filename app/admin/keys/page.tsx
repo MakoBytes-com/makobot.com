@@ -94,7 +94,7 @@ export default function AdminKeysPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">License Keys</h1>
-        <span className="text-sm text-[#8B95A8]">{keys.length} total</span>
+        <span className="text-sm text-[#777777]">{keys.length} total</span>
       </div>
 
       {/* Filters */}
@@ -104,7 +104,7 @@ export default function AdminKeysPage() {
           placeholder="Search keys, emails, names..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 min-w-[200px] max-w-md bg-[#252B3B] border border-[#374151] rounded-lg px-4 py-3 text-sm text-[#E8EDF3] placeholder-[#6B7280] focus:outline-none focus:border-[#3B82F6]"
+          className="flex-1 min-w-[200px] max-w-md bg-[#f8f9fb] border border-[#dbdbdb] rounded-lg px-4 py-3 text-sm text-[#333333] placeholder-[#999999] focus:outline-none focus:border-[#0061aa]"
         />
 
         <div className="flex gap-2">
@@ -114,8 +114,8 @@ export default function AdminKeysPage() {
               onClick={() => setFilterStatus(s)}
               className={`px-4 py-2 rounded-lg text-sm transition-colors ${
                 filterStatus === s
-                  ? "bg-[#3B82F6] text-white"
-                  : "bg-[#252B3B] border border-[#374151] text-[#8B95A8] hover:text-[#E8EDF3]"
+                  ? "bg-[#0061aa] text-white"
+                  : "bg-[#f8f9fb] border border-[#dbdbdb] text-[#777777] hover:text-[#333333]"
               }`}
             >
               {s.charAt(0).toUpperCase() + s.slice(1)} ({statusCounts[s]})
@@ -126,7 +126,7 @@ export default function AdminKeysPage() {
         <select
           value={filterTier}
           onChange={(e) => setFilterTier(e.target.value)}
-          className="bg-[#252B3B] border border-[#374151] rounded-lg px-4 py-2 text-sm text-[#E8EDF3] focus:outline-none focus:border-[#3B82F6]"
+          className="bg-[#f8f9fb] border border-[#dbdbdb] rounded-lg px-4 py-2 text-sm text-[#333333] focus:outline-none focus:border-[#0061aa]"
         >
           <option value="all">All Tiers</option>
           <option value="free">Free</option>
@@ -135,13 +135,13 @@ export default function AdminKeysPage() {
       </div>
 
       {loading ? (
-        <p className="text-[#8B95A8]">Loading keys...</p>
+        <p className="text-[#777777]">Loading keys...</p>
       ) : (
-        <div className="bg-[#252B3B] rounded-xl border border-[#374151] overflow-hidden">
+        <div className="bg-[#f8f9fb] rounded-xl border border-[#dbdbdb] overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-[#1E2330] text-[#8B95A8] text-xs uppercase tracking-wider">
+                <tr className="bg-[#ffffff] text-[#777777] text-xs uppercase tracking-wider">
                   <th className="w-8 px-2 py-3"></th>
                   <th className="text-left px-4 py-3 font-medium">Key</th>
                   <th className="text-left px-4 py-3 font-medium">User</th>
@@ -161,15 +161,15 @@ export default function AdminKeysPage() {
                   return (
                     <Fragment key={k.id}>
                       <tr
-                        className={`border-t border-[#374151]/50 hover:bg-[#374151]/20 ${
-                          isExpanded ? "bg-[#374151]/10" : ""
+                        className={`border-t border-[#dbdbdb]/50 hover:bg-[#dbdbdb]/20 ${
+                          isExpanded ? "bg-[#dbdbdb]/10" : ""
                         }`}
                       >
                         <td className="px-2 py-3 text-center">
                           <button
                             onClick={() => toggleExpand(k.id)}
                             aria-label={isExpanded ? "Collapse downloads" : "Expand downloads"}
-                            className="w-6 h-6 inline-flex items-center justify-center rounded text-[#8B95A8] hover:text-[#3B82F6] hover:bg-[#374151]/50 transition-colors"
+                            className="w-6 h-6 inline-flex items-center justify-center rounded text-[#777777] hover:text-[#0061aa] hover:bg-[#dbdbdb]/50 transition-colors"
                           >
                             <svg
                               className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-90" : ""}`}
@@ -183,17 +183,17 @@ export default function AdminKeysPage() {
                           </button>
                         </td>
                         <td className="px-4 py-3">
-                          <code className="text-[#3B82F6] font-mono text-xs">{k.key}</code>
+                          <code className="text-[#0061aa] font-mono text-xs">{k.key}</code>
                         </td>
                         <td className="px-4 py-3">
-                          <p className="text-[#E8EDF3] text-sm">{k.name || "—"}</p>
-                          <p className="text-[#6B7280] text-xs">{k.email}</p>
+                          <p className="text-[#333333] text-sm">{k.name || "—"}</p>
+                          <p className="text-[#999999] text-xs">{k.email}</p>
                         </td>
                         <td className="px-4 py-3 text-center">
                           <select
                             value={k.tier}
                             onChange={(e) => updateKey(k.id, "tier", e.target.value)}
-                            className="bg-[#1E2330] border border-[#374151] rounded px-2 py-1 text-xs text-[#E8EDF3] focus:outline-none"
+                            className="bg-[#ffffff] border border-[#dbdbdb] rounded px-2 py-1 text-xs text-[#333333] focus:outline-none"
                           >
                             <option value="free">Free</option>
                             <option value="pro">Pro</option>
@@ -218,19 +218,19 @@ export default function AdminKeysPage() {
                         <td className="px-4 py-3">
                           {k.last_download_version ? (
                             <div>
-                              <p className="text-[#E8EDF3] text-xs font-medium">{k.last_download_version}</p>
-                              <p className="text-[#6B7280] text-xs">
+                              <p className="text-[#333333] text-xs font-medium">{k.last_download_version}</p>
+                              <p className="text-[#999999] text-xs">
                                 {k.last_download_at ? new Date(k.last_download_at).toLocaleString() : ""}
                                 {totalDownloads > 1 && (
-                                  <span className="ml-2 text-[#3B82F6]">· {totalDownloads} total</span>
+                                  <span className="ml-2 text-[#0061aa]">· {totalDownloads} total</span>
                                 )}
                               </p>
                             </div>
                           ) : (
-                            <span className="text-[#6B7280] text-xs">Never</span>
+                            <span className="text-[#999999] text-xs">Never</span>
                           )}
                         </td>
-                        <td className="px-4 py-3 text-[#6B7280] text-xs">
+                        <td className="px-4 py-3 text-[#999999] text-xs">
                           {new Date(k.created_at).toLocaleDateString()}
                         </td>
                         <td className="px-4 py-3 text-center">
@@ -252,21 +252,21 @@ export default function AdminKeysPage() {
                         </td>
                       </tr>
                       {isExpanded && (
-                        <tr className="bg-[#1E2330]/60">
+                        <tr className="bg-[#ffffff]/60">
                           <td colSpan={8} className="px-4 py-4">
                             <div className="ml-8">
-                              <h4 className="text-xs uppercase tracking-wider text-[#8B95A8] font-medium mb-3">
+                              <h4 className="text-xs uppercase tracking-wider text-[#777777] font-medium mb-3">
                                 Download History · {k.email}
                               </h4>
                               {loadingRow ? (
-                                <p className="text-[#8B95A8] text-sm">Loading downloads…</p>
+                                <p className="text-[#777777] text-sm">Loading downloads…</p>
                               ) : !downloads || downloads.length === 0 ? (
-                                <p className="text-[#6B7280] text-sm">No downloads yet.</p>
+                                <p className="text-[#999999] text-sm">No downloads yet.</p>
                               ) : (
-                                <div className="rounded-lg border border-[#374151]/70 overflow-hidden">
+                                <div className="rounded-lg border border-[#dbdbdb]/70 overflow-hidden">
                                   <table className="w-full text-xs">
                                     <thead>
-                                      <tr className="bg-[#252B3B] text-[#8B95A8]">
+                                      <tr className="bg-[#f8f9fb] text-[#777777]">
                                         <th className="text-left px-3 py-2 font-medium">Version</th>
                                         <th className="text-left px-3 py-2 font-medium">Date</th>
                                         <th className="text-left px-3 py-2 font-medium">IP</th>
@@ -275,17 +275,17 @@ export default function AdminKeysPage() {
                                     </thead>
                                     <tbody>
                                       {downloads.map((d) => (
-                                        <tr key={d.id} className="border-t border-[#374151]/50">
-                                          <td className="px-3 py-2 text-[#E8EDF3] font-medium">
+                                        <tr key={d.id} className="border-t border-[#dbdbdb]/50">
+                                          <td className="px-3 py-2 text-[#333333] font-medium">
                                             {d.version || "—"}
                                           </td>
-                                          <td className="px-3 py-2 text-[#8B95A8]">
+                                          <td className="px-3 py-2 text-[#777777]">
                                             {new Date(d.created_at).toLocaleString()}
                                           </td>
-                                          <td className="px-3 py-2 text-[#6B7280] font-mono">
+                                          <td className="px-3 py-2 text-[#999999] font-mono">
                                             {d.ip || "—"}
                                           </td>
-                                          <td className="px-3 py-2 text-[#6B7280] max-w-md truncate" title={d.user_agent || ""}>
+                                          <td className="px-3 py-2 text-[#999999] max-w-md truncate" title={d.user_agent || ""}>
                                             {d.user_agent || "—"}
                                           </td>
                                         </tr>
@@ -303,7 +303,7 @@ export default function AdminKeysPage() {
                 })}
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={8} className="px-4 py-8 text-center text-[#6B7280]">
+                    <td colSpan={8} className="px-4 py-8 text-center text-[#999999]">
                       {search || filterStatus !== "all" ? "No keys match your filters" : "No keys issued yet"}
                     </td>
                   </tr>

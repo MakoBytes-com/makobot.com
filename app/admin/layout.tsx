@@ -22,7 +22,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   if (status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-[#8B95A8]">Loading...</p>
+        <p className="text-[#777777]">Loading...</p>
       </div>
     );
   }
@@ -32,10 +32,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <div className="min-h-screen flex flex-col items-center justify-center px-6">
         <Logo size={64} />
         <h1 className="text-2xl font-bold mt-6 mb-2">Admin Access Required</h1>
-        <p className="text-[#8B95A8] text-center max-w-md">
+        <p className="text-[#777777] text-center max-w-md">
           You need admin privileges to access this page. Sign in with an admin account or contact the site owner.
         </p>
-        <a href="/" className="mt-6 text-sm text-[#3B82F6] hover:text-[#2563EB]">
+        <a href="/" className="mt-6 text-sm text-[#0061aa] hover:text-[#004d88]">
           &larr; Back to makobot.com
         </a>
       </div>
@@ -45,13 +45,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-[#252B3B] border-r border-[#374151] flex flex-col">
-        <div className="p-5 border-b border-[#374151]">
+      <aside className="w-64 bg-[#f8f9fb] border-r border-[#dbdbdb] flex flex-col">
+        <div className="p-5 border-b border-[#dbdbdb]">
           <Link href="/" className="flex items-center gap-3">
             <Logo size={32} />
             <div>
-              <p className="text-sm font-bold text-[#E8EDF3]">MakoBot</p>
-              <p className="text-xs text-[#6B7280]">Admin Dashboard</p>
+              <p className="text-sm font-bold text-[#333333]">MakoBot</p>
+              <p className="text-xs text-[#999999]">Admin Dashboard</p>
             </div>
           </Link>
         </div>
@@ -65,8 +65,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg mb-1 text-sm transition-colors ${
                   active
-                    ? "bg-[#3B82F6]/10 text-[#3B82F6] font-medium"
-                    : "text-[#8B95A8] hover:bg-[#374151]/50 hover:text-[#E8EDF3]"
+                    ? "bg-[#0061aa]/10 text-[#0061aa] font-medium"
+                    : "text-[#777777] hover:bg-[#dbdbdb]/50 hover:text-[#333333]"
                 }`}
               >
                 <span className="text-base">{item.icon}</span>
@@ -76,24 +76,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </nav>
 
-        <div className="p-4 border-t border-[#374151]">
+        <div className="p-4 border-t border-[#dbdbdb]">
           <div className="flex items-center gap-3">
             {session.user.image && (
               <img src={session.user.image} alt="" className="w-8 h-8 rounded-full" />
             )}
             <div className="min-w-0">
-              <p className="text-xs font-medium text-[#E8EDF3] truncate">{session.user.name}</p>
-              <p className="text-xs text-[#6B7280] truncate">{session.user.email}</p>
+              <p className="text-xs font-medium text-[#333333] truncate">{session.user.name}</p>
+              <p className="text-xs text-[#999999] truncate">{session.user.email}</p>
             </div>
           </div>
           <div className="flex gap-3 mt-3">
-            <a href="/" className="text-xs text-[#6B7280] hover:text-[#3B82F6] transition-colors">
+            <a href="/" className="text-xs text-[#999999] hover:text-[#0061aa] transition-colors">
               &larr; Main Site
             </a>
-            <a href="/exchange" className="text-xs text-[#6B7280] hover:text-[#3B82F6] transition-colors">
+            <a href="/exchange" className="text-xs text-[#999999] hover:text-[#0061aa] transition-colors">
               Exchange
             </a>
-            <button onClick={() => signOut({ callbackUrl: "/" })} className="text-xs text-[#6B7280] hover:text-[#DC2626] transition-colors ml-auto">
+            <button onClick={() => signOut({ callbackUrl: "/" })} className="text-xs text-[#999999] hover:text-[#DC2626] transition-colors ml-auto">
               Sign Out
             </button>
           </div>

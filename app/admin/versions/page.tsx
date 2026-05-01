@@ -91,13 +91,13 @@ export default function AdminVersionsPage() {
         <h1 className="text-2xl font-bold">App Versions — Kill Switch</h1>
         <button
           onClick={() => setShowAdd(!showAdd)}
-          className="px-4 py-2 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-semibold"
+          className="px-4 py-2 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white text-sm font-semibold"
         >
           {showAdd ? "Cancel" : "+ Register Version"}
         </button>
       </div>
 
-      <p className="text-sm text-[#8B95A8] mb-6 max-w-3xl">
+      <p className="text-sm text-[#777777] mb-6 max-w-3xl">
         Each row is a published MakoBot build. Flip a row to{" "}
         <span className="text-[#F59E0B] font-mono">DEPRECATED</span> to show a
         soft yellow banner to users on that build (recommend they update). Flip
@@ -109,23 +109,23 @@ export default function AdminVersionsPage() {
       </p>
 
       {showAdd && (
-        <div className="bg-[#252B3B] rounded-xl border border-[#374151] p-4 mb-6 flex gap-3 items-end">
+        <div className="bg-[#f8f9fb] rounded-xl border border-[#dbdbdb] p-4 mb-6 flex gap-3 items-end">
           <div>
-            <label className="block text-xs text-[#8B95A8] mb-1">Version</label>
+            <label className="block text-xs text-[#777777] mb-1">Version</label>
             <input
               value={addVersion}
               onChange={(e) => setAddVersion(e.target.value)}
               placeholder="2.0.0.103"
-              className="bg-[#1E2330] border border-[#374151] rounded px-3 py-2 text-sm text-[#E8EDF3] font-mono"
+              className="bg-[#ffffff] border border-[#dbdbdb] rounded px-3 py-2 text-sm text-[#333333] font-mono"
             />
           </div>
           <div>
-            <label className="block text-xs text-[#8B95A8] mb-1">Build #</label>
+            <label className="block text-xs text-[#777777] mb-1">Build #</label>
             <input
               value={addBuild}
               onChange={(e) => setAddBuild(e.target.value)}
               placeholder="103"
-              className="bg-[#1E2330] border border-[#374151] rounded px-3 py-2 text-sm text-[#E8EDF3] font-mono w-24"
+              className="bg-[#ffffff] border border-[#dbdbdb] rounded px-3 py-2 text-sm text-[#333333] font-mono w-24"
             />
           </div>
           <button
@@ -138,17 +138,17 @@ export default function AdminVersionsPage() {
       )}
 
       {loading ? (
-        <p className="text-[#8B95A8]">Loading...</p>
+        <p className="text-[#777777]">Loading...</p>
       ) : versions.length === 0 ? (
-        <div className="bg-[#252B3B] rounded-xl border border-[#374151] p-8 text-center text-[#8B95A8]">
+        <div className="bg-[#f8f9fb] rounded-xl border border-[#dbdbdb] p-8 text-center text-[#777777]">
           No versions registered yet. Register Build 102 + future builds with{" "}
-          <span className="text-[#3B82F6] font-mono">+ Register Version</span> above.
+          <span className="text-[#0061aa] font-mono">+ Register Version</span> above.
         </div>
       ) : (
-        <div className="bg-[#252B3B] rounded-xl border border-[#374151] overflow-hidden">
+        <div className="bg-[#f8f9fb] rounded-xl border border-[#dbdbdb] overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-[#1E2330] text-[#8B95A8] text-xs uppercase tracking-wider">
+              <tr className="bg-[#ffffff] text-[#777777] text-xs uppercase tracking-wider">
                 <th className="text-left px-4 py-3 font-medium">Build</th>
                 <th className="text-left px-4 py-3 font-medium">Version</th>
                 <th className="text-left px-4 py-3 font-medium">Status</th>
@@ -159,14 +159,14 @@ export default function AdminVersionsPage() {
             </thead>
             <tbody>
               {versions.map((v) => (
-                <tr key={v.version} className="border-t border-[#374151]/50 hover:bg-[#374151]/20">
-                  <td className="px-4 py-3 text-[#3B82F6] font-mono font-bold">{v.build_number}</td>
-                  <td className="px-4 py-3 text-[#C0C8D8] font-mono">{v.version}</td>
+                <tr key={v.version} className="border-t border-[#dbdbdb]/50 hover:bg-[#dbdbdb]/20">
+                  <td className="px-4 py-3 text-[#0061aa] font-mono font-bold">{v.build_number}</td>
+                  <td className="px-4 py-3 text-[#555555] font-mono">{v.version}</td>
                   <td className="px-4 py-3">{statusPill(v.status)}</td>
-                  <td className="px-4 py-3 text-[#8B95A8] text-xs max-w-md truncate">
-                    {v.message || <span className="text-[#4B5563]">—</span>}
+                  <td className="px-4 py-3 text-[#777777] text-xs max-w-md truncate">
+                    {v.message || <span className="text-[#777777]">—</span>}
                   </td>
-                  <td className="px-4 py-3 text-[#6B7280] text-xs whitespace-nowrap">
+                  <td className="px-4 py-3 text-[#999999] text-xs whitespace-nowrap">
                     {new Date(v.released_at).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-3 text-right">

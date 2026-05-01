@@ -51,15 +51,15 @@ interface Stats {
 function StatCard({
   label,
   value,
-  color = "#3B82F6",
+  color = "#0061aa",
 }: {
   label: string;
   value: number | string;
   color?: string;
 }) {
   return (
-    <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
-      <p className="text-sm text-[#8B95A8] mb-1">{label}</p>
+    <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+      <p className="text-sm text-[#777777] mb-1">{label}</p>
       <p className="text-3xl font-bold" style={{ color }}>
         {value}
       </p>
@@ -68,10 +68,10 @@ function StatCard({
 }
 
 const chartTheme = {
-  bg: "#252B3B",
-  grid: "#374151",
-  text: "#8B95A8",
-  blue: "#3B82F6",
+  bg: "#f8f9fb",
+  grid: "#dbdbdb",
+  text: "#777777",
+  blue: "#0061aa",
   green: "#10B981",
   purple: "#8B5CF6",
 };
@@ -95,7 +95,7 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-[#8B95A8]">Loading dashboard...</p>
+        <p className="text-[#777777]">Loading dashboard...</p>
       </div>
     );
   }
@@ -116,7 +116,7 @@ export default function AdminDashboard() {
 
       {/* Stat cards */}
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
-        <StatCard label="Total Users" value={totals.totalUsers} color="#3B82F6" />
+        <StatCard label="Total Users" value={totals.totalUsers} color="#0061aa" />
         <StatCard label="Active Keys" value={totals.activeKeys} color="#10B981" />
         <StatCard label="Total Keys" value={totals.totalKeys} color="#8B5CF6" />
         <StatCard label="Downloads" value={totals.totalDownloads} color="#F59E0B" />
@@ -127,8 +127,8 @@ export default function AdminDashboard() {
       {/* Charts row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         {/* Signups chart */}
-        <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
-          <h3 className="text-sm font-medium text-[#8B95A8] mb-4">Signups (30 days)</h3>
+        <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+          <h3 className="text-sm font-medium text-[#777777] mb-4">Signups (30 days)</h3>
           <ResponsiveContainer width="100%" height={200}>
             <AreaChart data={charts.signupsPerDay}>
               <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.grid} />
@@ -139,7 +139,7 @@ export default function AdminDashboard() {
               />
               <YAxis tick={{ fill: chartTheme.text, fontSize: 11 }} />
               <Tooltip
-                contentStyle={{ background: "#1E2330", border: "1px solid #374151", borderRadius: 8, color: "#E8EDF3" }}
+                contentStyle={{ background: "#ffffff", border: "1px solid #dbdbdb", borderRadius: 8, color: "#333333" }}
               />
               <Area type="monotone" dataKey="count" stroke={chartTheme.blue} fill={chartTheme.blue} fillOpacity={0.15} />
             </AreaChart>
@@ -147,8 +147,8 @@ export default function AdminDashboard() {
         </div>
 
         {/* Downloads chart */}
-        <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
-          <h3 className="text-sm font-medium text-[#8B95A8] mb-4">Downloads (30 days)</h3>
+        <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+          <h3 className="text-sm font-medium text-[#777777] mb-4">Downloads (30 days)</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={charts.downloadsPerDay}>
               <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.grid} />
@@ -159,7 +159,7 @@ export default function AdminDashboard() {
               />
               <YAxis tick={{ fill: chartTheme.text, fontSize: 11 }} />
               <Tooltip
-                contentStyle={{ background: "#1E2330", border: "1px solid #374151", borderRadius: 8, color: "#E8EDF3" }}
+                contentStyle={{ background: "#ffffff", border: "1px solid #dbdbdb", borderRadius: 8, color: "#333333" }}
               />
               <Bar dataKey="count" fill={chartTheme.green} radius={[4, 4, 0, 0]} />
             </BarChart>
@@ -167,8 +167,8 @@ export default function AdminDashboard() {
         </div>
 
         {/* Page views chart */}
-        <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
-          <h3 className="text-sm font-medium text-[#8B95A8] mb-4">Page Views (30 days)</h3>
+        <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+          <h3 className="text-sm font-medium text-[#777777] mb-4">Page Views (30 days)</h3>
           <ResponsiveContainer width="100%" height={200}>
             <AreaChart data={charts.pageViewsPerDay}>
               <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.grid} />
@@ -179,7 +179,7 @@ export default function AdminDashboard() {
               />
               <YAxis tick={{ fill: chartTheme.text, fontSize: 11 }} />
               <Tooltip
-                contentStyle={{ background: "#1E2330", border: "1px solid #374151", borderRadius: 8, color: "#E8EDF3" }}
+                contentStyle={{ background: "#ffffff", border: "1px solid #dbdbdb", borderRadius: 8, color: "#333333" }}
               />
               <Area type="monotone" dataKey="count" stroke={chartTheme.purple} fill={chartTheme.purple} fillOpacity={0.15} />
             </AreaChart>
@@ -187,31 +187,31 @@ export default function AdminDashboard() {
         </div>
 
         {/* Top pages + referrers */}
-        <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
-          <h3 className="text-sm font-medium text-[#8B95A8] mb-4">Top Pages & Referrers</h3>
+        <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+          <h3 className="text-sm font-medium text-[#777777] mb-4">Top Pages & Referrers</h3>
           <div className="space-y-4">
             <div>
-              <p className="text-xs text-[#6B7280] uppercase tracking-wider mb-2">Pages</p>
+              <p className="text-xs text-[#999999] uppercase tracking-wider mb-2">Pages</p>
               {topPages.length === 0 ? (
-                <p className="text-xs text-[#4B5563]">No data yet</p>
+                <p className="text-xs text-[#777777]">No data yet</p>
               ) : (
                 topPages.slice(0, 5).map((p, i) => (
                   <div key={i} className="flex justify-between text-sm py-1">
-                    <span className="text-[#C0C8D8] truncate mr-4">{p.path}</span>
-                    <span className="text-[#8B95A8] font-mono">{p.count}</span>
+                    <span className="text-[#555555] truncate mr-4">{p.path}</span>
+                    <span className="text-[#777777] font-mono">{p.count}</span>
                   </div>
                 ))
               )}
             </div>
             <div>
-              <p className="text-xs text-[#6B7280] uppercase tracking-wider mb-2">Referrers</p>
+              <p className="text-xs text-[#999999] uppercase tracking-wider mb-2">Referrers</p>
               {topReferrers.length === 0 ? (
-                <p className="text-xs text-[#4B5563]">No data yet</p>
+                <p className="text-xs text-[#777777]">No data yet</p>
               ) : (
                 topReferrers.slice(0, 5).map((r, i) => (
                   <div key={i} className="flex justify-between text-sm py-1">
-                    <span className="text-[#C0C8D8] truncate mr-4">{r.referrer}</span>
-                    <span className="text-[#8B95A8] font-mono">{r.count}</span>
+                    <span className="text-[#555555] truncate mr-4">{r.referrer}</span>
+                    <span className="text-[#777777] font-mono">{r.count}</span>
                   </div>
                 ))
               )}
@@ -223,15 +223,15 @@ export default function AdminDashboard() {
       {/* Recent activity tables */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent downloads */}
-        <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
-          <h3 className="text-sm font-medium text-[#8B95A8] mb-4">Recent Downloads</h3>
+        <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+          <h3 className="text-sm font-medium text-[#777777] mb-4">Recent Downloads</h3>
           {recentDownloads.length === 0 ? (
-            <p className="text-sm text-[#4B5563]">No downloads yet</p>
+            <p className="text-sm text-[#777777]">No downloads yet</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-[#6B7280] text-xs border-b border-[#374151]">
+                  <tr className="text-[#999999] text-xs border-b border-[#dbdbdb]">
                     <th className="text-left py-2 font-medium">User</th>
                     <th className="text-left py-2 font-medium">Version</th>
                     <th className="text-left py-2 font-medium">Date</th>
@@ -239,10 +239,10 @@ export default function AdminDashboard() {
                 </thead>
                 <tbody>
                   {recentDownloads.map((d) => (
-                    <tr key={d.id} className="border-b border-[#374151]/30">
-                      <td className="py-2 text-[#C0C8D8]">{d.email}</td>
-                      <td className="py-2 text-[#8B95A8]">{d.version}</td>
-                      <td className="py-2 text-[#6B7280]">
+                    <tr key={d.id} className="border-b border-[#dbdbdb]/30">
+                      <td className="py-2 text-[#555555]">{d.email}</td>
+                      <td className="py-2 text-[#777777]">{d.version}</td>
+                      <td className="py-2 text-[#999999]">
                         {new Date(d.created_at).toLocaleDateString()}
                       </td>
                     </tr>
@@ -254,20 +254,20 @@ export default function AdminDashboard() {
         </div>
 
         {/* Recent events */}
-        <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
-          <h3 className="text-sm font-medium text-[#8B95A8] mb-4">Recent Events</h3>
+        <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+          <h3 className="text-sm font-medium text-[#777777] mb-4">Recent Events</h3>
           {recentEvents.length === 0 ? (
-            <p className="text-sm text-[#4B5563]">No events yet</p>
+            <p className="text-sm text-[#777777]">No events yet</p>
           ) : (
             <div className="space-y-2">
               {recentEvents.map((e) => (
-                <div key={e.id} className="flex items-start gap-3 py-2 border-b border-[#374151]/30">
-                  <span className="text-xs font-mono px-2 py-1 rounded bg-[#374151] text-[#C0C8D8]">
+                <div key={e.id} className="flex items-start gap-3 py-2 border-b border-[#dbdbdb]/30">
+                  <span className="text-xs font-mono px-2 py-1 rounded bg-[#dbdbdb] text-[#555555]">
                     {e.type}
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm text-[#C0C8D8] truncate">{e.email || "anonymous"}</p>
-                    <p className="text-xs text-[#6B7280]">
+                    <p className="text-sm text-[#555555] truncate">{e.email || "anonymous"}</p>
+                    <p className="text-xs text-[#999999]">
                       {new Date(e.created_at).toLocaleString()}
                     </p>
                   </div>
