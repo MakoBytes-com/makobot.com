@@ -1,25 +1,56 @@
 @import "tailwindcss";
 
+@theme {
+  /* Bulldog brand-blue scale (primary navy, derived from #0061aa) */
+  --color-brand-50: #e6f0f9;
+  --color-brand-100: #cce1f3;
+  --color-brand-200: #99c3e7;
+  --color-brand-300: #66a5db;
+  --color-brand-400: #3387cf;
+  --color-brand-500: #006fb9;
+  --color-brand-600: #0061aa;
+  --color-brand-700: #004d88;
+  --color-brand-800: #003966;
+  --color-brand-900: #002643;
+  --color-brand-950: #001321;
+
+  /* Supporting accents */
+  --color-slate-accent: #406f7b;
+  --color-accent-lime: #96c346;
+  --color-success: #04bf6c;
+
+  /* Neutrals */
+  --color-ink: #333333;
+  --color-muted: #777777;
+  --color-cream: #f8f9fb;
+  --color-border-soft: #dbdbdb;
+}
+
 :root {
-  --bg-dark: #1E2330;
-  --bg-card: #252B3B;
-  --bg-card-hover: #2D3548;
-  --border-subtle: #374151;
-  --blue-primary: #3B82F6;
-  --blue-hover: #2563EB;
-  --blue-glow: rgba(59, 130, 246, 0.15);
-  --grey-secondary: #374151;
-  --grey-hover: #4B5563;
-  --text-primary: #E8EDF3;
-  --text-secondary: #C0C8D8;
-  --text-muted: #8B95A8;
-  --text-dim: #6B7280;
-  --green: #10B981;
+  /* Light palette tokens — kept as the legacy var names so existing
+     `var(--bg-card)` etc. continue to work but now resolve to light values. */
+  --bg-dark: #ffffff;
+  --bg-card: #f8f9fb;
+  --bg-card-hover: #e6f0f9;
+  --border-subtle: #dbdbdb;
+  --blue-primary: #0061aa;
+  --blue-hover: #004d88;
+  --blue-glow: rgba(0, 97, 170, 0.12);
+  --grey-secondary: #dbdbdb;
+  --grey-hover: #777777;
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --text-muted: #777777;
+  --text-dim: #999999;
+  --green: #04bf6c;
   --red: #DC2626;
-  --amber: #F59E0B;
+  --amber: #96c346;
   --pink: #EC4899;
   --purple: #8B5CF6;
   --indigo: #6366F1;
+
+  --background: #ffffff;
+  --foreground: #333333;
 }
 
 @theme inline {
@@ -30,11 +61,10 @@
 }
 
 body {
-  background: var(--bg-dark);
-  color: var(--text-primary);
+  background: var(--background);
+  color: var(--foreground);
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
@@ -49,32 +79,32 @@ html {
   animation: pulse-dot 2s ease-in-out infinite;
 }
 
-/* Gradient text */
+/* Gradient text — single-hue navy gradient (Bulldog-clean) */
 .gradient-text {
-  background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%);
+  background: linear-gradient(135deg, #0061aa 0%, #006fb9 50%, #66a5db 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Glow effect for hero */
+/* Glow effect for hero — subtle navy glow on light bg */
 .blue-glow {
-  box-shadow: 0 0 60px rgba(59, 130, 246, 0.3), 0 0 120px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 60px rgba(0, 97, 170, 0.15), 0 0 120px rgba(0, 97, 170, 0.06);
 }
 
-/* Card hover */
+/* Card hover — soft elevation on light bg */
 .feature-card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .feature-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 /* Logo ring animation */
 @keyframes ring-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-  50% { box-shadow: 0 0 0 12px rgba(59, 130, 246, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 97, 170, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(0, 97, 170, 0); }
 }
 
 .logo-ring {
@@ -91,25 +121,25 @@ html {
   animation: float 4s ease-in-out infinite;
 }
 
-/* Visible scrollbar for dark content boxes */
+/* Visible scrollbar for content boxes */
 .styled-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #3B82F6 #1E2330;
+  scrollbar-color: #0061aa #f8f9fb;
 }
 .styled-scrollbar::-webkit-scrollbar {
   width: 10px;
 }
 .styled-scrollbar::-webkit-scrollbar-track {
-  background: #1E2330;
+  background: #f8f9fb;
   border-radius: 8px;
 }
 .styled-scrollbar::-webkit-scrollbar-thumb {
-  background: #3B82F6;
+  background: #0061aa;
   border-radius: 8px;
-  border: 2px solid #1E2330;
+  border: 2px solid #f8f9fb;
 }
 .styled-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #2563EB;
+  background: #004d88;
 }
 
 /* Badge pill styles */
