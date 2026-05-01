@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://makobot.com" },
@@ -13,6 +12,7 @@ import {
   SectionHeading,
   Nav,
   Footer,
+  Walkthrough,
 } from "./components";
 
 export default function Home() {
@@ -90,23 +90,9 @@ export default function Home() {
           Works with every AI coding tool. Windows 10/11.
         </p>
 
-        {/* Real app screenshots */}
-        <div className="mt-16 w-full max-w-4xl mx-auto space-y-6">
-          <Image
-            src="/images/dashboard-activity.webp"
-            alt="MakoBot dashboard — Activity tab showing live feed, context budget, storage breakdown, and MCP server status"
-            width={1200}
-            height={800}
-            className="rounded-xl shadow-2xl border border-[#374151]/50"
-            priority
-          />
-          <Image
-            src="/images/dashboard-skills.webp"
-            alt="MakoBot dashboard — Skills tab showing AI skill library with per-project assignment"
-            width={1200}
-            height={800}
-            className="rounded-xl shadow-2xl border border-[#374151]/50"
-          />
+        {/* Live product walkthrough — auto-plays when in view, loops */}
+        <div className="mt-16 w-full max-w-4xl mx-auto">
+          <Walkthrough />
         </div>
       </section>
 
