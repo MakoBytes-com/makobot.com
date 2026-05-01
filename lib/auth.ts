@@ -1,7 +1,18 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
-import { findOrCreateUser, getUserByEmail } from "./db";
+import { findOrCreateUser, getUserByEmail, getDb } from "./db";
+
+// Owner-email allowlist. Comma-separated list of emails in OWNER_EMAILS env var.
+// On every sign-in we re-assert is_admin = true for these accounts so a bad
+// migration, accidental UPDATE, or someone clearing the flag in the DB can't
+// lock the owner out of /admin. Auto-promotion runs only on a successful
+// OAuth sign-in, never via session-only callbacks (so a stolen session
+// can't escalate).
+const OWNER_EMAILS = (process.env.OWNER_EMAILS || "")
+  .split(",")
+  .map(e => e.trim().toLowerCase())
+  .filter(Boolean);
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -43,6 +54,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         avatar_url: avatarUrl,
         github_username: githubUsername,
       });
+
+      // Owner auto-promote: if this email is in OWNER_EMAILS, ensure is_admin=true.
+      // Idempotent — runs every sign-in but only writes when needed.
+      try {
+        const lowered = profile.email.toLowerCase();
+        if (OWNER_EMAILS.includes(lowered)) {
+          const sql = getDb();
+          await sql`UPDATE users SET is_admin = TRUE WHERE LOWER(email) = ${lowered} AND is_admin = FALSE`;
+        }
+      } catch {
+        // Don't block sign-in on a promotion failure — admin can be set manually
+        // via scripts/promote-admin.mjs or SQL.
+      }
 
       return true;
     },
