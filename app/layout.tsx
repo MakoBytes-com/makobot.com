@@ -16,26 +16,31 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://makobot.com"),
-  title: "MakoBot — AI Memory for Claude Code, Cursor & Every Coding Tool",
+  title: "MakoBot — Your local AI Workbench: Memory, Search, AI Tools",
   description:
-    "MakoBot is a free AI memory tool for Windows that gives Claude Code, Cursor, ChatGPT, and Gemini persistent session memory. It automatically records code changes, conversations, and decisions so every new AI session picks up where you left off.",
+    "MakoBot is the free local AI Workbench for Windows. Gives Claude Code, Cursor, ChatGPT, and Gemini permanent searchable memory across every project, plus one-line plug-ins (@verify, @audit, @codereview, @designreview, @contractreview) that fan out to GPT, Claude, and Gemini for second opinions.",
   keywords: [
+    "AI workbench",
     "AI memory",
     "AI memory tool",
     "Claude Code memory",
+    "multi-model AI",
+    "AI second opinion",
     "AI session persistence",
     "AI coding tools",
     "developer tools",
     "Cursor AI memory",
     "ChatGPT memory",
     "Windows app",
+    "MCP server",
     "MakoBot",
     "Mako Logics",
+    "MakoBytes",
   ],
   openGraph: {
-    title: "MakoBot — AI Memory for Claude Code, Cursor & Every Coding Tool",
+    title: "MakoBot — Your local AI Workbench: Memory, Search, AI Tools",
     description:
-      "Free AI memory tool that gives Claude Code, Cursor, ChatGPT, and Gemini persistent session memory. Never re-explain your projects again.",
+      "Free local AI Workbench for Windows. Permanent searchable memory across every project + one-line plug-ins that cross-check answers against GPT, Claude, and Gemini.",
     url: "https://makobot.com",
     siteName: "MakoBot",
     type: "website",
@@ -44,15 +49,15 @@ export const metadata: Metadata = {
         url: "https://makobot.com/images/og.jpg",
         width: 1392,
         height: 752,
-        alt: "MakoBot — AI Memory for Every Coding Tool",
+        alt: "MakoBot — Your local AI Workbench",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MakoBot — AI Memory for Claude Code, Cursor & Every Coding Tool",
+    title: "MakoBot — Your local AI Workbench: Memory, Search, AI Tools",
     description:
-      "Free AI memory tool for Windows. Gives every AI coding tool persistent session memory.",
+      "Free local AI Workbench for Windows. Memory + search + multi-model plug-ins for every AI coding tool you use.",
     images: ["https://makobot.com/images/og.jpg"],
   },
 };
@@ -64,7 +69,7 @@ const jsonLd = {
       "@type": "SoftwareApplication",
       name: "MakoBot",
       description:
-        "AI memory tool that gives your AI coding tools persistent session memory. Automatically records code changes, conversations, and notes into a central brain.",
+        "Local AI Workbench for Windows. Gives every AI coding tool persistent searchable memory across every project, plus one-line plug-ins that fan out to GPT, Claude, and Gemini for second opinions on any answer.",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Windows 10, Windows 11",
       offers: {

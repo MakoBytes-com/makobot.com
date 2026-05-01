@@ -32,22 +32,33 @@ export default function Home() {
           <Logo size={120} />
         </div>
 
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center max-w-3xl leading-tight mb-6">
-          AI Memory That Never Forgets{" "}
-          <span className="gradient-text">Your Work</span>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center max-w-4xl leading-tight mb-4">
+          Your local{" "}
+          <span className="gradient-text">AI Workbench</span>
         </h1>
 
-        <p className="text-lg sm:text-xl text-[#C0C8D8] text-center max-w-2xl mb-4 leading-relaxed">
-          MakoBot gives your AI coding tools a permanent searchable memory. It
-          runs on your Windows PC, captures every commit + conversation + note
-          across every project, and auto-injects the right context into Claude
-          Code, Cursor, ChatGPT, Gemini — so every AI tool you use already
-          knows what you&apos;ve been working on.
+        <p className="text-base sm:text-lg text-[#3B82F6] text-center font-semibold mb-6 tracking-wide">
+          Memory · Search · AI Tools — every AI you use, smarter together.
         </p>
 
-        <p className="text-base text-[#8B95A8] text-center mb-8">
+        <p className="text-lg sm:text-xl text-[#C0C8D8] text-center max-w-3xl mb-4 leading-relaxed">
+          MakoBot runs on your Windows PC. It captures every commit,
+          conversation, and note across every project, gives you one search bar
+          that reaches all of it, and adds one-line plug-ins
+          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@verify</code>
+          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@audit</code>
+          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@codereview</code>
+          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@designreview</code>
+          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@contractreview</code>
+          {" "}that fan out to GPT, Claude, and Gemini for second opinions —
+          all auto-injected into Claude Code, Cursor, Antigravity, Windsurf,
+          ChatGPT, and Gemini.
+        </p>
+
+        <p className="text-base text-[#8B95A8] text-center max-w-2xl mb-8 leading-relaxed">
           When you start a new session, the AI already knows who you are, what
-          you&apos;ve been working on, and where you left off.
+          you&apos;ve been working on, and where you left off — and you can
+          call any plug-in to cross-check the answer in seconds.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 mb-10">
@@ -103,8 +114,8 @@ export default function Home() {
       <section className="px-6 py-20 bg-[#252B3B]/50">
         <div className="max-w-4xl mx-auto text-center">
           <SectionHeading
-            title="The AI Session Memory Problem"
-            subtitle="Every AI coder hits these walls"
+            title="The problem with AI today"
+            subtitle="Every AI builder — engineer, founder, freelancer — hits the same walls"
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
@@ -141,8 +152,49 @@ export default function Home() {
           </div>
 
           <p className="mt-10 text-xl text-[#3B82F6] font-semibold">
-            MakoBot fixes all of this.
+            MakoBot fixes all of this — and adds the second opinion you&apos;ve been wishing for.
           </p>
+        </div>
+      </section>
+
+      {/* ─── THREE PILLARS — moved up so the workbench promise is explained early ─── */}
+      <section id="pillars" className="px-6 py-20">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading
+            title="Three pillars, one app"
+            subtitle="MakoBot isn't a model. It's the local layer that makes every model you use better."
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+              <div className="text-3xl mb-3">🧠</div>
+              <h3 className="text-base font-semibold text-[#E8EDF3] mb-2">Memory</h3>
+              <p className="text-sm text-[#C0C8D8] leading-relaxed">
+                Cross-project timeline auto-injected into CLAUDE.md, AGENTS.md,
+                .cursorrules. Every AI tool you use sees the same context.
+              </p>
+            </div>
+            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+              <div className="text-3xl mb-3">🔍</div>
+              <h3 className="text-base font-semibold text-[#E8EDF3] mb-2">Search</h3>
+              <p className="text-sm text-[#C0C8D8] leading-relaxed">
+                One bar that reaches every conversation, every commit, every
+                note, every transcript — across every project, every AI tool.
+              </p>
+            </div>
+            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
+              <div className="text-3xl mb-3">🤖</div>
+              <h3 className="text-base font-semibold text-[#E8EDF3] mb-2">AI Tools</h3>
+              <p className="text-sm text-[#C0C8D8] leading-relaxed">
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@verify</code>{" "}
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@audit</code>{" "}
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@codereview</code>{" "}
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@designreview</code>{" "}
+                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@contractreview</code>{" "}
+                — fan out to GPT, Claude, and Gemini for second opinions.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -150,7 +202,7 @@ export default function Home() {
       <section className="px-6 py-20">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
-            title="Search across every project, every AI tool, ever"
+            title="Search across every project, every AI tool, every conversation"
             subtitle="The feature users tell us they love most"
           />
 
@@ -195,7 +247,7 @@ export default function Home() {
       <section id="how-it-works" className="px-6 py-20">
         <div className="max-w-4xl mx-auto">
           <SectionHeading
-            title="How MakoBot's AI Memory Works"
+            title="How MakoBot Works"
             subtitle="Three steps, zero configuration"
           />
 
@@ -223,11 +275,16 @@ export default function Home() {
       <section id="features" className="px-6 py-20 bg-[#252B3B]/50">
         <div className="max-w-6xl mx-auto">
           <SectionHeading
-            title="AI Memory Features for Developers"
-            subtitle="Built by someone who lost too many AI sessions"
+            title="What's in MakoBot"
+            subtitle="Built by someone who lost too many fresh AI chats"
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+            <FeatureCard
+              icon="🤖"
+              title="AI Tools (Plug-ins)"
+              description="@verify, @audit, @codereview, @designreview, @contractreview — type the trigger in your AI chat and MakoBot fans the question out to GPT, Claude, and Gemini in parallel. BYOK. DPAPI-encrypted."
+            />
             <FeatureCard
               icon="🧠"
               title="Central Brain"
@@ -461,47 +518,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── THREE PILLARS (folded in from /why) ─── */}
-      <section id="pillars" className="px-6 py-20">
-        <div className="max-w-5xl mx-auto">
-          <SectionHeading
-            title="The big picture"
-            subtitle="MakoBot isn't a model. It's the layer that makes every model you use better."
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
-              <div className="text-3xl mb-3">🧠</div>
-              <h3 className="text-base font-semibold text-[#E8EDF3] mb-2">Memory</h3>
-              <p className="text-sm text-[#C0C8D8] leading-relaxed">
-                Cross-project timeline auto-injected into CLAUDE.md, AGENTS.md,
-                .cursorrules. Every AI tool you use sees the same context.
-              </p>
-            </div>
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
-              <div className="text-3xl mb-3">🔍</div>
-              <h3 className="text-base font-semibold text-[#E8EDF3] mb-2">Search</h3>
-              <p className="text-sm text-[#C0C8D8] leading-relaxed">
-                One bar that reaches every conversation, every commit, every
-                note, every transcript — across every project, every AI tool.
-              </p>
-            </div>
-            <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
-              <div className="text-3xl mb-3">🤖</div>
-              <h3 className="text-base font-semibold text-[#E8EDF3] mb-2">AI Tools</h3>
-              <p className="text-sm text-[#C0C8D8] leading-relaxed">
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@verify</code>{" "}
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@audit</code>{" "}
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@codereview</code>{" "}
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@designreview</code>{" "}
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#3B82F6]">@contractreview</code>{" "}
-                — fan out to GPT, Claude, and Gemini for second opinions.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ─── WHO IT'S FOR (folded in from /why) ─── */}
       <section id="who-its-for" className="px-6 py-20 bg-[#1A1F2E]">
         <div className="max-w-6xl mx-auto">
@@ -578,11 +594,11 @@ export default function Home() {
               { name: "Notes", desc: "Manual + voice notes" },
               { name: "Skills", desc: "AI skill library" },
               { name: "Guide", desc: "Built-in docs" },
-              { name: "Config", desc: "AI tool config" },
-              { name: "Prefs", desc: "Working preferences" },
+              { name: "AI Tools", desc: "Plug-ins, Config, Prefs" },
               { name: "Settings", desc: "App settings" },
               { name: "Privacy", desc: "Data control" },
               { name: "About", desc: "Version info" },
+              { name: "Legal", desc: "Terms + disclaimer" },
             ].map((tab) => (
               <div
                 key={tab.name}
@@ -627,11 +643,12 @@ export default function Home() {
         <div className="max-w-3xl mx-auto text-center">
           <Logo size={80} />
           <h2 className="text-3xl sm:text-4xl font-bold mt-8 mb-4">
-            Ready to Give Your AI a Memory?
+            Ready to set up your AI Workbench?
           </h2>
           <p className="text-lg text-[#C0C8D8] mb-8 max-w-xl mx-auto">
-            Download MakoBot, add your project folders, and never re-explain
-            your work to an AI again. Free. Private. No account needed.
+            Download MakoBot, add your project folders, never re-explain your
+            work to an AI again — and call any plug-in for a second opinion
+            when an answer matters. Free. Private. No account needed.
           </p>
 
           <a
