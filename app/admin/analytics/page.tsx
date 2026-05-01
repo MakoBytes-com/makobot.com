@@ -30,7 +30,122 @@ interface AnalyticsData {
   };
   topPages: Array<{ path: string; count: number }>;
   topReferrers: Array<{ referrer: string; count: number }>;
+  outsideReferrals: {
+    external: Array<{ hostname: string; count: number | string }>;
+    directCount: number;
+  };
 }
+
+// Map a hostname to a friendly source name + category. The dictionary covers
+// the common search engines, social, AI tools, and dev communities; anything
+// not matched falls through to "Other" with the bare hostname shown.
+type SourceCategory = "Search" | "Social" | "AI" | "Community" | "Email" | "Direct" | "Other";
+interface SourceMatch {
+  name: string;
+  category: SourceCategory;
+  icon: string;
+}
+
+function classifySource(hostname: string): SourceMatch {
+  const h = hostname.toLowerCase().replace(/^www\./, "");
+  // Search engines
+  if (h.startsWith("google.") || h === "google" || /^google\.[a-z.]+$/.test(h)) return { name: "Google", category: "Search", icon: "🔍" };
+  if (h.includes("bing.com")) return { name: "Bing", category: "Search", icon: "🔍" };
+  if (h.includes("duckduckgo.com")) return { name: "DuckDuckGo", category: "Search", icon: "🦆" };
+  if (h.includes("yahoo.com")) return { name: "Yahoo", category: "Search", icon: "🔍" };
+  if (h.includes("yandex.")) return { name: "Yandex", category: "Search", icon: "🔍" };
+  if (h.includes("baidu.com")) return { name: "Baidu", category: "Search", icon: "🔍" };
+  if (h.includes("ecosia.org")) return { name: "Ecosia", category: "Search", icon: "🌱" };
+  if (h.includes("brave.com") || h.includes("search.brave.com")) return { name: "Brave Search", category: "Search", icon: "🦁" };
+  if (h.includes("kagi.com")) return { name: "Kagi", category: "Search", icon: "🔍" };
+
+  // AI tools
+  if (h === "chatgpt.com" || h.includes("chat.openai.com") || h.includes("openai.com")) return { name: "ChatGPT", category: "AI", icon: "🤖" };
+  if (h === "claude.ai" || h.includes("anthropic.com")) return { name: "Claude", category: "AI", icon: "🤖" };
+  if (h.includes("gemini.google.com")) return { name: "Gemini", category: "AI", icon: "🤖" };
+  if (h === "perplexity.ai" || h.endsWith(".perplexity.ai")) return { name: "Perplexity", category: "AI", icon: "🤖" };
+  if (h.includes("copilot.microsoft.com")) return { name: "Copilot", category: "AI", icon: "🤖" };
+  if (h.includes("you.com")) return { name: "You.com", category: "AI", icon: "🤖" };
+  if (h.includes("phind.com")) return { name: "Phind", category: "AI", icon: "🤖" };
+
+  // Social / sharing
+  if (h.includes("reddit.com")) return { name: "Reddit", category: "Social", icon: "🟧" };
+  if (h === "twitter.com" || h === "x.com" || h === "t.co" || h.endsWith(".twitter.com") || h.endsWith(".x.com")) return { name: "Twitter / X", category: "Social", icon: "🐦" };
+  if (h.includes("linkedin.com") || h === "lnkd.in") return { name: "LinkedIn", category: "Social", icon: "💼" };
+  if (h.includes("facebook.com") || h === "fb.com" || h === "l.facebook.com") return { name: "Facebook", category: "Social", icon: "📘" };
+  if (h.includes("youtube.com") || h === "youtu.be") return { name: "YouTube", category: "Social", icon: "▶️" };
+  if (h === "discord.com" || h === "discord.gg" || h.endsWith(".discord.com")) return { name: "Discord", category: "Social", icon: "💬" };
+  if (h.includes("mastodon")) return { name: "Mastodon", category: "Social", icon: "🐘" };
+  if (h.includes("threads.net")) return { name: "Threads", category: "Social", icon: "🧵" };
+  if (h.includes("bsky.app") || h.includes("bsky.social")) return { name: "Bluesky", category: "Social", icon: "🦋" };
+  if (h.includes("tiktok.com")) return { name: "TikTok", category: "Social", icon: "🎵" };
+  if (h.includes("instagram.com")) return { name: "Instagram", category: "Social", icon: "📸" };
+
+  // Dev communities
+  if (h.includes("news.ycombinator.com") || h === "hn.algolia.com") return { name: "Hacker News", category: "Community", icon: "🟧" };
+  if (h.includes("producthunt.com")) return { name: "Product Hunt", category: "Community", icon: "🚀" };
+  if (h.includes("github.com") || h === "gist.github.com") return { name: "GitHub", category: "Community", icon: "🐙" };
+  if (h.includes("stackoverflow.com")) return { name: "Stack Overflow", category: "Community", icon: "📚" };
+  if (h.includes("dev.to")) return { name: "DEV.to", category: "Community", icon: "💻" };
+  if (h.includes("medium.com")) return { name: "Medium", category: "Community", icon: "📝" };
+  if (h.includes("substack.com") || h.endsWith(".substack.com")) return { name: "Substack", category: "Community", icon: "✉️" };
+  if (h.includes("indiehackers.com")) return { name: "Indie Hackers", category: "Community", icon: "🛠️" };
+
+  // Email
+  if (h === "mail.google.com" || h === "outlook.live.com" || h === "outlook.office.com" || h.includes("yahoomail")) return { name: hostname, category: "Email", icon: "📧" };
+
+  // Anything else — keep the raw hostname so Russell can spot patterns.
+  return { name: hostname, category: "Other", icon: "🌐" };
+}
+
+interface AggregatedSource {
+  name: string;
+  category: SourceCategory;
+  icon: string;
+  count: number;
+  hostnames: string[];
+}
+
+function aggregateSources(
+  external: Array<{ hostname: string; count: number | string }>,
+  directCount: number,
+): AggregatedSource[] {
+  const map = new Map<string, AggregatedSource>();
+  for (const row of external) {
+    if (!row.hostname) continue;
+    const c = typeof row.count === "string" ? parseInt(row.count) : row.count;
+    if (!Number.isFinite(c) || c <= 0) continue;
+    const cls = classifySource(row.hostname);
+    const key = `${cls.name}::${cls.category}`;
+    const existing = map.get(key);
+    if (existing) {
+      existing.count += c;
+      if (!existing.hostnames.includes(row.hostname)) existing.hostnames.push(row.hostname);
+    } else {
+      map.set(key, { name: cls.name, category: cls.category, icon: cls.icon, count: c, hostnames: [row.hostname] });
+    }
+  }
+  if (directCount > 0) {
+    map.set("Direct::Direct", {
+      name: "Direct (no referrer)",
+      category: "Direct",
+      icon: "🔗",
+      count: directCount,
+      hostnames: [],
+    });
+  }
+  return Array.from(map.values()).sort((a, b) => b.count - a.count);
+}
+
+const CATEGORY_COLORS: Record<SourceCategory, string> = {
+  Search: "#3B82F6",
+  Social: "#EC4899",
+  AI: "#8B5CF6",
+  Community: "#F59E0B",
+  Email: "#14B8A6",
+  Direct: "#10B981",
+  Other: "#6B7280",
+};
 
 const COLORS = ["#3B82F6", "#10B981", "#F59E0B", "#EC4899", "#8B5CF6", "#6366F1", "#14B8A6", "#F97316"];
 
@@ -172,9 +287,76 @@ export default function AdminAnalyticsPage() {
         </div>
       </div>
 
+      {/* Outside Referrals — friendly source breakdown */}
+      {(() => {
+        const sources = data.outsideReferrals
+          ? aggregateSources(data.outsideReferrals.external, data.outsideReferrals.directCount)
+          : [];
+        const totalSourceVisits = sources.reduce((s, x) => s + x.count, 0);
+        const externalVisits = sources.filter((s) => s.category !== "Direct").reduce((sum, x) => sum + x.count, 0);
+        const directVisits = data.outsideReferrals?.directCount || 0;
+
+        return (
+          <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151] mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-medium text-[#8B95A8]">Outside Referrals (30 days)</h3>
+              <div className="flex gap-4 text-xs">
+                <span className="text-[#8B95A8]">
+                  External: <span className="text-[#3B82F6] font-mono font-semibold">{externalVisits.toLocaleString()}</span>
+                </span>
+                <span className="text-[#8B95A8]">
+                  Direct: <span className="text-[#10B981] font-mono font-semibold">{directVisits.toLocaleString()}</span>
+                </span>
+              </div>
+            </div>
+
+            {sources.length === 0 ? (
+              <p className="text-sm text-[#4B5563] py-4">No outside referral data yet — visits show up here once people start arriving from search engines, social, AI tools, etc.</p>
+            ) : (
+              <div className="space-y-2">
+                {sources.map((s, i) => {
+                  const maxCount = sources[0].count || 1;
+                  const pct = (s.count / maxCount) * 100;
+                  const sharePct = totalSourceVisits > 0 ? ((s.count / totalSourceVisits) * 100).toFixed(1) : "0";
+                  const color = CATEGORY_COLORS[s.category];
+                  return (
+                    <div key={i} className="group">
+                      <div className="flex items-center justify-between text-sm mb-1">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="text-base flex-shrink-0">{s.icon}</span>
+                          <span className="text-[#E8EDF3] font-medium truncate">{s.name}</span>
+                          <span
+                            className="text-[10px] uppercase tracking-wide px-1.5 py-0.5 rounded flex-shrink-0"
+                            style={{ background: `${color}22`, color }}
+                          >
+                            {s.category}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3 flex-shrink-0">
+                          <span className="text-[#8B95A8] text-xs font-mono">{sharePct}%</span>
+                          <span className="text-[#C0C8D8] font-mono">{s.count.toLocaleString()}</span>
+                        </div>
+                      </div>
+                      <div className="h-1.5 bg-[#1E2330] rounded-full overflow-hidden">
+                        <div className="h-full rounded-full" style={{ width: `${pct}%`, background: color }} />
+                      </div>
+                      {s.hostnames.length > 0 && s.hostnames.length <= 4 && s.hostnames[0] !== s.name.toLowerCase() && (
+                        <p className="text-[10px] text-[#4B5563] mt-1 ml-7 font-mono truncate">
+                          {s.hostnames.join(" · ")}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        );
+      })()}
+
       {/* Referrers table */}
       <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
-        <h3 className="text-sm font-medium text-[#8B95A8] mb-4">Top Referrers (30 days)</h3>
+        <h3 className="text-sm font-medium text-[#8B95A8] mb-4">Top Referrers (raw URLs, 30 days)</h3>
         {data.topReferrers.length === 0 ? (
           <p className="text-sm text-[#4B5563]">No referrer data yet</p>
         ) : (
