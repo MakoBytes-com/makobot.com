@@ -555,6 +555,101 @@ export async function getUniqueVisitors(days = 30) {
   return parseInt(rows[0].count as string);
 }
 
+// ─── APP VERSIONS / KILL-SWITCH ───
+//
+// Per-build status flag controlling what the desktop app does on startup.
+// MakoBot Build 103+ polls /api/app-status?version=X every hour. The server
+// looks up that version's status here and tells the client to keep going,
+// show a soft "please update" banner, or hard-block until the user updates.
+// Used to disable a bad build remotely without revoking signatures.
+
+export async function ensureAppVersionsTable() {
+  const sql = getDb();
+  await sql`
+    CREATE TABLE IF NOT EXISTS app_versions (
+      version VARCHAR(50) PRIMARY KEY,
+      build_number INTEGER NOT NULL,
+      status VARCHAR(20) NOT NULL DEFAULT 'ok',
+      message TEXT,
+      released_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW()
+    )
+  `;
+  // Constraint on status — Postgres won't enforce enum-like values otherwise.
+  await sql`
+    DO $$ BEGIN
+      IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'app_versions_status_chk') THEN
+        ALTER TABLE app_versions ADD CONSTRAINT app_versions_status_chk
+          CHECK (status IN ('ok', 'deprecated', 'blocked'));
+      END IF;
+    END $$
+  `;
+}
+
+export async function getAppVersionStatus(version: string) {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT version, build_number, status, message, released_at, updated_at
+    FROM app_versions WHERE version = ${version}
+  `;
+  return rows[0] || null;
+}
+
+export async function getLatestApprovedAppVersion() {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT version, build_number, status, released_at
+    FROM app_versions
+    WHERE status = 'ok'
+    ORDER BY build_number DESC
+    LIMIT 1
+  `;
+  return rows[0] || null;
+}
+
+export async function listAppVersions() {
+  const sql = getDb();
+  return sql`
+    SELECT version, build_number, status, message, released_at, updated_at
+    FROM app_versions
+    ORDER BY build_number DESC
+  `;
+}
+
+export async function upsertAppVersion(opts: {
+  version: string;
+  buildNumber: number;
+  status?: "ok" | "deprecated" | "blocked";
+  message?: string | null;
+}) {
+  const sql = getDb();
+  const status = opts.status || "ok";
+  await sql`
+    INSERT INTO app_versions (version, build_number, status, message, updated_at)
+    VALUES (${opts.version}, ${opts.buildNumber}, ${status}, ${opts.message ?? null}, NOW())
+    ON CONFLICT (version) DO UPDATE SET
+      build_number = EXCLUDED.build_number,
+      status = EXCLUDED.status,
+      message = EXCLUDED.message,
+      updated_at = NOW()
+  `;
+}
+
+export async function setAppVersionStatus(
+  version: string,
+  status: "ok" | "deprecated" | "blocked",
+  message?: string | null,
+) {
+  const sql = getDb();
+  await sql`
+    UPDATE app_versions
+    SET status = ${status},
+        message = ${message ?? null},
+        updated_at = NOW()
+    WHERE version = ${version}
+  `;
+}
+
 // ─── EVENTS ───
 export async function trackEvent(type: string, data: Record<string, unknown> | null, userId: number | null, ip: string) {
   const sql = getDb();
