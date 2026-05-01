@@ -63,8 +63,8 @@ export default function EditProfilePage() {
     return (
       <div className="min-h-screen">
         <div className="pt-8 px-6 max-w-2xl mx-auto text-center">
-          <h1 className="text-2xl font-bold text-[#E8EDF3] mb-4">Sign in required</h1>
-          <Link href="/get-key" className="text-[#3B82F6]">Sign In</Link>
+          <h1 className="text-2xl font-bold text-[#333333] mb-4">Sign in required</h1>
+          <Link href="/get-key" className="text-[#0061aa]">Sign In</Link>
         </div>
         <Footer />
       </div>
@@ -76,10 +76,10 @@ export default function EditProfilePage() {
       <div className="min-h-screen">
         <div className="pt-8 px-6 max-w-2xl mx-auto">
           <div className="animate-pulse space-y-4">
-            <div className="h-8 bg-[#374151] rounded w-1/3" />
-            <div className="h-10 bg-[#374151] rounded" />
-            <div className="h-10 bg-[#374151] rounded" />
-            <div className="h-24 bg-[#374151] rounded" />
+            <div className="h-8 bg-[#dbdbdb] rounded w-1/3" />
+            <div className="h-10 bg-[#dbdbdb] rounded" />
+            <div className="h-10 bg-[#dbdbdb] rounded" />
+            <div className="h-24 bg-[#dbdbdb] rounded" />
           </div>
         </div>
       </div>
@@ -91,13 +91,13 @@ export default function EditProfilePage() {
       <div className="pt-8 pb-20 px-6">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center gap-2 text-sm mb-6">
-            <Link href="/exchange" className="text-[#3B82F6] hover:text-[#60A5FA] font-medium transition-colors">Exchange</Link>
-            <span className="text-[#4B5563]">/</span>
-            <span className="text-[#E8EDF3] font-medium">Edit Profile</span>
+            <Link href="/exchange" className="text-[#0061aa] hover:text-[#60A5FA] font-medium transition-colors">Exchange</Link>
+            <span className="text-[#777777]">/</span>
+            <span className="text-[#333333] font-medium">Edit Profile</span>
           </div>
 
-          <h1 className="text-3xl font-bold text-[#E8EDF3] mb-2">Edit Profile</h1>
-          <p className="text-[#8B95A8] mb-8">This is how you appear across the exchange.</p>
+          <h1 className="text-3xl font-bold text-[#333333] mb-2">Edit Profile</h1>
+          <p className="text-[#777777] mb-8">This is how you appear across the exchange.</p>
 
           {error && (
             <div className="bg-[#DC2626]/10 border border-[#DC2626]/30 text-[#DC2626] rounded-lg px-4 py-3 text-sm mb-6">{error}</div>
@@ -114,9 +114,9 @@ export default function EditProfilePage() {
               className="relative group shrink-0"
             >
               {avatarUrl ? (
-                <img src={avatarUrl} alt="" className="w-20 h-20 rounded-full border-2 border-[#3B82F6] group-hover:opacity-70 transition-opacity" />
+                <img src={avatarUrl} alt="" className="w-20 h-20 rounded-full border-2 border-[#0061aa] group-hover:opacity-70 transition-opacity" />
               ) : (
-                <div className="w-20 h-20 rounded-full bg-[#374151] flex items-center justify-center text-[#6B7280] text-2xl font-bold border-2 border-[#3B82F6] group-hover:opacity-70 transition-opacity">
+                <div className="w-20 h-20 rounded-full bg-[#dbdbdb] flex items-center justify-center text-[#999999] text-2xl font-bold border-2 border-[#0061aa] group-hover:opacity-70 transition-opacity">
                   {(username || "?")[0].toUpperCase()}
                 </div>
               )}
@@ -128,18 +128,18 @@ export default function EditProfilePage() {
               </div>
             </button>
             <div>
-              <p className="text-lg font-semibold text-[#E8EDF3]">{displayName || username}</p>
-              <p className="text-sm text-[#3B82F6]">@{username || "username"}</p>
-              <p className="text-xs text-[#6B7280] mt-1">Click avatar to change</p>
+              <p className="text-lg font-semibold text-[#333333]">{displayName || username}</p>
+              <p className="text-sm text-[#0061aa]">@{username || "username"}</p>
+              <p className="text-xs text-[#999999] mt-1">Click avatar to change</p>
             </div>
           </div>
 
           {/* Avatar upload (shown on click) */}
           {editingAvatar && (
-            <div className="bg-[#252B3B] rounded-xl p-4 border border-[#374151] mb-6 space-y-4">
+            <div className="bg-[#f8f9fb] rounded-xl p-4 border border-[#dbdbdb] mb-6 space-y-4">
               {/* File upload */}
               <div>
-                <label className="block text-sm font-medium text-[#E8EDF3] mb-2">Upload an image</label>
+                <label className="block text-sm font-medium text-[#333333] mb-2">Upload an image</label>
                 <input
                   type="file"
                   accept="image/*"
@@ -163,17 +163,17 @@ export default function EditProfilePage() {
                     } catch { setError("Upload failed. Please try again."); }
                     setUploadingAvatar(false);
                   }}
-                  className="block text-sm text-[#8B95A8] file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#3B82F6] file:text-white hover:file:bg-[#2563EB] file:cursor-pointer"
+                  className="block text-sm text-[#777777] file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#0061aa] file:text-white hover:file:bg-[#004d88] file:cursor-pointer"
                 />
-                {uploadingAvatar && <p className="text-xs text-[#3B82F6] mt-2">Uploading...</p>}
-                <p className="text-xs text-[#6B7280] mt-2">JPG, PNG, GIF, or WebP. Max 2MB.</p>
+                {uploadingAvatar && <p className="text-xs text-[#0061aa] mt-2">Uploading...</p>}
+                <p className="text-xs text-[#999999] mt-2">JPG, PNG, GIF, or WebP. Max 2MB.</p>
               </div>
 
               {/* OR divider */}
               <div className="flex items-center gap-3">
-                <div className="flex-1 border-t border-[#374151]" />
-                <span className="text-xs text-[#6B7280]">or paste a URL</span>
-                <div className="flex-1 border-t border-[#374151]" />
+                <div className="flex-1 border-t border-[#dbdbdb]" />
+                <span className="text-xs text-[#999999]">or paste a URL</span>
+                <div className="flex-1 border-t border-[#dbdbdb]" />
               </div>
 
               {/* URL input */}
@@ -182,7 +182,7 @@ export default function EditProfilePage() {
                 value={avatarUrl}
                 onChange={(e) => setAvatarUrl(e.target.value)}
                 placeholder="https://i.imgur.com/your-photo.jpg"
-                className="w-full px-4 py-3 rounded-lg bg-[#1E2330] border border-[#374151] text-[#E8EDF3] text-sm placeholder-[#6B7280] focus:outline-none focus:border-[#3B82F6] transition-colors"
+                className="w-full px-4 py-3 rounded-lg bg-[#ffffff] border border-[#dbdbdb] text-[#333333] text-sm placeholder-[#999999] focus:outline-none focus:border-[#0061aa] transition-colors"
               />
             </div>
           )}
@@ -190,52 +190,52 @@ export default function EditProfilePage() {
           <form onSubmit={handleSave} className="space-y-6">
             {/* Username */}
             <div>
-              <label className="block text-sm font-medium text-[#E8EDF3] mb-2">Username *</label>
+              <label className="block text-sm font-medium text-[#333333] mb-2">Username *</label>
               <div className="flex items-center">
-                <span className="px-3 py-3 rounded-l-lg bg-[#1E2330] border border-r-0 border-[#374151] text-[#6B7280] text-sm">@</span>
+                <span className="px-3 py-3 rounded-l-lg bg-[#ffffff] border border-r-0 border-[#dbdbdb] text-[#999999] text-sm">@</span>
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, ""))}
                   maxLength={30}
                   placeholder="your-username"
-                  className="flex-1 px-4 py-3 rounded-r-lg bg-[#252B3B] border border-[#374151] text-[#E8EDF3] text-sm placeholder-[#6B7280] focus:outline-none focus:border-[#3B82F6] transition-colors"
+                  className="flex-1 px-4 py-3 rounded-r-lg bg-[#f8f9fb] border border-[#dbdbdb] text-[#333333] text-sm placeholder-[#999999] focus:outline-none focus:border-[#0061aa] transition-colors"
                 />
               </div>
-              <p className="text-xs text-[#6B7280] mt-1">Letters, numbers, hyphens, underscores. 3-30 characters.</p>
+              <p className="text-xs text-[#999999] mt-1">Letters, numbers, hyphens, underscores. 3-30 characters.</p>
             </div>
 
             {/* Display Name */}
             <div>
-              <label className="block text-sm font-medium text-[#E8EDF3] mb-2">Display Name</label>
+              <label className="block text-sm font-medium text-[#333333] mb-2">Display Name</label>
               <input
                 type="text"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
                 maxLength={50}
                 placeholder="How you want your name displayed"
-                className="w-full px-4 py-3 rounded-lg bg-[#252B3B] border border-[#374151] text-[#E8EDF3] text-sm placeholder-[#6B7280] focus:outline-none focus:border-[#3B82F6] transition-colors"
+                className="w-full px-4 py-3 rounded-lg bg-[#f8f9fb] border border-[#dbdbdb] text-[#333333] text-sm placeholder-[#999999] focus:outline-none focus:border-[#0061aa] transition-colors"
               />
             </div>
 
             {/* Bio */}
             <div>
-              <label className="block text-sm font-medium text-[#E8EDF3] mb-2">Bio</label>
+              <label className="block text-sm font-medium text-[#333333] mb-2">Bio</label>
               <textarea
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 maxLength={500}
                 rows={4}
                 placeholder="Tell the community about yourself..."
-                className="w-full px-4 py-3 rounded-lg bg-[#252B3B] border border-[#374151] text-[#E8EDF3] text-sm placeholder-[#6B7280] focus:outline-none focus:border-[#3B82F6] transition-colors resize-none"
+                className="w-full px-4 py-3 rounded-lg bg-[#f8f9fb] border border-[#dbdbdb] text-[#333333] text-sm placeholder-[#999999] focus:outline-none focus:border-[#0061aa] transition-colors resize-none"
               />
-              <p className="text-xs text-[#6B7280] mt-1">{bio.length}/500</p>
+              <p className="text-xs text-[#999999] mt-1">{bio.length}/500</p>
             </div>
 
             <button
               type="submit"
               disabled={saving}
-              className="w-full py-3 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] disabled:opacity-50 text-white font-semibold text-base transition-colors"
+              className="w-full py-3 rounded-lg bg-[#0061aa] hover:bg-[#004d88] disabled:opacity-50 text-white font-semibold text-base transition-colors"
             >
               {saving ? "Saving..." : "Save Profile"}
             </button>

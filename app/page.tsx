@@ -172,11 +172,11 @@ export default function Home() {
               <div className="text-3xl mb-3">🤖</div>
               <h3 className="text-base font-semibold text-[#333333] mb-2">AI Tools</h3>
               <p className="text-sm text-[#555555] leading-relaxed">
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@verify</code>{" "}
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@audit</code>{" "}
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@codereview</code>{" "}
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@designreview</code>{" "}
-                <code className="bg-[#0F1419] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@contractreview</code>{" "}
+                <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@verify</code>{" "}
+                <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@audit</code>{" "}
+                <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@codereview</code>{" "}
+                <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@designreview</code>{" "}
+                <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@contractreview</code>{" "}
                 — fan out to GPT, Claude, and Gemini for second opinions.
               </p>
             </div>
@@ -457,7 +457,7 @@ export default function Home() {
               </h3>
               <ol className="space-y-3 text-sm text-[#555555] leading-relaxed">
                 <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Open Claude Code in VS Code</li>
-                <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Type <code className="bg-[#0F1419] px-2 py-0.5 rounded text-[#0061aa]">Recover</code></li>
+                <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Type <code className="bg-[#e6f0f9] px-2 py-0.5 rounded text-[#0061aa]">Recover</code></li>
                 <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Claude reads MakoBot&apos;s injected context — already knows your projects, recent commits, last session, current build, open decisions</li>
                 <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Start working</li>
               </ol>
@@ -468,7 +468,7 @@ export default function Home() {
       </section>
 
       {/* ─── TIME-SAVED MATH (folded in from /why) ─── */}
-      <section id="time-saved" className="px-6 py-20 bg-[#1A1F2E]">
+      <section id="time-saved" className="px-6 py-20 bg-[#f8f9fb]">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             title="The actual math on time saved"
@@ -505,7 +505,7 @@ export default function Home() {
       </section>
 
       {/* ─── WHO IT'S FOR (folded in from /why) ─── */}
-      <section id="who-its-for" className="px-6 py-20 bg-[#1A1F2E]">
+      <section id="who-its-for" className="px-6 py-20 bg-[#f8f9fb]">
         <div className="max-w-6xl mx-auto">
           <SectionHeading
             title="Who actually needs this"

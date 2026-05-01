@@ -87,38 +87,38 @@ export default function RequestsPage() {
       <div className="pt-8 pb-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-2">
-            <h1 className="text-3xl font-bold text-[#E8EDF3]">Skill Requests</h1>
+            <h1 className="text-3xl font-bold text-[#333333]">Skill Requests</h1>
             {session?.user && (
               <button
                 onClick={() => setShowForm(!showForm)}
-                className="inline-flex items-center px-5 py-2 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-semibold transition-colors"
+                className="inline-flex items-center px-5 py-2 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white text-sm font-semibold transition-colors"
               >
                 {showForm ? "Cancel" : "Request a Skill"}
               </button>
             )}
           </div>
-          <p className="text-[#8B95A8] mb-6">
+          <p className="text-[#777777] mb-6">
             Looking for something that does not exist yet? Request it here and the community can build it.
             Upvote requests you want to see built.
           </p>
 
           {/* Submit form */}
           {showForm && (
-            <form onSubmit={handleSubmitRequest} className="bg-[#252B3B] rounded-xl p-5 border border-[#374151] mb-6 space-y-4">
+            <form onSubmit={handleSubmitRequest} className="bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb] mb-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-[#E8EDF3] mb-1">What do you need? *</label>
+                <label className="block text-sm font-medium text-[#333333] mb-1">What do you need? *</label>
                 <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} maxLength={200}
                   placeholder="A skill that generates database migrations from plain English"
-                  className="w-full px-4 py-2.5 rounded-lg bg-[#1E2330] border border-[#374151] text-[#E8EDF3] text-sm placeholder-[#6B7280] focus:outline-none focus:border-[#3B82F6]" />
+                  className="w-full px-4 py-2.5 rounded-lg bg-[#ffffff] border border-[#dbdbdb] text-[#333333] text-sm placeholder-[#999999] focus:outline-none focus:border-[#0061aa]" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#E8EDF3] mb-1">Details *</label>
+                <label className="block text-sm font-medium text-[#333333] mb-1">Details *</label>
                 <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} maxLength={2000}
                   placeholder="Describe what this skill should do, what platforms it should work with, and any specific requirements."
-                  className="w-full px-4 py-2.5 rounded-lg bg-[#1E2330] border border-[#374151] text-[#E8EDF3] text-sm placeholder-[#6B7280] focus:outline-none focus:border-[#3B82F6] resize-none" />
+                  className="w-full px-4 py-2.5 rounded-lg bg-[#ffffff] border border-[#dbdbdb] text-[#333333] text-sm placeholder-[#999999] focus:outline-none focus:border-[#0061aa] resize-none" />
               </div>
               <button type="submit" disabled={submitting}
-                className="px-5 py-2 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] disabled:opacity-50 text-white text-sm font-semibold transition-colors">
+                className="px-5 py-2 rounded-lg bg-[#0061aa] hover:bg-[#004d88] disabled:opacity-50 text-white text-sm font-semibold transition-colors">
                 {submitting ? "Submitting..." : "Submit Request"}
               </button>
             </form>
@@ -127,11 +127,11 @@ export default function RequestsPage() {
           {/* Sort */}
           <div className="flex gap-2 mb-6">
             <button onClick={() => setSort("most-upvoted")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${sort === "most-upvoted" ? "bg-[#3B82F6] text-white" : "bg-[#252B3B] text-[#8B95A8] border border-[#374151]"}`}>
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${sort === "most-upvoted" ? "bg-[#0061aa] text-white" : "bg-[#f8f9fb] text-[#777777] border border-[#dbdbdb]"}`}>
               Most Wanted
             </button>
             <button onClick={() => setSort("newest")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${sort === "newest" ? "bg-[#3B82F6] text-white" : "bg-[#252B3B] text-[#8B95A8] border border-[#374151]"}`}>
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${sort === "newest" ? "bg-[#0061aa] text-white" : "bg-[#f8f9fb] text-[#777777] border border-[#dbdbdb]"}`}>
               Newest
             </button>
           </div>
@@ -140,9 +140,9 @@ export default function RequestsPage() {
           {loading ? (
             <div className="space-y-4">
               {[...Array(5)].map((_, i) => (
-                <div key={i} className="bg-[#252B3B] rounded-xl p-5 border border-[#374151] animate-pulse">
-                  <div className="h-5 bg-[#374151] rounded w-2/3 mb-3" />
-                  <div className="h-4 bg-[#374151] rounded w-full" />
+                <div key={i} className="bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb] animate-pulse">
+                  <div className="h-5 bg-[#dbdbdb] rounded w-2/3 mb-3" />
+                  <div className="h-4 bg-[#dbdbdb] rounded w-full" />
                 </div>
               ))}
             </div>
@@ -151,15 +151,15 @@ export default function RequestsPage() {
               {requests.map((req) => {
                 const isUpvoted = userUpvotes.includes(req.id);
                 return (
-                  <div key={req.id} className="bg-[#252B3B] rounded-xl p-5 border border-[#374151] flex gap-4">
+                  <div key={req.id} className="bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb] flex gap-4">
                     {/* Upvote button */}
                     <button
                       onClick={() => handleUpvote(req.id)}
                       disabled={!session?.user}
                       className={`flex flex-col items-center shrink-0 px-3 py-2 rounded-lg transition-colors ${
                         isUpvoted
-                          ? "bg-[#3B82F6]/20 text-[#3B82F6]"
-                          : "bg-[#1E2330] text-[#6B7280] hover:text-[#E8EDF3]"
+                          ? "bg-[#0061aa]/20 text-[#0061aa]"
+                          : "bg-[#ffffff] text-[#999999] hover:text-[#333333]"
                       } ${!session?.user ? "opacity-50 cursor-not-allowed" : ""}`}
                     >
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
@@ -170,10 +170,10 @@ export default function RequestsPage() {
 
                     {/* Content */}
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-base font-semibold text-[#E8EDF3] mb-1">{req.title}</h3>
-                      <p className="text-sm text-[#8B95A8] mb-3 leading-relaxed">{req.description}</p>
-                      <div className="flex items-center gap-3 text-xs text-[#6B7280]">
-                        <Link href={`/exchange/user/${req.user_id}`} className="flex items-center gap-1.5 text-[#3B82F6] hover:opacity-80">
+                      <h3 className="text-base font-semibold text-[#333333] mb-1">{req.title}</h3>
+                      <p className="text-sm text-[#777777] mb-3 leading-relaxed">{req.description}</p>
+                      <div className="flex items-center gap-3 text-xs text-[#999999]">
+                        <Link href={`/exchange/user/${req.user_id}`} className="flex items-center gap-1.5 text-[#0061aa] hover:opacity-80">
                           {req.author_avatar && <img src={req.author_avatar} alt="" className="w-4 h-4 rounded-full" />}
                           @{req.author_username || "user"}
                         </Link>
@@ -192,8 +192,8 @@ export default function RequestsPage() {
             </div>
           ) : (
             <div className="text-center py-16">
-              <p className="text-[#8B95A8] text-lg mb-2">No requests yet.</p>
-              <p className="text-[#6B7280] text-sm">Be the first to request a skill the community should build.</p>
+              <p className="text-[#777777] text-lg mb-2">No requests yet.</p>
+              <p className="text-[#999999] text-sm">Be the first to request a skill the community should build.</p>
             </div>
           )}
         </div>
