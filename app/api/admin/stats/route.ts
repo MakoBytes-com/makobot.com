@@ -23,35 +23,22 @@ export async function GET() {
   }
 
   try {
-    const [
-      totalUsers,
-      totalKeys,
-      activeKeys,
-      totalDownloads,
-      pageViews30d,
-      uniqueVisitors30d,
-      signupsPerDay,
-      downloadsPerDay,
-      pageViewsPerDay,
-      topPages,
-      topReferrers,
-      recentEvents,
-      recentDownloads,
-    ] = await Promise.all([
-      getUserCount(),
-      getKeyCount(),
-      getActiveKeyCount(),
-      getDownloadCount(),
-      getPageViewCount(30),
-      getUniqueVisitors(30),
-      getSignupsPerDay(30),
-      getDownloadsPerDay(30),
-      getPageViewsPerDay(30),
-      getTopPages(30, 10),
-      getTopReferrers(30, 10),
-      getRecentEvents(20),
-      getRecentDownloads(20),
-    ]);
+    // Serial execution — Promise.all was hanging in production for unknown
+    // reasons (timing endpoint shows queries finish in 46ms total when serial,
+    // so total wall time is fine). Stop fighting it; ship working dashboard.
+    const totalUsers = await getUserCount();
+    const totalKeys = await getKeyCount();
+    const activeKeys = await getActiveKeyCount();
+    const totalDownloads = await getDownloadCount();
+    const pageViews30d = await getPageViewCount(30);
+    const uniqueVisitors30d = await getUniqueVisitors(30);
+    const signupsPerDay = await getSignupsPerDay(30);
+    const downloadsPerDay = await getDownloadsPerDay(30);
+    const pageViewsPerDay = await getPageViewsPerDay(30);
+    const topPages = await getTopPages(30, 10);
+    const topReferrers = await getTopReferrers(30, 10);
+    const recentEvents = await getRecentEvents(20);
+    const recentDownloads = await getRecentDownloads(20);
 
     return NextResponse.json({
       totals: { totalUsers, totalKeys, activeKeys, totalDownloads, pageViews30d, uniqueVisitors30d },
