@@ -287,11 +287,17 @@ export async function getUserByEmail(email: string) {
   // PERF: explicit columns only — this query runs on EVERY page load via
   // NextAuth's session callback. SELECT * was pulling avatar_data (~50KB
   // BYTEA) over the wire on every request to every page on the site.
+  //
+  // Build 102: LOWER() comparison on both sides. Google sometimes sends
+  // mixed-case emails (e.g. "Russell.Sailors@gmail.com") in profile.email
+  // even though the same account's stored row is lowercase. Without this
+  // case-insensitive match, the session callback silently misses the user
+  // and returns is_admin = undefined, locking the owner out of /admin.
   const sql = getDb();
   const rows = await sql`
     SELECT id, google_id, email, name, avatar_url, is_admin, created_at,
            username, display_name, bio, github_username, is_verified
-    FROM users WHERE email = ${email}
+    FROM users WHERE LOWER(email) = LOWER(${email})
   `;
   return rows[0] || null;
 }
