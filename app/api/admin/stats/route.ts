@@ -12,6 +12,7 @@ import {
   getPageViewsPerDay,
   getTopPages,
   getTopReferrers,
+  getOutsideReferrals,
   getRecentEvents,
   getRecentDownloads,
 } from "@/lib/db";
@@ -37,6 +38,7 @@ export async function GET() {
     const pageViewsPerDay = await getPageViewsPerDay(30);
     const topPages = await getTopPages(30, 10);
     const topReferrers = await getTopReferrers(30, 10);
+    const outsideReferrals = await getOutsideReferrals(30, 25);
     const recentEvents = await getRecentEvents(20);
     const recentDownloads = await getRecentDownloads(20);
 
@@ -45,6 +47,7 @@ export async function GET() {
       charts: { signupsPerDay, downloadsPerDay, pageViewsPerDay },
       topPages,
       topReferrers,
+      outsideReferrals,
       recentEvents,
       recentDownloads,
     });

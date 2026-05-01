@@ -546,6 +546,46 @@ export async function getTopReferrers(days = 30, limit = 20) {
   `;
 }
 
+// Outside referrals — same data as getTopReferrers but with the URL parsed
+// down to a hostname, internal makobot.com / localhost referrals stripped,
+// and a "Direct (no referrer)" bucket for visits with no Referer header
+// (typed URL, bookmark, or AI/messaging app that doesn't pass referrer).
+export async function getOutsideReferrals(days = 30, limit = 25) {
+  const sql = getDb();
+
+  // External hostnames only — Postgres extracts the host from the URL via
+  // substring()-with-regex, then we group by hostname.
+  const hosts = await sql`
+    SELECT
+      LOWER(substring(referrer from '^[a-zA-Z]+://([^/?#]+)')) AS hostname,
+      COUNT(*) AS count
+    FROM page_views
+    WHERE created_at > ${daysAgo(days)}
+      AND referrer IS NOT NULL
+      AND referrer != ''
+      AND referrer NOT ILIKE '%makobot.com%'
+      AND referrer NOT ILIKE '%localhost%'
+      AND referrer NOT ILIKE '%127.0.0.1%'
+    GROUP BY hostname
+    HAVING LOWER(substring(referrer from '^[a-zA-Z]+://([^/?#]+)')) IS NOT NULL
+    ORDER BY count DESC
+    LIMIT ${limit}
+  `;
+
+  // Direct visits (no referrer) — bookmark, typed URL, or privacy-stripped.
+  const direct = await sql`
+    SELECT COUNT(*) AS count
+    FROM page_views
+    WHERE created_at > ${daysAgo(days)}
+      AND (referrer IS NULL OR referrer = '')
+  `;
+
+  return {
+    external: hosts as unknown as Array<{ hostname: string; count: number | string }>,
+    directCount: parseInt(direct[0].count as string) || 0,
+  };
+}
+
 export async function getUniqueVisitors(days = 30) {
   const sql = getDb();
   const rows = await sql`
