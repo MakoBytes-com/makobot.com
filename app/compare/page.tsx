@@ -59,11 +59,11 @@ export default function ComparePage() {
             <span className="text-[#0061aa] font-semibold">cross-project memory
             backbone</span>. When your agent reads a file and wants a sanity
             check, it calls{" "}
-            <code className="bg-[#ffffff] px-2 py-0.5 rounded text-[#0061aa]">
+            <code className="bg-[#e6f0f9] px-2 py-0.5 rounded text-[#0061aa]">
               @verify
             </code>{" "}
             or{" "}
-            <code className="bg-[#ffffff] px-2 py-0.5 rounded text-[#0061aa]">
+            <code className="bg-[#e6f0f9] px-2 py-0.5 rounded text-[#0061aa]">
               @audit
             </code>{" "}
             on MakoBot — Claude, GPT, and Gemini all weigh in. Your agent
@@ -73,15 +73,15 @@ export default function ComparePage() {
             That&apos;s why MakoBot plays nicely with Claude Code, Cursor,
             Windsurf, and Aider all at once — instead of competing with any
             of them. The injected{" "}
-            <code className="bg-[#ffffff] px-2 py-0.5 rounded text-[#777777]">
+            <code className="bg-[#e6f0f9] px-2 py-0.5 rounded text-[#777777]">
               CLAUDE.md
             </code>
             ,{" "}
-            <code className="bg-[#ffffff] px-2 py-0.5 rounded text-[#777777]">
+            <code className="bg-[#e6f0f9] px-2 py-0.5 rounded text-[#777777]">
               AGENTS.md
             </code>
             , and{" "}
-            <code className="bg-[#ffffff] px-2 py-0.5 rounded text-[#777777]">
+            <code className="bg-[#e6f0f9] px-2 py-0.5 rounded text-[#777777]">
               .cursorrules
             </code>{" "}
             files mean every tool you use sees the same context.

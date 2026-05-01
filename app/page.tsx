@@ -45,11 +45,11 @@ export default function Home() {
           MakoBot runs on your Windows PC. It captures every commit,
           conversation, and note across every project, gives you one search bar
           that reaches all of it, and adds one-line plug-ins
-          {" "}<code className="text-[#0061aa] bg-[#ffffff] px-1.5 py-0.5 rounded text-base font-mono">@verify</code>
-          {" "}<code className="text-[#0061aa] bg-[#ffffff] px-1.5 py-0.5 rounded text-base font-mono">@audit</code>
-          {" "}<code className="text-[#0061aa] bg-[#ffffff] px-1.5 py-0.5 rounded text-base font-mono">@codereview</code>
-          {" "}<code className="text-[#0061aa] bg-[#ffffff] px-1.5 py-0.5 rounded text-base font-mono">@designreview</code>
-          {" "}<code className="text-[#0061aa] bg-[#ffffff] px-1.5 py-0.5 rounded text-base font-mono">@contractreview</code>
+          {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@verify</code>
+          {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@audit</code>
+          {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@codereview</code>
+          {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@designreview</code>
+          {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@contractreview</code>
           {" "}that fan out to GPT, Claude, and Gemini for second opinions —
           all auto-injected into Claude Code, Cursor, Antigravity, Windsurf,
           ChatGPT, and Gemini.
