@@ -13,19 +13,19 @@ export function ExchangeNav() {
   const { data: session } = useSession();
 
   const links = [
-    { href: "/exchange", label: "Browse", icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z", color: "#3B82F6" },
-    { href: "/exchange/stacks", label: "Stacks", icon: "M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5", color: "#3B82F6" },
+    { href: "/exchange", label: "Browse", icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z", color: "#0061aa" },
+    { href: "/exchange/stacks", label: "Stacks", icon: "M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5", color: "#0061aa" },
     { href: "/exchange/collections", label: "Collections", icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10", color: "#EC4899" },
     { href: "/exchange/requests", label: "Requests", icon: "M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01", color: "#F59E0B" },
     { href: "/exchange/submit", label: "Submit", icon: "M12 5v14M5 12h14", color: "#10B981" },
     { href: "/exchange/following", label: "Following", icon: "M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 11l-3 3-3-3", color: "#EC4899", auth: true },
-    { href: "/exchange/my-listings", label: "My Listings", icon: "M4 6h16M4 10h16M4 14h16M4 18h16", color: "#3B82F6", auth: true },
+    { href: "/exchange/my-listings", label: "My Listings", icon: "M4 6h16M4 10h16M4 14h16M4 18h16", color: "#0061aa", auth: true },
     { href: "/exchange/creator-analytics", label: "Analytics", icon: "M3 3v18h18M7 12l3-3 4 4 5-5", color: "#10B981", auth: true },
     { href: "/exchange/profile", label: "My Profile", icon: "M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 3a4 4 0 110 8 4 4 0 010-8z", color: "#F59E0B", auth: true },
   ];
 
   return (
-    <div className="bg-[#1E2330] border-b border-[#374151]">
+    <div className="bg-[#ffffff] border-b border-[#dbdbdb]">
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
         <div className="flex items-center gap-0.5">
           {links.map((link) => {
@@ -37,8 +37,8 @@ export function ExchangeNav() {
                 href={link.href}
                 className={`flex items-center gap-2 px-4 py-3.5 text-sm font-semibold transition-all border-b-[3px] ${
                   active
-                    ? "bg-[#252B3B]"
-                    : "border-transparent hover:bg-[#252B3B]/50"
+                    ? "bg-[#f8f9fb]"
+                    : "border-transparent hover:bg-[#f8f9fb]/50"
                 }`}
                 style={{ color: link.color, borderBottomColor: active ? link.color : "transparent" }}
               >
@@ -61,7 +61,7 @@ export function ExchangeNav() {
         </div>
         <Link
           href="/"
-          className="text-xs text-[#8B95A8] hover:text-[#3B82F6] transition-colors hidden sm:flex items-center gap-1 font-medium"
+          className="text-xs text-[#777777] hover:text-[#0061aa] transition-colors hidden sm:flex items-center gap-1 font-medium"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
             <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -87,8 +87,8 @@ export function CategoryTabs({
         onClick={() => onChange(null)}
         className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
           selected === null
-            ? "bg-[#3B82F6] text-white"
-            : "bg-[#252B3B] text-[#8B95A8] hover:text-[#E8EDF3] border border-[#374151]"
+            ? "bg-[#0061aa] text-white"
+            : "bg-[#f8f9fb] text-[#777777] hover:text-[#333333] border border-[#dbdbdb]"
         }`}
       >
         All
@@ -99,8 +99,8 @@ export function CategoryTabs({
           onClick={() => onChange(cat.value)}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             selected === cat.value
-              ? "bg-[#3B82F6] text-white"
-              : "bg-[#252B3B] text-[#8B95A8] hover:text-[#E8EDF3] border border-[#374151]"
+              ? "bg-[#0061aa] text-white"
+              : "bg-[#f8f9fb] text-[#777777] hover:text-[#333333] border border-[#dbdbdb]"
           }`}
         >
           {cat.label}
@@ -124,8 +124,8 @@ export function PlatformFilter({
         onClick={() => onChange(null)}
         className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
           selected === null
-            ? "bg-[#3B82F6] text-white"
-            : "bg-[#252B3B] text-[#8B95A8] hover:text-[#E8EDF3] border border-[#374151]"
+            ? "bg-[#0061aa] text-white"
+            : "bg-[#f8f9fb] text-[#777777] hover:text-[#333333] border border-[#dbdbdb]"
         }`}
       >
         All Platforms
@@ -137,7 +137,7 @@ export function PlatformFilter({
           className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
             selected === p.value
               ? "text-white"
-              : "bg-[#252B3B] text-[#8B95A8] hover:text-[#E8EDF3] border border-[#374151]"
+              : "bg-[#f8f9fb] text-[#777777] hover:text-[#333333] border border-[#dbdbdb]"
           }`}
           style={selected === p.value ? { backgroundColor: p.color } : undefined}
         >
@@ -159,7 +159,7 @@ export function SearchBar({
   return (
     <div className="relative">
       <svg
-        className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6B7280]"
+        className="absolute left-3 top-1/2 -translate-y-1/2 text-[#999999]"
         width="18"
         height="18"
         fill="none"
@@ -175,7 +175,7 @@ export function SearchBar({
         placeholder="Search skills, prompts, configs..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full pl-10 pr-4 py-3 rounded-lg bg-[#252B3B] border border-[#374151] text-[#E8EDF3] text-sm placeholder-[#6B7280] focus:outline-none focus:border-[#3B82F6] transition-colors"
+        className="w-full pl-10 pr-4 py-3 rounded-lg bg-[#f8f9fb] border border-[#dbdbdb] text-[#333333] text-sm placeholder-[#999999] focus:outline-none focus:border-[#0061aa] transition-colors"
       />
     </div>
   );
@@ -193,7 +193,7 @@ export function SortSelect({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="px-4 py-3 rounded-lg bg-[#252B3B] border border-[#374151] text-[#E8EDF3] text-sm focus:outline-none focus:border-[#3B82F6] transition-colors"
+      className="px-4 py-3 rounded-lg bg-[#f8f9fb] border border-[#dbdbdb] text-[#333333] text-sm focus:outline-none focus:border-[#0061aa] transition-colors"
     >
       <option value="newest">Newest</option>
       <option value="top-rated">Top Rated</option>
@@ -235,7 +235,7 @@ export function StarRating({
               height={size}
               viewBox="0 0 24 24"
               fill={filled ? "#F59E0B" : "none"}
-              stroke={filled ? "#F59E0B" : "#4B5563"}
+              stroke={filled ? "#F59E0B" : "#777777"}
               strokeWidth={2}
             >
               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
@@ -258,7 +258,7 @@ export function StatusBadge({ status }: { status: string }) {
   return (
     <span
       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${
-        colors[status] || "bg-[#374151] text-[#8B95A8]"
+        colors[status] || "bg-[#dbdbdb] text-[#777777]"
       }`}
     >
       {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -288,7 +288,7 @@ export function ListingCard({ listing }: { listing: ExchangeListing }) {
   return (
     <Link
       href={`/exchange/${listing.slug}`}
-      className="block bg-[#252B3B] rounded-xl border border-[#374151] feature-card overflow-hidden"
+      className="block bg-[#f8f9fb] rounded-xl border border-[#dbdbdb] feature-card overflow-hidden"
     >
       {/* Screenshot */}
       {listing.screenshot_url && (
@@ -302,10 +302,10 @@ export function ListingCard({ listing }: { listing: ExchangeListing }) {
       <div className="p-5">
       {/* Category label */}
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-semibold text-[#3B82F6] uppercase tracking-wide">
+        <span className="text-xs font-semibold text-[#0061aa] uppercase tracking-wide">
           {getCategoryLabel(listing.category)}
         </span>
-        <div className="flex items-center gap-2 text-xs text-[#6B7280]">
+        <div className="flex items-center gap-2 text-xs text-[#999999]">
           <span className="flex items-center gap-1">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -318,12 +318,12 @@ export function ListingCard({ listing }: { listing: ExchangeListing }) {
       </div>
 
       {/* Title */}
-      <h3 className="text-base font-semibold text-[#E8EDF3] mb-2 line-clamp-2">
+      <h3 className="text-base font-semibold text-[#333333] mb-2 line-clamp-2">
         {listing.title}
       </h3>
 
       {/* Description */}
-      <p className="text-sm text-[#8B95A8] mb-4 line-clamp-2 leading-relaxed">
+      <p className="text-sm text-[#777777] mb-4 line-clamp-2 leading-relaxed">
         {listing.description}
       </p>
 
@@ -331,7 +331,7 @@ export function ListingCard({ listing }: { listing: ExchangeListing }) {
       <PlatformPills platforms={listing.platforms} />
 
       {/* Footer: rating + author */}
-      <div className="mt-4 pt-3 border-t border-[#374151]/50 flex items-center justify-between">
+      <div className="mt-4 pt-3 border-t border-[#dbdbdb]/50 flex items-center justify-between">
         {listing.source_author ? (
           <a
             href={`https://github.com/${listing.source_author}`}
@@ -340,8 +340,8 @@ export function ListingCard({ listing }: { listing: ExchangeListing }) {
             onClick={(e) => e.stopPropagation()}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="#8B95A8"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            <span className="text-xs text-[#3B82F6] font-medium">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#777777"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span className="text-xs text-[#0061aa] font-medium">
               @{listing.source_author}
             </span>
           </a>
@@ -358,7 +358,7 @@ export function ListingCard({ listing }: { listing: ExchangeListing }) {
                 className="w-5 h-5 rounded-full"
               />
             )}
-            <span className="text-xs text-[#3B82F6] font-medium">
+            <span className="text-xs text-[#0061aa] font-medium">
               @{listing.author_username || "user"}
             </span>
           </a>
@@ -366,7 +366,7 @@ export function ListingCard({ listing }: { listing: ExchangeListing }) {
         {listing.rating_count > 0 && (
           <div className="flex items-center gap-1">
             <StarRating rating={listing.rating_avg} size={12} />
-            <span className="text-xs text-[#6B7280]">
+            <span className="text-xs text-[#999999]">
               ({listing.rating_count})
             </span>
           </div>
@@ -392,7 +392,7 @@ export function ContentPreview({
   return (
     <div className="relative">
       <pre
-        className={`bg-[#1E2330] rounded-lg p-4 text-sm text-[#C0C8D8] font-mono overflow-x-auto whitespace-pre-wrap break-words leading-relaxed border border-[#374151] transition-all duration-300 styled-scrollbar ${
+        className={`bg-[#ffffff] rounded-lg p-4 text-sm text-[#555555] font-mono overflow-x-auto whitespace-pre-wrap break-words leading-relaxed border border-[#dbdbdb] transition-all duration-300 styled-scrollbar ${
           expanded ? "max-h-none" : "max-h-[400px] overflow-y-auto"
         }`}
       >
@@ -401,7 +401,7 @@ export function ContentPreview({
       {needsTruncation && (
         <button
           onClick={() => setExpanded(!expanded)}
-          className="mt-2 text-sm text-[#3B82F6] hover:text-[#2563EB] font-medium"
+          className="mt-2 text-sm text-[#0061aa] hover:text-[#004d88] font-medium"
         >
           {expanded ? "Collapse" : "Expand all"}
         </button>
@@ -413,7 +413,7 @@ export function ContentPreview({
 /* ─── REVIEW CARD ─── */
 export function ReviewCard({ review }: { review: ExchangeReview }) {
   return (
-    <div className="bg-[#252B3B] rounded-lg p-4 border border-[#374151]">
+    <div className="bg-[#f8f9fb] rounded-lg p-4 border border-[#dbdbdb]">
       <div className="flex items-center justify-between mb-2">
         <Link href={`/exchange/user/${review.user_id}`} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
           {review.reviewer_avatar && (
@@ -423,16 +423,16 @@ export function ReviewCard({ review }: { review: ExchangeReview }) {
               className="w-6 h-6 rounded-full"
             />
           )}
-          <span className="text-sm font-medium text-[#3B82F6]">
+          <span className="text-sm font-medium text-[#0061aa]">
             @{review.reviewer_username || "user"}
           </span>
         </Link>
         <StarRating rating={review.rating} size={14} />
       </div>
       {review.comment && (
-        <p className="text-sm text-[#8B95A8] leading-relaxed">{review.comment}</p>
+        <p className="text-sm text-[#777777] leading-relaxed">{review.comment}</p>
       )}
-      <p className="text-xs text-[#4B5563] mt-2">
+      <p className="text-xs text-[#777777] mt-2">
         {new Date(review.created_at).toLocaleDateString()}
       </p>
     </div>
@@ -590,16 +590,16 @@ export function TryItSandbox({ content }: { content: string }) {
   }
 
   return (
-    <div className="bg-[#252B3B] rounded-xl border border-[#374151] overflow-hidden">
-      <div className="px-5 py-4 border-b border-[#374151] flex items-center justify-between">
+    <div className="bg-[#f8f9fb] rounded-xl border border-[#dbdbdb] overflow-hidden">
+      <div className="px-5 py-4 border-b border-[#dbdbdb] flex items-center justify-between">
         <div className="flex items-center gap-2">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth={2}>
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
           </svg>
-          <h3 className="text-base font-semibold text-[#E8EDF3]">Try It Now</h3>
+          <h3 className="text-base font-semibold text-[#333333]">Try It Now</h3>
           <span className="text-xs px-2 py-0.5 rounded-full bg-[#F59E0B]/15 text-[#F59E0B] font-semibold">BETA</span>
         </div>
-        <div className="text-xs text-[#6B7280]">
+        <div className="text-xs text-[#999999]">
           Your key stays in your browser
         </div>
       </div>
@@ -613,8 +613,8 @@ export function TryItSandbox({ content }: { content: string }) {
               onClick={() => switchProvider(p)}
               className={`flex-1 px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
                 provider === p
-                  ? "bg-[#3B82F6] text-white"
-                  : "bg-[#1E2330] text-[#8B95A8] border border-[#374151] hover:text-[#E8EDF3]"
+                  ? "bg-[#0061aa] text-white"
+                  : "bg-[#ffffff] text-[#777777] border border-[#dbdbdb] hover:text-[#333333]"
               }`}
             >
               {PROVIDER_INFO[p].label}
@@ -625,8 +625,8 @@ export function TryItSandbox({ content }: { content: string }) {
         {/* API Key */}
         <div>
           <div className="flex items-center justify-between mb-1">
-            <label className="text-xs text-[#8B95A8]">{PROVIDER_INFO[provider].keyLabel}</label>
-            <a href={PROVIDER_INFO[provider].docsUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-[#3B82F6] hover:text-[#60A5FA]">
+            <label className="text-xs text-[#777777]">{PROVIDER_INFO[provider].keyLabel}</label>
+            <a href={PROVIDER_INFO[provider].docsUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-[#0061aa] hover:text-[#60A5FA]">
               Get a key
             </a>
           </div>
@@ -636,12 +636,12 @@ export function TryItSandbox({ content }: { content: string }) {
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
               placeholder={`${PROVIDER_INFO[provider].keyPrefix}...`}
-              className="w-full px-3 py-2.5 pr-10 rounded-lg bg-[#1E2330] border border-[#374151] text-[#E8EDF3] text-sm font-mono placeholder-[#4B5563] focus:outline-none focus:border-[#3B82F6]"
+              className="w-full px-3 py-2.5 pr-10 rounded-lg bg-[#ffffff] border border-[#dbdbdb] text-[#333333] text-sm font-mono placeholder-[#777777] focus:outline-none focus:border-[#0061aa]"
             />
             <button
               type="button"
               onClick={() => setShowKey(!showKey)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-[#6B7280] hover:text-[#E8EDF3] p-1"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-[#999999] hover:text-[#333333] p-1"
             >
               {showKey ? (
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
@@ -656,12 +656,12 @@ export function TryItSandbox({ content }: { content: string }) {
               )}
             </button>
           </div>
-          <label className="flex items-center gap-2 mt-2 text-xs text-[#6B7280] cursor-pointer select-none">
+          <label className="flex items-center gap-2 mt-2 text-xs text-[#999999] cursor-pointer select-none">
             <input
               type="checkbox"
               checked={saveKey}
               onChange={(e) => setSaveKey(e.target.checked)}
-              className="accent-[#3B82F6]"
+              className="accent-[#0061aa]"
             />
             Remember this key (saved in your browser only)
           </label>
@@ -669,13 +669,13 @@ export function TryItSandbox({ content }: { content: string }) {
 
         {/* User Input */}
         <div>
-          <label className="block text-xs text-[#8B95A8] mb-1">Your input</label>
+          <label className="block text-xs text-[#777777] mb-1">Your input</label>
           <textarea
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
             rows={3}
             placeholder="Type something to test the skill..."
-            className="w-full px-3 py-2.5 rounded-lg bg-[#1E2330] border border-[#374151] text-[#E8EDF3] text-sm placeholder-[#4B5563] focus:outline-none focus:border-[#3B82F6] resize-none"
+            className="w-full px-3 py-2.5 rounded-lg bg-[#ffffff] border border-[#dbdbdb] text-[#333333] text-sm placeholder-[#777777] focus:outline-none focus:border-[#0061aa] resize-none"
           />
         </div>
 
@@ -713,23 +713,23 @@ export function TryItSandbox({ content }: { content: string }) {
         {result && (
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-xs text-[#8B95A8]">Response from {PROVIDER_INFO[provider].label}</label>
+              <label className="text-xs text-[#777777]">Response from {PROVIDER_INFO[provider].label}</label>
               <button
                 onClick={() => { navigator.clipboard.writeText(result); }}
-                className="text-xs text-[#3B82F6] hover:text-[#60A5FA] font-medium"
+                className="text-xs text-[#0061aa] hover:text-[#60A5FA] font-medium"
               >
                 Copy
               </button>
             </div>
-            <div className="bg-[#1E2330] rounded-lg p-4 text-sm text-[#C0C8D8] border border-[#374151] whitespace-pre-wrap max-h-[400px] overflow-y-auto styled-scrollbar">
+            <div className="bg-[#ffffff] rounded-lg p-4 text-sm text-[#555555] border border-[#dbdbdb] whitespace-pre-wrap max-h-[400px] overflow-y-auto styled-scrollbar">
               {result}
             </div>
           </div>
         )}
 
         {/* Privacy note */}
-        <div className="text-xs text-[#6B7280] bg-[#1E2330] rounded-lg p-3 border border-[#374151]">
-          <strong className="text-[#8B95A8]">Privacy:</strong> Your API key is sent directly from your browser to {PROVIDER_INFO[provider].label}. It never passes through MakoBot servers. Want this built in? <a href="/#download" className="text-[#3B82F6] hover:text-[#60A5FA]">Get MakoBot</a> — the desktop app manages all your AI sessions and memory locally.
+        <div className="text-xs text-[#999999] bg-[#ffffff] rounded-lg p-3 border border-[#dbdbdb]">
+          <strong className="text-[#777777]">Privacy:</strong> Your API key is sent directly from your browser to {PROVIDER_INFO[provider].label}. It never passes through MakoBot servers. Want this built in? <a href="/#download" className="text-[#0061aa] hover:text-[#60A5FA]">Get MakoBot</a> — the desktop app manages all your AI sessions and memory locally.
         </div>
       </div>
     </div>
@@ -745,8 +745,8 @@ export function ExchangeEmpty({ message }: { message: string }) {
           <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </div>
-      <p className="text-[#8B95A8] text-lg">{message}</p>
-      <p className="text-[#6B7280] text-sm mt-2">
+      <p className="text-[#777777] text-lg">{message}</p>
+      <p className="text-[#999999] text-sm mt-2">
         Try adjusting your filters or search terms.
       </p>
     </div>
@@ -773,8 +773,8 @@ export function InstallBox({
   if (installMethods.length === 0) return null;
 
   return (
-    <div className="bg-[#252B3B] rounded-xl p-5 border border-[#374151]">
-      <h3 className="text-sm font-semibold text-[#E8EDF3] mb-4 flex items-center gap-2">
+    <div className="bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb]">
+      <h3 className="text-sm font-semibold text-[#333333] mb-4 flex items-center gap-2">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
           <polyline points="4 17 10 11 4 5" />
           <line x1="12" y1="19" x2="20" y2="19" />
@@ -784,14 +784,14 @@ export function InstallBox({
       <div className="space-y-3">
         {installMethods.map((method) => (
           <div key={method.label}>
-            <p className="text-xs text-[#6B7280] mb-1">{method.label}</p>
+            <p className="text-xs text-[#999999] mb-1">{method.label}</p>
             <div className="flex items-center gap-2">
-              <code className="flex-1 bg-[#1E2330] rounded-lg px-3 py-2 text-sm text-[#C0C8D8] font-mono border border-[#374151] overflow-x-auto">
+              <code className="flex-1 bg-[#ffffff] rounded-lg px-3 py-2 text-sm text-[#555555] font-mono border border-[#dbdbdb] overflow-x-auto">
                 {method.command}
               </code>
               <button
                 onClick={() => copyToClipboard(method.command, method.label)}
-                className="shrink-0 px-3 py-2 rounded-lg bg-[#374151] hover:bg-[#4B5563] text-xs text-[#E8EDF3] font-medium transition-colors"
+                className="shrink-0 px-3 py-2 rounded-lg bg-[#dbdbdb] hover:bg-[#777777] text-xs text-[#333333] font-medium transition-colors"
               >
                 {copied === method.label ? "Copied" : "Copy"}
               </button>
@@ -853,7 +853,7 @@ export function ShareButton({ slug }: { slug: string }) {
   return (
     <button
       onClick={share}
-      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#252B3B] border border-[#374151] hover:border-[#3B82F6]/50 text-sm text-[#8B95A8] hover:text-[#E8EDF3] transition-colors"
+      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#f8f9fb] border border-[#dbdbdb] hover:border-[#0061aa]/50 text-sm text-[#777777] hover:text-[#333333] transition-colors"
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
         <circle cx="18" cy="5" r="3" />
@@ -880,7 +880,7 @@ export function CopyContentButton({ content }: { content: string }) {
   return (
     <button
       onClick={copy}
-      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#252B3B] border border-[#374151] hover:border-[#3B82F6]/50 text-sm text-[#8B95A8] hover:text-[#E8EDF3] transition-colors"
+      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#f8f9fb] border border-[#dbdbdb] hover:border-[#0061aa]/50 text-sm text-[#777777] hover:text-[#333333] transition-colors"
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
         <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
@@ -896,7 +896,7 @@ export function RemixButton({ listing }: { listing: ExchangeListing }) {
   return (
     <Link
       href={`/exchange/submit?remix=${listing.id}&title=${encodeURIComponent("Remix of " + listing.title)}&category=${listing.category}&platforms=${encodeURIComponent(JSON.stringify(listing.platforms))}`}
-      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#3B82F6]/10 border border-[#3B82F6]/30 hover:bg-[#3B82F6]/20 text-sm text-[#3B82F6] font-medium transition-colors"
+      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#0061aa]/10 border border-[#0061aa]/30 hover:bg-[#0061aa]/20 text-sm text-[#0061aa] font-medium transition-colors"
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
         <circle cx="12" cy="18" r="3" />
@@ -940,16 +940,16 @@ export function TrendingSection({
         {featured.length > 0 && (
           <div className="mb-8">
             <div className="flex items-center gap-2 mb-4">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="#3B82F6" stroke="none">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#0061aa" stroke="none">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
               </svg>
-              <h2 className="text-lg font-bold text-[#E8EDF3]">Featured</h2>
+              <h2 className="text-lg font-bold text-[#333333]">Featured</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {featured.map((listing) => (
                 <div key={listing.id} className="relative">
                   <div className="absolute -top-2 -right-2 z-10">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#3B82F6] text-white shadow-lg">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#0061aa] text-white shadow-lg">
                       Featured
                     </span>
                   </div>
@@ -968,7 +968,7 @@ export function TrendingSection({
                 <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
                 <polyline points="17 6 23 6 23 12" />
               </svg>
-              <h2 className="text-lg font-bold text-[#E8EDF3]">Trending</h2>
+              <h2 className="text-lg font-bold text-[#333333]">Trending</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {trending.map((listing) => (

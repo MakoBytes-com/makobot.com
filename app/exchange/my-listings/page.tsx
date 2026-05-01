@@ -43,8 +43,8 @@ export default function MyListingsPage() {
     return (
       <div className="min-h-screen">
         <div className="pt-8 px-6 max-w-2xl mx-auto text-center">
-          <h1 className="text-2xl font-bold text-[#E8EDF3] mb-4">Sign in required</h1>
-          <Link href="/get-key" className="text-[#3B82F6] hover:text-[#2563EB]">
+          <h1 className="text-2xl font-bold text-[#333333] mb-4">Sign in required</h1>
+          <Link href="/get-key" className="text-[#0061aa] hover:text-[#004d88]">
             Sign In
           </Link>
         </div>
@@ -58,18 +58,18 @@ export default function MyListingsPage() {
       <div className="pt-8 pb-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-2 text-sm mb-6">
-            <Link href="/exchange" className="text-[#3B82F6] hover:text-[#60A5FA] font-medium transition-colors">
+            <Link href="/exchange" className="text-[#0061aa] hover:text-[#60A5FA] font-medium transition-colors">
               Exchange
             </Link>
-            <span className="text-[#4B5563]">/</span>
-            <span className="text-[#E8EDF3] font-medium">My Listings</span>
+            <span className="text-[#777777]">/</span>
+            <span className="text-[#333333] font-medium">My Listings</span>
           </div>
 
           <div className="flex items-center justify-between mb-8">
-            <h1 className="text-3xl font-bold text-[#E8EDF3]">My Listings</h1>
+            <h1 className="text-3xl font-bold text-[#333333]">My Listings</h1>
             <Link
               href="/exchange/submit"
-              className="inline-flex items-center px-5 py-2 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-semibold transition-colors"
+              className="inline-flex items-center px-5 py-2 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white text-sm font-semibold transition-colors"
             >
               <svg className="mr-2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                 <line x1="12" y1="5" x2="12" y2="19" />
@@ -82,9 +82,9 @@ export default function MyListingsPage() {
           {loading ? (
             <div className="space-y-4">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="bg-[#252B3B] rounded-xl p-5 border border-[#374151] animate-pulse">
-                  <div className="h-5 bg-[#374151] rounded w-1/3 mb-3" />
-                  <div className="h-4 bg-[#374151] rounded w-2/3" />
+                <div key={i} className="bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb] animate-pulse">
+                  <div className="h-5 bg-[#dbdbdb] rounded w-1/3 mb-3" />
+                  <div className="h-4 bg-[#dbdbdb] rounded w-2/3" />
                 </div>
               ))}
             </div>
@@ -93,25 +93,25 @@ export default function MyListingsPage() {
               {listings.map((listing) => (
                 <div
                   key={listing.id}
-                  className="bg-[#252B3B] rounded-xl p-5 border border-[#374151]"
+                  className="bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb]"
                 >
                   <div className="flex items-start gap-4">
                     {listing.screenshot_url && (
                       <img
                         src={listing.screenshot_url}
                         alt=""
-                        className="w-20 h-20 rounded-lg object-cover shrink-0 border border-[#374151]"
+                        className="w-20 h-20 rounded-lg object-cover shrink-0 border border-[#dbdbdb]"
                       />
                     )}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-base font-semibold text-[#E8EDF3] truncate">
+                        <h3 className="text-base font-semibold text-[#333333] truncate">
                           {listing.title}
                         </h3>
                         <StatusBadge status={listing.status} />
                       </div>
 
-                      <div className="flex items-center gap-3 text-xs text-[#6B7280] mb-3">
+                      <div className="flex items-center gap-3 text-xs text-[#999999] mb-3">
                         <span>{getCategoryLabel(listing.category)}</span>
                         <span>
                           {listing.download_count} downloads
@@ -134,14 +134,14 @@ export default function MyListingsPage() {
                       {listing.status === "approved" && (
                         <Link
                           href={`/exchange/${listing.slug}`}
-                          className="px-3 py-1.5 rounded-lg bg-[#374151] hover:bg-[#4B5563] text-[#E8EDF3] text-xs font-medium transition-colors"
+                          className="px-3 py-1.5 rounded-lg bg-[#dbdbdb] hover:bg-[#777777] text-[#333333] text-xs font-medium transition-colors"
                         >
                           View
                         </Link>
                       )}
                       <Link
                         href={`/exchange/edit/${listing.id}`}
-                        className="px-3 py-1.5 rounded-lg bg-[#3B82F6]/10 hover:bg-[#3B82F6]/20 text-[#3B82F6] text-xs font-medium transition-colors"
+                        className="px-3 py-1.5 rounded-lg bg-[#0061aa]/10 hover:bg-[#0061aa]/20 text-[#0061aa] text-xs font-medium transition-colors"
                       >
                         Edit
                       </Link>
@@ -158,12 +158,12 @@ export default function MyListingsPage() {
             </div>
           ) : (
             <div className="text-center py-16">
-              <p className="text-[#8B95A8] text-lg mb-4">
+              <p className="text-[#777777] text-lg mb-4">
                 You have not submitted any listings yet.
               </p>
               <Link
                 href="/exchange/submit"
-                className="inline-flex items-center px-6 py-3 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold transition-colors"
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold transition-colors"
               >
                 Submit Your First Listing
               </Link>

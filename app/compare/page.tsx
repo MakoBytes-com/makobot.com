@@ -90,7 +90,7 @@ export default function ComparePage() {
       </section>
 
       {/* ─── COMPARISON TABLE ─── */}
-      <section className="px-6 py-16 bg-[#1A1F2E]">
+      <section className="px-6 py-16 bg-[#f8f9fb]">
         <div className="max-w-6xl mx-auto">
           <SectionHeading
             title="Side-by-side"
@@ -209,7 +209,7 @@ export default function ComparePage() {
       </section>
 
       {/* ─── WHEN TO PICK WHAT ─── */}
-      <section className="px-6 py-16 bg-[#1A1F2E]">
+      <section className="px-6 py-16 bg-[#f8f9fb]">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             title="When MakoBot is the right fit"
