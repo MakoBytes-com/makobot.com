@@ -138,20 +138,20 @@ function aggregateSources(
 }
 
 const CATEGORY_COLORS: Record<SourceCategory, string> = {
-  Search: "#3B82F6",
+  Search: "#0061aa",
   Social: "#EC4899",
   AI: "#8B5CF6",
   Community: "#F59E0B",
   Email: "#14B8A6",
   Direct: "#10B981",
-  Other: "#6B7280",
+  Other: "#999999",
 };
 
-const COLORS = ["#3B82F6", "#10B981", "#F59E0B", "#EC4899", "#8B5CF6", "#6366F1", "#14B8A6", "#F97316"];
+const COLORS = ["#0061aa", "#10B981", "#F59E0B", "#EC4899", "#8B5CF6", "#6366F1", "#14B8A6", "#F97316"];
 
 const chartTheme = {
-  grid: "#374151",
-  text: "#8B95A8",
+  grid: "#dbdbdb",
+  text: "#777777",
 };
 
 export default function AdminAnalyticsPage() {
@@ -168,7 +168,7 @@ export default function AdminAnalyticsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-[#8B95A8]">Loading analytics...</p>
+        <p className="text-[#777777]">Loading analytics...</p>
       </div>
     );
   }
@@ -186,28 +186,28 @@ export default function AdminAnalyticsPage() {
 
       {/* Summary cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div className="bg-[#252B3B] rounded-xl p-5 border border-[#374151]">
-          <p className="text-xs text-[#8B95A8] uppercase tracking-wider mb-1">Page Views (30d)</p>
+        <div className="bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb]">
+          <p className="text-xs text-[#777777] uppercase tracking-wider mb-1">Page Views (30d)</p>
           <p className="text-2xl font-bold text-[#EC4899]">{data.totals.pageViews30d.toLocaleString()}</p>
         </div>
-        <div className="bg-[#252B3B] rounded-xl p-5 border border-[#374151]">
-          <p className="text-xs text-[#8B95A8] uppercase tracking-wider mb-1">Unique Visitors (30d)</p>
+        <div className="bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb]">
+          <p className="text-xs text-[#777777] uppercase tracking-wider mb-1">Unique Visitors (30d)</p>
           <p className="text-2xl font-bold text-[#8B5CF6]">{data.totals.uniqueVisitors30d.toLocaleString()}</p>
         </div>
-        <div className="bg-[#252B3B] rounded-xl p-5 border border-[#374151]">
-          <p className="text-xs text-[#8B95A8] uppercase tracking-wider mb-1">Total Downloads</p>
+        <div className="bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb]">
+          <p className="text-xs text-[#777777] uppercase tracking-wider mb-1">Total Downloads</p>
           <p className="text-2xl font-bold text-[#10B981]">{data.totals.totalDownloads.toLocaleString()}</p>
         </div>
-        <div className="bg-[#252B3B] rounded-xl p-5 border border-[#374151]">
-          <p className="text-xs text-[#8B95A8] uppercase tracking-wider mb-1">Conversion Rate</p>
+        <div className="bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb]">
+          <p className="text-xs text-[#777777] uppercase tracking-wider mb-1">Conversion Rate</p>
           <p className="text-2xl font-bold text-[#F59E0B]">{conversionRate}%</p>
-          <p className="text-xs text-[#6B7280]">signup → download</p>
+          <p className="text-xs text-[#999999]">signup → download</p>
         </div>
       </div>
 
       {/* Main traffic chart */}
-      <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151] mb-6">
-        <h3 className="text-sm font-medium text-[#8B95A8] mb-4">Traffic Overview (30 days)</h3>
+      <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] mb-6">
+        <h3 className="text-sm font-medium text-[#777777] mb-4">Traffic Overview (30 days)</h3>
         <ResponsiveContainer width="100%" height={300}>
           <AreaChart data={data.charts.pageViewsPerDay}>
             <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.grid} />
@@ -218,7 +218,7 @@ export default function AdminAnalyticsPage() {
             />
             <YAxis tick={{ fill: chartTheme.text, fontSize: 11 }} />
             <Tooltip
-              contentStyle={{ background: "#1E2330", border: "1px solid #374151", borderRadius: 8, color: "#E8EDF3" }}
+              contentStyle={{ background: "#ffffff", border: "1px solid #dbdbdb", borderRadius: 8, color: "#333333" }}
             />
             <Area type="monotone" dataKey="count" stroke="#EC4899" fill="#EC4899" fillOpacity={0.1} name="Page Views" />
           </AreaChart>
@@ -227,8 +227,8 @@ export default function AdminAnalyticsPage() {
 
       {/* Signups vs Downloads */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
-          <h3 className="text-sm font-medium text-[#8B95A8] mb-4">Signups vs Downloads (30 days)</h3>
+        <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+          <h3 className="text-sm font-medium text-[#777777] mb-4">Signups vs Downloads (30 days)</h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={data.charts.signupsPerDay}>
               <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.grid} />
@@ -239,18 +239,18 @@ export default function AdminAnalyticsPage() {
               />
               <YAxis tick={{ fill: chartTheme.text, fontSize: 11 }} />
               <Tooltip
-                contentStyle={{ background: "#1E2330", border: "1px solid #374151", borderRadius: 8, color: "#E8EDF3" }}
+                contentStyle={{ background: "#ffffff", border: "1px solid #dbdbdb", borderRadius: 8, color: "#333333" }}
               />
-              <Bar dataKey="count" fill="#3B82F6" radius={[4, 4, 0, 0]} name="Signups" />
+              <Bar dataKey="count" fill="#0061aa" radius={[4, 4, 0, 0]} name="Signups" />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         {/* Top pages pie */}
-        <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
-          <h3 className="text-sm font-medium text-[#8B95A8] mb-4">Top Pages</h3>
+        <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+          <h3 className="text-sm font-medium text-[#777777] mb-4">Top Pages</h3>
           {data.topPages.length === 0 ? (
-            <p className="text-sm text-[#4B5563] text-center py-8">No data yet</p>
+            <p className="text-sm text-[#777777] text-center py-8">No data yet</p>
           ) : (
             <div className="flex items-center gap-6">
               <ResponsiveContainer width="50%" height={200}>
@@ -269,7 +269,7 @@ export default function AdminAnalyticsPage() {
                     ))}
                   </Pie>
                   <Tooltip
-                    contentStyle={{ background: "#1E2330", border: "1px solid #374151", borderRadius: 8, color: "#E8EDF3" }}
+                    contentStyle={{ background: "#ffffff", border: "1px solid #dbdbdb", borderRadius: 8, color: "#333333" }}
                   />
                 </PieChart>
               </ResponsiveContainer>
@@ -277,8 +277,8 @@ export default function AdminAnalyticsPage() {
                 {data.topPages.slice(0, 6).map((p, i) => (
                   <div key={i} className="flex items-center gap-2 text-sm">
                     <span className="w-3 h-3 rounded-sm flex-shrink-0" style={{ background: COLORS[i % COLORS.length] }} />
-                    <span className="text-[#C0C8D8] truncate flex-1">{p.path}</span>
-                    <span className="text-[#8B95A8] font-mono text-xs">{p.count}</span>
+                    <span className="text-[#555555] truncate flex-1">{p.path}</span>
+                    <span className="text-[#777777] font-mono text-xs">{p.count}</span>
                   </div>
                 ))}
               </div>
@@ -297,21 +297,21 @@ export default function AdminAnalyticsPage() {
         const directVisits = data.outsideReferrals?.directCount || 0;
 
         return (
-          <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151] mb-6">
+          <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] mb-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium text-[#8B95A8]">Outside Referrals (30 days)</h3>
+              <h3 className="text-sm font-medium text-[#777777]">Outside Referrals (30 days)</h3>
               <div className="flex gap-4 text-xs">
-                <span className="text-[#8B95A8]">
-                  External: <span className="text-[#3B82F6] font-mono font-semibold">{externalVisits.toLocaleString()}</span>
+                <span className="text-[#777777]">
+                  External: <span className="text-[#0061aa] font-mono font-semibold">{externalVisits.toLocaleString()}</span>
                 </span>
-                <span className="text-[#8B95A8]">
+                <span className="text-[#777777]">
                   Direct: <span className="text-[#10B981] font-mono font-semibold">{directVisits.toLocaleString()}</span>
                 </span>
               </div>
             </div>
 
             {sources.length === 0 ? (
-              <p className="text-sm text-[#4B5563] py-4">No outside referral data yet — visits show up here once people start arriving from search engines, social, AI tools, etc.</p>
+              <p className="text-sm text-[#777777] py-4">No outside referral data yet — visits show up here once people start arriving from search engines, social, AI tools, etc.</p>
             ) : (
               <div className="space-y-2">
                 {sources.map((s, i) => {
@@ -324,7 +324,7 @@ export default function AdminAnalyticsPage() {
                       <div className="flex items-center justify-between text-sm mb-1">
                         <div className="flex items-center gap-2 min-w-0">
                           <span className="text-base flex-shrink-0">{s.icon}</span>
-                          <span className="text-[#E8EDF3] font-medium truncate">{s.name}</span>
+                          <span className="text-[#333333] font-medium truncate">{s.name}</span>
                           <span
                             className="text-[10px] uppercase tracking-wide px-1.5 py-0.5 rounded flex-shrink-0"
                             style={{ background: `${color}22`, color }}
@@ -333,15 +333,15 @@ export default function AdminAnalyticsPage() {
                           </span>
                         </div>
                         <div className="flex items-center gap-3 flex-shrink-0">
-                          <span className="text-[#8B95A8] text-xs font-mono">{sharePct}%</span>
-                          <span className="text-[#C0C8D8] font-mono">{s.count.toLocaleString()}</span>
+                          <span className="text-[#777777] text-xs font-mono">{sharePct}%</span>
+                          <span className="text-[#555555] font-mono">{s.count.toLocaleString()}</span>
                         </div>
                       </div>
-                      <div className="h-1.5 bg-[#1E2330] rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-[#ffffff] rounded-full overflow-hidden">
                         <div className="h-full rounded-full" style={{ width: `${pct}%`, background: color }} />
                       </div>
                       {s.hostnames.length > 0 && s.hostnames.length <= 4 && s.hostnames[0] !== s.name.toLowerCase() && (
-                        <p className="text-[10px] text-[#4B5563] mt-1 ml-7 font-mono truncate">
+                        <p className="text-[10px] text-[#777777] mt-1 ml-7 font-mono truncate">
                           {s.hostnames.join(" · ")}
                         </p>
                       )}
@@ -355,10 +355,10 @@ export default function AdminAnalyticsPage() {
       })()}
 
       {/* Referrers table */}
-      <div className="bg-[#252B3B] rounded-xl p-6 border border-[#374151]">
-        <h3 className="text-sm font-medium text-[#8B95A8] mb-4">Top Referrers (raw URLs, 30 days)</h3>
+      <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+        <h3 className="text-sm font-medium text-[#777777] mb-4">Top Referrers (raw URLs, 30 days)</h3>
         {data.topReferrers.length === 0 ? (
-          <p className="text-sm text-[#4B5563]">No referrer data yet</p>
+          <p className="text-sm text-[#777777]">No referrer data yet</p>
         ) : (
           <div className="space-y-3">
             {data.topReferrers.map((r, i) => {
@@ -367,11 +367,11 @@ export default function AdminAnalyticsPage() {
               return (
                 <div key={i}>
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-[#C0C8D8] truncate mr-4">{r.referrer}</span>
-                    <span className="text-[#8B95A8] font-mono flex-shrink-0">{r.count}</span>
+                    <span className="text-[#555555] truncate mr-4">{r.referrer}</span>
+                    <span className="text-[#777777] font-mono flex-shrink-0">{r.count}</span>
                   </div>
-                  <div className="h-1.5 bg-[#1E2330] rounded-full overflow-hidden">
-                    <div className="h-full rounded-full bg-[#3B82F6]" style={{ width: `${pct}%` }} />
+                  <div className="h-1.5 bg-[#ffffff] rounded-full overflow-hidden">
+                    <div className="h-full rounded-full bg-[#0061aa]" style={{ width: `${pct}%` }} />
                   </div>
                 </div>
               );

@@ -54,8 +54,8 @@ const services = [
 export default function AdminServicesPage() {
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[#E8EDF3] mb-2">Services & Vendors</h1>
-      <p className="text-[#8B95A8] mb-8">All third-party services used by makobot.com with direct links to their dashboards.</p>
+      <h1 className="text-2xl font-bold text-[#333333] mb-2">Services & Vendors</h1>
+      <p className="text-[#777777] mb-8">All third-party services used by makobot.com with direct links to their dashboards.</p>
 
       <div className="space-y-4">
         {services.map((s) => (
@@ -64,22 +64,22 @@ export default function AdminServicesPage() {
             href={s.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="block bg-[#252B3B] rounded-xl p-5 border border-[#374151] hover:border-[#3B82F6]/50 transition-colors group"
+            className="block bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb] hover:border-[#0061aa]/50 transition-colors group"
           >
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <h3 className="text-base font-semibold text-[#E8EDF3] group-hover:text-[#3B82F6] transition-colors">
+                  <h3 className="text-base font-semibold text-[#333333] group-hover:text-[#0061aa] transition-colors">
                     {s.name}
                   </h3>
-                  <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#3B82F6]/10 text-[#3B82F6]">
+                  <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#0061aa]/10 text-[#0061aa]">
                     {s.category}
                   </span>
                 </div>
-                <p className="text-sm text-[#8B95A8] leading-relaxed">{s.description}</p>
-                <p className="text-xs text-[#6B7280] mt-2 group-hover:text-[#3B82F6] transition-colors">{s.url}</p>
+                <p className="text-sm text-[#777777] leading-relaxed">{s.description}</p>
+                <p className="text-xs text-[#999999] mt-2 group-hover:text-[#0061aa] transition-colors">{s.url}</p>
               </div>
-              <svg className="w-5 h-5 text-[#6B7280] group-hover:text-[#3B82F6] transition-colors shrink-0 mt-1" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-[#999999] group-hover:text-[#0061aa] transition-colors shrink-0 mt-1" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                 <polyline points="15 3 21 3 21 9" />
                 <line x1="10" y1="14" x2="21" y2="3" />
