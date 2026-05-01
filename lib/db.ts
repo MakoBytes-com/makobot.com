@@ -237,9 +237,16 @@ export async function findOrCreateUser(profile: {
 }) {
   const sql = getDb();
 
+  // Explicit column list throughout — never SELECT * on users. avatar_data
+  // is BYTEA and can be tens of KB per row; pulling it into every session
+  // check / sign-in / username lookup multiplies roundtrip cost across
+  // the whole site.
+  const userCols = sql`id, google_id, email, name, avatar_url, is_admin,
+    created_at, username, display_name, bio, github_username, is_verified`;
+
   // Check by oauth ID first, then by email (handles users who sign in with both providers)
   const existing = await sql`
-    SELECT * FROM users WHERE google_id = ${profile.google_id}
+    SELECT ${userCols} FROM users WHERE google_id = ${profile.google_id}
   `;
   if (existing.length > 0) {
     // Update github_username if signing in with GitHub and we didn't have it
@@ -250,7 +257,7 @@ export async function findOrCreateUser(profile: {
   }
 
   // Check if user exists by email (signed in with different provider before)
-  const byEmail = await sql`SELECT * FROM users WHERE email = ${profile.email}`;
+  const byEmail = await sql`SELECT ${userCols} FROM users WHERE email = ${profile.email}`;
   if (byEmail.length > 0) {
     // Link this provider to existing account
     if (profile.github_username && !byEmail[0].github_username) {
@@ -265,27 +272,49 @@ export async function findOrCreateUser(profile: {
   const result = await sql`
     INSERT INTO users (google_id, email, name, avatar_url, username, display_name, github_username)
     VALUES (${profile.google_id}, ${profile.email}, ${profile.name}, ${profile.avatar_url}, ${defaultUsername}, ${profile.name}, ${profile.github_username || null})
-    RETURNING *
+    RETURNING id, google_id, email, name, avatar_url, is_admin, created_at,
+              username, display_name, bio, github_username, is_verified
   `;
   return result[0];
 }
 
 export async function getUserByEmail(email: string) {
+  // PERF: explicit columns only — this query runs on EVERY page load via
+  // NextAuth's session callback. SELECT * was pulling avatar_data (~50KB
+  // BYTEA) over the wire on every request to every page on the site.
   const sql = getDb();
-  const rows = await sql`SELECT * FROM users WHERE email = ${email}`;
+  const rows = await sql`
+    SELECT id, google_id, email, name, avatar_url, is_admin, created_at,
+           username, display_name, bio, github_username, is_verified
+    FROM users WHERE email = ${email}
+  `;
   return rows[0] || null;
 }
 
 export async function getUserById(id: number) {
   const sql = getDb();
-  const rows = await sql`SELECT * FROM users WHERE id = ${id}`;
+  const rows = await sql`
+    SELECT id, google_id, email, name, avatar_url, is_admin, created_at,
+           username, display_name, bio, github_username, is_verified
+    FROM users WHERE id = ${id}
+  `;
   return rows[0] || null;
 }
 
 export async function getAllUsers(limit = 100, offset = 0) {
+  // Explicit column list — avoids dragging avatar_data (BYTEA, can be tens
+  // of KB per row for users with uploaded avatars) into every admin-list
+  // response. NextResponse JSON-serializes a Buffer as {type, data:[...]}
+  // which is ~3× the byte size of the original buffer; on /admin/users
+  // with multiple avatared users this dominated response time.
+  // avatar_url + the /api/exchange/avatar/:id endpoint already render
+  // images correctly — avatar_data is only needed by that endpoint.
   const sql = getDb();
   return sql`
-    SELECT u.*,
+    SELECT
+      u.id, u.google_id, u.email, u.name, u.avatar_url, u.is_admin,
+      u.created_at, u.username, u.display_name, u.github_username,
+      u.is_verified,
       (SELECT COUNT(*) FROM license_keys WHERE user_id = u.id) as key_count,
       (SELECT COUNT(*) FROM downloads WHERE user_id = u.id) as download_count
     FROM users u
@@ -321,13 +350,21 @@ export async function updateUserProfile(userId: number, data: {
   if (data.display_name !== undefined) await sql`UPDATE users SET display_name = ${data.display_name} WHERE id = ${userId}`;
   if (data.bio !== undefined) await sql`UPDATE users SET bio = ${data.bio} WHERE id = ${userId}`;
   if (data.avatar_url !== undefined) await sql`UPDATE users SET avatar_url = ${data.avatar_url} WHERE id = ${userId}`;
-  const updated = await sql`SELECT * FROM users WHERE id = ${userId}`;
+  const updated = await sql`
+    SELECT id, google_id, email, name, avatar_url, is_admin, created_at,
+           username, display_name, bio, github_username, is_verified
+    FROM users WHERE id = ${userId}
+  `;
   return { user: updated[0] };
 }
 
 export async function getUserByUsername(username: string) {
   const sql = getDb();
-  const rows = await sql`SELECT * FROM users WHERE username = ${username}`;
+  const rows = await sql`
+    SELECT id, google_id, email, name, avatar_url, is_admin, created_at,
+           username, display_name, bio, github_username, is_verified
+    FROM users WHERE username = ${username}
+  `;
   return rows[0] || null;
 }
 
@@ -597,7 +634,7 @@ export async function getExchangeListings(opts: {
   if (opts.search && opts.category && opts.platform) {
     const search = `%${opts.search}%`;
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
+      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -610,7 +647,7 @@ export async function getExchangeListings(opts: {
   } else if (opts.search && opts.category) {
     const search = `%${opts.search}%`;
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
+      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -622,7 +659,7 @@ export async function getExchangeListings(opts: {
   } else if (opts.search && opts.platform) {
     const search = `%${opts.search}%`;
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
+      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -633,7 +670,7 @@ export async function getExchangeListings(opts: {
     `;
   } else if (opts.category && opts.platform) {
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
+      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -645,7 +682,7 @@ export async function getExchangeListings(opts: {
   } else if (opts.search) {
     const search = `%${opts.search}%`;
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
+      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -655,7 +692,7 @@ export async function getExchangeListings(opts: {
     `;
   } else if (opts.category) {
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
+      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -665,7 +702,7 @@ export async function getExchangeListings(opts: {
     `;
   } else if (opts.platform) {
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
+      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -675,7 +712,7 @@ export async function getExchangeListings(opts: {
     `;
   } else {
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
+      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${status}
@@ -688,7 +725,7 @@ export async function getExchangeListings(opts: {
 export async function getExchangeListingBySlug(slug: string) {
   const sql = getDb();
   const rows = await sql`
-    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
+    SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
     FROM exchange_listings el
     JOIN users u ON el.user_id = u.id
     WHERE el.slug = ${slug}
@@ -697,9 +734,16 @@ export async function getExchangeListingBySlug(slug: string) {
 }
 
 export async function getExchangeListingsByUser(userId: number) {
+  // PERF: explicit columns — never SELECT * on exchange_listings (file_data
+  // is BYTEA, can be hundreds of KB per row; community-imported listings
+  // pulled the user's whole library through Vercel/Postgres on every load).
   const sql = getDb();
   return sql`
-    SELECT * FROM exchange_listings
+    SELECT id, user_id, title, slug, description, category, platforms, content,
+           file_name, file_size, status, rejection_reason, download_count,
+           rating_avg, rating_count, created_at, updated_at, screenshot_url,
+           source_url, source_author, forked_from, view_count, current_version, tags
+    FROM exchange_listings
     WHERE user_id = ${userId}
     ORDER BY created_at DESC
   `;
@@ -775,7 +819,7 @@ export async function getExchangeReviews(listingId: number) {
 export async function getPendingExchangeListings(limit = 50, offset = 0) {
   const sql = getDb();
   return sql`
-    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
+    SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
     FROM exchange_listings el
     JOIN users u ON el.user_id = u.id
     WHERE el.status = 'pending'
@@ -806,7 +850,7 @@ export async function getAllExchangeListings(opts: {
   if (opts.status && opts.search) {
     const search = `%${opts.search}%`;
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
+      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${opts.status}
@@ -816,7 +860,7 @@ export async function getAllExchangeListings(opts: {
     `;
   } else if (opts.status) {
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
+      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.status = ${opts.status}
@@ -826,7 +870,7 @@ export async function getAllExchangeListings(opts: {
   } else if (opts.search) {
     const search = `%${opts.search}%`;
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
+      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE (el.title ILIKE ${search} OR el.description ILIKE ${search} OR u.email ILIKE ${search})
@@ -835,7 +879,7 @@ export async function getAllExchangeListings(opts: {
     `;
   } else {
     return sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
+      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       ORDER BY el.created_at DESC
@@ -868,7 +912,7 @@ export async function adminUpdateExchangeListing(id: number, data: {
 export async function getExchangeListingById(id: number) {
   const sql = getDb();
   const rows = await sql`
-    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
+    SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username, u.email as author_email
     FROM exchange_listings el
     JOIN users u ON el.user_id = u.id
     WHERE el.id = ${id}
@@ -963,7 +1007,7 @@ export async function getCollection(slug: string) {
   if (collection.length === 0) return null;
 
   const items = await sql`
-    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
+    SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
     FROM exchange_collection_items eci
     JOIN exchange_listings el ON eci.listing_id = el.id
     JOIN users u ON el.user_id = u.id
@@ -1063,7 +1107,7 @@ export async function getUserUpvotes(userId: number) {
 export async function getRelatedListings(listingId: number, category: string, limit = 4) {
   const sql = getDb();
   return sql`
-    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
+    SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
     FROM exchange_listings el
     JOIN users u ON el.user_id = u.id
     WHERE el.status = 'approved' AND el.id != ${listingId} AND el.category = ${category}
@@ -1108,7 +1152,7 @@ export async function getFollowingCount(userId: number): Promise<number> {
 export async function getFollowingFeed(userId: number, limit = 30) {
   const sql = getDb();
   return sql`
-    SELECT el.*, u.username as author_username, u.avatar_url as author_avatar
+    SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.username as author_username, u.avatar_url as author_avatar
     FROM exchange_listings el
     JOIN users u ON el.user_id = u.id
     WHERE el.user_id IN (SELECT followed_id FROM exchange_follows WHERE follower_id = ${userId})
@@ -1141,7 +1185,7 @@ export async function getPopularTags(limit = 30) {
 export async function getListingsByTag(tag: string, limit = 30) {
   const sql = getDb();
   return sql`
-    SELECT el.*, u.username as author_username, u.avatar_url as author_avatar
+    SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.username as author_username, u.avatar_url as author_avatar
     FROM exchange_listings el
     JOIN users u ON el.user_id = u.id
     WHERE el.status = 'approved' AND ${tag} = ANY(el.tags)
@@ -1177,7 +1221,7 @@ export async function getStack(slug: string) {
   if (rows.length === 0) return null;
 
   const items = await sql`
-    SELECT el.*, u.username as author_username, u.avatar_url as author_avatar
+    SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.username as author_username, u.avatar_url as author_avatar
     FROM exchange_stack_items esi
     JOIN exchange_listings el ON esi.listing_id = el.id
     JOIN users u ON el.user_id = u.id
@@ -1356,7 +1400,7 @@ export async function getListingRemixTree(listingId: number): Promise<{ original
   let original = null;
   if (current[0].forked_from) {
     const orig = await sql`
-      SELECT el.*, u.username as author_username, u.display_name as author_display
+      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.username as author_username, u.display_name as author_display
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.id = ${current[0].forked_from}
@@ -1369,7 +1413,7 @@ export async function getListingRemixTree(listingId: number): Promise<{ original
 
   // Get forks of this listing
   const forks = await sql`
-    SELECT el.*, u.username as author_username, u.display_name as author_display
+    SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.username as author_username, u.display_name as author_display
     FROM exchange_listings el
     JOIN users u ON el.user_id = u.id
     WHERE el.forked_from = ${listingId} AND el.status = 'approved'
@@ -1386,7 +1430,7 @@ export async function semanticSearchListings(query: string, limit = 20) {
   // Use PostgreSQL full-text search with ranking
   const searchQuery = query.trim().split(/\s+/).join(" | ");
   return sql`
-    SELECT el.*, u.username as author_username, u.avatar_url as author_avatar,
+    SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.username as author_username, u.avatar_url as author_avatar,
       ts_rank(
         to_tsvector('english', el.title || ' ' || el.description || ' ' || COALESCE(el.content, '')),
         to_tsquery('english', ${searchQuery})
@@ -1412,7 +1456,7 @@ export async function getTrendingExchangeListings(limit = 6) {
   const sql = getDb();
   // Trending = combination of recent downloads + recent rating activity, weighted toward recency
   return sql`
-    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar,
+    SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar,
       (el.download_count * 0.3 + el.rating_count * 2 + el.rating_avg * 1.5 +
        CASE WHEN el.created_at > NOW() - INTERVAL '7 days' THEN 10 ELSE 0 END +
        CASE WHEN el.created_at > NOW() - INTERVAL '30 days' THEN 5 ELSE 0 END
@@ -1429,7 +1473,7 @@ export async function getFeaturedExchangeListings(limit = 3) {
   const sql = getDb();
   // Featured = highest rated with minimum 1 review, or newest with most downloads
   return sql`
-    SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
+    SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
     FROM exchange_listings el
     JOIN users u ON el.user_id = u.id
     WHERE el.status = 'approved'
@@ -1446,7 +1490,7 @@ export async function getExchangeUserProfile(userId: number) {
 
   const [listings, stats] = await Promise.all([
     sql`
-      SELECT el.*, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
+      SELECT el.id, el.user_id, el.title, el.slug, el.description, el.category, el.platforms, el.content, el.file_name, el.file_size, el.status, el.rejection_reason, el.download_count, el.rating_avg, el.rating_count, el.created_at, el.updated_at, el.screenshot_url, el.source_url, el.source_author, el.forked_from, el.view_count, el.current_version, el.tags, u.name as author_name, u.avatar_url as author_avatar, u.username as author_username
       FROM exchange_listings el
       JOIN users u ON el.user_id = u.id
       WHERE el.user_id = ${userId} AND el.status = 'approved'
