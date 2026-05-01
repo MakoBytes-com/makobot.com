@@ -160,16 +160,16 @@ export function Nav() {
             How It Works
           </a>
           <a
+            href="/why"
+            className="text-sm text-[#8B95A8] hover:text-[#E8EDF3] transition-colors"
+          >
+            Why MakoBot
+          </a>
+          <a
             href="/#features"
             className="text-sm text-[#8B95A8] hover:text-[#E8EDF3] transition-colors"
           >
             Features
-          </a>
-          <a
-            href="/#compatibility"
-            className="text-sm text-[#8B95A8] hover:text-[#E8EDF3] transition-colors"
-          >
-            Compatibility
           </a>
           <a
             href="/compare"
@@ -238,6 +238,13 @@ export function Nav() {
       {open && (
         <div className="md:hidden bg-[#252B3B] border-t border-[#374151] px-6 py-4 flex flex-col gap-4">
           <a
+            href="/why"
+            onClick={() => setOpen(false)}
+            className="text-sm text-[#C0C8D8]"
+          >
+            Why MakoBot
+          </a>
+          <a
             href="/#how-it-works"
             onClick={() => setOpen(false)}
             className="text-sm text-[#C0C8D8]"
@@ -252,14 +259,7 @@ export function Nav() {
             Features
           </a>
           <a
-            href="/#compatibility"
-            onClick={() => setOpen(false)}
-            className="text-sm text-[#C0C8D8]"
-          >
-            Compatibility
-          </a>
-          <a
-            href="/#compare"
+            href="/compare"
             onClick={() => setOpen(false)}
             className="text-sm text-[#C0C8D8]"
           >
