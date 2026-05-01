@@ -220,10 +220,9 @@ export default function WhyPage() {
             token, and write your own memory adapters.
           </p>
           <p className="text-[#C0C8D8] text-base leading-relaxed mb-4">
-            MakoBot is built by someone who isn&apos;t an engineer — who uses
-            AI to build real businesses (BuffaloSealandGasket, Woodlands
-            Family Psychiatry, several client sites) — and who wanted a tool
-            that just works for someone like that.
+            MakoBot is built by someone who isn&apos;t an engineer — who runs
+            a real business that ships real client work using AI tools — and
+            who wanted a workbench that just works for someone like that.
           </p>
           <p className="text-[#E8EDF3] text-base leading-relaxed font-medium">
             That&apos;s why MakoBot is a real Windows app with an installer,
