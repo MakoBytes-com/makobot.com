@@ -97,7 +97,7 @@ export default function Home() {
       </section>
 
       {/* ─── THE PROBLEM ─── */}
-      <section className="px-6 py-20 bg-[#f8f9fb]/50">
+      <section className="px-6 py-20 bg-[#eef2f7]">
         <div className="max-w-4xl mx-auto text-center">
           <SectionHeading
             title="The problem with AI today"
@@ -258,7 +258,7 @@ export default function Home() {
       </section>
 
       {/* ─── FEATURES ─── */}
-      <section id="features" className="px-6 py-20 bg-[#f8f9fb]/50">
+      <section id="features" className="px-6 py-20 bg-[#eef2f7]">
         <div className="max-w-6xl mx-auto">
           <SectionHeading
             title="What's in MakoBot"
@@ -408,7 +408,7 @@ export default function Home() {
       </section>
 
       {/* ─── STATS ─── */}
-      <section className="px-6 py-16 bg-[#f8f9fb]/50">
+      <section className="px-6 py-16 bg-[#eef2f7]">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <StatCard value="53 MB" label="Signed installer, no warnings" />
@@ -468,7 +468,7 @@ export default function Home() {
       </section>
 
       {/* ─── TIME-SAVED MATH (folded in from /why) ─── */}
-      <section id="time-saved" className="px-6 py-20 bg-[#f8f9fb]">
+      <section id="time-saved" className="px-6 py-20 bg-[#eef2f7]">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             title="The actual math on time saved"
@@ -505,7 +505,7 @@ export default function Home() {
       </section>
 
       {/* ─── WHO IT'S FOR (folded in from /why) ─── */}
-      <section id="who-its-for" className="px-6 py-20 bg-[#f8f9fb]">
+      <section id="who-its-for" className="px-6 py-20 bg-[#eef2f7]">
         <div className="max-w-6xl mx-auto">
           <SectionHeading
             title="Who actually needs this"
@@ -569,7 +569,7 @@ export default function Home() {
       </section>
 
       {/* ─── WHAT'S INSIDE ─── */}
-      <section className="px-6 py-20 bg-[#f8f9fb]/50">
+      <section className="px-6 py-20 bg-[#eef2f7]">
         <div className="max-w-4xl mx-auto">
           <SectionHeading
             title="What's Inside the Dashboard"
