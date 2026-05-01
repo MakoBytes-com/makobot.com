@@ -650,6 +650,52 @@ export async function setAppVersionStatus(
   `;
 }
 
+// ─── UPDATE EVENTS / TELEMETRY ───
+//
+// MakoBot Build 103+ pings POST /api/update-installed right before launching
+// the auto-update installer. Lets the admin see who upgraded from what to what.
+
+export async function ensureUpdateEventsTable() {
+  const sql = getDb();
+  await sql`
+    CREATE TABLE IF NOT EXISTS update_events (
+      id SERIAL PRIMARY KEY,
+      from_version VARCHAR(50),
+      to_version VARCHAR(50),
+      license_key VARCHAR(50),
+      ip VARCHAR(45),
+      user_agent TEXT,
+      created_at TIMESTAMP DEFAULT NOW()
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS idx_update_events_created_at ON update_events (created_at DESC)`;
+  await sql`CREATE INDEX IF NOT EXISTS idx_update_events_license_key ON update_events (license_key)`;
+}
+
+export async function recordUpdateEvent(opts: {
+  fromVersion?: string | null;
+  toVersion?: string | null;
+  licenseKey?: string | null;
+  ip?: string | null;
+  userAgent?: string | null;
+}) {
+  const sql = getDb();
+  await sql`
+    INSERT INTO update_events (from_version, to_version, license_key, ip, user_agent)
+    VALUES (${opts.fromVersion ?? null}, ${opts.toVersion ?? null}, ${opts.licenseKey ?? null}, ${opts.ip ?? null}, ${opts.userAgent ?? null})
+  `;
+}
+
+export async function getRecentUpdateEvents(limit = 50) {
+  const sql = getDb();
+  return sql`
+    SELECT id, from_version, to_version, license_key, ip, user_agent, created_at
+    FROM update_events
+    ORDER BY created_at DESC
+    LIMIT ${limit}
+  `;
+}
+
 // ─── EVENTS ───
 export async function trackEvent(type: string, data: Record<string, unknown> | null, userId: number | null, ip: string) {
   const sql = getDb();
