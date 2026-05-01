@@ -25,88 +25,108 @@ export default function Home() {
         id="hero"
         className="relative flex flex-col items-center justify-center px-6 pt-32 pb-24 overflow-hidden"
       >
-        {/* Background glow */}
+        {/* Background video — AI-generated placeholder; swap for real screen recording later. */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none motion-reduce:hidden"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster="/videos/hero-poster.jpg"
+          aria-hidden="true"
+        >
+          <source src="/videos/hero-loop.webm" type="video/webm" />
+          <source src="/videos/hero-loop.mp4" type="video/mp4" />
+        </video>
+        {/* Dark overlay so text stays readable over the video */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0F1419]/40 via-[#0F1419]/55 to-[#0F1419] pointer-events-none" />
+
+        {/* Background glow (kept — sits above the video for extra depth) */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#3B82F6] opacity-[0.07] blur-[120px] pointer-events-none" />
 
-        <div className="animate-float mb-8">
-          <Logo size={120} />
-        </div>
+        {/* Foreground content stacks above the video */}
+        <div className="relative z-10 flex flex-col items-center w-full">
+          <div className="animate-float mb-8">
+            <Logo size={120} />
+          </div>
 
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center max-w-4xl leading-tight mb-4">
-          Your local{" "}
-          <span className="gradient-text">AI Workbench</span>
-        </h1>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center max-w-4xl leading-tight mb-4">
+            Your local{" "}
+            <span className="gradient-text">AI Workbench</span>
+          </h1>
 
-        <p className="text-base sm:text-lg text-[#3B82F6] text-center font-semibold mb-6 tracking-wide">
-          Memory · Search · AI Tools — every AI you use, smarter together.
-        </p>
+          <p className="text-base sm:text-lg text-[#3B82F6] text-center font-semibold mb-6 tracking-wide">
+            Memory · Search · AI Tools — every AI you use, smarter together.
+          </p>
 
-        <p className="text-lg sm:text-xl text-[#C0C8D8] text-center max-w-3xl mb-4 leading-relaxed">
-          MakoBot runs on your Windows PC. It captures every commit,
-          conversation, and note across every project, gives you one search bar
-          that reaches all of it, and adds one-line plug-ins
-          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@verify</code>
-          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@audit</code>
-          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@codereview</code>
-          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@designreview</code>
-          {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@contractreview</code>
-          {" "}that fan out to GPT, Claude, and Gemini for second opinions —
-          all auto-injected into Claude Code, Cursor, Antigravity, Windsurf,
-          ChatGPT, and Gemini.
-        </p>
+          <p className="text-lg sm:text-xl text-[#C0C8D8] text-center max-w-3xl mb-4 leading-relaxed">
+            MakoBot runs on your Windows PC. It captures every commit,
+            conversation, and note across every project, gives you one search bar
+            that reaches all of it, and adds one-line plug-ins
+            {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@verify</code>
+            {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@audit</code>
+            {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@codereview</code>
+            {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@designreview</code>
+            {" "}<code className="text-[#3B82F6] bg-[#1E2330] px-1.5 py-0.5 rounded text-base font-mono">@contractreview</code>
+            {" "}that fan out to GPT, Claude, and Gemini for second opinions —
+            all auto-injected into Claude Code, Cursor, Antigravity, Windsurf,
+            ChatGPT, and Gemini.
+          </p>
 
-        <p className="text-base text-[#8B95A8] text-center max-w-2xl mb-8 leading-relaxed">
-          When you start a new session, the AI already knows who you are, what
-          you&apos;ve been working on, and where you left off — and you can
-          call any plug-in to cross-check the answer in seconds.
-        </p>
+          <p className="text-base text-[#8B95A8] text-center max-w-2xl mb-8 leading-relaxed">
+            When you start a new session, the AI already knows who you are, what
+            you&apos;ve been working on, and where you left off — and you can
+            call any plug-in to cross-check the answer in seconds.
+          </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 mb-10">
-          <a
-            href="/get-key"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-lg transition-colors"
-          >
-            Get Free Key + Download
-          </a>
-          <a
-            href="#features"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-lg border border-[#374151] hover:border-[#4B5563] text-[#C0C8D8] font-medium text-lg transition-colors"
-          >
-            See Features
-          </a>
-        </div>
+          <div className="flex flex-col sm:flex-row gap-4 mb-10">
+            <a
+              href="/get-key"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-lg transition-colors"
+            >
+              Get Free Key + Download
+            </a>
+            <a
+              href="#features"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-lg border border-[#374151] hover:border-[#4B5563] text-[#C0C8D8] font-medium text-lg transition-colors"
+            >
+              See Features
+            </a>
+          </div>
 
-        {/* AI tool badges */}
-        <div className="flex flex-wrap justify-center gap-3 mb-6">
-          <AiBadge name="Claude" color="#3B82F6" />
-          <AiBadge name="Antigravity" color="#8B5CF6" />
-          <AiBadge name="Cursor" color="#F59E0B" />
-          <AiBadge name="Windsurf" color="#10B981" />
-          <AiBadge name="Gemini" color="#EC4899" />
-          <AiBadge name="ChatGPT" color="#6366F1" />
-        </div>
+          {/* AI tool badges */}
+          <div className="flex flex-wrap justify-center gap-3 mb-6">
+            <AiBadge name="Claude" color="#3B82F6" />
+            <AiBadge name="Antigravity" color="#8B5CF6" />
+            <AiBadge name="Cursor" color="#F59E0B" />
+            <AiBadge name="Windsurf" color="#10B981" />
+            <AiBadge name="Gemini" color="#EC4899" />
+            <AiBadge name="ChatGPT" color="#6366F1" />
+          </div>
 
-        <p className="text-sm text-[#6B7280]">
-          Works with every AI coding tool. Windows 10/11.
-        </p>
+          <p className="text-sm text-[#6B7280]">
+            Works with every AI coding tool. Windows 10/11.
+          </p>
 
-        {/* Real app screenshots */}
-        <div className="mt-16 w-full max-w-4xl mx-auto space-y-6">
-          <Image
-            src="/images/dashboard-activity.webp"
-            alt="MakoBot dashboard — Activity tab showing live feed, context budget, storage breakdown, and MCP server status"
-            width={1200}
-            height={800}
-            className="rounded-xl shadow-2xl border border-[#374151]/50"
-            priority
-          />
-          <Image
-            src="/images/dashboard-skills.webp"
-            alt="MakoBot dashboard — Skills tab showing AI skill library with per-project assignment"
-            width={1200}
-            height={800}
-            className="rounded-xl shadow-2xl border border-[#374151]/50"
-          />
+          {/* Real app screenshots */}
+          <div className="mt-16 w-full max-w-4xl mx-auto space-y-6">
+            <Image
+              src="/images/dashboard-activity.webp"
+              alt="MakoBot dashboard — Activity tab showing live feed, context budget, storage breakdown, and MCP server status"
+              width={1200}
+              height={800}
+              className="rounded-xl shadow-2xl border border-[#374151]/50"
+              priority
+            />
+            <Image
+              src="/images/dashboard-skills.webp"
+              alt="MakoBot dashboard — Skills tab showing AI skill library with per-project assignment"
+              width={1200}
+              height={800}
+              className="rounded-xl shadow-2xl border border-[#374151]/50"
+            />
+          </div>
         </div>
       </section>
 
