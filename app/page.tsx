@@ -39,10 +39,11 @@ export default function Home() {
         </h1>
 
         <p className="text-lg sm:text-xl text-[#C0C8D8] text-center max-w-2xl mb-4 leading-relaxed">
-          MakoBot gives your AI coding tools a permanent memory. It runs quietly
-          on your Windows PC and automatically records everything — code changes,
-          conversations, decisions — into one central brain that Claude Code,
-          Cursor, ChatGPT, and every AI tool can read.
+          MakoBot gives your AI coding tools a permanent searchable memory. It
+          runs on your Windows PC, captures every commit + conversation + note
+          across every project, and auto-injects the right context into Claude
+          Code, Cursor, ChatGPT, Gemini — so every AI tool you use already
+          knows what you&apos;ve been working on.
         </p>
 
         <p className="text-base text-[#8B95A8] text-center mb-8">
@@ -143,6 +144,51 @@ export default function Home() {
           <p className="mt-10 text-xl text-[#3B82F6] font-semibold">
             MakoBot fixes all of this.
           </p>
+        </div>
+      </section>
+
+      {/* ─── SEARCH (the feature users love most) ─── */}
+      <section className="px-6 py-20">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading
+            title="Search across every project, every AI tool, ever"
+            subtitle="The feature users tell us they love most"
+          />
+
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-5 gap-6 items-center">
+            <div className="md:col-span-3">
+              <p className="text-[#C0C8D8] text-base leading-relaxed mb-4">
+                You remember Claude solved this exact bug for you a few weeks
+                ago — but on a different project. Without MakoBot, you re-derive
+                the answer (10–30 minutes).{" "}
+                <span className="text-[#E8EDF3] font-semibold">
+                  With MakoBot, you type one word and find the conversation in
+                  five seconds.
+                </span>
+              </p>
+              <p className="text-[#C0C8D8] text-base leading-relaxed mb-4">
+                Search reaches every commit, every note, every transcript, every
+                skill, and every clipboard import — across every project and
+                every AI tool you use.
+              </p>
+              <a
+                href="/why"
+                className="inline-flex items-center text-sm text-[#3B82F6] hover:text-[#2563EB] font-semibold"
+              >
+                See more about how MakoBot saves time →
+              </a>
+            </div>
+            <div className="md:col-span-2 bg-[#1E2330] rounded-xl border border-[#374151] p-5">
+              <p className="text-xs text-[#8B95A8] mb-3 font-semibold tracking-wide">REAL SEARCHES USERS RUN</p>
+              <ul className="space-y-2 text-sm font-mono">
+                <li><span className="text-[#3B82F6]">webhook</span> <span className="text-[#8B95A8] font-sans not-italic ml-2">which client?</span></li>
+                <li><span className="text-[#3B82F6]">deploy fix</span> <span className="text-[#8B95A8] font-sans not-italic ml-2">what command?</span></li>
+                <li><span className="text-[#3B82F6]">stripe</span> <span className="text-[#8B95A8] font-sans not-italic ml-2">that integration</span></li>
+                <li><span className="text-[#3B82F6]">404</span> <span className="text-[#8B95A8] font-sans not-italic ml-2">which project?</span></li>
+                <li><span className="text-[#3B82F6]">race condition</span> <span className="text-[#8B95A8] font-sans not-italic ml-2">last month&apos;s fix</span></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
