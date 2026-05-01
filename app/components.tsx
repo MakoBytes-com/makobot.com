@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useMemo, type CSSProperties, type ReactNode } from "react";
 import { useSession, signOut } from "next-auth/react";
 
 /* ─── LOGO ─── */
@@ -299,5 +299,410 @@ export function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+/* ─── WALKTHROUGH ─── */
+type WalkScene =
+  | { kind: "title" }
+  | { kind: "cta" }
+  | {
+      kind: "shot";
+      src: string;
+      alt: string;
+      pan: "tl" | "tr" | "bd";
+      head: ReactNode;
+      sub?: ReactNode;
+    };
+
+const WALK_SCENES: { dur: number; scene: WalkScene }[] = [
+  { dur: 3000, scene: { kind: "title" } },
+  {
+    dur: 5000,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/01-about.webp",
+      alt: "MakoBot About tab — three pillars: Memory, AI Tools, Skills",
+      pan: "tl",
+      head: "Three pillars. One workbench.",
+      sub: (
+        <>
+          <span className="text-[#06B6D4]">Memory</span>{" "}·{" "}
+          <span className="text-[#06B6D4]">AI Tools</span>{" "}·{" "}
+          <span className="text-[#06B6D4]">Skills</span>
+        </>
+      ),
+    },
+  },
+  {
+    dur: 5500,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/02-activity.webp",
+      alt: "MakoBot Activity tab — live dashboard",
+      pan: "tr",
+      head: "Live dashboard.",
+      sub: "Every project, every commit, every AI session — tracked in real time.",
+    },
+  },
+  {
+    dur: 4500,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/03-projects.webp",
+      alt: "MakoBot Projects tab — auto-discovered projects with git history",
+      pan: "tl",
+      head: "Auto-discovers every project.",
+      sub: "Full git history and AI session memory, per project.",
+    },
+  },
+  {
+    dur: 5000,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/04-notes.webp",
+      alt: "MakoBot Notes tab — manual project decisions and context",
+      pan: "bd",
+      head: "Capture decisions the moment you make them.",
+      sub: "Context that doesn't belong in code — saved to the right project automatically.",
+    },
+  },
+  {
+    dur: 5000,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/05-skills.webp",
+      alt: "MakoBot Skills tab — reusable AI behavior library",
+      pan: "tr",
+      head: "Reusable AI behaviors.",
+      sub: "Write a skill once — every AI tool picks it up automatically.",
+    },
+  },
+  {
+    dur: 5000,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/06-commands.webp",
+      alt: "MakoBot Commands tab — God Mode hard rules",
+      pan: "tl",
+      head: "Hard rules every AI tool obeys.",
+      sub: "Write them once. Every project, every session, forever.",
+    },
+  },
+  {
+    dur: 7000,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/07-plugins.webp",
+      alt: "MakoBot AI Tools — multi-model orchestration plug-ins",
+      pan: "bd",
+      head: "Five trigger words.",
+      sub: (
+        <>
+          <span className="text-[#06B6D4]">@verify</span>{" "}·{" "}
+          <span className="text-[#06B6D4]">@audit</span>{" "}·{" "}
+          <span className="text-[#06B6D4]">@codereview</span>{" "}·{" "}
+          <span className="text-[#06B6D4]">@designreview</span>{" "}·{" "}
+          <span className="text-[#06B6D4]">@contractreview</span>
+        </>
+      ),
+    },
+  },
+  {
+    dur: 5000,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/08-providers.webp",
+      alt: "MakoBot AI Tools — bring your own keys for OpenAI, Google, Anthropic",
+      pan: "tr",
+      head: "Bring your own keys.",
+      sub: "OpenAI, Google, Anthropic — any combination. Your bills, your data.",
+    },
+  },
+  {
+    dur: 4500,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/09-prefs.webp",
+      alt: "MakoBot AI Tools Preferences — plain-English working style",
+      pan: "tl",
+      head: "Write your style once.",
+      sub: "Every AI tool gets briefed automatically — every session.",
+    },
+  },
+  {
+    dur: 4500,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/10-privacy.webp",
+      alt: "MakoBot Privacy tab — 100% local, no servers, no cloud",
+      pan: "bd",
+      head: "100% local.",
+      sub: "Zero servers. Zero cloud. Zero accounts. Zero telemetry.",
+    },
+  },
+  { dur: 6000, scene: { kind: "cta" } },
+];
+
+const WALK_TOTAL_MS = WALK_SCENES.reduce((s, x) => s + x.dur, 0);
+
+export function Walkthrough() {
+  const [active, setActive] = useState(0);
+  const [running, setRunning] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const startTsRef = useRef<number>(0);
+  const rafRef = useRef<number | null>(null);
+
+  // Pre-compute scene start times so we can map elapsed ms → scene idx in O(scenes)
+  const offsets = useMemo(() => {
+    const acc: number[] = [];
+    let sum = 0;
+    for (const s of WALK_SCENES) {
+      acc.push(sum);
+      sum += s.dur;
+    }
+    return acc;
+  }, []);
+
+  // IntersectionObserver — only animate when visible (saves CPU off-screen)
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          setRunning(entry.isIntersecting);
+        }
+      },
+      { threshold: 0.25 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // Animation loop
+  useEffect(() => {
+    if (!running) {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+      return;
+    }
+    // Resume from current scene without restarting from 0
+    const offsetForActive = offsets[active] ?? 0;
+    startTsRef.current = performance.now() - offsetForActive;
+
+    const tick = () => {
+      const now = performance.now();
+      let elapsed = now - startTsRef.current;
+      if (elapsed >= WALK_TOTAL_MS) {
+        // Loop: reset start timestamp
+        startTsRef.current = now;
+        elapsed = 0;
+      }
+      // Find current scene index
+      let idx = 0;
+      for (let i = WALK_SCENES.length - 1; i >= 0; i--) {
+        if (elapsed >= offsets[i]) {
+          idx = i;
+          break;
+        }
+      }
+      setActive((prev) => (prev === idx ? prev : idx));
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
+  }, [running, offsets, active]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full aspect-[16/10] rounded-xl shadow-2xl border border-[#374151]/50 overflow-hidden bg-[#0d1117]"
+      role="img"
+      aria-label="MakoBot product walkthrough — animated tour of the dashboard, AI tools, and privacy features"
+    >
+      {/* background glow */}
+      <div className="absolute inset-0 pointer-events-none"
+           style={{
+             background:
+               "radial-gradient(circle at 30% 20%, rgba(59,130,246,0.10), transparent 50%), radial-gradient(circle at 70% 80%, rgba(6,182,212,0.08), transparent 50%)",
+           }}
+      />
+
+      {/* wordmark */}
+      <div className="absolute top-3 left-4 z-30 flex items-center gap-2 opacity-80 pointer-events-none">
+        <div className="w-7 h-7 rounded-md flex items-center justify-center text-white font-black text-sm"
+             style={{ background: "linear-gradient(135deg, #06B6D4, #3B82F6)", boxShadow: "0 4px 12px rgba(59,130,246,0.4)" }}>
+          M
+        </div>
+        <span className="text-white font-bold text-sm tracking-wide">
+          MakoBot <span className="text-[#94A3B8] font-normal text-xs ml-1">Build 104</span>
+        </span>
+      </div>
+
+      {/* scenes */}
+      {WALK_SCENES.map((entry, idx) => {
+        const isActive = idx === active;
+        const dur = entry.dur;
+        const sc = entry.scene;
+        const baseOpacity: CSSProperties = {
+          opacity: isActive ? 1 : 0,
+          transition: "opacity 600ms ease-in-out",
+        };
+
+        if (sc.kind === "title") {
+          return (
+            <div key={idx} className="absolute inset-0 flex flex-col items-center justify-center" style={baseOpacity}>
+              <div
+                className={`w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center text-white font-black text-4xl sm:text-5xl ${isActive ? "animate-pulse" : ""}`}
+                style={{
+                  background: "linear-gradient(135deg, #06B6D4, #3B82F6)",
+                  boxShadow: "0 20px 50px rgba(59,130,246,0.5), inset 0 2px 0 rgba(255,255,255,0.2)",
+                }}
+              >
+                M
+              </div>
+              <div className="mt-6 text-3xl sm:text-5xl font-black tracking-tight bg-gradient-to-b from-white to-[#94A3B8] bg-clip-text text-transparent">
+                MakoBot
+              </div>
+              <div className="mt-2 text-sm sm:text-lg text-[#06B6D4] font-medium">
+                Your local AI Workbench
+              </div>
+            </div>
+          );
+        }
+
+        if (sc.kind === "cta") {
+          return (
+            <div key={idx} className="absolute inset-0 flex items-center justify-center px-6" style={baseOpacity}>
+              <div
+                className="text-center rounded-2xl px-6 sm:px-12 py-8 sm:py-10 max-w-xl"
+                style={{
+                  background: "linear-gradient(180deg, rgba(37,43,59,0.9), rgba(13,17,23,0.95))",
+                  border: "1px solid rgba(59,130,246,0.3)",
+                  boxShadow: "0 30px 80px rgba(0,0,0,0.5)",
+                  backdropFilter: "blur(20px)",
+                }}
+              >
+                <div className="text-2xl sm:text-4xl font-black leading-tight bg-gradient-to-b from-white to-[#CBD5E1] bg-clip-text text-transparent">
+                  Stop losing<br />your AI work.
+                </div>
+                <div
+                  className={`inline-flex mt-6 px-6 py-3 sm:px-8 sm:py-4 rounded-xl text-white font-bold text-sm sm:text-lg ${isActive ? "animate-pulse" : ""}`}
+                  style={{
+                    background: "linear-gradient(135deg, #06B6D4, #3B82F6)",
+                    boxShadow: "0 12px 32px rgba(59,130,246,0.5), inset 0 1px 0 rgba(255,255,255,0.2)",
+                  }}
+                >
+                  Download for Windows · Free
+                </div>
+                <div className="mt-4 text-sm sm:text-base text-[#06B6D4] font-semibold">
+                  makobot.com
+                </div>
+                <div className="mt-3 text-xs text-[#94A3B8] tracking-wider">
+                  BUILD 104 · MAKOBYTES · LOCAL-FIRST
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        // Shot scene
+        const panClass =
+          sc.pan === "tl"
+            ? "walk-kb-tl"
+            : sc.pan === "tr"
+              ? "walk-kb-tr"
+              : "walk-kb-bd";
+        return (
+          <div key={idx} className="absolute inset-0" style={baseOpacity}>
+            <div className="absolute inset-0 flex items-center justify-center px-6 pt-12 pb-28">
+              <div className="relative w-full h-full max-w-[1200px] flex items-center justify-center overflow-hidden rounded-lg">
+                {/* Use plain <img> so we can attach CSS keyframe transforms; Next/Image wraps in extra divs that interfere */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={sc.src}
+                  alt={sc.alt}
+                  className={`max-w-full max-h-full object-contain rounded-md ${isActive ? panClass : ""}`}
+                  style={{
+                    transformOrigin: "center center",
+                    animationDuration: `${dur}ms`,
+                  }}
+                  loading={idx <= 2 ? "eager" : "lazy"}
+                />
+              </div>
+            </div>
+            <div
+              className="absolute left-1/2 bottom-4 sm:bottom-6 -translate-x-1/2 w-[92%] max-w-[900px] text-center"
+              style={{
+                opacity: isActive ? 1 : 0,
+                transform: `translateX(-50%) translateY(${isActive ? "0" : "20px"})`,
+                transition: "opacity 500ms ease-out 200ms, transform 500ms ease-out 200ms",
+              }}
+            >
+              <div className="text-xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white"
+                   style={{ textShadow: "0 4px 20px rgba(0,0,0,0.8)" }}>
+                {sc.head}
+              </div>
+              {sc.sub && (
+                <div className="mt-2 text-xs sm:text-base text-[#CBD5E1] font-medium"
+                     style={{ textShadow: "0 2px 10px rgba(0,0,0,0.8)" }}>
+                  {sc.sub}
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      })}
+
+      {/* progress bar */}
+      <div
+        className="absolute left-0 bottom-0 h-[3px] z-30"
+        style={{
+          width: `${((offsets[active] ?? 0) / WALK_TOTAL_MS) * 100 + (((WALK_SCENES[active]?.dur ?? 0) / WALK_TOTAL_MS) * 100) * 0}%`,
+          background: "linear-gradient(90deg, #06B6D4, #3B82F6)",
+          boxShadow: "0 0 12px rgba(59,130,246,0.6)",
+          transition: "width 200ms linear",
+        }}
+      />
+
+      {/* Animation keyframes */}
+      <style jsx>{`
+        .walk-kb-tl {
+          animation-name: walkKbTl;
+          animation-timing-function: ease-out;
+          animation-fill-mode: forwards;
+        }
+        .walk-kb-tr {
+          animation-name: walkKbTr;
+          animation-timing-function: ease-out;
+          animation-fill-mode: forwards;
+        }
+        .walk-kb-bd {
+          animation-name: walkKbBd;
+          animation-timing-function: ease-out;
+          animation-fill-mode: forwards;
+        }
+        @keyframes walkKbTl {
+          0%   { transform: scale(1.0) translate(0, 0); }
+          100% { transform: scale(1.06) translate(-1%, -1%); }
+        }
+        @keyframes walkKbTr {
+          0%   { transform: scale(1.0) translate(0, 0); }
+          100% { transform: scale(1.06) translate(1%, -1%); }
+        }
+        @keyframes walkKbBd {
+          0%   { transform: scale(1.0) translate(0, 0); }
+          100% { transform: scale(1.07) translate(0, 1.5%); }
+        }
+      `}</style>
+    </div>
   );
 }
