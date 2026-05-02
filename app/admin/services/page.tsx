@@ -1,5 +1,7 @@
 "use client";
 
+import { MAKOBOT_BUILD } from "@/lib/version";
+
 const services = [
   {
     name: "Vercel",
@@ -34,13 +36,13 @@ const services = [
   {
     name: "Azure Portal (Code Signing)",
     url: "https://portal.azure.com/#view/Microsoft_Azure_TrustedSigning",
-    description: "Azure Trusted Signing for code-signing the MakoBot desktop app. Account: rsailors@makologics.com. Resource: makologics (East US). Signing active — every build signed by Mako Logics LLC. Intermediate CA rotates (EOC CA 04, AOC CA 03, AOC CA 04) — Build 84 currently live.",
+    description: `Azure Trusted Signing for code-signing the MakoBot desktop app. Account: rsailors@makologics.com. Resource: makologics (East US). Signing active — every build signed by Mako Logics LLC. Intermediate CA rotates (EOC CA 04, AOC CA 03, AOC CA 04) — Build ${MAKOBOT_BUILD} currently live.`,
     category: "Security",
   },
   {
     name: "GitHub Releases (Downloads)",
     url: "https://github.com/MakoBytes-com/makobot.com/releases",
-    description: "MakoBot-Setup.zip (desktop app installer, signed with Azure Trusted Signing) is hosted on GitHub Releases on the makobot.com repo. v2.0.0 Build 84 is the current release. Ships the self-healing ClaudeInjector fix, reference-based skills injection (232 KB → 12 KB per project file), and segment-rotation logging so nothing is ever dropped. Auto-updater is in-app since Build 78 — users update without leaving MakoBot. The /get-key download button points here via the DOWNLOAD_URL env var.",
+    description: `MakoBot-Setup.zip (desktop app installer, signed with Azure Trusted Signing) is hosted on GitHub Releases on the makobot.com repo. v2.0.0 Build ${MAKOBOT_BUILD} is the current release. Ships the self-healing ClaudeInjector fix, reference-based skills injection (232 KB → 12 KB per project file), and segment-rotation logging so nothing is ever dropped. Auto-updater is in-app since Build 78 — users update without leaving MakoBot. The /get-key download button points here via the DOWNLOAD_URL env var.`,
     category: "Distribution",
   },
   {
