@@ -121,6 +121,16 @@ html {
   animation: float 4s ease-in-out infinite;
 }
 
+/* Hero image — gentle brightness/saturation pulse */
+.hero-image {
+  animation: gentlePulse 8s ease-in-out infinite;
+}
+
+@keyframes gentlePulse {
+  0%, 100% { filter: brightness(1) saturate(1); }
+  50% { filter: brightness(1.08) saturate(1.15); }
+}
+
 /* Visible scrollbar for content boxes */
 .styled-scrollbar {
   scrollbar-width: thin;
