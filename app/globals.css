@@ -121,14 +121,14 @@ html {
   animation: float 4s ease-in-out infinite;
 }
 
-/* Hero image — gentle brightness/saturation pulse */
+/* Hero image — gentle brightness/saturation pulse (bumped values so it's actually visible) */
 .hero-image {
-  animation: gentlePulse 8s ease-in-out infinite;
+  animation: gentlePulse 6s ease-in-out infinite;
 }
 
 @keyframes gentlePulse {
   0%, 100% { filter: brightness(1) saturate(1); }
-  50% { filter: brightness(1.08) saturate(1.15); }
+  50% { filter: brightness(1.18) saturate(1.4); }
 }
 
 /* Visible scrollbar for content boxes */

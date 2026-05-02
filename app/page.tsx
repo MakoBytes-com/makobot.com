@@ -24,23 +24,20 @@ export default function Home() {
       {/* ─── HERO ─── */}
       <section
         id="hero"
-        className="relative flex flex-col items-center justify-center px-6 pt-32 pb-24 overflow-hidden"
+        className="relative isolate flex flex-col items-center justify-center px-6 pt-32 pb-24 overflow-hidden"
       >
-        {/* Background glow */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0061aa] opacity-[0.07] blur-[120px] pointer-events-none" />
+        {/* Full-bleed hero image — MakoBot mascot, gentle pulse, sits behind all hero text */}
+        <Image
+          src="/images/hero1.webp"
+          alt="MakoBot — local AI workbench connecting Claude, ChatGPT, Cursor, and Gemini"
+          fill
+          priority
+          sizes="100vw"
+          className="hero-image object-cover -z-10"
+        />
 
-        {/* Hero image — MakoBot mascot, gentle brightness/saturation pulse */}
-        <div className="w-full max-w-2xl mx-auto mb-10">
-          <Image
-            src="/images/hero1.webp"
-            alt="MakoBot — local AI workbench connecting Claude, ChatGPT, Cursor, and Gemini"
-            width={1158}
-            height={772}
-            priority
-            sizes="(min-width: 1024px) 672px, 100vw"
-            className="hero-image w-full h-auto rounded-2xl"
-          />
-        </div>
+        {/* Background glow */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0061aa] opacity-[0.07] blur-[120px] pointer-events-none -z-10" />
 
         <div className="animate-float mb-8">
           <Logo size={120} />
