@@ -3,6 +3,50 @@
 import { useState, useEffect, useRef, useMemo, type CSSProperties, type ReactNode } from "react";
 import { useSession, signOut } from "next-auth/react";
 
+/* ─── BACK TO TOP — small floating blue circle, bottom-right, fades in after scroll ─── */
+export function BackToTop() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 300);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={scrollToTop}
+      aria-label="Back to top"
+      className={`fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-[#0061aa] hover:bg-[#004d88] text-white flex items-center justify-center shadow-lg transition-all duration-300 ${
+        visible
+          ? "opacity-100 translate-y-0 pointer-events-auto"
+          : "opacity-0 translate-y-2 pointer-events-none"
+      }`}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={2.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="w-5 h-5"
+        aria-hidden="true"
+      >
+        <line x1="12" y1="19" x2="12" y2="5" />
+        <polyline points="5 12 12 5 19 12" />
+      </svg>
+    </button>
+  );
+}
+
 /* ─── LOGO ─── */
 export function Logo({ size = 64 }: { size?: number }) {
   const fontSize = Math.round(size * 0.45);
