@@ -24,23 +24,22 @@ export default function Home() {
       {/* ─── HERO ─── */}
       <section
         id="hero"
-        className="relative flex flex-col items-center justify-center px-6 pt-32 pb-24 overflow-hidden"
+        className="relative isolate flex flex-col items-center justify-center px-6 pt-32 pb-24 overflow-hidden"
       >
-        {/* Background glow */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0061aa] opacity-[0.07] blur-[120px] pointer-events-none" />
+        {/* Stretched hero image — full-width backdrop behind all hero content */}
+        <Image
+          src="/images/hero.webp"
+          alt="MakoBot — your local AI workbench, surrounded by the AI tools and dashboards it connects"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-60 -z-20"
+        />
+        {/* White fade overlay — keeps headline + paragraphs readable and gives the Walkthrough below a clean handoff */}
+        <div className="absolute inset-0 -z-10 pointer-events-none bg-gradient-to-b from-white/40 via-white/45 to-white" />
 
-        {/* Hero image — MakoBot mascot with brain + AI tool icons */}
-        <div className="w-full max-w-3xl mx-auto mb-10">
-          <Image
-            src="/images/hero.webp"
-            alt="MakoBot — your local AI workbench, surrounded by the AI tools and dashboards it connects"
-            width={1248}
-            height={826}
-            priority
-            sizes="(min-width: 1024px) 768px, 100vw"
-            className="w-full h-auto rounded-2xl border border-[#dbdbdb] shadow-[0_30px_60px_-25px_rgba(0,97,170,0.25)]"
-          />
-        </div>
+        {/* Background glow */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0061aa] opacity-[0.07] blur-[120px] pointer-events-none -z-10" />
 
         <div className="animate-float mb-8">
           <Logo size={120} />
