@@ -25,7 +25,8 @@ export default function Home() {
         {/* Upper hero block — video sits behind all content from logo through "Works with every AI coding tool" line.
             Video is bounded to this wrapper so it does NOT extend down into the Walkthrough. */}
         <div className="relative isolate flex flex-col items-center justify-center px-6 pt-32 pb-16 overflow-hidden">
-          {/* Full-bleed hero video — autoplays muted, loops */}
+          {/* Full-bleed hero video — autoplays muted, loops.
+              object-contain so the 16:9 source isn't cropped/zoomed against this tall hero block. */}
           <video
             src="/videos/hero.mp4"
             autoPlay
@@ -34,7 +35,7 @@ export default function Home() {
             playsInline
             preload="auto"
             aria-hidden="true"
-            className="absolute inset-0 w-full h-full object-cover -z-10"
+            className="absolute inset-0 w-full h-full object-contain -z-10"
           />
 
           {/* Background glow */}
