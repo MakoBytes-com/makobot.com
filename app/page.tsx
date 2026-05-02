@@ -87,12 +87,12 @@ export default function Home() {
 
           {/* AI tool badges */}
           <div className="flex flex-wrap justify-center gap-3 mb-6">
-            <AiBadge name="Claude" color="#0061aa" />
-            <AiBadge name="Antigravity" color="#8B5CF6" />
-            <AiBadge name="Cursor" color="#F59E0B" />
-            <AiBadge name="Windsurf" color="#10B981" />
-            <AiBadge name="Gemini" color="#EC4899" />
-            <AiBadge name="ChatGPT" color="#6366F1" />
+            <AiBadge name="Claude" />
+            <AiBadge name="Antigravity" />
+            <AiBadge name="Cursor" />
+            <AiBadge name="Windsurf" />
+            <AiBadge name="Gemini" />
+            <AiBadge name="ChatGPT" />
           </div>
 
           <p className="text-sm text-[#999999]">
@@ -272,7 +272,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <SectionHeading
             title="What's in MakoBot"
-            subtitle="Built by someone who lost too many fresh AI chats"
+            subtitle="Built by a developer who lost too many fresh AI chats"
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
@@ -367,10 +367,10 @@ export default function Home() {
                 manual steps.
               </p>
               <div className="flex flex-col gap-2">
-                <AiBadge name="Claude Code" color="#0061aa" />
-                <AiBadge name="Antigravity" color="#8B5CF6" />
-                <AiBadge name="Cursor" color="#F59E0B" />
-                <AiBadge name="Windsurf" color="#10B981" />
+                <AiBadge name="Claude Code" />
+                <AiBadge name="Antigravity" />
+                <AiBadge name="Cursor" />
+                <AiBadge name="Windsurf" />
               </div>
             </div>
 
@@ -387,9 +387,9 @@ export default function Home() {
                 opens the browser.
               </p>
               <div className="flex flex-col gap-2">
-                <AiBadge name="ChatGPT" color="#6366F1" />
-                <AiBadge name="Claude Web" color="#0061aa" />
-                <AiBadge name="Google Gemini" color="#EC4899" />
+                <AiBadge name="ChatGPT" />
+                <AiBadge name="Claude Web" />
+                <AiBadge name="Google Gemini" />
               </div>
             </div>
 
@@ -665,12 +665,12 @@ export default function Home() {
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <AiBadge name="Claude" color="#0061aa" />
-            <AiBadge name="Antigravity" color="#8B5CF6" />
-            <AiBadge name="Cursor" color="#F59E0B" />
-            <AiBadge name="Windsurf" color="#10B981" />
-            <AiBadge name="Gemini" color="#EC4899" />
-            <AiBadge name="ChatGPT" color="#6366F1" />
+            <AiBadge name="Claude" />
+            <AiBadge name="Antigravity" />
+            <AiBadge name="Cursor" />
+            <AiBadge name="Windsurf" />
+            <AiBadge name="Gemini" />
+            <AiBadge name="ChatGPT" />
           </div>
         </div>
       </section>

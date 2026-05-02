@@ -73,15 +73,10 @@ export function Logo({ size = 64 }: { size?: number }) {
 }
 
 /* ─── AI BADGE PILL ─── */
-export function AiBadge({ name, color }: { name: string; color: string }) {
-  return (
-    <span
-      className="badge-pill"
-      style={{ backgroundColor: color }}
-    >
-      {name}
-    </span>
-  );
+/* color prop is accepted for backward compat but ignored — all chips render in
+   the Bulldog-light navy via .badge-pill to keep the palette uniform. */
+export function AiBadge({ name }: { name: string; color?: string }) {
+  return <span className="badge-pill">{name}</span>;
 }
 
 /* ─── FEATURE CARD ─── */
@@ -187,7 +182,7 @@ export function Nav() {
           </Link>
           <Link
             href="/exchange"
-            className="relative text-sm font-semibold text-white px-3 py-1 rounded-full bg-gradient-to-r from-[#0061aa] via-[#EC4899] to-[#F59E0B] hover:shadow-lg hover:shadow-[#0061aa]/25 transition-all"
+            className="relative text-sm font-semibold text-white px-3 py-1 rounded-full bg-[#0072c4] hover:bg-[#0061aa] ring-1 ring-[#0061aa]/30 hover:shadow-lg hover:shadow-[#0061aa]/25 transition-all"
           >
             Skills Exchange
             <span className="absolute -top-1.5 -right-1.5 flex h-3.5 w-3.5">
@@ -271,7 +266,7 @@ export function Nav() {
           <Link
             href="/exchange"
             onClick={() => setOpen(false)}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-white px-4 py-2 rounded-full bg-gradient-to-r from-[#0061aa] via-[#EC4899] to-[#F59E0B] w-fit"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-white px-4 py-2 rounded-full bg-[#0072c4] ring-1 ring-[#0061aa]/30 w-fit"
           >
             Skills Exchange
             <span className="flex h-2 w-2 rounded-full bg-[#10B981] animate-pulse"></span>
