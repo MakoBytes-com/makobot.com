@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://makobot.com" },
@@ -22,87 +21,90 @@ export default function Home() {
       <Nav />
 
       {/* ─── HERO ─── */}
-      <section
-        id="hero"
-        className="relative isolate flex flex-col items-center justify-center px-6 pt-32 pb-24 overflow-hidden"
-      >
-        {/* Full-bleed hero image — MakoBot mascot, gentle pulse, sits behind all hero text */}
-        <Image
-          src="/images/hero1.webp"
-          alt="MakoBot — local AI workbench connecting Claude, ChatGPT, Cursor, and Gemini"
-          fill
-          priority
-          sizes="100vw"
-          className="hero-image object-cover -z-10"
-        />
+      <section id="hero" className="relative">
+        {/* Upper hero block — video sits behind all content from logo through "Works with every AI coding tool" line.
+            Video is bounded to this wrapper so it does NOT extend down into the Walkthrough. */}
+        <div className="relative isolate flex flex-col items-center justify-center px-6 pt-32 pb-16 overflow-hidden">
+          {/* Full-bleed hero video — autoplays muted, loops */}
+          <video
+            src="/videos/hero.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover -z-10"
+          />
 
-        {/* Background glow */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0061aa] opacity-[0.07] blur-[120px] pointer-events-none -z-10" />
+          {/* Background glow */}
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0061aa] opacity-[0.07] blur-[120px] pointer-events-none -z-10" />
 
-        <div className="animate-float mb-8">
-          <Logo size={120} />
+          <div className="animate-float mb-8">
+            <Logo size={120} />
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center max-w-4xl leading-tight mb-4">
+            Your local{" "}
+            <span className="gradient-text">AI Workbench</span>
+          </h1>
+
+          <p className="text-base sm:text-lg text-[#0061aa] text-center font-semibold mb-6 tracking-wide">
+            Memory · Search · AI Tools — every AI you use, smarter together.
+          </p>
+
+          <p className="text-lg sm:text-xl text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
+            MakoBot runs on your Windows PC. It captures every commit,
+            conversation, and note across every project, gives you one search bar
+            that reaches all of it, and adds one-line plug-ins
+            {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@verify</code>
+            {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@audit</code>
+            {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@codereview</code>
+            {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@designreview</code>
+            {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@contractreview</code>
+            {" "}that fan out to GPT, Claude, and Gemini for second opinions —
+            all auto-injected into Claude Code, Cursor, Antigravity, Windsurf,
+            ChatGPT, and Gemini.
+          </p>
+
+          <p className="text-base text-[#777777] text-center max-w-2xl mb-8 leading-relaxed">
+            When you start a new session, the AI already knows who you are, what
+            you&apos;ve been working on, and where you left off — and you can
+            call any plug-in to cross-check the answer in seconds.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 mb-10">
+            <a
+              href="/get-key"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-lg transition-colors"
+            >
+              Get Free Key + Download
+            </a>
+            <a
+              href="#features"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-lg border border-[#dbdbdb] hover:border-[#777777] text-[#555555] font-medium text-lg transition-colors"
+            >
+              See Features
+            </a>
+          </div>
+
+          {/* AI tool badges */}
+          <div className="flex flex-wrap justify-center gap-3 mb-6">
+            <AiBadge name="Claude" color="#0061aa" />
+            <AiBadge name="Antigravity" color="#8B5CF6" />
+            <AiBadge name="Cursor" color="#F59E0B" />
+            <AiBadge name="Windsurf" color="#10B981" />
+            <AiBadge name="Gemini" color="#EC4899" />
+            <AiBadge name="ChatGPT" color="#6366F1" />
+          </div>
+
+          <p className="text-sm text-[#999999]">
+            Works with every AI coding tool. Windows 10/11.
+          </p>
         </div>
 
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center max-w-4xl leading-tight mb-4">
-          Your local{" "}
-          <span className="gradient-text">AI Workbench</span>
-        </h1>
-
-        <p className="text-base sm:text-lg text-[#0061aa] text-center font-semibold mb-6 tracking-wide">
-          Memory · Search · AI Tools — every AI you use, smarter together.
-        </p>
-
-        <p className="text-lg sm:text-xl text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
-          MakoBot runs on your Windows PC. It captures every commit,
-          conversation, and note across every project, gives you one search bar
-          that reaches all of it, and adds one-line plug-ins
-          {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@verify</code>
-          {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@audit</code>
-          {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@codereview</code>
-          {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@designreview</code>
-          {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@contractreview</code>
-          {" "}that fan out to GPT, Claude, and Gemini for second opinions —
-          all auto-injected into Claude Code, Cursor, Antigravity, Windsurf,
-          ChatGPT, and Gemini.
-        </p>
-
-        <p className="text-base text-[#777777] text-center max-w-2xl mb-8 leading-relaxed">
-          When you start a new session, the AI already knows who you are, what
-          you&apos;ve been working on, and where you left off — and you can
-          call any plug-in to cross-check the answer in seconds.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-4 mb-10">
-          <a
-            href="/get-key"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-lg transition-colors"
-          >
-            Get Free Key + Download
-          </a>
-          <a
-            href="#features"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-lg border border-[#dbdbdb] hover:border-[#777777] text-[#555555] font-medium text-lg transition-colors"
-          >
-            See Features
-          </a>
-        </div>
-
-        {/* AI tool badges */}
-        <div className="flex flex-wrap justify-center gap-3 mb-6">
-          <AiBadge name="Claude" color="#0061aa" />
-          <AiBadge name="Antigravity" color="#8B5CF6" />
-          <AiBadge name="Cursor" color="#F59E0B" />
-          <AiBadge name="Windsurf" color="#10B981" />
-          <AiBadge name="Gemini" color="#EC4899" />
-          <AiBadge name="ChatGPT" color="#6366F1" />
-        </div>
-
-        <p className="text-sm text-[#999999]">
-          Works with every AI coding tool. Windows 10/11.
-        </p>
-
-        {/* Live product walkthrough — auto-plays when in view, loops */}
-        <div className="mt-16 w-full max-w-4xl mx-auto">
+        {/* Walkthrough sits BELOW the video block on plain background — video does not extend here. */}
+        <div className="px-6 pt-8 pb-24 w-full max-w-4xl mx-auto">
           <Walkthrough />
         </div>
       </section>
