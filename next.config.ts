@@ -1,11 +1,12 @@
 import type { NextConfig } from "next";
 
-// Content Security Policy — shipped in Report-Only mode first so violations are
-// observed in browser DevTools without breaking the site. Once the console is
-// clean across sign-in, exchange, admin, and remote-image flows, flip the key
-// to "Content-Security-Policy" to enforce. Keep the policy on a single line —
-// browsers accept whitespace, but inline newlines complicate header values.
-const cspReportOnly = [
+// Content Security Policy — enforced. Originally shipped Report-Only on
+// 2026-05-01 (commit 873f006); flipped to enforcing on 2026-05-01 (this
+// commit) after a headless-browser audit across 15 public pages found zero
+// violations. To roll back if something breaks in production, change the
+// header key below from "Content-Security-Policy" back to
+// "Content-Security-Policy-Report-Only" — the policy value itself is stable.
+const csp = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com https://va.vercel-scripts.com https://vercel.live",
   "style-src 'self' 'unsafe-inline'",
@@ -27,7 +28,7 @@ const securityHeaders = [
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" },
-  { key: "Content-Security-Policy-Report-Only", value: cspReportOnly },
+  { key: "Content-Security-Policy", value: csp },
 ];
 
 const immutableCache = [
