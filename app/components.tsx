@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef, useMemo, type CSSProperties, type ReactNode } from "react";
+import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
+import { MAKOBOT_BUILD } from "@/lib/version";
 
 /* ─── BACK TO TOP — small floating blue circle, bottom-right, fades in after scroll ─── */
 export function BackToTop() {
@@ -23,7 +25,7 @@ export function BackToTop() {
       type="button"
       onClick={scrollToTop}
       aria-label="Back to top"
-      className={`fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-[#0061aa] hover:bg-[#004d88] text-white flex items-center justify-center shadow-lg transition-all duration-300 ${
+      className={`fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-[#0061aa] hover:bg-[#004d88] text-white flex items-center justify-center shadow-lg transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0061aa] ${
         visible
           ? "opacity-100 translate-y-0 pointer-events-auto"
           : "opacity-0 translate-y-2 pointer-events-none"
@@ -158,32 +160,32 @@ export function Nav() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#ffffff]/90 backdrop-blur-md border-b border-[#dbdbdb]/50">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
-        <a href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3">
           <Logo size={36} />
           <span className="text-lg font-bold text-[#333333]">MakoBot</span>
-        </a>
+        </Link>
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
-          <a
+          <Link
             href="/#how-it-works"
             className="text-sm text-[#777777] hover:text-[#333333] transition-colors"
           >
             How It Works
-          </a>
-          <a
+          </Link>
+          <Link
             href="/#features"
             className="text-sm text-[#777777] hover:text-[#333333] transition-colors"
           >
             Features
-          </a>
-          <a
+          </Link>
+          <Link
             href="/compare"
             className="text-sm text-[#777777] hover:text-[#333333] transition-colors"
           >
             Compare
-          </a>
-          <a
+          </Link>
+          <Link
             href="/exchange"
             className="relative text-sm font-semibold text-white px-3 py-1 rounded-full bg-gradient-to-r from-[#0061aa] via-[#EC4899] to-[#F59E0B] hover:shadow-lg hover:shadow-[#0061aa]/25 transition-all"
           >
@@ -192,23 +194,24 @@ export function Nav() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-[#10B981] border-2 border-[#ffffff]"></span>
             </span>
-          </a>
-          <a
+          </Link>
+          <Link
             href="/#download"
             className="inline-flex items-center px-5 py-2 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white text-sm font-semibold transition-colors"
           >
             Download
-          </a>
+          </Link>
           {session?.user?.isAdmin && (
-            <a
+            <Link
               href="/admin"
               className="text-sm text-[#777777] hover:text-[#333333] transition-colors"
             >
               Admin
-            </a>
+            </Link>
           )}
           {session?.user && (
             <button
+              type="button"
               onClick={() => signOut({ callbackUrl: "/" })}
               className="text-sm text-[#777777] hover:text-[#DC2626] transition-colors"
               title="Sign out"
@@ -220,6 +223,7 @@ export function Nav() {
 
         {/* Mobile menu button */}
         <button
+          type="button"
           onClick={() => setOpen(!open)}
           className="md:hidden text-[#777777] hover:text-[#333333] p-2"
           aria-label="Toggle menu"
@@ -243,53 +247,54 @@ export function Nav() {
       {/* Mobile dropdown */}
       {open && (
         <div className="md:hidden bg-[#f8f9fb] border-t border-[#dbdbdb] px-6 py-4 flex flex-col gap-4">
-          <a
+          <Link
             href="/#how-it-works"
             onClick={() => setOpen(false)}
             className="text-sm text-[#555555]"
           >
             How It Works
-          </a>
-          <a
+          </Link>
+          <Link
             href="/#features"
             onClick={() => setOpen(false)}
             className="text-sm text-[#555555]"
           >
             Features
-          </a>
-          <a
+          </Link>
+          <Link
             href="/compare"
             onClick={() => setOpen(false)}
             className="text-sm text-[#555555]"
           >
             Compare
-          </a>
-          <a
+          </Link>
+          <Link
             href="/exchange"
             onClick={() => setOpen(false)}
             className="inline-flex items-center gap-2 text-sm font-semibold text-white px-4 py-2 rounded-full bg-gradient-to-r from-[#0061aa] via-[#EC4899] to-[#F59E0B] w-fit"
           >
             Skills Exchange
             <span className="flex h-2 w-2 rounded-full bg-[#10B981] animate-pulse"></span>
-          </a>
-          <a
+          </Link>
+          <Link
             href="/#download"
             onClick={() => setOpen(false)}
             className="inline-flex items-center justify-center px-5 py-2 rounded-lg bg-[#0061aa] text-white text-sm font-semibold"
           >
             Download
-          </a>
+          </Link>
           {session?.user?.isAdmin && (
-            <a
+            <Link
               href="/admin"
               onClick={() => setOpen(false)}
               className="text-sm text-[#777777]"
             >
               Admin
-            </a>
+            </Link>
           )}
           {session?.user && (
             <button
+              type="button"
               onClick={() => { setOpen(false); signOut({ callbackUrl: "/" }); }}
               className="text-sm text-[#DC2626] text-left"
             >
@@ -337,8 +342,8 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Mako Logics. All rights reserved.
           </p>
           <div className="flex gap-4 text-xs text-[#999999]">
-            <a href="/privacy" className="hover:text-[#555555] transition-colors">Privacy Policy</a>
-            <a href="/terms" className="hover:text-[#555555] transition-colors">Terms of Service</a>
+            <Link href="/privacy" className="hover:text-[#555555] transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-[#555555] transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>
@@ -587,7 +592,7 @@ export function Walkthrough() {
           M
         </div>
         <span className="text-white font-bold text-sm tracking-wide">
-          MakoBot <span className="text-[#777777] font-normal text-xs ml-1">Build 104</span>
+          MakoBot <span className="text-[#777777] font-normal text-xs ml-1">Build {MAKOBOT_BUILD}</span>
         </span>
       </div>
 
@@ -651,7 +656,7 @@ export function Walkthrough() {
                   makobot.com
                 </div>
                 <div className="mt-3 text-xs text-[#777777] tracking-wider">
-                  BUILD 104 · MAKOBYTES · LOCAL-FIRST
+                  BUILD {MAKOBOT_BUILD} · MAKOBYTES · LOCAL-FIRST
                 </div>
               </div>
             </div>

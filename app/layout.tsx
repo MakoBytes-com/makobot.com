@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "./providers";
 import { AnalyticsTracker } from "./analytics-tracker";
 import { BackToTop } from "./components";
+import { MAKOBOT_VERSION, SITE_LAST_UPDATED } from "@/lib/version";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,11 +16,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#0061aa",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://makobot.com"),
-  title: "MakoBot — Your local AI Workbench: Memory, Search, AI Tools",
+  title: {
+    default: "MakoBot — Local AI Workbench for Windows",
+    template: "%s — MakoBot",
+  },
   description:
-    "MakoBot is the free local AI Workbench for Windows. Gives Claude Code, Cursor, ChatGPT, and Gemini permanent searchable memory across every project, plus one-line plug-ins (@verify, @audit, @codereview, @designreview, @contractreview) that fan out to GPT, Claude, and Gemini for second opinions.",
+    "Free local AI Workbench for Windows. Permanent memory across every AI tool you use, plus one-line plug-ins that cross-check answers with GPT, Claude, and Gemini.",
   keywords: [
     "AI workbench",
     "AI memory",
@@ -39,9 +47,9 @@ export const metadata: Metadata = {
     "MakoBytes",
   ],
   openGraph: {
-    title: "MakoBot — Your local AI Workbench: Memory, Search, AI Tools",
+    title: "MakoBot — Local AI Workbench for Windows",
     description:
-      "Free local AI Workbench for Windows. Permanent searchable memory across every project + one-line plug-ins that cross-check answers against GPT, Claude, and Gemini.",
+      "Free local AI Workbench for Windows. Permanent memory across every AI tool, plus one-line plug-ins that cross-check answers with GPT, Claude, and Gemini.",
     url: "https://makobot.com",
     siteName: "MakoBot",
     type: "website",
@@ -50,15 +58,15 @@ export const metadata: Metadata = {
         url: "https://makobot.com/images/og.jpg",
         width: 1392,
         height: 752,
-        alt: "MakoBot — Your local AI Workbench",
+        alt: "MakoBot — Local AI Workbench",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MakoBot — Your local AI Workbench: Memory, Search, AI Tools",
+    title: "MakoBot — Local AI Workbench for Windows",
     description:
-      "Free local AI Workbench for Windows. Memory + search + multi-model plug-ins for every AI coding tool you use.",
+      "Free local AI Workbench for Windows. Memory + multi-model plug-ins for every AI coding tool you use.",
     images: ["https://makobot.com/images/og.jpg"],
   },
 };
@@ -80,7 +88,7 @@ const jsonLd = {
       },
       url: "https://makobot.com",
       downloadUrl: "https://makobot.com/get-key",
-      softwareVersion: "2.0.0",
+      softwareVersion: MAKOBOT_VERSION,
       author: {
         "@type": "Organization",
         name: "Mako Logics",
@@ -101,6 +109,21 @@ const jsonLd = {
         name: "MakoBytes",
       },
     },
+    {
+      "@type": "VideoObject",
+      name: "MakoBot — Local AI Workbench for Windows",
+      description:
+        "Five-second hero loop showing the MakoBot local AI Workbench, the desktop app that gives every AI coding tool you use persistent memory and cross-checked second opinions.",
+      thumbnailUrl: "https://makobot.com/images/hero-poster.jpg",
+      contentUrl: "https://makobot.com/videos/hero.mp4",
+      uploadDate: SITE_LAST_UPDATED,
+      duration: "PT5S",
+      publisher: {
+        "@type": "Organization",
+        name: "Mako Logics",
+        url: "https://makobot.com",
+      },
+    },
   ],
 };
 
@@ -115,13 +138,21 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-md focus:bg-[#0061aa] focus:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0061aa]"
+        >
+          Skip to main content
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Providers>
           <AnalyticsTracker />
-          {children}
+          <div id="main-content" tabIndex={-1} className="flex-1 flex flex-col outline-none">
+            {children}
+          </div>
           <BackToTop />
         </Providers>
       </body>
