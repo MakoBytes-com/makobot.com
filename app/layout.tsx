@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "./providers";
 import { AnalyticsTracker } from "./analytics-tracker";
+import { BackToTop } from "./components";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -121,6 +122,7 @@ export default function RootLayout({
         <Providers>
           <AnalyticsTracker />
           {children}
+          <BackToTop />
         </Providers>
       </body>
     </html>
