@@ -22,11 +22,8 @@ export default function Home() {
 
       {/* ─── HERO ─── */}
       <section id="hero" className="relative">
-        {/* Upper hero block — video sits behind all content from logo through "Works with every AI coding tool" line.
-            Video is bounded to this wrapper so it does NOT extend down into the Walkthrough. */}
-        <div className="relative isolate flex flex-col items-center justify-center px-6 pt-32 pb-16 overflow-hidden">
-          {/* Full-bleed hero video — autoplays muted, loops.
-              object-contain so the 16:9 source isn't cropped/zoomed against this tall hero block. */}
+        {/* Full-width 16:9 video banner — fits edge-to-edge horizontally, natural aspect ratio (no zoom, no crop). */}
+        <div className="w-full aspect-video relative overflow-hidden bg-[#0a1628]">
           <video
             src="/videos/hero.mp4"
             autoPlay
@@ -35,15 +32,14 @@ export default function Home() {
             playsInline
             preload="auto"
             aria-hidden="true"
-            className="absolute inset-0 w-full h-full object-contain -z-10"
+            className="absolute inset-0 w-full h-full object-cover"
           />
+        </div>
 
+        {/* Hero text content sits below the video on the page background. */}
+        <div className="relative isolate flex flex-col items-center justify-center px-6 pt-16 pb-16">
           {/* Background glow */}
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0061aa] opacity-[0.07] blur-[120px] pointer-events-none -z-10" />
-
-          <div className="animate-float mb-8">
-            <Logo size={120} />
-          </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center max-w-4xl leading-tight mb-4">
             Your local{" "}
