@@ -13,6 +13,7 @@ import {
   SectionHeading,
   Nav,
   Footer,
+  Walkthrough,
 } from "./components";
 
 export default function Home() {
@@ -27,6 +28,19 @@ export default function Home() {
       >
         {/* Background glow */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0061aa] opacity-[0.07] blur-[120px] pointer-events-none" />
+
+        {/* Hero image — MakoBot mascot with brain + AI tool icons */}
+        <div className="w-full max-w-3xl mx-auto mb-10">
+          <Image
+            src="/images/hero.webp"
+            alt="MakoBot — your local AI workbench, surrounded by the AI tools and dashboards it connects"
+            width={1248}
+            height={826}
+            priority
+            sizes="(min-width: 1024px) 768px, 100vw"
+            className="w-full h-auto rounded-2xl border border-[#dbdbdb] shadow-[0_30px_60px_-25px_rgba(0,97,170,0.25)]"
+          />
+        </div>
 
         <div className="animate-float mb-8">
           <Logo size={120} />
@@ -90,17 +104,9 @@ export default function Home() {
           Works with every AI coding tool. Windows 10/11.
         </p>
 
-        {/* Hero image — MakoBot mascot with brain + AI tool icons */}
+        {/* Live product walkthrough — auto-plays when in view, loops */}
         <div className="mt-16 w-full max-w-4xl mx-auto">
-          <Image
-            src="/images/hero.webp"
-            alt="MakoBot — your local AI workbench, surrounded by the AI tools and dashboards it connects"
-            width={1248}
-            height={826}
-            priority
-            sizes="(min-width: 1024px) 896px, 100vw"
-            className="w-full h-auto rounded-2xl border border-[#dbdbdb] shadow-[0_30px_60px_-25px_rgba(0,97,170,0.25)]"
-          />
+          <Walkthrough />
         </div>
       </section>
 
