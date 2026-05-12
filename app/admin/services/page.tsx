@@ -1,11 +1,12 @@
 "use client";
 
 import { MAKOBOT_BUILD } from "@/lib/version";
+import { VERCEL_DASHBOARD_BASE } from "@/lib/vercel-team";
 
 const services = [
   {
     name: "Vercel",
-    url: "https://vercel.com/mako-studi/makobot-com",
+    url: `${VERCEL_DASHBOARD_BASE}/makobot-com`,
     description: "Hosting and deployment platform. makobot.com is deployed here with automatic deploys on git push. Manages SSL, CDN, and serverless functions.",
     category: "Hosting",
   },
