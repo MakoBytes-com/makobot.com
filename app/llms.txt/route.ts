@@ -6,7 +6,7 @@ export const revalidate = false;
 export function GET() {
   const body = `# MakoBot — Local AI Workbench for Windows
 
-> MakoBot is a free local Windows desktop app that gives every AI coding tool you use (Claude Code, Cursor, ChatGPT, Gemini, Antigravity, Windsurf) persistent searchable memory across every project, plus one-line plug-ins (@verify, @audit, @codereview, @designreview, @contractreview) that fan out to GPT, Claude, and Gemini for second opinions.
+> MakoBot is a free local Windows desktop app that gives every AI coding tool you use (Claude Code, Cursor, ChatGPT, Gemini, Antigravity, Windsurf) persistent searchable memory across every project, plus one-line plug-ins (@verify, @audit, @codereview, @designreview, @contractreview) that fan out to GPT, Claude, and Gemini for second opinions. Built-in Chat and Code tabs with 10+ cloud providers, a bundled local model (LlamaSharp, no API key), Claude Code Max plan sign-in, agent profiles with handoffs and schedules, and a Signal bridge so you can talk to MakoBot from your phone.
 
 ## Key URLs
 

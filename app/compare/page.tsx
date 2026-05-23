@@ -145,8 +145,24 @@ export default function ComparePage() {
                     cells={[true, "yes", "yes", "Claude Code only", "n/a", "yes"]}
                   />
                   <Row
-                    feature="Local model support (Ollama / LM Studio)"
-                    cells={[false, true, false, false, false, false]}
+                    feature="Built-in local model (no Ollama / LM Studio required)"
+                    cells={["bundled LlamaSharp", "external (Ollama)", false, false, false, false]}
+                  />
+                  <Row
+                    feature="Visual agent profiles with handoffs + schedules"
+                    cells={[true, "agent loop only", false, false, false, false]}
+                  />
+                  <Row
+                    feature="Built-in Chat + Code workspace (10+ provider picker, editor, terminal)"
+                    cells={[true, false, false, false, false, false]}
+                  />
+                  <Row
+                    feature="Mobile bridge (Signal — talk to it from your phone)"
+                    cells={[true, false, false, false, false, false]}
+                  />
+                  <Row
+                    feature="Sign in with Claude Code Max plan (no separate API key)"
+                    cells={[true, false, false, false, false, false]}
                   />
                   <Row
                     feature="Built-in autonomous agent loop"
@@ -236,7 +252,7 @@ export default function ComparePage() {
               <ul className="space-y-3 text-sm text-[#555555] leading-relaxed">
                 <li>You only need memory and nothing else — <span className="text-[#0061aa]">Recallium</span> is leaner.</li>
                 <li>You want a fully autonomous agent that drives its own multi-step analysis — <span className="text-[#0061aa]">Zen MCP</span> is heavier.</li>
-                <li>You need local model support (Ollama / LM Studio) today — <span className="text-[#0061aa]">Zen MCP</span> has it; MakoBot doesn&apos;t yet.</li>
+                <li>You already have Ollama / LM Studio wired up and don&apos;t want a bundled local model — <span className="text-[#0061aa]">Zen MCP</span> integrates with those; MakoBot ships its own LlamaSharp local model instead.</li>
                 <li>You&apos;re building a SaaS that needs memory infrastructure as a feature — <span className="text-[#0061aa]">Mem0</span> or <span className="text-[#0061aa]">Letta</span>.</li>
                 <li>You only want side-by-side chat compare — a browser extension is enough.</li>
                 <li>You&apos;re on Mac or Linux only — MakoBot is Windows for now.</li>

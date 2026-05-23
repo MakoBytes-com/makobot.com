@@ -47,7 +47,7 @@ export default function Home() {
           </h1>
 
           <p className="text-base sm:text-lg text-[#0061aa] text-center font-semibold mb-6 tracking-wide">
-            Memory · Search · AI Tools — every AI you use, smarter together.
+            Memory · Search · AI Tools · Agents — every AI you use, smarter together.
           </p>
 
           <p className="text-lg sm:text-xl text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
@@ -62,6 +62,17 @@ export default function Home() {
             {" "}that fan out to GPT, Claude, and Gemini for second opinions —
             all auto-injected into Claude Code, Cursor, Antigravity, Windsurf,
             ChatGPT, and Gemini.
+          </p>
+
+          <p className="text-base sm:text-lg text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
+            Plus built-in <span className="text-[#333333] font-semibold">Chat</span> and{" "}
+            <span className="text-[#333333] font-semibold">Code</span> tabs with{" "}
+            <span className="text-[#0061aa] font-semibold">10+ cloud providers</span>{" "}
+            (Anthropic, OpenAI, Google, Groq, DeepSeek, xAI Grok), a{" "}
+            <span className="text-[#0061aa] font-semibold">bundled local model</span> (no API key, works offline),{" "}
+            sign-in with your <span className="text-[#0061aa] font-semibold">Claude Code Max plan</span>, visual{" "}
+            <span className="text-[#0061aa] font-semibold">agents</span> with handoffs and schedules, and a{" "}
+            <span className="text-[#0061aa] font-semibold">Signal bridge</span> so you can chat with MakoBot from your phone.
           </p>
 
           <p className="text-base text-[#777777] text-center max-w-2xl mb-8 leading-relaxed">
@@ -153,15 +164,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── THREE PILLARS — moved up so the workbench promise is explained early ─── */}
+      {/* ─── FOUR PILLARS — moved up so the workbench promise is explained early ─── */}
       <section id="pillars" className="px-6 py-20">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <SectionHeading
-            title="Three pillars, one app"
+            title="Four pillars, one app"
             subtitle="MakoBot isn't a model. It's the local layer that makes every model you use better."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <div className="text-3xl mb-3">🧠</div>
               <h3 className="text-base font-semibold text-[#333333] mb-2">Memory</h3>
@@ -188,6 +199,15 @@ export default function Home() {
                 <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@designreview</code>{" "}
                 <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@contractreview</code>{" "}
                 — fan out to GPT, Claude, and Gemini for second opinions.
+              </p>
+            </div>
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+              <div className="text-3xl mb-3">🧑‍✈️</div>
+              <h3 className="text-base font-semibold text-[#333333] mb-2">Agents</h3>
+              <p className="text-sm text-[#555555] leading-relaxed">
+                Visual agent cards with 5 built-in profiles, inter-agent
+                handoffs, recurring schedules, attachments, web fetch, and a
+                live cost dashboard.
               </p>
             </div>
           </div>
@@ -282,9 +302,34 @@ export default function Home() {
               description="@verify, @audit, @codereview, @designreview, @contractreview — type the trigger in your AI chat and MakoBot fans the question out to GPT, Claude, and Gemini in parallel. BYOK. DPAPI-encrypted."
             />
             <FeatureCard
+              icon="🧑‍✈️"
+              title="Agents with Handoffs"
+              description="Five built-in agent profiles (code review, security audit, contract review, research, planner) with follow-up replies, inter-agent handoffs, recurring schedules, attachments, web fetch, and live cost tracking — all inside the app."
+            />
+            <FeatureCard
+              icon="💻"
+              title="Chat + Code Tabs"
+              description="A full Chat tab with a 10-provider AI picker and a Code tab with AvalonEdit, embedded terminal, Git pane, file tree, and multi-file tabs. Work inside MakoBot — not just inject into other tools."
+            />
+            <FeatureCard
+              icon="🦙"
+              title="Local Model (No Cloud)"
+              description="Bundled LlamaSharp local model runs entirely on your machine. Zero cloud calls, zero API keys, works offline. Perfect when you can't paste data into a hosted AI."
+            />
+            <FeatureCard
+              icon="📱"
+              title="Signal Bridge"
+              description="Talk to MakoBot from your phone via the Signal messenger. Ask questions, dispatch agents, search your memory remotely — without opening your laptop."
+            />
+            <FeatureCard
+              icon="🔑"
+              title="Claude Code Max Sign-in"
+              description="Sign in with your Claude Max subscription and chat without a separate API key. The cost dashboard merges Max-plan + BYOK usage in one view."
+            />
+            <FeatureCard
               icon="🧠"
               title="Central Brain"
-              description="One brain.md file knows everything across all your projects. Every AI tool reads the same source of truth."
+              description="One brain.md file knows everything across all your projects. Every AI tool reads the same source of truth. Non-destructive compaction with quarterly archives keeps it small without losing history."
             />
             <FeatureCard
               icon="📂"
@@ -309,7 +354,7 @@ export default function Home() {
             <FeatureCard
               icon="📊"
               title="Live Dashboard"
-              description="Activity feed, storage breakdown, context budget meter, project management, settings — all in one clean dark interface with 10 tabs."
+              description="Activity feed, storage breakdown, context budget meter, project management, settings — all in one clean dark interface."
             />
             <FeatureCard
               icon="📸"
@@ -323,8 +368,8 @@ export default function Home() {
             />
             <FeatureCard
               icon="🛠️"
-              title="Skills Library"
-              description="Create, import, and manage AI skills. Assign them per-project or globally. Auto-injected into your AI tools alongside context."
+              title="Skills v2 + Reflector"
+              description="Slim skill index with on-demand loading (agentskills.io spec), per-client filtering, and a background reflector that proposes new skills + rules after every turn — gated by your approval before anything writes."
             />
             <FeatureCard
               icon="🔌"
@@ -421,9 +466,9 @@ export default function Home() {
       <section className="px-6 py-16 bg-[#eef2f7]">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <StatCard value="53 MB" label="Signed installer, no warnings" />
-            <StatCard value="0" label="Cloud dependencies" />
-            <StatCard value="6+" label="AI tools supported" />
+            <StatCard value="10+" label="Cloud providers + local model" />
+            <StatCard value="0" label="Cloud dependencies required" />
+            <StatCard value="5" label="Built-in agent profiles" />
             <StatCard value="∞" label="Sessions remembered" />
           </div>
           <div className="flex items-center justify-center gap-3 mt-8 px-5 py-3 rounded-xl bg-[#ffffff] border border-[#dbdbdb]/50 max-w-lg mx-auto">
@@ -583,17 +628,22 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <SectionHeading
             title="What's Inside the Dashboard"
-            subtitle="10 tabs, zero clutter"
+            subtitle="Every workspace you need in one window"
           />
 
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-12">
             {[
+              { name: "Chat", desc: "Picker for 10+ providers" },
+              { name: "Code", desc: "Editor + terminal + Git" },
+              { name: "Agents", desc: "Profiles + handoffs" },
+              { name: "Providers", desc: "BYOK + local model" },
               { name: "Activity", desc: "Live event feed" },
               { name: "Projects", desc: "Folder management" },
               { name: "Notes", desc: "Manual + voice notes" },
-              { name: "Skills", desc: "AI skill library" },
+              { name: "Skills", desc: "Skills v2 + reflector" },
               { name: "Guide", desc: "Built-in docs" },
               { name: "AI Tools", desc: "Plug-ins, Config, Prefs" },
+              { name: "Signal", desc: "Phone bridge" },
               { name: "Settings", desc: "App settings" },
               { name: "Privacy", desc: "Data control" },
               { name: "About", desc: "Version info" },
