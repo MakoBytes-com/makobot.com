@@ -149,8 +149,36 @@ export default function ComparePage() {
                     cells={["bundled LlamaSharp", "external (Ollama)", false, false, false, false]}
                   />
                   <Row
-                    feature="Visual agent profiles with handoffs + schedules"
+                    feature="Five named built-in agents (Researcher · Builder · Reviewer · Triage · Archivist) with handoffs + schedules"
                     cells={[true, "agent loop only", false, false, false, false]}
+                  />
+                  <Row
+                    feature="Idle-time agent (Dreams) — drafts skills, rules, and cleanups while you're away"
+                    cells={[true, false, false, false, false, false]}
+                  />
+                  <Row
+                    feature="3D Brain Core visualization of every memory entry (commits · feedback · skills · notes · sessions · Dreams)"
+                    cells={[true, false, false, false, false, false]}
+                  />
+                  <Row
+                    feature="Built-in Skills Marketplace — browse + install verified Anthropic skills"
+                    cells={[true, false, false, false, false, false]}
+                  />
+                  <Row
+                    feature="AI-triaged proposal queue (Haiku scores 1–10 with rationale; bulk 'Take all AI recommendations')"
+                    cells={[true, false, false, false, false, false]}
+                  />
+                  <Row
+                    feature="Scheduled auto-backup to OneDrive or any folder"
+                    cells={[true, false, false, false, false, false]}
+                  />
+                  <Row
+                    feature="Image vision passthrough in chat + code modes"
+                    cells={[true, false, false, false, false, false]}
+                  />
+                  <Row
+                    feature="Cross-restart conversation continuity (--session-id / --resume)"
+                    cells={[true, false, false, false, false, false]}
                   />
                   <Row
                     feature="Built-in Chat + Code workspace (10+ provider picker, editor, terminal)"
@@ -161,7 +189,7 @@ export default function ComparePage() {
                     cells={[true, false, false, false, false, false]}
                   />
                   <Row
-                    feature="Sign in with Claude Code Max plan (no separate API key)"
+                    feature="Sign in with Claude Code Max plan (every Anthropic call routes through your CLI for free)"
                     cells={[true, false, false, false, false, false]}
                   />
                   <Row
@@ -178,7 +206,7 @@ export default function ComparePage() {
           </div>
 
           <p className="text-xs text-[#999999] mt-4 text-center">
-            Comparison data based on each project&apos;s public docs and pricing pages, April 2026.
+            Comparison data based on each project&apos;s public docs and pricing pages, May 2026.
           </p>
         </div>
       </section>

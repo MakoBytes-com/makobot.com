@@ -68,10 +68,13 @@ export default function Home() {
             Plus built-in <span className="text-[#333333] font-semibold">Chat</span> and{" "}
             <span className="text-[#333333] font-semibold">Code</span> tabs with{" "}
             <span className="text-[#0061aa] font-semibold">10+ cloud providers</span>{" "}
-            (Anthropic, OpenAI, Google, Groq, DeepSeek, xAI Grok), a{" "}
+            (Anthropic, OpenAI, Google, Groq, DeepSeek, xAI Grok) plus image vision, a{" "}
             <span className="text-[#0061aa] font-semibold">bundled local model</span> (no API key, works offline),{" "}
-            sign-in with your <span className="text-[#0061aa] font-semibold">Claude Code Max plan</span>, visual{" "}
-            <span className="text-[#0061aa] font-semibold">agents</span> with handoffs and schedules, and a{" "}
+            sign-in with your <span className="text-[#0061aa] font-semibold">Claude Code Max plan</span>, five visual{" "}
+            <span className="text-[#0061aa] font-semibold">built-in agents</span> with handoffs + schedules, an idle-time{" "}
+            <span className="text-[#0061aa] font-semibold">Dreams agent</span> that drafts skills and rules while you&apos;re away, a{" "}
+            <span className="text-[#0061aa] font-semibold">Skills Marketplace</span> for verified Anthropic skills, a{" "}
+            <span className="text-[#0061aa] font-semibold">3D Brain Core</span> visualization of your memory tree, and a{" "}
             <span className="text-[#0061aa] font-semibold">Signal bridge</span> so you can chat with MakoBot from your phone.
           </p>
 
@@ -164,29 +167,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── FOUR PILLARS — moved up so the workbench promise is explained early ─── */}
+      {/* ─── FIVE PILLARS — moved up so the workbench promise is explained early ─── */}
       <section id="pillars" className="px-6 py-20">
         <div className="max-w-6xl mx-auto">
           <SectionHeading
-            title="Four pillars, one app"
-            subtitle="MakoBot isn't a model. It's the local layer that makes every model you use better."
+            title="Five pillars, one workbench"
+            subtitle="MakoBot is the local control plane for every AI you use — Memory, AI Tools, Skills, Agents, and the Brain Core."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mt-12">
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <div className="text-3xl mb-3">🧠</div>
               <h3 className="text-base font-semibold text-[#333333] mb-2">Memory</h3>
               <p className="text-sm text-[#555555] leading-relaxed">
-                Cross-project timeline auto-injected into CLAUDE.md, AGENTS.md,
-                .cursorrules. Every AI tool you use sees the same context.
-              </p>
-            </div>
-            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
-              <div className="text-3xl mb-3">🔍</div>
-              <h3 className="text-base font-semibold text-[#333333] mb-2">Search</h3>
-              <p className="text-sm text-[#555555] leading-relaxed">
-                One bar that reaches every conversation, every commit, every
-                note, every transcript — across every project, every AI tool.
+                Cross-project timeline + per-project context auto-injected into
+                CLAUDE.md, AGENTS.md, .cursorrules. One search bar reaches every
+                commit, note, transcript, skill, and clipboard import.
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
@@ -198,16 +194,34 @@ export default function Home() {
                 <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@codereview</code>{" "}
                 <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@designreview</code>{" "}
                 <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@contractreview</code>{" "}
-                — fan out to GPT, Claude, and Gemini for second opinions.
+                — fan out to GPT, Claude, and Gemini for second opinions. Max-plan calls route through your CLI for free.
+              </p>
+            </div>
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+              <div className="text-3xl mb-3">🛠️</div>
+              <h3 className="text-base font-semibold text-[#333333] mb-2">Skills</h3>
+              <p className="text-sm text-[#555555] leading-relaxed">
+                Reusable skill library + God-Mode commands injected into every
+                project so any AI client picks them up automatically. Built-in{" "}
+                <span className="text-[#0061aa] font-semibold">Skills Marketplace</span> browses + installs verified Anthropic skills.
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <div className="text-3xl mb-3">🧑‍✈️</div>
               <h3 className="text-base font-semibold text-[#333333] mb-2">Agents</h3>
               <p className="text-sm text-[#555555] leading-relaxed">
-                Visual agent cards with 5 built-in profiles, inter-agent
-                handoffs, recurring schedules, attachments, web fetch, and a
-                live cost dashboard.
+                Five built-in agents — Researcher · Builder · Reviewer · Triage · Archivist —
+                with assignable tasks, handoffs, recurring schedules, attachments, web fetch, and a live cost dashboard.
+                Plus <span className="text-[#0061aa] font-semibold">Dreams</span>, the idle-time agent that drafts skills and rules while you&apos;re away.
+              </p>
+            </div>
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+              <div className="text-3xl mb-3">🌌</div>
+              <h3 className="text-base font-semibold text-[#333333] mb-2">Brain Core</h3>
+              <p className="text-sm text-[#555555] leading-relaxed">
+                Rotating 3D visualization of every entry in your memory tree —
+                commits, feedback, skills, notes, sessions, and Dreams reasoning.
+                Click any dot to see the full body. Filter by source.
               </p>
             </div>
           </div>
@@ -303,13 +317,28 @@ export default function Home() {
             />
             <FeatureCard
               icon="🧑‍✈️"
-              title="Agents with Handoffs"
-              description="Five built-in agent profiles (code review, security audit, contract review, research, planner) with follow-up replies, inter-agent handoffs, recurring schedules, attachments, web fetch, and live cost tracking — all inside the app."
+              title="Five Built-in Agents"
+              description="Researcher · Builder · Reviewer · Triage · Archivist — each with assignable tasks, inter-agent handoffs, recurring schedules, attachments, web fetch, and live cost tracking. Pick the right one for the job; chain them when you need to."
+            />
+            <FeatureCard
+              icon="💤"
+              title="Dreams — Idle-Time Agent"
+              description="While you're away, Dreams examines your memory and drafts new skills, feedback rules, and cleanup suggestions. Inline Save / Snooze / Discard in the Tick Log. Every Dream becomes a Brain Core node with an AI take attached."
+            />
+            <FeatureCard
+              icon="🌌"
+              title="Brain Core (3D)"
+              description="Rotating 3D visualization of every entry in your memory tree — commits, feedback, skills, notes, sessions, and Dreams. Click any node to see its full body. Source-filter chips stick across restarts."
+            />
+            <FeatureCard
+              icon="🛒"
+              title="Skills Marketplace"
+              description="Browse and install verified Anthropic skills from inside MakoBot. One-click install, visible installed state, handles nested SKILL.md formats and OneDrive paths cleanly."
             />
             <FeatureCard
               icon="💻"
               title="Chat + Code Tabs"
-              description="A full Chat tab with a 10-provider AI picker and a Code tab with AvalonEdit, embedded terminal, Git pane, file tree, and multi-file tabs. Work inside MakoBot — not just inject into other tools."
+              description="A full Chat tab with a 10+ provider AI picker (Anthropic, OpenAI, Google, Groq, DeepSeek, xAI Grok) plus image vision, and a Code tab with AvalonEdit, embedded terminal, Git pane, file tree, and multi-file tabs. Sessions resume across app restarts via --session-id / --resume."
             />
             <FeatureCard
               icon="🦙"
@@ -324,12 +353,22 @@ export default function Home() {
             <FeatureCard
               icon="🔑"
               title="Claude Code Max Sign-in"
-              description="Sign in with your Claude Max subscription and chat without a separate API key. The cost dashboard merges Max-plan + BYOK usage in one view."
+              description="Sign in with your Claude Max subscription and chat without a separate API key. Every Anthropic call — chat, agents, Dreams, plug-ins — routes through your CLI for free. Cost dashboard merges Max + BYOK in one view."
             />
             <FeatureCard
               icon="🧠"
-              title="Central Brain"
-              description="One brain.md file knows everything across all your projects. Every AI tool reads the same source of truth. Non-destructive compaction with quarterly archives keeps it small without losing history."
+              title="Central Brain + Memory Graph"
+              description="One brain.md across all your projects, plus a Memory Graph layer that indexes the auto-memory tree. Every AI tool reads the same source of truth. Non-destructive compaction with quarterly archives keeps it small without losing history."
+            />
+            <FeatureCard
+              icon="🤖"
+              title="AI-Triaged Proposals"
+              description="Pending skill + feedback proposals are scored 1–10 by Haiku with a one-sentence rationale. Tabbed Save / Delete split kills the Approve/Reject ambiguity. Bulk 'Take all AI recommendations' sweeps the queue in one click."
+            />
+            <FeatureCard
+              icon="💾"
+              title="Scheduled Auto-Backup"
+              description="Set-and-forget backup of your memory tree to OneDrive or any folder on a schedule you pick. Runs on a background thread; sweeps stale .tmp files; never blocks the UI."
             />
             <FeatureCard
               icon="📂"
@@ -467,8 +506,8 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <StatCard value="10+" label="Cloud providers + local model" />
-            <StatCard value="0" label="Cloud dependencies required" />
-            <StatCard value="5" label="Built-in agent profiles" />
+            <StatCard value="5" label="Built-in agents + Dreams" />
+            <StatCard value="5" label="Plug-ins: verify · audit · review · design · contract" />
             <StatCard value="∞" label="Sessions remembered" />
           </div>
           <div className="flex items-center justify-center gap-3 mt-8 px-5 py-3 rounded-xl bg-[#ffffff] border border-[#dbdbdb]/50 max-w-lg mx-auto">
@@ -633,21 +672,21 @@ export default function Home() {
 
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-12">
             {[
-              { name: "Chat", desc: "Picker for 10+ providers" },
+              { name: "Chat", desc: "10+ providers + vision" },
               { name: "Code", desc: "Editor + terminal + Git" },
-              { name: "Agents", desc: "Profiles + handoffs" },
+              { name: "Agents", desc: "5 built-in + Dreams" },
+              { name: "Brain Core", desc: "3D memory visualization" },
+              { name: "Memory", desc: "Suggestions + Tick Log" },
+              { name: "Skills", desc: "Library + Marketplace" },
+              { name: "AI Tools", desc: "Plug-ins, Config, Prefs" },
               { name: "Providers", desc: "BYOK + local model" },
               { name: "Activity", desc: "Live event feed" },
               { name: "Projects", desc: "Folder management" },
               { name: "Notes", desc: "Manual + voice notes" },
-              { name: "Skills", desc: "Skills v2 + reflector" },
-              { name: "Guide", desc: "Built-in docs" },
-              { name: "AI Tools", desc: "Plug-ins, Config, Prefs" },
               { name: "Signal", desc: "Phone bridge" },
+              { name: "Backup", desc: "Scheduled auto-backup" },
+              { name: "Guide", desc: "Built-in docs" },
               { name: "Settings", desc: "App settings" },
-              { name: "Privacy", desc: "Data control" },
-              { name: "About", desc: "Version info" },
-              { name: "Legal", desc: "Terms + disclaimer" },
             ].map((tab) => (
               <div
                 key={tab.name}
