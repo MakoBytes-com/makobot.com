@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Logo, Nav, Footer, SectionHeading, FeatureCard } from "../components";
 
 export const metadata: Metadata = {
-  title: "How MakoBot Compares — vs. Zen MCP, Recallium, Mem0, Multi-LLM Cross-Check",
+  title: "How MakoBot Compares — vs. Zen MCP, Pieces, Recallium, Mem0, Multi-LLM Cross-Check",
   description:
-    "An honest comparison: MakoBot is layered ABOVE your existing AI tools (Claude Code, Cursor, Windsurf), not a replacement for them. See how it overlaps with Zen MCP, Recallium, claude-mem, Mem0, and the Multi-LLM Cross-Check MCP server — and where it's genuinely different.",
+    "An honest comparison: MakoBot is layered ABOVE your existing AI tools (Claude Code, Cursor, Windsurf), not a replacement for them. See how it overlaps with Zen MCP, Pieces, Recallium, claude-mem, Mem0, and the Multi-LLM Cross-Check MCP server — and where it's genuinely different.",
   alternates: { canonical: "https://makobot.com/compare" },
 };
 
@@ -117,6 +117,22 @@ export default function ComparePage() {
                     cells={[true, false, true, false, false, false]}
                   />
                   <Row
+                    feature="On-device semantic search — finds memories by meaning, nothing leaves the machine"
+                    cells={[true, false, false, false, "cloud service", false]}
+                  />
+                  <Row
+                    feature="Multi-machine sync, end-to-end encrypted through YOUR storage — your key, no vendor cloud, no account (MakoSync)"
+                    cells={[true, false, false, false, "their cloud", false]}
+                  />
+                  <Row
+                    feature="Memory health monitoring (data loss, corruption, silent writers, runaway growth — plain-English alerts)"
+                    cells={[true, false, false, false, false, false]}
+                  />
+                  <Row
+                    feature="Auto-registers its memory MCP server with Cursor, Gemini CLI, Windsurf + Claude Code — shipped in the app"
+                    cells={[true, false, false, "Claude Code only", "dev-tool setup", false]}
+                  />
+                  <Row
                     feature="Multi-model second-opinion (verify / audit / code review / design review / contract review)"
                     cells={[true, true, false, false, false, "verify only"]}
                   />
@@ -206,7 +222,7 @@ export default function ComparePage() {
           </div>
 
           <p className="text-xs text-[#999999] mt-4 text-center">
-            Comparison data based on each project&apos;s public docs and pricing pages, May 2026.
+            Comparison data based on each project&apos;s public docs and pricing pages, June 2026.
           </p>
         </div>
       </section>
@@ -233,6 +249,11 @@ export default function ComparePage() {
             icon="📦"
             title="Mem0 / Letta / Zep / Memstate"
             description="Memory-as-a-service APIs for developers building their own AI products. Not end-user tools. If you're shipping a SaaS that needs memory infrastructure, look here. If you want a desktop app that already works, look at MakoBot."
+          />
+          <FeatureCard
+            icon="🧩"
+            title="Pieces"
+            description="Polished long-term memory for developers, with cloud-assisted search and sync that runs through Pieces' own servers. If you're fine with a vendor cloud in the loop, it's solid. MakoBot keeps both on your side: semantic search runs entirely on-device, and MakoSync moves only encrypted packets through storage YOU control — your key, no account, no vendor cloud."
           />
           <FeatureCard
             icon="🔍"
@@ -270,6 +291,7 @@ export default function ComparePage() {
                 <li>You&apos;re not a CLI person and want a real Windows app with an installer.</li>
                 <li>You want to run audits and code reviews on demand without setting up agent infrastructure.</li>
                 <li>You want your API keys and data to stay on your machine.</li>
+                <li>You work on more than one computer and want the same memory on all of them — without a vendor cloud or another account.</li>
                 <li>You want to write rules once and have every AI tool follow them.</li>
               </ul>
             </div>
@@ -282,6 +304,7 @@ export default function ComparePage() {
                 <li>You want a fully autonomous agent that drives its own multi-step analysis — <span className="text-[#0061aa]">Zen MCP</span> is heavier.</li>
                 <li>You already have Ollama / LM Studio wired up and don&apos;t want a bundled local model — <span className="text-[#0061aa]">Zen MCP</span> integrates with those; MakoBot ships its own LlamaSharp local model instead.</li>
                 <li>You&apos;re building a SaaS that needs memory infrastructure as a feature — <span className="text-[#0061aa]">Mem0</span> or <span className="text-[#0061aa]">Letta</span>.</li>
+                <li>You want a snippet manager with cloud convenience and don&apos;t mind a vendor cloud in the loop — <span className="text-[#0061aa]">Pieces</span>.</li>
                 <li>You only want side-by-side chat compare — a browser extension is enough.</li>
                 <li>You&apos;re on Mac or Linux only — MakoBot is Windows for now.</li>
               </ul>
