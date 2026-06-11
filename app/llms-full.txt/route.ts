@@ -12,7 +12,7 @@ MakoBot is a free Windows desktop application that runs entirely on the user's c
 
 ## Five pillars
 
-1. **Memory** — Cross-project timeline + per-project context auto-injected into CLAUDE.md, AGENTS.md, and .cursorrules. Every AI tool the user uses sees the same source of truth. Brain.md compaction is non-destructive with quarterly archives. A Memory Graph layer indexes the auto-memory tree. One search bar reaches every conversation, commit, note, transcript, skill, and clipboard import — across every project and every AI tool. The Memory Suggestions queue lets the user Save, Discard, Delete, or Keep what background agents draft.
+1. **Memory** — Cross-project timeline + per-project context auto-injected into CLAUDE.md, AGENTS.md, and .cursorrules. Every AI tool the user uses sees the same source of truth. Brain.md compaction is non-destructive with quarterly archives. A Memory Graph layer indexes the auto-memory tree. One search bar reaches every conversation, commit, note, transcript, skill, and clipboard import — across every project and every AI tool. Smart Search adds on-device semantic search on top: find memories by meaning, not keywords. The Memory Suggestions queue lets the user Save, Discard, Delete, or Keep what background agents draft.
 
 2. **AI Tools (plug-ins)** — One-line trigger words inside any AI chat. Each fans the question out to GPT, Claude, and Gemini in parallel for second opinions:
    - @verify — fact-check a draft answer
@@ -29,6 +29,31 @@ MakoBot is a free Windows desktop application that runs entirely on the user's c
 
 5. **Brain Core** — Rotating 3D visualization of every entry in the memory tree: commits, feedback, skills, notes, sessions, and Dreams reasoning. Click any dot to see its full body. Filter by source via the chip row above the viewport (toggles stick across restarts).
 
+## Smart Search — semantic memory search, 100% on-device
+
+- Finds memories by MEANING, not keywords. Searching "that email env var problem" finds the CONTACT_EMAIL_TO note even though no keyword matches.
+- One-click enable downloads a small (140 MB) embedding model (nomic-embed v1.5, SHA-pinned to an immutable revision) and indexes the whole memory tree locally.
+- Upgrades both in-app search AND the MCP search_memory tool that every connected AI session uses.
+- Runs entirely on the user's machine. Nothing leaves the computer — no cloud embedding service, no API key.
+
+## MakoSync — the same brain on every computer (no server, no account)
+
+- Each machine writes small AES-256-GCM-encrypted change packets into a folder the user already syncs. OneDrive works out of the box; Dropbox, Google Drive, and NAS folders all work too.
+- Only the user holds the passphrase — even their cloud provider sees scrambled blobs. There is no MakoBot server and no account.
+- Merging can only ever ADD to memory: a fresh laptop can never flatten a year-old desktop brain. Conflicts keep both versions visibly instead of silently discarding one.
+- Setup is three steps: install MakoBot on the second machine, point it at the same synced folder, enter the same passphrase.
+
+## Memory Health — the dashboard tile that watches the watchers
+
+- Continuously monitors the memory tree for files shrinking (data loss), writers going silent, corruption, and runaway growth.
+- Problems surface within 10 minutes, explained in plain English — "your memory is safe" made visible.
+- No comparable tool ships memory health monitoring.
+
+## One brain, every AI tool
+
+- MakoBot auto-detects Cursor, Gemini CLI, and Windsurf on the machine and registers its local MCP memory server with each. Claude Code was always connected.
+- Every AI tool the user works with shares the same memory, semantic search, brain, and project context — shipped inside a signed Windows app, no manual MCP configuration.
+
 ## Background Reflector + Smart Triage
 
 - **Background reflector** — after every turn, MakoBot quietly reviews what happened and drafts new skills + feedback rules for approval.
@@ -42,30 +67,35 @@ MakoBot is a free Windows desktop application that runs entirely on the user's c
 MakoBot ships with a full in-app **Chat tab** and **Code tab** so the user can work inside MakoBot directly, not just inject context into other tools.
 
 - **AI provider picker** — choose any of 10+ cloud providers per turn (Anthropic, OpenAI, Google, Groq, DeepSeek, xAI Grok, plus more) — or the bundled local model.
-- **Image vision passthrough** — paste/attach images in Claude Code chat mode; vision-capable providers receive them directly.
+- **Image vision passthrough** — paste/attach images in chat; works across Claude (Pro/Max), Gemini, Groq, DeepSeek, and xAI.
+- **Chat request queueing** — type the next message while the current one is still streaming; it queues and sends automatically.
 - **Cross-restart conversation continuity** — sessions resume across MakoBot restarts via --session-id / --resume.
-- **Local model (LlamaSharp)** — runs entirely on-device with zero cloud calls, zero API keys, and works offline. Built into the installer.
+- **Local model (LlamaSharp)** — runs entirely on-device with zero cloud calls, zero API keys, and works offline. Built into the installer. A one-click CUDA add-on installer unlocks full NVIDIA GPU speed, and an auto-detect button sets GPU layers + context size from the loaded model — context also auto-bumps on overflow, so users never guess settings. Local reasoning models get a collapsible "Thought for X.Ys" panel. Model downloads survive network resets (resume) and all curated models are SHA-256-pinned to immutable revisions.
 - **Claude Code Max plan sign-in** — sign in with the user's Claude Max subscription and chat without a separate API key. Every Anthropic call in MakoBot — chat, agents, Dreams, plug-ins — honors AnthropicAuth and routes through the CLI for free. The cost dashboard merges Max-plan + BYOK usage in one view.
 - **Code tab** — AvalonEdit source editor, embedded terminal, Git pane, file tree, and multi-file tabs. A VS-Code-style workspace inside MakoBot.
 - **Signal bridge** — talk to MakoBot from a phone via the Signal messenger. Ask questions, dispatch agents, search memory remotely.
 
 ## Data safety
 
-- **Scheduled auto-backup** — set-and-forget backup of the memory tree to OneDrive or any folder on a user-picked cadence. Runs on a background thread; sweeps stale .tmp files; never blocks the UI.
-- **Memory tree lives outside OneDrive by default** — avoids OneDrive sync conflicts on live working files; backups go to OneDrive instead.
+- **Scheduled auto-backup** — set-and-forget backup of the memory tree to OneDrive or any folder on a user-picked cadence. Runs on a background thread; sweeps stale .tmp files; never blocks the UI. Backups stay small (~150 MB) by excluding re-downloadable models, and restore validates the archive and snapshots current memory before touching anything.
+- **Memory Health monitoring** — a dashboard tile detects shrinking files, silent writers, corruption, and runaway growth within 10 minutes, in plain English.
+- **MakoSync** — the same memory on every computer the user owns via end-to-end-encrypted change packets through the user's own storage. Add-only merging means a new machine can never wipe an established brain.
+- **Crash-safety net** — MakoBot never takes itself down: three global exception handlers catch errors, show a visible recovery message, and keep the app running.
+- **Memory tree lives outside OneDrive by default** — avoids OneDrive sync conflicts on live working files; backups (and MakoSync packets) go to OneDrive instead.
 - **Non-destructive compaction** — quarterly archives of brain.md preserve full history.
+- **Audited** — a ~70-finding deep audit covering security, data integrity, performance, and accessibility (app-wide keyboard access, 12px+ text, per-monitor DPI) was fixed in a single release.
 
 ## Compatibility
 
 Fully automatic injection: Claude Code, Antigravity, Cursor, Windsurf.
 One-click clipboard: ChatGPT, Claude Web, Google Gemini.
 Any tool: Copy Context to clipboard, paste anywhere.
-MCP server: Built-in MCP server on localhost:7777 — any MCP-compatible tool can search memory, read the brain, add notes programmatically.
-OneDrive sync: project memory and brain.md sync across Windows machines.
+MCP server: Built-in MCP server on localhost:7777 — auto-registered with Cursor, Gemini CLI, and Windsurf; any MCP-compatible tool can search memory, read the brain, add notes programmatically.
+Multi-machine: MakoSync carries the same memory to every Windows machine the user owns — end-to-end encrypted through the user's own synced storage (OneDrive, Dropbox, Google Drive, NAS), no server, no account.
 
 ## Privacy
 
-100% local. No cloud, no accounts, no telemetry. All data stays on the user's machine. BYOK (bring-your-own-keys) for AI providers — DPAPI-encrypted. Digitally signed installer (Mako Logics LLC) verified by Microsoft Azure Trusted Signing.
+100% local. No cloud, no accounts, no telemetry. All data stays on the user's machine. Smart Search embeddings are computed on-device. MakoSync, when enabled, only ever writes AES-256-GCM-encrypted blobs into storage the user controls — the passphrase never leaves the machine. BYOK (bring-your-own-keys) for AI providers — DPAPI-encrypted. Digitally signed installer (Mako Logics LLC) verified by Microsoft Azure Trusted Signing.
 
 ## Distribution
 
@@ -88,6 +118,7 @@ OneDrive sync: project memory and brain.md sync across Windows machines.
 - Not a model. Not a CLI. Not a browser extension. A Windows-native desktop application with a real UI, a signed installer, an in-app updater, and a license key.
 - Sits ABOVE existing AI agent loops (Claude Code, Cursor, Windsurf, Aider) — does not replace them.
 - Bundles cross-IDE memory + multi-LLM verification + plug-in architecture + skills + commands + dashboard in a single app.
+- Unique in the category: on-device semantic memory search, end-to-end-encrypted multi-machine sync with no vendor cloud and no account (MakoSync), and memory health monitoring.
 - Comparison page with detailed side-by-side: https://makobot.com/compare
 
 ## Author

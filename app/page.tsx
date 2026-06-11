@@ -78,6 +78,18 @@ export default function Home() {
             <span className="text-[#0061aa] font-semibold">Signal bridge</span> so you can chat with MakoBot from your phone.
           </p>
 
+          <p className="text-base sm:text-lg text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
+            Latest: <span className="text-[#0061aa] font-semibold">Smart Search</span> finds
+            memories by <em>meaning</em>, not keywords — 100% on your machine.{" "}
+            <span className="text-[#0061aa] font-semibold">MakoSync</span> puts the same
+            brain on every computer you own — encrypted with your passphrase, no server,
+            no account. <span className="text-[#0061aa] font-semibold">Memory Health</span>{" "}
+            watches your memory files and tells you in plain English that they&apos;re safe.
+            And MakoBot now auto-connects its memory to{" "}
+            <span className="text-[#333333] font-semibold">Cursor, Gemini CLI, and Windsurf</span>{" "}
+            — one brain for every AI tool you use.
+          </p>
+
           <p className="text-base text-[#777777] text-center max-w-2xl mb-8 leading-relaxed">
             When you start a new session, the AI already knows who you are, what
             you&apos;ve been working on, and where you left off — and you can
@@ -181,8 +193,9 @@ export default function Home() {
               <h3 className="text-base font-semibold text-[#333333] mb-2">Memory</h3>
               <p className="text-sm text-[#555555] leading-relaxed">
                 Cross-project timeline + per-project context auto-injected into
-                CLAUDE.md, AGENTS.md, .cursorrules. One search bar reaches every
-                commit, note, transcript, skill, and clipboard import.
+                CLAUDE.md, AGENTS.md, .cursorrules. Smart Search finds memories
+                by meaning — on-device. MakoSync carries the same brain to every
+                computer you own, encrypted with your key.
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
@@ -252,6 +265,15 @@ export default function Home() {
                 skill, and every clipboard import — across every project and
                 every AI tool you use.
               </p>
+              <p className="text-[#555555] text-base leading-relaxed mb-4">
+                And with <span className="text-[#0061aa] font-semibold">Smart Search</span>,
+                you don&apos;t even need the exact word: type &quot;that email env
+                var problem&quot; and it finds the CONTACT_EMAIL_TO note — by{" "}
+                <span className="text-[#333333] font-semibold">meaning</span>, not
+                keywords. One click downloads a small (140&nbsp;MB) model, indexes
+                your whole memory tree, and runs 100% on your machine. Nothing
+                leaves your computer.
+              </p>
               <a
                 href="#time-saved"
                 className="inline-flex items-center text-sm text-[#0061aa] hover:text-[#004d88] font-semibold"
@@ -267,6 +289,7 @@ export default function Home() {
                 <li><span className="text-[#0061aa]">stripe</span> <span className="text-[#777777] font-sans not-italic ml-2">that integration</span></li>
                 <li><span className="text-[#0061aa]">404</span> <span className="text-[#777777] font-sans not-italic ml-2">which project?</span></li>
                 <li><span className="text-[#0061aa]">race condition</span> <span className="text-[#777777] font-sans not-italic ml-2">last month&apos;s fix</span></li>
+                <li><span className="text-[#0061aa]">that email env var problem</span> <span className="text-[#777777] font-sans not-italic ml-2">Smart Search finds it by meaning</span></li>
               </ul>
             </div>
           </div>
@@ -311,6 +334,26 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
             <FeatureCard
+              icon="🧠"
+              title="Smart Search (Semantic)"
+              description="Find memories by MEANING, not keywords — 'that email env var problem' finds the CONTACT_EMAIL_TO note. One click downloads a small (140 MB) embedding model and indexes your whole memory tree. Runs 100% on your machine, and upgrades both in-app search and the memory search every connected AI uses."
+            />
+            <FeatureCard
+              icon="💻"
+              title="MakoSync — Every Computer"
+              description="Your brain on every machine you own — no server, no account. Each computer writes small AES-256-encrypted change packets into a folder you already sync (OneDrive built in; Dropbox, Google Drive, NAS all work). Only you hold the passphrase. Merging can only ever ADD — a fresh laptop can never wipe your desktop's memory."
+            />
+            <FeatureCard
+              icon="🩺"
+              title="Memory Health"
+              description="A dashboard tile that watches the watchers. Files shrinking (data loss), writers gone silent, corruption, runaway growth — caught within 10 minutes and explained in plain English. 'Your memory is safe,' made visible."
+            />
+            <FeatureCard
+              icon="🔌"
+              title="One Brain, Every AI Tool"
+              description="MakoBot finds Cursor, Gemini CLI, and Windsurf on your machine and connects each to its local memory server automatically — Claude Code was always connected. Every AI tool you use shares the same memory, search, and project context."
+            />
+            <FeatureCard
               icon="🤖"
               title="AI Tools (Plug-ins)"
               description="@verify, @audit, @codereview, @designreview, @contractreview — type the trigger in your AI chat and MakoBot fans the question out to GPT, Claude, and Gemini in parallel. BYOK. DPAPI-encrypted."
@@ -338,12 +381,12 @@ export default function Home() {
             <FeatureCard
               icon="💻"
               title="Chat + Code Tabs"
-              description="A full Chat tab with a 10+ provider AI picker (Anthropic, OpenAI, Google, Groq, DeepSeek, xAI Grok) plus image vision, and a Code tab with AvalonEdit, embedded terminal, Git pane, file tree, and multi-file tabs. Sessions resume across app restarts via --session-id / --resume."
+              description="A full Chat tab with a 10+ provider AI picker (Anthropic, OpenAI, Google, Groq, DeepSeek, xAI Grok) plus image vision across providers, and a Code tab with AvalonEdit, embedded terminal, Git pane, file tree, and multi-file tabs. Type your next message while the current one is still streaming — it queues. Sessions resume across app restarts via --session-id / --resume."
             />
             <FeatureCard
               icon="🦙"
               title="Local Model (No Cloud)"
-              description="Bundled LlamaSharp local model runs entirely on your machine. Zero cloud calls, zero API keys, works offline. Perfect when you can't paste data into a hosted AI."
+              description="Bundled LlamaSharp local model runs entirely on your machine. Zero cloud calls, zero API keys, works offline. One-click CUDA add-on unlocks full NVIDIA speed, and the 🎯 auto-detect button sets GPU layers + context size from your model — no guessing. Reasoning models get a collapsible 'Thought for…' panel; downloads resume after network hiccups and every curated model is SHA-256-verified."
             />
             <FeatureCard
               icon="📱"
@@ -368,7 +411,7 @@ export default function Home() {
             <FeatureCard
               icon="💾"
               title="Scheduled Auto-Backup"
-              description="Set-and-forget backup of your memory tree to OneDrive or any folder on a schedule you pick. Runs on a background thread; sweeps stale .tmp files; never blocks the UI."
+              description="Set-and-forget backup of your memory tree to OneDrive or any folder on a schedule you pick. Backups stay small (~150 MB) by excluding re-downloadable models, and restore validates the archive and snapshots your current memory before touching anything."
             />
             <FeatureCard
               icon="📂"
@@ -393,7 +436,7 @@ export default function Home() {
             <FeatureCard
               icon="📊"
               title="Live Dashboard"
-              description="Activity feed, storage breakdown, context budget meter, project management, settings — all in one clean dark interface."
+              description="Activity feed, storage breakdown, Memory Health tile, context budget meter, project management, settings — all in one clean dark interface."
             />
             <FeatureCard
               icon="📸"
@@ -413,7 +456,7 @@ export default function Home() {
             <FeatureCard
               icon="🔌"
               title="MCP Server"
-              description="Built-in MCP server on localhost:7777. Any MCP-compatible tool can search your memory, read your brain, add notes — programmatically."
+              description="Built-in MCP server on localhost:7777, auto-registered with Cursor, Gemini CLI, and Windsurf. Any MCP-compatible tool can search your memory, read your brain, add notes — programmatically."
             />
             <FeatureCard
               icon="⚙️"
@@ -421,9 +464,14 @@ export default function Home() {
               description="Write your working preferences once. MakoBot pushes them to Claude, Antigravity, Cursor, and Windsurf config files simultaneously."
             />
             <FeatureCard
+              icon="🛡️"
+              title="Built to Never Lose Your Work"
+              description="MakoBot never takes itself down — three layers of crash protection catch errors, show a recovery message, and keep running. A ~70-finding deep audit (security, data integrity, performance, accessibility — full keyboard access, readable 12px+ text, per-monitor DPI) was fixed in a single release."
+            />
+            <FeatureCard
               icon="🔒"
               title="100% Private"
-              description="Everything stays on your computer. No cloud, no accounts, no telemetry. Your data never leaves your machine."
+              description="Everything stays on your computer. No cloud, no accounts, no telemetry. Even MakoSync only ever moves encrypted blobs through storage YOU control — your data never leaves your machine readable."
             />
           </div>
         </div>
@@ -747,7 +795,7 @@ export default function Home() {
           </a>
 
           <p className="mt-4 text-sm text-[#999999]">
-            Windows 10/11 · Digitally signed by Mako Logics LLC · Includes installer
+            Windows 10/11 · ~66 MB installer download · Digitally signed by Mako Logics LLC
           </p>
           <p className="mt-2 text-xs text-[#777777]">
             Verified by Microsoft Azure Trusted Signing — no SmartScreen warnings
