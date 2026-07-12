@@ -41,59 +41,31 @@ export default function Home() {
           {/* Background glow */}
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0061aa] opacity-[0.07] blur-[120px] pointer-events-none -z-10" />
 
+          {/* July 2026 repositioning: one idea in the hero — shared memory.
+              The old hero was four dense paragraphs cramming 20+ features and
+              builder jargon; everything it said still lives in the pillars +
+              features grid below. A visitor should get the product in five
+              seconds without knowing what MCP stands for. */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center max-w-4xl leading-tight mb-4">
-            Your local{" "}
-            <span className="gradient-text">AI Workbench</span>
+            Your AI forgets everything.{" "}
+            <span className="gradient-text">MakoBot remembers.</span>
           </h1>
 
           <p className="text-base sm:text-lg text-[#0061aa] text-center font-semibold mb-6 tracking-wide">
-            Memory · Search · AI Tools · Agents — every AI you use, smarter together.
+            One memory, shared by every AI tool you use.
           </p>
 
           <p className="text-lg sm:text-xl text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
-            MakoBot runs on your Windows PC. It captures every commit,
-            conversation, and note across every project, gives you one search bar
-            that reaches all of it, and adds one-line plug-ins
-            {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@verify</code>
-            {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@audit</code>
-            {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@codereview</code>
-            {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@designreview</code>
-            {" "}<code className="text-[#0061aa] bg-[#e6f0f9] px-1.5 py-0.5 rounded text-base font-mono">@contractreview</code>
-            {" "}that fan out to GPT, Claude, and Gemini for second opinions —
-            all auto-injected into Claude Code, Cursor, Antigravity, Windsurf,
-            ChatGPT, and Gemini.
-          </p>
-
-          <p className="text-base sm:text-lg text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
-            Plus built-in <span className="text-[#333333] font-semibold">Chat</span> and{" "}
-            <span className="text-[#333333] font-semibold">Code</span> tabs with{" "}
-            <span className="text-[#0061aa] font-semibold">10+ cloud providers</span>{" "}
-            (Anthropic, OpenAI, Google, Groq, DeepSeek, xAI Grok) plus image vision, a{" "}
-            <span className="text-[#0061aa] font-semibold">bundled local model</span> (no API key, works offline),{" "}
-            sign-in with your <span className="text-[#0061aa] font-semibold">Claude Code Max plan</span>, five visual{" "}
-            <span className="text-[#0061aa] font-semibold">built-in agents</span> with handoffs + schedules, an idle-time{" "}
-            <span className="text-[#0061aa] font-semibold">Dreams agent</span> that drafts skills and rules while you&apos;re away, a{" "}
-            <span className="text-[#0061aa] font-semibold">Skills Marketplace</span> for verified Anthropic skills, a{" "}
-            <span className="text-[#0061aa] font-semibold">3D Brain Core</span> visualization of your memory tree, and a{" "}
-            <span className="text-[#0061aa] font-semibold">Signal bridge</span> so you can chat with MakoBot from your phone.
-          </p>
-
-          <p className="text-base sm:text-lg text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
-            Latest: <span className="text-[#0061aa] font-semibold">Smart Search</span> finds
-            memories by <em>meaning</em>, not keywords — 100% on your machine.{" "}
-            <span className="text-[#0061aa] font-semibold">MakoSync</span> puts the same
-            brain on every computer you own — encrypted with your passphrase, no server,
-            no account. <span className="text-[#0061aa] font-semibold">Memory Health</span>{" "}
-            watches your memory files and tells you in plain English that they&apos;re safe.
-            And MakoBot now auto-connects its memory to{" "}
-            <span className="text-[#333333] font-semibold">Cursor, Gemini CLI, and Windsurf</span>{" "}
-            — one brain for every AI tool you use.
+            MakoBot runs on your Windows PC and quietly remembers your work —
+            every project, every decision, every conversation. When you open{" "}
+            <span className="text-[#333333] font-semibold">Claude, Cursor, ChatGPT, or Gemini</span>,
+            it briefs them automatically. No more spending the first ten minutes
+            of every session re-explaining your own project.
           </p>
 
           <p className="text-base text-[#777777] text-center max-w-2xl mb-8 leading-relaxed">
-            When you start a new session, the AI already knows who you are, what
-            you&apos;ve been working on, and where you left off — and you can
-            call any plug-in to cross-check the answer in seconds.
+            100% on your machine — no cloud, no account, no subscription. It
+            makes the AI tools you already pay for remember you.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-10">
@@ -176,6 +148,69 @@ export default function Home() {
           <p className="mt-10 text-xl text-[#0061aa] font-semibold">
             MakoBot fixes all of this — and adds the second opinion you&apos;ve been wishing for.
           </p>
+        </div>
+      </section>
+
+      {/* ─── THE 2026 OBJECTION: "doesn't Claude already remember?" ───
+          Every major assistant shipped native memory in 2025-26. Anyone
+          landing here thinks memory is solved — this section is the answer,
+          and it's MakoBot's strongest card: vendor memories are per-tool
+          silos; MakoBot is the one brain above all of them. */}
+      <section id="one-brain" className="px-6 py-20">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading
+            title="&ldquo;Doesn&rsquo;t Claude already have memory?&rdquo;"
+            subtitle="It does. So do ChatGPT, Gemini, and Cursor. That's exactly the problem."
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] text-center">
+              <div className="text-3xl mb-3">🧱</div>
+              <p className="text-[#333333] text-base font-medium mb-2">
+                What Claude remembers stays in Claude
+              </p>
+              <p className="text-[#777777] text-sm leading-relaxed">
+                Tell Claude your project&apos;s rules on Tuesday. Open Cursor on
+                Wednesday — it has no idea.
+              </p>
+            </div>
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] text-center">
+              <div className="text-3xl mb-3">🧱</div>
+              <p className="text-[#333333] text-base font-medium mb-2">
+                What ChatGPT remembers stays in ChatGPT
+              </p>
+              <p className="text-[#777777] text-sm leading-relaxed">
+                Months of preferences and context, locked inside one vendor&apos;s
+                product — and stored on their servers, not yours.
+              </p>
+            </div>
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] text-center">
+              <div className="text-3xl mb-3">🧱</div>
+              <p className="text-[#333333] text-base font-medium mb-2">
+                What Cursor remembers stays in Cursor
+              </p>
+              <p className="text-[#777777] text-sm leading-relaxed">
+                Per-project notes that never reach your other tools — and vanish
+                the day you switch editors.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8 bg-gradient-to-br from-[#ffffff] to-[#f8f9fb] rounded-xl border border-[#0061aa]/40 p-8 text-center">
+            <p className="text-xl sm:text-2xl font-bold text-[#333333] mb-3">
+              MakoBot is the one memory <span className="text-[#0061aa]">above</span> all of them.
+            </p>
+            <p className="text-[#555555] text-base max-w-3xl mx-auto leading-relaxed mb-3">
+              It watches your actual work — commits, conversations, decisions,
+              notes — keeps the full history on <span className="font-semibold text-[#333333]">your</span> machine,
+              and briefs every AI tool from the same brain. Switch from Claude to
+              Cursor to Gemini mid-project and nothing is lost. Switch to next
+              year&apos;s hot new AI tool and your memory comes with you.
+            </p>
+            <p className="text-[#0061aa] text-base font-semibold">
+              Vendor memories remember you for them. MakoBot remembers for you.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -603,7 +638,15 @@ export default function Home() {
                 <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Claude reads MakoBot&apos;s injected context — already knows your projects, recent commits, last session, current build, open decisions</li>
                 <li><span className="text-[#10B981] font-mono mr-2">10:00</span> Start working</li>
               </ol>
-              <p className="mt-5 text-sm text-[#0061aa] italic">Under 30 seconds. ~1 hour back per day.</p>
+              <div className="mt-4 bg-[#eef2f7] rounded-lg p-4 text-left">
+                <p className="text-xs text-[#777777] font-semibold mb-1 tracking-wide">THE AI&apos;S FIRST REPLY LOOKS LIKE:</p>
+                <p className="text-sm text-[#555555] italic leading-relaxed">
+                  &ldquo;Recovered. You shipped Build 294 last night — all sixteen
+                  audit fixes are live. The client site redesign went out Wednesday;
+                  its contact form fix is still open. Want to pick that up?&rdquo;
+                </p>
+              </div>
+              <p className="mt-4 text-sm text-[#0061aa] italic">Under 30 seconds. ~1 hour back per day.</p>
             </div>
           </div>
         </div>
