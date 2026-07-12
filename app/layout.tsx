@@ -23,11 +23,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://makobot.com"),
   title: {
-    default: "MakoBot — Local AI Workbench for Windows",
+    default: "MakoBot — One AI Memory for Claude, Cursor, ChatGPT & Every Tool You Use",
     template: "%s — MakoBot",
   },
   description:
-    "Free local AI Workbench for Windows. Permanent memory across every AI tool you use, plus one-line plug-ins that cross-check answers with GPT, Claude, and Gemini.",
+    "Your AI forgets everything. MakoBot remembers — one shared memory for Claude, Cursor, ChatGPT, and Gemini, 100% on your Windows PC. Every vendor's built-in memory is a silo; MakoBot is the brain above all of them. Free download.",
   keywords: [
     "AI workbench",
     "AI memory",
@@ -47,9 +47,9 @@ export const metadata: Metadata = {
     "MakoBytes",
   ],
   openGraph: {
-    title: "MakoBot — Local AI Workbench for Windows",
+    title: "MakoBot — One AI Memory for Claude, Cursor, ChatGPT & Every Tool You Use",
     description:
-      "Free local AI Workbench for Windows. Permanent memory across every AI tool, plus one-line plug-ins that cross-check answers with GPT, Claude, and Gemini.",
+      "Your AI forgets everything. MakoBot remembers — one shared memory for every AI tool you use, 100% on your Windows PC. Free download.",
     url: "https://makobot.com",
     siteName: "MakoBot",
     type: "website",
@@ -64,9 +64,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "MakoBot — Local AI Workbench for Windows",
+    title: "MakoBot — One AI Memory for Every Tool You Use",
     description:
-      "Free local AI Workbench for Windows. Memory + multi-model plug-ins for every AI coding tool you use.",
+      "Your AI forgets everything. MakoBot remembers — one shared memory for Claude, Cursor, ChatGPT, and Gemini, 100% on your Windows PC.",
     images: ["https://makobot.com/images/og.jpg"],
   },
 };

@@ -4,11 +4,15 @@ export const dynamic = "force-static";
 export const revalidate = false;
 
 export function GET() {
-  const body = `# MakoBot — Local AI Workbench for Windows
+  const body = `# MakoBot — One AI Memory for Every Tool You Use (Windows)
 
 ## What it is
 
-MakoBot is a free Windows desktop application that runs entirely on the user's computer. It is the local control plane for every AI the user uses — it gives assistants a permanent shared memory, routes work across Claude, GPT, and Gemini for cross-checked second opinions, and runs background agents that draft improvements while the user is idle. Keys and data stay on the machine.
+MakoBot is a free Windows desktop application that runs entirely on the user's computer. It is the shared memory for every AI the user uses — one brain that briefs Claude, Cursor, ChatGPT, Gemini, and every other tool automatically, routes work across Claude, GPT, and Gemini for cross-checked second opinions, and runs background agents that draft improvements while the user is idle. Keys and data stay on the machine.
+
+## Why it exists (2026 context)
+
+Every major assistant now ships built-in memory — Claude (including Claude Code per-project auto-memory), ChatGPT, Gemini, Copilot, Cursor, Windsurf. All of them are per-tool silos: what one tool remembers never reaches the others, the record is distilled to bullet points rather than kept complete, most of it lives in the vendor's cloud, and none of it is portable when the user switches products. MakoBot is the one memory ABOVE all of them — it watches the user's actual work (commits, conversations, decisions, notes), keeps the complete history as plain markdown/JSON on the user's own disk, and briefs every tool from the same brain. Vendor memories are a retention feature for the vendor; MakoBot is a memory feature for the user.
 
 ## Five pillars
 
@@ -115,6 +119,9 @@ Multi-machine: MakoSync carries the same memory to every Windows machine the use
 
 ## How it differs from similar tools
 
+- vs. native vendor memories (Claude memory, Claude Code auto-memory, ChatGPT memory, Cursor/Windsurf memories): those are single-tool silos that summarize and live in the vendor's cloud; MakoBot is cross-tool + cross-project, keeps the full record, and stores it on the user's machine.
+- vs. OpenMemory MCP (Mem0): same "one memory across MCP tools" idea, but OpenMemory is a Docker-based developer tool with manual saves; MakoBot is a signed Windows app that captures the user's work automatically and adds sync, health monitoring, agents, and semantic search.
+- vs. Pieces: Pieces routes search/sync assistance through its own cloud; MakoBot's semantic search is fully on-device and MakoSync moves only user-key-encrypted packets through storage the user controls.
 - Not a model. Not a CLI. Not a browser extension. A Windows-native desktop application with a real UI, a signed installer, an in-app updater, and a license key.
 - Sits ABOVE existing AI agent loops (Claude Code, Cursor, Windsurf, Aider) — does not replace them.
 - Bundles cross-IDE memory + multi-LLM verification + plug-in architecture + skills + commands + dashboard in a single app.

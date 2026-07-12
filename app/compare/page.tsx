@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Logo, Nav, Footer, SectionHeading, FeatureCard } from "../components";
 
 export const metadata: Metadata = {
-  title: "How MakoBot Compares — vs. Zen MCP, Pieces, Recallium, Mem0, Multi-LLM Cross-Check",
+  title: "How MakoBot Compares — vs. Built-in AI Memory, Claude Code Auto-Memory, OpenMemory, Pieces, Mem0",
   description:
-    "An honest comparison: MakoBot is layered ABOVE your existing AI tools (Claude Code, Cursor, Windsurf), not a replacement for them. See how it overlaps with Zen MCP, Pieces, Recallium, claude-mem, Mem0, and the Multi-LLM Cross-Check MCP server — and where it's genuinely different.",
+    "An honest comparison: every AI now has built-in memory — and every one of them is a per-tool silo. See how MakoBot compares to Claude Code auto-memory, ChatGPT memory, OpenMemory MCP, Pieces, Zen MCP, Recallium, claude-mem, and Mem0 — and where one local brain above every tool is genuinely different.",
   alternates: { canonical: "https://makobot.com/compare" },
 };
 
@@ -86,6 +86,56 @@ export default function ComparePage() {
             </code>{" "}
             files mean every tool you use sees the same context.
           </p>
+        </div>
+      </section>
+
+      {/* ─── THE ELEPHANT IN THE ROOM: native vendor memories (July 2026) ─── */}
+      <section className="px-6 py-16 bg-[#f8f9fb]">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading
+            title="The elephant in the room: every AI has memory now"
+            subtitle="Claude, ChatGPT, Gemini, Copilot, Cursor, Windsurf — all of them remember. Here's the honest difference."
+          />
+
+          <div className="bg-[#ffffff] rounded-xl border border-[#dbdbdb] p-6 sm:p-10">
+            <p className="text-[#555555] text-base leading-relaxed mb-6">
+              In 2026, built-in memory is table stakes: Claude has it (Claude
+              Code even keeps per-project auto-memory notes), ChatGPT has it,
+              Gemini and Copilot have it, Cursor and Windsurf keep their own
+              per-editor notes. If you live in exactly one AI tool, its native
+              memory may genuinely be enough — we&apos;ll say that out loud.
+            </p>
+            <p className="text-[#555555] text-base leading-relaxed mb-4">
+              Four things are still true about every one of them:
+            </p>
+            <ul className="space-y-3 text-sm sm:text-base text-[#555555] leading-relaxed mb-6">
+              <li>
+                <span className="text-[#333333] font-semibold">1. They&apos;re silos.</span>{" "}
+                Claude&apos;s memory doesn&apos;t reach Cursor. Cursor&apos;s doesn&apos;t
+                reach Gemini. The moment you use a second tool, your context splits.
+              </li>
+              <li>
+                <span className="text-[#333333] font-semibold">2. They summarize.</span>{" "}
+                Native memories distill you into a few dozen bullet points. MakoBot
+                keeps the full record — every conversation, commit, and decision —
+                and searches all of it.
+              </li>
+              <li>
+                <span className="text-[#333333] font-semibold">3. Most live in their cloud.</span>{" "}
+                Your accumulated context sits on the vendor&apos;s servers, governed
+                by their retention policy. MakoBot&apos;s brain is files on your disk.
+              </li>
+              <li>
+                <span className="text-[#333333] font-semibold">4. They&apos;re not portable.</span>{" "}
+                Leave the product, lose the memory. MakoBot&apos;s memory follows you
+                to whatever tool you use next year.
+              </li>
+            </ul>
+            <p className="text-[#0061aa] text-base font-semibold">
+              Native memory is a retention feature for the vendor. MakoBot is a
+              memory feature for you.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -222,7 +272,7 @@ export default function ComparePage() {
           </div>
 
           <p className="text-xs text-[#999999] mt-4 text-center">
-            Comparison data based on each project&apos;s public docs and pricing pages, June 2026.
+            Comparison data based on each project&apos;s public docs and pricing pages, July 2026.
           </p>
         </div>
       </section>
@@ -246,9 +296,19 @@ export default function ComparePage() {
             description="Heavy autonomous agent loops with stepwise planning, root cause analysis, and Ollama support. Best for engineers who want their MCP server to drive the analysis itself. MakoBot delegates that loop to Claude Code / Cursor and focuses on multi-model verification."
           />
           <FeatureCard
+            icon="🗒️"
+            title="Claude Code auto-memory (native)"
+            description="Claude Code now keeps its own per-project notes and loads them each session — genuinely useful, and MakoBot works alongside it. But it's one tool, one project at a time: it doesn't know what happened in Cursor, in ChatGPT, or on your other nine projects. MakoBot is the cross-tool, cross-project layer above it."
+          />
+          <FeatureCard
             icon="📦"
             title="Mem0 / Letta / Zep / Memstate"
             description="Memory-as-a-service APIs for developers building their own AI products. Not end-user tools. If you're shipping a SaaS that needs memory infrastructure, look here. If you want a desktop app that already works, look at MakoBot."
+          />
+          <FeatureCard
+            icon="🐳"
+            title="OpenMemory MCP (Mem0)"
+            description="Open-source local memory shared across MCP tools — the closest idea to MakoBot's 'one brain.' It's a developer tool: Docker, config files, manual saves, no capture of your actual work. MakoBot ships the same idea as a signed Windows app that watches your projects automatically — plus sync, health monitoring, agents, and search."
           />
           <FeatureCard
             icon="🧩"
@@ -300,6 +360,7 @@ export default function ComparePage() {
               <div className="text-2xl mb-3">→</div>
               <h3 className="text-lg font-semibold text-[#333333] mb-3">Pick something else if…</h3>
               <ul className="space-y-3 text-sm text-[#555555] leading-relaxed">
+                <li>You use exactly ONE AI tool and its built-in memory feels like enough — you may not need MakoBot yet. Come back when you add a second tool.</li>
                 <li>You only need memory and nothing else — <span className="text-[#0061aa]">Recallium</span> is leaner.</li>
                 <li>You want a fully autonomous agent that drives its own multi-step analysis — <span className="text-[#0061aa]">Zen MCP</span> is heavier.</li>
                 <li>You already have Ollama / LM Studio wired up and don&apos;t want a bundled local model — <span className="text-[#0061aa]">Zen MCP</span> integrates with those; MakoBot ships its own LlamaSharp local model instead.</li>
