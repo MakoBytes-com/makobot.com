@@ -29,9 +29,9 @@ Every major assistant now ships built-in memory — Claude (including Claude Cod
 
 3. **Skills** — Reusable skill library + God-Mode commands. Skill references injected into every project so any AI client picks them up automatically. Per-client filtering means each AI tool only sees the skills meant for it. Slim skill index with on-demand skill_view loader (agentskills.io spec). Built-in **Skills Marketplace** browses and installs verified Anthropic skills with one click — handles nested SKILL.md formats and OneDrive paths cleanly.
 
-4. **Agents** — Five named built-in agents (Researcher · Builder · Reviewer · Triage · Archivist) with assignable tasks, inter-agent handoffs, recurring schedules, attachments, project-scoped context, web fetch, and live cost tracking. Plus **Dreams** — the idle-time agent that examines memory while the user is away and drafts skills, feedback rules, and cleanups for review. Inline Save / Snooze / Discard in the Tick Log. Every Dream becomes a Brain Core node with an AI take attached.
+4. **Agents** — Five named built-in agents (Researcher · Builder · Reviewer · Triage · Archivist) with assignable tasks, inter-agent handoffs, recurring schedules, attachments, project-scoped context, web fetch, and live cost tracking. Plus **Dreams** — the idle-time agent that examines memory while the user is away and drafts skills, feedback rules, and cleanups for review. Each shows up in the Tick Log with an AI take attached, and Autopilot can act on the confident ones automatically.
 
-5. **Brain Core** — Rotating 3D visualization of every entry in the memory tree: commits, feedback, skills, notes, sessions, and Dreams reasoning. Click any dot to see its full body. Filter by source via the chip row above the viewport (toggles stick across restarts).
+5. **Autopilot** — MakoBot decides for itself which memories and skills are worth keeping: strong ones saved, junk discarded, and stale entries archived (filed into brain-archives, never destroyed, always undoable). Two toggles (memory suggestions + skill suggestions, both on by default) and a plain-English activity feed showing exactly what it did — no approval queue to babysit. Turn either toggle off to review every item yourself instead.
 
 ## Smart Search — semantic memory search, 100% on-device
 
@@ -61,9 +61,9 @@ Every major assistant now ships built-in memory — Claude (including Claude Cod
 ## Background Reflector + Smart Triage
 
 - **Background reflector** — after every turn, MakoBot quietly reviews what happened and drafts new skills + feedback rules for approval.
-- **AI-triaged proposals** — Haiku scores every pending proposal 1–10 with a one-sentence rationale. Default sort by Smart rank. Threshold quick-actions for the top + bottom buckets.
-- **Smart Memory Suggestions UX** — inline plain-English "AI says" sentence per row plus a one-click "Take all AI recommendations" bulk sweep. Tabbed Save / Delete split kills the Approve/Reject ambiguity.
-- **Approval-gated writes** — every AI-suggested skill or rule shows up in a Pending Proposals queue. Nothing touches the user's config until approved.
+- **Autopilot** — AI scores every background-authored suggestion (skills, feedback rules, memory cleanups) and acts on the confident ones itself: good ones saved, junk discarded, stale entries archived (filed, never destroyed, always undoable). Only genuinely unsure items wait for the user; everything shows in a plain-English activity feed. Two toggles (memory + skills) turn it off for manual review.
+- **Live web-AI capture** — a sideloaded browser extension saves the user's ChatGPT, Claude.ai, and Gemini conversations into memory as they chat, verbatim and 100% local; it is the only way to keep Gemini's replies since Google's own export omits them.
+- **Security gates stay manual** — AI code edits, shell commands, and AI-created write tasks always ask for explicit approval; Autopilot governs memory decisions only, never those.
 - **Schedules + handoffs** — recurring tasks and inter-agent handoffs (handoff_task, enqueue_task) available as MCP tools.
 
 ## Built-in Chat and Code tabs

@@ -223,7 +223,7 @@ export default function ComparePage() {
                     cells={[true, false, false, false, false, false]}
                   />
                   <Row
-                    feature="3D Brain Core visualization of every memory entry (commits · feedback · skills · notes · sessions · Dreams)"
+                    feature="Live web-AI capture — a browser extension saves your ChatGPT, Claude & Gemini chats verbatim, locally (the only way to keep Gemini's replies)"
                     cells={[true, false, false, false, false, false]}
                   />
                   <Row
@@ -231,7 +231,7 @@ export default function ComparePage() {
                     cells={[true, false, false, false, false, false]}
                   />
                   <Row
-                    feature="AI-triaged proposal queue (Haiku scores 1–10 with rationale; bulk 'Take all AI recommendations')"
+                    feature="Autopilot — AI auto-saves good memories & skills, archives stale ones (filed, never destroyed), all in a plain-English activity feed. No queue to babysit."
                     cells={[true, false, false, false, false, false]}
                   />
                   <Row

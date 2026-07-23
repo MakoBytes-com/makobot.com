@@ -1,6 +1,18 @@
 import { createHmac } from "crypto";
 
-const KEY_SECRET = process.env.LICENSE_KEY_SECRET || "makobot-default-secret-change-me";
+// Build 316 audit (HIGH): fail CLOSED, never fall back to a hardcoded string.
+// License keys are HMAC(secret, email) and the C# app validates offline with
+// the same secret — so a source-visible default would let anyone forge a
+// valid key for any email if the env var were ever missing. Resolved lazily
+// (inside key generation, not at module load) so a missing var fails the
+// actual request, never the build/import.
+function keySecret(): string {
+  const s = process.env.LICENSE_KEY_SECRET;
+  if (!s) {
+    throw new Error("LICENSE_KEY_SECRET is not set — refusing to issue license keys with a default secret.");
+  }
+  return s;
+}
 
 /**
  * Generate a license key for a user.
@@ -10,7 +22,7 @@ const KEY_SECRET = process.env.LICENSE_KEY_SECRET || "makobot-default-secret-cha
  * This means the C# app can validate offline using the same algorithm.
  */
 export function generateLicenseKey(email: string): string {
-  const hmac = createHmac("sha256", KEY_SECRET);
+  const hmac = createHmac("sha256", keySecret());
   hmac.update(email.toLowerCase().trim());
   const hash = hmac.digest("hex");
 
