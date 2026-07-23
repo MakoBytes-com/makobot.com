@@ -4,6 +4,33 @@ import { useState, useEffect, useRef, useMemo, type CSSProperties, type ReactNod
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { MAKOBOT_BUILD } from "@/lib/version";
+import {
+  Globe, Bot, Brain, Laptop, Activity, Network, Users, Moon, ListTree, Store,
+  Cpu, Smartphone, KeyRound, Sunrise, Save, FolderGit2, FileDown, ClipboardCopy,
+  CircleDot, LayoutDashboard, ScanText, Mic, Wrench, Settings, ShieldCheck, Lock,
+  Rocket, Briefcase, Building2, Scale, MessageSquare, Unplug, Shuffle, BrickWall,
+  Wand2, Sparkles, Zap, type LucideIcon,
+} from "lucide-react";
+
+/* ─── ICON SYSTEM (2026-07-23) ───
+   Replaced the emoji icons across the site with a single consistent Lucide
+   SVG set, all tinted in the brand navy — so the icons read as one system
+   instead of OS-dependent emoji. Keyed by short semantic names. */
+const GLYPHS: Record<string, LucideIcon> = {
+  globe: Globe, bot: Bot, brain: Brain, laptop: Laptop, activity: Activity,
+  network: Network, agents: Users, moon: Moon, list: ListTree, store: Store,
+  cpu: Cpu, phone: Smartphone, key: KeyRound, sunrise: Sunrise, save: Save,
+  folder: FolderGit2, inject: FileDown, clipboard: ClipboardCopy, widget: CircleDot,
+  dashboard: LayoutDashboard, scan: ScanText, mic: Mic, wrench: Wrench,
+  settings: Settings, shield: ShieldCheck, lock: Lock, rocket: Rocket,
+  briefcase: Briefcase, building: Building2, scale: Scale, message: MessageSquare,
+  unplug: Unplug, shuffle: Shuffle, wall: BrickWall, wand: Wand2, zap: Zap,
+};
+
+export function Glyph({ name, className = "w-7 h-7 text-[#0061aa]" }: { name: string; className?: string }) {
+  const I = GLYPHS[name] ?? Sparkles;
+  return <I className={className} strokeWidth={1.75} aria-hidden="true" />;
+}
 
 /* ─── BACK TO TOP — small floating blue circle, bottom-right, fades in after scroll ─── */
 export function BackToTop() {
@@ -91,7 +118,7 @@ export function FeatureCard({
 }) {
   return (
     <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] feature-card">
-      <div className="text-3xl mb-3">{icon}</div>
+      <Glyph name={icon} className="w-7 h-7 text-[#0061aa] mb-3" />
       <h3 className="text-lg font-semibold text-[#333333] mb-2">{title}</h3>
       <p className="text-sm text-[#777777] leading-relaxed">{description}</p>
     </div>

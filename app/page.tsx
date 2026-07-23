@@ -7,6 +7,7 @@ import {
   Logo,
   AiBadge,
   FeatureCard,
+  Glyph,
   StepCard,
   StatCard,
   SectionHeading,
@@ -114,7 +115,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
-              <div className="text-3xl mb-4">💬</div>
+              <Glyph name="message" className="w-8 h-8 text-[#0061aa] mb-3 mx-auto" />
               <p className="text-[#333333] text-base font-medium mb-2">
                 &quot;Where did I leave off?&quot;
               </p>
@@ -124,7 +125,7 @@ export default function Home() {
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
-              <div className="text-3xl mb-4">🔌</div>
+              <Glyph name="unplug" className="w-8 h-8 text-[#0061aa] mb-3 mx-auto" />
               <p className="text-[#333333] text-base font-medium mb-2">
                 &quot;Session crashed — everything&apos;s gone&quot;
               </p>
@@ -134,7 +135,7 @@ export default function Home() {
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
-              <div className="text-3xl mb-4">🔀</div>
+              <Glyph name="shuffle" className="w-8 h-8 text-[#0061aa] mb-3 mx-auto" />
               <p className="text-[#333333] text-base font-medium mb-2">
                 &quot;I use 3 AI tools and none of them talk&quot;
               </p>
@@ -165,7 +166,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] text-center">
-              <div className="text-3xl mb-3">🧱</div>
+              <Glyph name="wall" className="w-8 h-8 text-[#0061aa] mb-3 mx-auto" />
               <p className="text-[#333333] text-base font-medium mb-2">
                 What Claude remembers stays in Claude
               </p>
@@ -175,7 +176,7 @@ export default function Home() {
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] text-center">
-              <div className="text-3xl mb-3">🧱</div>
+              <Glyph name="wall" className="w-8 h-8 text-[#0061aa] mb-3 mx-auto" />
               <p className="text-[#333333] text-base font-medium mb-2">
                 What ChatGPT remembers stays in ChatGPT
               </p>
@@ -185,7 +186,7 @@ export default function Home() {
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] text-center">
-              <div className="text-3xl mb-3">🧱</div>
+              <Glyph name="wall" className="w-8 h-8 text-[#0061aa] mb-3 mx-auto" />
               <p className="text-[#333333] text-base font-medium mb-2">
                 What Cursor remembers stays in Cursor
               </p>
@@ -211,6 +212,32 @@ export default function Home() {
               Vendor memories remember you for them. MakoBot remembers for you.
             </p>
           </div>
+
+          {/* Live web capture — the mechanism that actually breaks the silo.
+              Added 2026-07-23 (Builds 305-315): the strongest new download
+              reason, and the only full-fidelity path for Gemini. */}
+          <div className="mt-6 bg-[#f8f9fb] rounded-xl border border-[#dbdbdb] p-8">
+            <div className="flex items-start gap-4">
+              <Glyph name="globe" className="w-8 h-8 text-[#0061aa] shrink-0" />
+              <div>
+                <p className="text-lg sm:text-xl font-bold text-[#333333] mb-2">
+                  New: it captures your web AI chats as you have them.
+                </p>
+                <p className="text-[#555555] text-base leading-relaxed mb-3">
+                  A small browser extension saves your{" "}
+                  <span className="font-semibold text-[#333333]">ChatGPT, Claude.ai, and Gemini</span>{" "}
+                  conversations straight into your memory — the full conversation,
+                  verbatim, on your own machine, a few seconds after each reply.
+                  No exporting, no copy-paste. It only ever <em>adds</em> to your
+                  history; it can never read your memory or send anything anywhere.
+                </p>
+                <p className="text-[#0061aa] text-base font-semibold">
+                  It&rsquo;s also the only way to keep Gemini&rsquo;s replies —
+                  Google&rsquo;s own export leaves them out.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -219,22 +246,23 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <SectionHeading
             title="Five pillars, one workbench"
-            subtitle="MakoBot is the local control plane for every AI you use — Memory, AI Tools, Skills, Agents, and the Brain Core."
+            subtitle="MakoBot is the local control plane for every AI you use — Memory, AI Tools, Skills, Agents, and Autopilot."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mt-12">
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
-              <div className="text-3xl mb-3">🧠</div>
+              <Glyph name="brain" className="w-8 h-8 text-[#0061aa] mb-3" />
               <h3 className="text-base font-semibold text-[#333333] mb-2">Memory</h3>
               <p className="text-sm text-[#555555] leading-relaxed">
                 Cross-project timeline + per-project context auto-injected into
-                CLAUDE.md, AGENTS.md, .cursorrules. Smart Search finds memories
-                by meaning — on-device. MakoSync carries the same brain to every
-                computer you own, encrypted with your key.
+                CLAUDE.md, AGENTS.md, .cursorrules. A browser extension captures
+                your ChatGPT, Claude, and Gemini chats as you have them. Smart
+                Search finds any of it by meaning — on-device. MakoSync carries
+                the same brain to every computer you own, encrypted with your key.
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
-              <div className="text-3xl mb-3">🤖</div>
+              <Glyph name="wand" className="w-8 h-8 text-[#0061aa] mb-3" />
               <h3 className="text-base font-semibold text-[#333333] mb-2">AI Tools</h3>
               <p className="text-sm text-[#555555] leading-relaxed">
                 <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@verify</code>{" "}
@@ -246,7 +274,7 @@ export default function Home() {
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
-              <div className="text-3xl mb-3">🛠️</div>
+              <Glyph name="wrench" className="w-8 h-8 text-[#0061aa] mb-3" />
               <h3 className="text-base font-semibold text-[#333333] mb-2">Skills</h3>
               <p className="text-sm text-[#555555] leading-relaxed">
                 Reusable skill library + God-Mode commands injected into every
@@ -255,7 +283,7 @@ export default function Home() {
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
-              <div className="text-3xl mb-3">🧑‍✈️</div>
+              <Glyph name="agents" className="w-8 h-8 text-[#0061aa] mb-3" />
               <h3 className="text-base font-semibold text-[#333333] mb-2">Agents</h3>
               <p className="text-sm text-[#555555] leading-relaxed">
                 Five built-in agents — Researcher · Builder · Reviewer · Triage · Archivist —
@@ -264,12 +292,13 @@ export default function Home() {
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
-              <div className="text-3xl mb-3">🌌</div>
-              <h3 className="text-base font-semibold text-[#333333] mb-2">Brain Core</h3>
+              <Glyph name="bot" className="w-8 h-8 text-[#0061aa] mb-3" />
+              <h3 className="text-base font-semibold text-[#333333] mb-2">Autopilot</h3>
               <p className="text-sm text-[#555555] leading-relaxed">
-                Rotating 3D visualization of every entry in your memory tree —
-                commits, feedback, skills, notes, sessions, and Dreams reasoning.
-                Click any dot to see the full body. Filter by source.
+                MakoBot decides for itself which memories and skills are worth
+                keeping — good ones saved, junk discarded, stale ones archived
+                (never destroyed, always undoable). No approval queue to babysit;
+                every decision shows in a plain-English activity feed.
               </p>
             </div>
           </div>
@@ -369,142 +398,152 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
             <FeatureCard
-              icon="🧠"
+              icon="globe"
+              title="Live Web-AI Capture"
+              description="A browser extension saves your ChatGPT, Claude.ai, and Gemini conversations into your memory as you chat — verbatim, local, a few seconds after each reply. No exporting. It can only add transcripts, never read your memory. The only way to keep Gemini's replies (Google's own export leaves them out)."
+            />
+            <FeatureCard
+              icon="bot"
+              title="Autopilot — No Babysitting"
+              description="MakoBot decides which memories and skills are worth keeping — good ones saved, junk discarded, stale ones archived (filed, never destroyed, always undoable). The old approve/reject queue is gone; every decision shows in a plain-English activity feed. Two toggles (memory + skills) if you'd rather review it yourself."
+            />
+            <FeatureCard
+              icon="brain"
               title="Smart Search (Semantic)"
               description="Find memories by MEANING, not keywords — 'that email env var problem' finds the CONTACT_EMAIL_TO note. One click downloads a small (140 MB) embedding model and indexes your whole memory tree. Runs 100% on your machine, and upgrades both in-app search and the memory search every connected AI uses."
             />
             <FeatureCard
-              icon="💻"
+              icon="laptop"
               title="MakoSync — Every Computer"
               description="Your brain on every machine you own — no server, no account. Each computer writes small AES-256-encrypted change packets into a folder you already sync (OneDrive built in; Dropbox, Google Drive, NAS all work). Only you hold the passphrase. Merging can only ever ADD — a fresh laptop can never wipe your desktop's memory."
             />
             <FeatureCard
-              icon="🩺"
+              icon="activity"
               title="Memory Health"
               description="A dashboard tile that watches the watchers. Files shrinking (data loss), writers gone silent, corruption, runaway growth — caught within 10 minutes and explained in plain English. 'Your memory is safe,' made visible."
             />
             <FeatureCard
-              icon="🔌"
+              icon="network"
               title="One Brain, Every AI Tool"
               description="MakoBot finds Cursor, Gemini CLI, and Windsurf on your machine and connects each to its local memory server automatically — Claude Code was always connected. Every AI tool you use shares the same memory, search, and project context."
             />
             <FeatureCard
-              icon="🤖"
+              icon="bot"
               title="AI Tools (Plug-ins)"
               description="@verify, @audit, @codereview, @designreview, @contractreview — type the trigger in your AI chat and MakoBot fans the question out to GPT, Claude, and Gemini in parallel. BYOK. DPAPI-encrypted."
             />
             <FeatureCard
-              icon="🧑‍✈️"
+              icon="agents"
               title="Five Built-in Agents"
               description="Researcher · Builder · Reviewer · Triage · Archivist — each with assignable tasks, inter-agent handoffs, recurring schedules, attachments, web fetch, and live cost tracking. Pick the right one for the job; chain them when you need to."
             />
             <FeatureCard
-              icon="💤"
+              icon="moon"
               title="Dreams — Idle-Time Agent"
               description="While you're away, Dreams examines your memory and drafts new skills, feedback rules, and cleanup suggestions. Inline Save / Snooze / Discard in the Tick Log. Every Dream becomes a Brain Core node with an AI take attached."
             />
             <FeatureCard
-              icon="🌌"
-              title="Brain Core (3D)"
-              description="Rotating 3D visualization of every entry in your memory tree — commits, feedback, skills, notes, sessions, and Dreams. Click any node to see its full body. Source-filter chips stick across restarts."
+              icon="list"
+              title="Memory Browser"
+              description="Every entry in your memory tree — commits, feedback, skills, notes, sessions, and Dreams — in one fast, readable list. Click any entry to see its full body; source-filter chips and search narrow it instantly, and stick across restarts."
             />
             <FeatureCard
-              icon="🛒"
+              icon="store"
               title="Skills Marketplace"
               description="Browse and install verified Anthropic skills from inside MakoBot. One-click install, visible installed state, handles nested SKILL.md formats and OneDrive paths cleanly."
             />
             <FeatureCard
-              icon="💻"
+              icon="laptop"
               title="Chat + Code Tabs"
               description="A full Chat tab with a 10+ provider AI picker (Anthropic, OpenAI, Google, Groq, DeepSeek, xAI Grok) plus image vision across providers, and a Code tab with AvalonEdit, embedded terminal, Git pane, file tree, and multi-file tabs. Type your next message while the current one is still streaming — it queues. Sessions resume across app restarts via --session-id / --resume."
             />
             <FeatureCard
-              icon="🦙"
+              icon="cpu"
               title="Local Model (No Cloud)"
               description="Bundled LlamaSharp local model runs entirely on your machine. Zero cloud calls, zero API keys, works offline. One-click CUDA add-on unlocks full NVIDIA speed, and the 🎯 auto-detect button sets GPU layers + context size from your model — no guessing. Reasoning models get a collapsible 'Thought for…' panel; downloads resume after network hiccups and every curated model is SHA-256-verified."
             />
             <FeatureCard
-              icon="📱"
+              icon="phone"
               title="Signal Bridge"
               description="Talk to MakoBot from your phone via the Signal messenger. Ask questions, dispatch agents, search your memory remotely — without opening your laptop."
             />
             <FeatureCard
-              icon="🔑"
+              icon="key"
               title="Claude Code Max Sign-in"
               description="Sign in with your Claude Max subscription and chat without a separate API key. Every Anthropic call — chat, agents, Dreams, plug-ins — routes through your CLI for free. Cost dashboard merges Max + BYOK in one view."
             />
             <FeatureCard
-              icon="🧠"
+              icon="brain"
               title="Central Brain + Memory Graph"
               description="One brain.md across all your projects, plus a Memory Graph layer that indexes the auto-memory tree. Every AI tool reads the same source of truth. Non-destructive compaction with quarterly archives keeps it small without losing history."
             />
             <FeatureCard
-              icon="🤖"
-              title="AI-Triaged Proposals"
-              description="Pending skill + feedback proposals are scored 1–10 by Haiku with a one-sentence rationale. Tabbed Save / Delete split kills the Approve/Reject ambiguity. Bulk 'Take all AI recommendations' sweeps the queue in one click."
+              icon="sunrise"
+              title="Morning Brief"
+              description="Open MakoBot and Home leads with 'While you were away' — what Autopilot saved, archived, and let go, what's held for you, new projects found, and where commits landed since you last looked. The whole app's state in one plain-English line."
             />
             <FeatureCard
-              icon="💾"
+              icon="save"
               title="Scheduled Auto-Backup"
               description="Set-and-forget backup of your memory tree to OneDrive or any folder on a schedule you pick. Backups stay small (~150 MB) by excluding re-downloadable models, and restore validates the archive and snapshots your current memory before touching anything."
             />
             <FeatureCard
-              icon="📂"
+              icon="folder"
               title="Project Watching"
               description="Add folders, MakoBot watches them. Git commits are captured automatically with diff summaries. Pause or remove projects any time."
             />
             <FeatureCard
-              icon="💉"
+              icon="inject"
               title="Auto-Injection"
               description="MakoBot writes context directly into CLAUDE.md, AGENTS.md, and .cursorrules. Zero-friction for Claude Code, Antigravity, Cursor, and Windsurf."
             />
             <FeatureCard
-              icon="📋"
+              icon="clipboard"
               title="One-Click Clipboard"
               description="For ChatGPT, Gemini, or any web AI — one click copies your project context and opens the browser. Paste and go."
             />
             <FeatureCard
-              icon="🔵"
+              icon="widget"
               title="Floating Widget"
               description="A small draggable circle on your desktop. Hover to see project cards with instant Copy, ChatGPT, Claude, Gemini, and Cursor buttons."
             />
             <FeatureCard
-              icon="📊"
+              icon="dashboard"
               title="Live Dashboard"
               description="Activity feed, storage breakdown, Memory Health tile, context budget meter, project management, settings — all in one clean dark interface."
             />
             <FeatureCard
-              icon="📸"
+              icon="scan"
               title="Screen Capture + OCR"
               description="Global hotkey to capture any screen region across all monitors. Built-in OCR extracts the text. Save as a note or import to brain."
             />
             <FeatureCard
-              icon="🎤"
+              icon="mic"
               title="Voice-to-Text Notes"
               description="Click the mic button, speak your note, and it's saved to your brain. Uses Windows Speech Recognition — no cloud, no API key."
             />
             <FeatureCard
-              icon="🛠️"
+              icon="wrench"
               title="Skills v2 + Reflector"
               description="Slim skill index with on-demand loading (agentskills.io spec), per-client filtering, and a background reflector that proposes new skills + rules after every turn — gated by your approval before anything writes."
             />
             <FeatureCard
-              icon="🔌"
+              icon="network"
               title="MCP Server"
               description="Built-in MCP server on localhost:7777, auto-registered with Cursor, Gemini CLI, and Windsurf. Any MCP-compatible tool can search your memory, read your brain, add notes — programmatically."
             />
             <FeatureCard
-              icon="⚙️"
+              icon="settings"
               title="Preferences Sync"
               description="Write your working preferences once. MakoBot pushes them to Claude, Antigravity, Cursor, and Windsurf config files simultaneously."
             />
             <FeatureCard
-              icon="🛡️"
+              icon="shield"
               title="Built to Never Lose Your Work"
               description="MakoBot never takes itself down — three layers of crash protection catch errors, show a recovery message, and keep running. A ~70-finding deep audit (security, data integrity, performance, accessibility — full keyboard access, readable 12px+ text, per-monitor DPI) was fixed in a single release."
             />
             <FeatureCard
-              icon="🔒"
+              icon="lock"
               title="100% Private"
               description="Everything stays on your computer. No cloud, no accounts, no telemetry. Even MakoSync only ever moves encrypted blobs through storage YOU control — your data never leaves your machine readable."
             />
@@ -544,7 +583,7 @@ export default function Home() {
             {/* One-Click */}
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-[#0061aa] text-lg">⚡</span>
+                <Glyph name="zap" className="w-5 h-5 text-[#0061aa]" />
                 <h3 className="text-lg font-semibold text-[#333333]">
                   One Click
                 </h3>
@@ -563,7 +602,7 @@ export default function Home() {
             {/* Any Tool */}
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-[#777777] text-lg">📋</span>
+                <Glyph name="clipboard" className="w-5 h-5 text-[#777777]" />
                 <h3 className="text-lg font-semibold text-[#333333]">
                   Any Tool
                 </h3>
@@ -699,22 +738,22 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
             <FeatureCard
-              icon="🚀"
+              icon="rocket"
               title="Solo founders + non-developer builders"
               description="You're running a real business on top of AI tools. You can't hire engineers, but you CAN direct AI. Your bottleneck isn't the AI — it's losing context every time you open a fresh chat."
             />
             <FeatureCard
-              icon="🧑‍💼"
+              icon="briefcase"
               title="Freelancers + small agencies"
               description="Five to ten client projects. You context-switch every day. Without cross-project memory you re-onboard yourself into every chat. Search across every client's history is the killer feature for you."
             />
             <FeatureCard
-              icon="🏢"
+              icon="building"
               title="MSPs + IT consultants"
               description="Every job is different. Memory + Skills + Commands turn AI into an actual member of your team that remembers every client's stack, every quirk, every decision."
             />
             <FeatureCard
-              icon="⚖️"
+              icon="scale"
               title="Compliance-conscious builders"
               description="Lawyers, healthcare, finance — you want AI productivity but can't paste sensitive data into ChatGPT. BYOK + 100% local + DPAPI-encrypted keys + Verify Mode for second opinions on AI output."
             />
