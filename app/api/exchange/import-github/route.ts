@@ -29,9 +29,28 @@ export async function POST(request: Request) {
       }, { status: 400 });
     }
 
-    // Fetch the file content
-    const res = await fetch(rawUrl, {
+    // SSRF guard (Build 316 audit): the substring checks above only fire when
+    // the URL contains "github.com" — a URL that doesn't (an internal IP, the
+    // cloud metadata endpoint, any third-party host) would otherwise be fetched
+    // verbatim and its body reflected back. Parse and hard-require the final
+    // target to be https://raw.githubusercontent.com/… before any fetch.
+    let parsed: URL;
+    try {
+      parsed = new URL(rawUrl);
+    } catch {
+      return NextResponse.json({ error: "That doesn't look like a valid URL." }, { status: 400 });
+    }
+    if (parsed.protocol !== "https:" || parsed.hostname !== "raw.githubusercontent.com") {
+      return NextResponse.json({
+        error: "Only public GitHub file links are allowed (github.com/…/blob/… or raw.githubusercontent.com).",
+      }, { status: 400 });
+    }
+
+    // Fetch the file content — redirects disabled so a 3xx from GitHub can't
+    // bounce the request to an off-allowlist host.
+    const res = await fetch(parsed.toString(), {
       headers: { "Accept": "text/plain" },
+      redirect: "error",
     });
 
     if (!res.ok) {

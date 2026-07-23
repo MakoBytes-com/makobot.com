@@ -440,7 +440,7 @@ export default function Home() {
             <FeatureCard
               icon="moon"
               title="Dreams — Idle-Time Agent"
-              description="While you're away, Dreams examines your memory and drafts new skills, feedback rules, and cleanup suggestions. Inline Save / Snooze / Discard in the Tick Log. Every Dream becomes a Brain Core node with an AI take attached."
+              description="While you're away, Dreams examines your memory and drafts new skills, feedback rules, and cleanup suggestions. Each shows up in the Tick Log with an AI take attached — and Autopilot can act on the confident ones for you."
             />
             <FeatureCard
               icon="list"
@@ -680,8 +680,8 @@ export default function Home() {
               <div className="mt-4 bg-[#eef2f7] rounded-lg p-4 text-left">
                 <p className="text-xs text-[#777777] font-semibold mb-1 tracking-wide">THE AI&apos;S FIRST REPLY LOOKS LIKE:</p>
                 <p className="text-sm text-[#555555] italic leading-relaxed">
-                  &ldquo;Recovered. You shipped Build 294 last night — all sixteen
-                  audit fixes are live. The client site redesign went out Wednesday;
+                  &ldquo;Recovered. You shipped last night&rsquo;s audit-fix build —
+                  every fix is live. The client site redesign went out Wednesday;
                   its contact form fix is still open. Want to pick that up?&rdquo;
                 </p>
               </div>
@@ -805,7 +805,7 @@ export default function Home() {
               { name: "Chat", desc: "10+ providers + vision" },
               { name: "Code", desc: "Editor + terminal + Git" },
               { name: "Agents", desc: "5 built-in + Dreams" },
-              { name: "Brain Core", desc: "3D memory visualization" },
+              { name: "Autopilot", desc: "Two toggles + activity feed" },
               { name: "Memory", desc: "Suggestions + Tick Log" },
               { name: "Skills", desc: "Library + Marketplace" },
               { name: "AI Tools", desc: "Plug-ins, Config, Prefs" },
