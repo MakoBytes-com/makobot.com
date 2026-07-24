@@ -38,4 +38,7 @@ jobs:
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Explicit token = no Claude GitHub App required. If the app is
+          # installed later, this line can be removed for app-authored PRs.
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           claude_args: "--model claude-opus-4-8 --max-turns 40"
