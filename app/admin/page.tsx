@@ -120,8 +120,8 @@ export default function AdminDashboard() {
         <StatCard label="Active Keys" value={totals.activeKeys} color="#10B981" />
         <StatCard label="Total Keys" value={totals.totalKeys} color="#8B5CF6" />
         <StatCard label="Downloads" value={totals.totalDownloads} color="#F59E0B" />
-        <StatCard label="Page Views (30d)" value={totals.pageViews30d} color="#EC4899" />
-        <StatCard label="Unique Visitors (30d)" value={totals.uniqueVisitors30d} color="#6366F1" />
+        <StatCard label="Human Page Views (30d)" value={totals.pageViews30d} color="#EC4899" />
+        <StatCard label="Human Visitors (30d)" value={totals.uniqueVisitors30d} color="#6366F1" />
       </div>
 
       {/* Charts row */}
@@ -168,7 +168,7 @@ export default function AdminDashboard() {
 
         {/* Page views chart */}
         <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
-          <h3 className="text-sm font-medium text-[#777777] mb-4">Page Views (30 days)</h3>
+          <h3 className="text-sm font-medium text-[#777777] mb-4">Human Page Views (30 days)</h3>
           <ResponsiveContainer width="100%" height={200}>
             <AreaChart data={charts.pageViewsPerDay}>
               <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.grid} />

@@ -493,6 +493,24 @@ export async function getDownloadsPerDay(days = 30) {
 }
 
 // ─── PAGE VIEWS ───
+
+// Human-traffic filter. The page-view beacon (/api/analytics) is an
+// unauthenticated public POST, so page_views collects non-human rows. Two
+// proven polluters (July 2026 forensics): MakoPulse's BrowserCheck uptime
+// monitor loading "/" every ~3 minutes (90% of all rows that month), and a
+// referrer-spam spray — 1,229 IPs each hitting "/" once with the identical
+// frozen Linux-Chrome UA and a fake google.com referrer. Tool/monitor UAs are
+// also skipped at write time in app/api/analytics; the spray looks human
+// per-row, so its rows stay in the table and are excluded at read time by
+// signature (frozen Linux-Chrome UA AND google referrer). Known collateral:
+// a real Linux desktop Chrome visitor arriving from Google search is not
+// counted; direct/bookmark Linux visits still are.
+export const BOT_UA_RX =
+  "(bot|crawl|spider|slurp|makopulse|monitor|uptime|probe|scan|headless|python|curl|wget|httpx|go-http|node-fetch|axios|scrapy|phantomjs|selenium|playwright|puppeteer|dataprovider|facebookexternalhit|zgrab|censys|nuclei|okhttp|libwww|mozilla/5\\.0\\()";
+const SPRAY_UA_RX =
+  "^Mozilla/5\\.0 \\(X11; Linux x86_64\\) AppleWebKit/537\\.36 \\(KHTML, like Gecko\\) Chrome/[0-9.]+ Safari/537\\.36$";
+const SPRAY_REF_RX = "^https?://(www\\.)?google\\.";
+
 export async function trackPageView(path: string, referrer: string | null, userAgent: string, ip: string) {
   const sql = getDb();
   await sql`
@@ -506,6 +524,8 @@ export async function getPageViewCount(days = 30) {
   const rows = await sql`
     SELECT COUNT(*) as count FROM page_views
     WHERE created_at > ${daysAgo(days)}
+    AND user_agent !~* ${BOT_UA_RX}
+    AND NOT (user_agent ~ ${SPRAY_UA_RX} AND COALESCE(referrer, '') ~* ${SPRAY_REF_RX})
   `;
   return parseInt(rows[0].count as string);
 }
@@ -516,6 +536,8 @@ export async function getPageViewsPerDay(days = 30) {
     SELECT DATE(created_at) as date, COUNT(*) as count
     FROM page_views
     WHERE created_at > ${daysAgo(days)}
+    AND user_agent !~* ${BOT_UA_RX}
+    AND NOT (user_agent ~ ${SPRAY_UA_RX} AND COALESCE(referrer, '') ~* ${SPRAY_REF_RX})
     GROUP BY DATE(created_at)
     ORDER BY date ASC
   `;
@@ -527,6 +549,8 @@ export async function getTopPages(days = 30, limit = 20) {
     SELECT path, COUNT(*) as count
     FROM page_views
     WHERE created_at > ${daysAgo(days)}
+    AND user_agent !~* ${BOT_UA_RX}
+    AND NOT (user_agent ~ ${SPRAY_UA_RX} AND COALESCE(referrer, '') ~* ${SPRAY_REF_RX})
     GROUP BY path
     ORDER BY count DESC
     LIMIT ${limit}
@@ -540,6 +564,8 @@ export async function getTopReferrers(days = 30, limit = 20) {
     FROM page_views
     WHERE created_at > ${daysAgo(days)}
     AND referrer IS NOT NULL AND referrer != ''
+    AND user_agent !~* ${BOT_UA_RX}
+    AND NOT (user_agent ~ ${SPRAY_UA_RX} AND COALESCE(referrer, '') ~* ${SPRAY_REF_RX})
     GROUP BY referrer
     ORDER BY count DESC
     LIMIT ${limit}
@@ -566,6 +592,8 @@ export async function getOutsideReferrals(days = 30, limit = 25) {
       AND referrer NOT ILIKE '%makobot.com%'
       AND referrer NOT ILIKE '%localhost%'
       AND referrer NOT ILIKE '%127.0.0.1%'
+      AND user_agent !~* ${BOT_UA_RX}
+      AND NOT (user_agent ~ ${SPRAY_UA_RX} AND COALESCE(referrer, '') ~* ${SPRAY_REF_RX})
     GROUP BY hostname
     HAVING LOWER(substring(referrer from '^[a-zA-Z]+://([^/?#]+)')) IS NOT NULL
     ORDER BY count DESC
@@ -578,6 +606,7 @@ export async function getOutsideReferrals(days = 30, limit = 25) {
     FROM page_views
     WHERE created_at > ${daysAgo(days)}
       AND (referrer IS NULL OR referrer = '')
+      AND user_agent !~* ${BOT_UA_RX}
   `;
 
   return {
@@ -591,6 +620,8 @@ export async function getUniqueVisitors(days = 30) {
   const rows = await sql`
     SELECT COUNT(DISTINCT ip) as count FROM page_views
     WHERE created_at > ${daysAgo(days)}
+    AND user_agent !~* ${BOT_UA_RX}
+    AND NOT (user_agent ~ ${SPRAY_UA_RX} AND COALESCE(referrer, '') ~* ${SPRAY_REF_RX})
   `;
   return parseInt(rows[0].count as string);
 }

@@ -187,11 +187,11 @@ export default function AdminAnalyticsPage() {
       {/* Summary cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div className="bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb]">
-          <p className="text-xs text-[#777777] uppercase tracking-wider mb-1">Page Views (30d)</p>
+          <p className="text-xs text-[#777777] uppercase tracking-wider mb-1">Human Page Views (30d)</p>
           <p className="text-2xl font-bold text-[#EC4899]">{data.totals.pageViews30d.toLocaleString()}</p>
         </div>
         <div className="bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb]">
-          <p className="text-xs text-[#777777] uppercase tracking-wider mb-1">Unique Visitors (30d)</p>
+          <p className="text-xs text-[#777777] uppercase tracking-wider mb-1">Human Visitors (30d)</p>
           <p className="text-2xl font-bold text-[#8B5CF6]">{data.totals.uniqueVisitors30d.toLocaleString()}</p>
         </div>
         <div className="bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb]">
@@ -220,7 +220,7 @@ export default function AdminAnalyticsPage() {
             <Tooltip
               contentStyle={{ background: "#ffffff", border: "1px solid #dbdbdb", borderRadius: 8, color: "#333333" }}
             />
-            <Area type="monotone" dataKey="count" stroke="#EC4899" fill="#EC4899" fillOpacity={0.1} name="Page Views" />
+            <Area type="monotone" dataKey="count" stroke="#EC4899" fill="#EC4899" fillOpacity={0.1} name="Human page views" />
           </AreaChart>
         </ResponsiveContainer>
       </div>
