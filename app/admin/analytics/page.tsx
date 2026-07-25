@@ -21,6 +21,7 @@ interface AnalyticsData {
     pageViews30d: number;
     uniqueVisitors30d: number;
     totalDownloads: number;
+    uniqueDownloaders: number;
     totalUsers: number;
   };
   charts: {
@@ -175,9 +176,11 @@ export default function AdminAnalyticsPage() {
 
   if (!data) return null;
 
+  // Distinct downloaders / signups — download EVENTS would double-count
+  // re-downloads and can exceed 100%.
   const conversionRate =
     data.totals.totalUsers > 0
-      ? ((data.totals.totalDownloads / data.totals.totalUsers) * 100).toFixed(1)
+      ? ((data.totals.uniqueDownloaders / data.totals.totalUsers) * 100).toFixed(1)
       : "0";
 
   return (
@@ -201,7 +204,9 @@ export default function AdminAnalyticsPage() {
         <div className="bg-[#f8f9fb] rounded-xl p-5 border border-[#dbdbdb]">
           <p className="text-xs text-[#777777] uppercase tracking-wider mb-1">Conversion Rate</p>
           <p className="text-2xl font-bold text-[#F59E0B]">{conversionRate}%</p>
-          <p className="text-xs text-[#999999]">signup → download</p>
+          <p className="text-xs text-[#999999]">
+            {data.totals.uniqueDownloaders} of {data.totals.totalUsers} signups downloaded
+          </p>
         </div>
       </div>
 

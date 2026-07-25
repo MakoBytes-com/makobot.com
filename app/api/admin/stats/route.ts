@@ -5,6 +5,7 @@ import {
   getKeyCount,
   getActiveKeyCount,
   getDownloadCount,
+  getUniqueDownloaders,
   getPageViewCount,
   getUniqueVisitors,
   getSignupsPerDay,
@@ -31,6 +32,7 @@ export async function GET() {
     const totalKeys = await getKeyCount();
     const activeKeys = await getActiveKeyCount();
     const totalDownloads = await getDownloadCount();
+    const uniqueDownloaders = await getUniqueDownloaders();
     const pageViews30d = await getPageViewCount(30);
     const uniqueVisitors30d = await getUniqueVisitors(30);
     const signupsPerDay = await getSignupsPerDay(30);
@@ -43,7 +45,7 @@ export async function GET() {
     const recentDownloads = await getRecentDownloads(20);
 
     return NextResponse.json({
-      totals: { totalUsers, totalKeys, activeKeys, totalDownloads, pageViews30d, uniqueVisitors30d },
+      totals: { totalUsers, totalKeys, activeKeys, totalDownloads, uniqueDownloaders, pageViews30d, uniqueVisitors30d },
       charts: { signupsPerDay, downloadsPerDay, pageViewsPerDay },
       topPages,
       topReferrers,
