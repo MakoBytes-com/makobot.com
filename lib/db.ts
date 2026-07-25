@@ -470,6 +470,15 @@ export async function getDownloadCount() {
   return parseInt(rows[0].count as string);
 }
 
+// Distinct people who have downloaded at least once — the correct numerator
+// for a signup→download conversion rate. getDownloadCount() counts EVENTS
+// (re-downloads included), which once produced a 766.7% "conversion rate".
+export async function getUniqueDownloaders() {
+  const sql = getDb();
+  const rows = await sql`SELECT COUNT(DISTINCT user_id) as count FROM downloads`;
+  return parseInt(rows[0].count as string);
+}
+
 export async function getRecentDownloads(limit = 50) {
   const sql = getDb();
   return sql`
