@@ -82,6 +82,7 @@ export default function ExchangePage() {
   }, [category, platform, search, sort]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Syncing with something outside React — a server-action result, an external widget, or a browser API that does not exist during SSR. The read can only happen after mount, and acting on what it returns means setting state here. Turnstile cases are load-bearing: tokens are single-use, so a failed submit MUST reset the widget or the next attempt replays a spent token.
     setPage(0);
     const timeout = setTimeout(() => fetchListings(0), search ? 300 : 0);
     return () => clearTimeout(timeout);

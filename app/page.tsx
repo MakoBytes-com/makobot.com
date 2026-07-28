@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -843,12 +844,12 @@ export default function Home() {
               Browse hundreds of skills, prompts, configs, and tools shared by
               the community. Works with Claude, ChatGPT, Gemini, Cursor, and more.
             </p>
-            <a
+            <Link
               href="/exchange"
               className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-lg transition-colors"
             >
               Browse the Exchange
-            </a>
+            </Link>
             <p className="mt-3 text-sm text-[#999999]">
               Free to use. Free to share. No account needed to browse.
             </p>

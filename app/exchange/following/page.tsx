@@ -13,6 +13,7 @@ export default function FollowingPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Syncing with something outside React — a server-action result, an external widget, or a browser API that does not exist during SSR. The read can only happen after mount, and acting on what it returns means setting state here. Turnstile cases are load-bearing: tokens are single-use, so a failed submit MUST reset the widget or the next attempt replays a spent token.
     if (!session?.user) { setLoading(false); return; }
     fetch("/api/exchange/listings?sort=newest")
       .then(() => fetch("/api/exchange/listings?feed=following"))

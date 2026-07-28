@@ -729,7 +729,7 @@ export function TryItSandbox({ content }: { content: string }) {
 
         {/* Privacy note */}
         <div className="text-xs text-[#999999] bg-[#ffffff] rounded-lg p-3 border border-[#dbdbdb]">
-          <strong className="text-[#777777]">Privacy:</strong> Your API key is sent directly from your browser to {PROVIDER_INFO[provider].label}. It never passes through MakoBot servers. Want this built in? <a href="/#download" className="text-[#0061aa] hover:text-[#60A5FA]">Get MakoBot</a> — the desktop app manages all your AI sessions and memory locally.
+          <strong className="text-[#777777]">Privacy:</strong> Your API key is sent directly from your browser to {PROVIDER_INFO[provider].label}. It never passes through MakoBot servers. Want this built in? <Link href="/#download" className="text-[#0061aa] hover:text-[#60A5FA]">Get MakoBot</Link> — the desktop app manages all your AI sessions and memory locally.
         </div>
       </div>
     </div>
