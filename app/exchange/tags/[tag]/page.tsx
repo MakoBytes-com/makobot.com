@@ -46,7 +46,7 @@ export default function TagPage() {
             </div>
           ) : (
             <div className="text-center py-16">
-              <p className="text-[#777777]">No listings tagged with "{tag}" yet.</p>
+              <p className="text-[#777777]">No listings tagged with &quot;{tag}&quot; yet.</p>
             </div>
           )}
         </div>

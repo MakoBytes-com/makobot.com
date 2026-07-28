@@ -54,7 +54,7 @@ export default function CreateStackPage() {
             <span className="text-[#333333]">Create</span>
           </div>
           <h1 className="text-3xl font-bold text-[#333333] mb-2">Create a Skill Stack</h1>
-          <p className="text-[#777777] mb-8">Bundle multiple skills, configs, or tools into one install. Think "Full-Stack Dev Toolkit" or "Writer's Prompt Pack".</p>
+          <p className="text-[#777777] mb-8">Bundle multiple skills, configs, or tools into one install. Think &quot;Full-Stack Dev Toolkit&quot; or &quot;Writer&apos;s Prompt Pack&quot;.</p>
 
           {error && <div className="bg-[#DC2626]/10 border border-[#DC2626]/30 text-[#DC2626] rounded-lg px-4 py-3 text-sm mb-6">{error}</div>}
 

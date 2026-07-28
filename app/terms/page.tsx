@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { Logo } from "../components";
 
@@ -72,9 +73,9 @@ export default function TermsPage() {
         </div>
 
         <div className="mt-12 pt-6 border-t border-[#dbdbdb]/30">
-          <a href="/" className="text-sm text-[#999999] hover:text-[#777777]">
+          <Link href="/" className="text-sm text-[#999999] hover:text-[#777777]">
             &larr; Back to makobot.com
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -35,9 +35,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <p className="text-[#777777] text-center max-w-md">
           You need admin privileges to access this page. Sign in with an admin account or contact the site owner.
         </p>
-        <a href="/" className="mt-6 text-sm text-[#0061aa] hover:text-[#004d88]">
+        <Link href="/" className="mt-6 text-sm text-[#0061aa] hover:text-[#004d88]">
           &larr; Back to makobot.com
-        </a>
+        </Link>
       </div>
     );
   }
@@ -87,12 +87,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
           </div>
           <div className="flex gap-3 mt-3">
-            <a href="/" className="text-xs text-[#999999] hover:text-[#0061aa] transition-colors">
+            <Link href="/" className="text-xs text-[#999999] hover:text-[#0061aa] transition-colors">
               &larr; Main Site
-            </a>
-            <a href="/exchange" className="text-xs text-[#999999] hover:text-[#0061aa] transition-colors">
+            </Link>
+            <Link href="/exchange" className="text-xs text-[#999999] hover:text-[#0061aa] transition-colors">
               Exchange
-            </a>
+            </Link>
             <button onClick={() => signOut({ callbackUrl: "/" })} className="text-xs text-[#999999] hover:text-[#DC2626] transition-colors ml-auto">
               Sign Out
             </button>

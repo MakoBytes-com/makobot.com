@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { Logo } from "../components";
@@ -12,12 +13,11 @@ export default function GetKeyPage() {
   const [copied, setCopied] = useState(false);
   const [downloading, setDownloading] = useState(false);
 
-  useEffect(() => {
-    if (session?.user) {
-      fetchOrGenerateKey();
-    }
-  }, [session]);
-
+  // Declared ABOVE the effect that calls it. It used to sit below, and while
+  // function declarations hoist at runtime, the React compiler flags the
+  // forward reference ("Cannot access variable before it is declared") — a
+  // real ordering smell, not a false positive. Moving it is the fix; a
+  // suppression would just have hidden the question.
   async function fetchOrGenerateKey() {
     setLoading(true);
     try {
@@ -40,6 +40,14 @@ export default function GetKeyPage() {
     }
     setLoading(false);
   }
+
+  useEffect(() => {
+    if (session?.user) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Syncing with something outside React — a server-action result, an external widget, or a browser API that does not exist during SSR. The read can only happen after mount, and acting on what it returns means setting state here. Turnstile cases are load-bearing: tokens are single-use, so a failed submit MUST reset the widget or the next attempt replays a spent token.
+      fetchOrGenerateKey();
+    }
+  }, [session]);
+
 
   async function copyKey() {
     if (!licenseKey) return;
@@ -182,9 +190,9 @@ export default function GetKeyPage() {
       )}
 
       {/* Back to home */}
-      <a href="/" className="mt-8 text-sm text-[#999999] hover:text-[#777777] transition-colors">
+      <Link href="/" className="mt-8 text-sm text-[#999999] hover:text-[#777777] transition-colors">
         &larr; Back to makobot.com
-      </a>
+      </Link>
     </div>
   );
 }
