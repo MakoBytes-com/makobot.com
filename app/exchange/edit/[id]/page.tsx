@@ -117,7 +117,7 @@ export default function EditListingPage() {
       <div className="min-h-screen">
         <div className="pt-8 px-6 max-w-2xl mx-auto text-center">
           <h1 className="text-2xl font-bold text-[#333333] mb-4">Listing not found</h1>
-          <p className="text-[#777777] mb-4">This listing doesn't exist or doesn't belong to you.</p>
+          <p className="text-[#777777] mb-4">This listing doesn&apos;t exist or doesn&apos;t belong to you.</p>
           <Link href="/exchange/my-listings" className="text-[#0061aa] hover:text-[#004d88]">Back to My Listings</Link>
         </div>
         <Footer />

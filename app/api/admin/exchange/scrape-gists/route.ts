@@ -117,7 +117,7 @@ export async function POST(request: Request) {
 
               // Detect category and platforms from content
               let cat = search.cat;
-              let plat = [...search.plat];
+              const plat = [...search.plat];
               const lc = content.toLowerCase();
               if (lc.includes("mcpservers") || lc.includes("modelcontextprotocol")) cat = "mcp";
               if (lc.includes("pretooluse") || lc.includes("posttooluse")) cat = "hooks";

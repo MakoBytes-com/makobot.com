@@ -135,7 +135,7 @@ export default function StackDetailPage() {
           </div>
 
           {/* Items */}
-          <h2 className="text-lg font-bold text-[#333333] mb-4">What's Inside ({stack.items.length})</h2>
+          <h2 className="text-lg font-bold text-[#333333] mb-4">What&apos;s Inside ({stack.items.length})</h2>
           {stack.items.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {stack.items.map((item) => (
