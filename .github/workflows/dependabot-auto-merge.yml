@@ -1,8 +1,15 @@
 name: Dependabot auto-merge
 
-# Auto-merges Dependabot PRs that bump a dependency by a PATCH version
-# only (semver patch = bug fixes / security only, no API changes).
-# Minor + major bumps still require manual review.
+# Auto-merges Dependabot PRs that bump a dependency by a PATCH or MINOR
+# version. Majors still require manual review.
+#
+# WHY MINOR IS INCLUDED (fixed 2026-07-27): dependabot.yml groups minor and
+# patch bumps into ONE pull request, and a grouped PR reports the HIGHEST
+# bump in the group as its update-type - "minor". A patch-only rule
+# therefore never fires on a grouped PR, so the weekly batch waited on a
+# human forever. This repo went 70 days without a single merge while every
+# check stayed green. Same root cause found and fixed on makoai-portal,
+# makoai.studio and bulldogsecurityservice.com the same week.
 
 on:
   pull_request_target:
@@ -26,8 +33,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Auto-merge patch updates
-        if: steps.meta.outputs.update-type == 'version-update:semver-patch'
+      - name: Auto-merge patch and minor updates
+        if: |
+          steps.meta.outputs.update-type == 'version-update:semver-patch' ||
+          steps.meta.outputs.update-type == 'version-update:semver-minor'
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
