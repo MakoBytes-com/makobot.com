@@ -23,5 +23,16 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    # Group minor/patch action bumps into one PR, mirroring the npm ecosystem
+    # above. A grouped minor/patch PR resolves to update-type "minor", which the
+    # Dependabot auto-merge workflow merges automatically — so routine action
+    # bumps land as a single self-clearing PR instead of one open PR per action.
+    # Majors (e.g. actions/checkout 4 -> 7) are excluded and still get their own
+    # PR for human review, exactly as before.
+    groups:
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
     commit-message:
       prefix: ci
