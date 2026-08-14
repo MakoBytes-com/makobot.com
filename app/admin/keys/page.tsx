@@ -13,6 +13,8 @@ interface LicenseKey {
   activated_at: string | null;
   last_download_version: string | null;
   last_download_at: string | null;
+  running_version: string | null;
+  running_version_at: string | null;
   download_count: number | string;
 }
 
@@ -147,6 +149,7 @@ export default function AdminKeysPage() {
                   <th className="text-left px-4 py-3 font-medium">User</th>
                   <th className="text-center px-4 py-3 font-medium">Tier</th>
                   <th className="text-center px-4 py-3 font-medium">Status</th>
+                  <th className="text-left px-4 py-3 font-medium">Currently Running</th>
                   <th className="text-left px-4 py-3 font-medium">Last Download</th>
                   <th className="text-left px-4 py-3 font-medium">Created</th>
                   <th className="text-center px-4 py-3 font-medium">Actions</th>
@@ -216,6 +219,27 @@ export default function AdminKeysPage() {
                           </span>
                         </td>
                         <td className="px-4 py-3">
+                          {k.running_version ? (
+                            <div>
+                              <p className="text-[#333333] text-xs font-medium">{k.running_version}</p>
+                              <p className="text-[#999999] text-xs">
+                                {k.running_version_at ? new Date(k.running_version_at).toLocaleString() : ""}
+                                <span className="ml-2 text-[#0061aa]">· update ping</span>
+                              </p>
+                            </div>
+                          ) : k.last_download_version ? (
+                            <div>
+                              <p className="text-[#333333] text-xs font-medium">{k.last_download_version}</p>
+                              <p className="text-[#999999] text-xs">
+                                {k.last_download_at ? new Date(k.last_download_at).toLocaleString() : ""}
+                                <span className="ml-2">· from last download</span>
+                              </p>
+                            </div>
+                          ) : (
+                            <span className="text-[#999999] text-xs">Unknown</span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3">
                           {k.last_download_version ? (
                             <div>
                               <p className="text-[#333333] text-xs font-medium">{k.last_download_version}</p>
@@ -253,7 +277,7 @@ export default function AdminKeysPage() {
                       </tr>
                       {isExpanded && (
                         <tr className="bg-[#ffffff]/60">
-                          <td colSpan={8} className="px-4 py-4">
+                          <td colSpan={9} className="px-4 py-4">
                             <div className="ml-8">
                               <h4 className="text-xs uppercase tracking-wider text-[#777777] font-medium mb-3">
                                 Download History · {k.email}
@@ -303,7 +327,7 @@ export default function AdminKeysPage() {
                 })}
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={8} className="px-4 py-8 text-center text-[#999999]">
+                    <td colSpan={9} className="px-4 py-8 text-center text-[#999999]">
                       {search || filterStatus !== "all" ? "No keys match your filters" : "No keys issued yet"}
                     </td>
                   </tr>

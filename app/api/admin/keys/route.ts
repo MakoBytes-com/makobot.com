@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { getAllKeys, updateKeyStatus, updateKeyTier } from "@/lib/db";
+import { ensureUpdateEventsTable, getAllKeys, updateKeyStatus, updateKeyTier } from "@/lib/db";
 
 export async function GET(req: NextRequest) {
   const session = await auth();
@@ -12,6 +12,9 @@ export async function GET(req: NextRequest) {
   const limit = parseInt(searchParams.get("limit") || "100");
   const offset = parseInt(searchParams.get("offset") || "0");
 
+  // getAllKeys joins update_events; make sure it exists on a fresh database
+  // (normally created lazily by /api/update-installed).
+  await ensureUpdateEventsTable();
   const keys = await getAllKeys(limit, offset);
   return NextResponse.json({ keys });
 }
