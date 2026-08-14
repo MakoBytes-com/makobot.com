@@ -400,6 +400,10 @@ export async function getKeyByUserId(userId: number) {
 
 export async function getAllKeys(limit = 100, offset = 0) {
   const sql = getDb();
+  // ue = the newest auto-update ping for this key (POST /api/update-installed,
+  // sent by MakoBot Build 103+). Its to_version is what the user is actually
+  // running now — downloads only record website installer pulls, which go
+  // stale the moment the app self-updates from GitHub.
   return sql`
     SELECT
       lk.*,
@@ -407,6 +411,8 @@ export async function getAllKeys(limit = 100, offset = 0) {
       u.name,
       ld.version AS last_download_version,
       ld.created_at AS last_download_at,
+      ue.to_version AS running_version,
+      ue.created_at AS running_version_at,
       (SELECT COUNT(*) FROM downloads WHERE user_id = lk.user_id) AS download_count
     FROM license_keys lk
     JOIN users u ON lk.user_id = u.id
@@ -417,6 +423,13 @@ export async function getAllKeys(limit = 100, offset = 0) {
       ORDER BY created_at DESC
       LIMIT 1
     ) ld ON TRUE
+    LEFT JOIN LATERAL (
+      SELECT to_version, created_at
+      FROM update_events
+      WHERE license_key = lk.key AND to_version IS NOT NULL
+      ORDER BY created_at DESC
+      LIMIT 1
+    ) ue ON TRUE
     ORDER BY lk.created_at DESC
     LIMIT ${limit} OFFSET ${offset}
   `;
