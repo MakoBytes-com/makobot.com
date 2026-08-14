@@ -398,6 +398,14 @@ export async function getKeyByUserId(userId: number) {
   return rows[0] || null;
 }
 
+export async function getKeyByString(key: string) {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT id, user_id, key, tier, status FROM license_keys WHERE key = ${key} LIMIT 1
+  `;
+  return rows[0] || null;
+}
+
 export async function getAllKeys(limit = 100, offset = 0) {
   const sql = getDb();
   // ue = the newest auto-update ping for this key (POST /api/update-installed,
