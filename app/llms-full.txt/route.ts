@@ -27,18 +27,19 @@ Every major assistant now ships built-in memory — Claude (including Claude Cod
 
    BYOK across OpenAI, Google, Anthropic. On a Claude Max plan, every Anthropic call routes through the user's CLI subprocess for free.
 
-3. **Skills** — Reusable skill library + God-Mode commands. Skill references injected into every project so any AI client picks them up automatically. Per-client filtering means each AI tool only sees the skills meant for it. Slim skill index with on-demand skill_view loader (agentskills.io spec). Built-in **Skills Marketplace** browses and installs verified Anthropic skills with one click — handles nested SKILL.md formats and OneDrive paths cleanly.
+3. **Skills** — Reusable skill library + God-Mode commands. Skill references injected into every project so any AI client picks them up automatically. Per-client filtering means each AI tool only sees the skills meant for it. Slim skill index with on-demand skill_view loader (agentskills.io spec). 
 
 4. **Agents** — Five named built-in agents (Researcher · Builder · Reviewer · Triage · Archivist) with assignable tasks, inter-agent handoffs, recurring schedules, attachments, project-scoped context, web fetch, and live cost tracking. Plus **Dreams** — the idle-time agent that examines memory while the user is away and drafts skills, feedback rules, and cleanups for review. Each shows up in the Tick Log with an AI take attached, and Autopilot can act on the confident ones automatically.
 
 5. **Autopilot** — MakoBot decides for itself which memories and skills are worth keeping: strong ones saved, junk discarded, and stale entries archived (filed into brain-archives, never destroyed, always undoable). Two toggles (memory suggestions + skill suggestions, both on by default) and a plain-English activity feed showing exactly what it did — no approval queue to babysit. Turn either toggle off to review every item yourself instead.
 
-## Smart Search — semantic memory search, 100% on-device
+## Search — across every project and every AI tool, 100% on-device
 
-- Finds memories by MEANING, not keywords. Searching "that email env var problem" finds the CONTACT_EMAIL_TO note even though no keyword matches.
-- One-click enable downloads a small (140 MB) embedding model (nomic-embed v1.5, SHA-pinned to an immutable revision) and indexes the whole memory tree locally.
-- Upgrades both in-app search AND the MCP search_memory tool that every connected AI session uses.
-- Runs entirely on the user's machine. Nothing leaves the computer — no cloud embedding service, no API key.
+- One search covers every commit, note, transcript and skill, in every project MakoBot watches.
+- Results are scored, not merely matched: a line carrying all the words beats one carrying a common word, an exact phrase beats scattered words, and recent work edges out old work when scores tie.
+- No model download and no indexing wait — it works the moment MakoBot is installed.
+- Powers both in-app search AND the MCP search_memory tool that every connected AI session uses.
+- Runs entirely on the user's machine. Nothing leaves the computer — no cloud service, no API key.
 
 ## MakoSync — the same brain on every computer (no server, no account)
 

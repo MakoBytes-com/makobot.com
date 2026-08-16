@@ -43,31 +43,39 @@ export default function Home() {
           {/* Background glow */}
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0061aa] opacity-[0.07] blur-[120px] pointer-events-none -z-10" />
 
-          {/* July 2026 repositioning: one idea in the hero — shared memory.
-              The old hero was four dense paragraphs cramming 20+ features and
-              builder jargon; everything it said still lives in the pillars +
-              features grid below. A visitor should get the product in five
-              seconds without knowing what MCP stands for. */}
+          {/* August 2026: MakoBot stopped being a memory layer and became an
+              assistant. The old hero sold one idea — shared memory — which is
+              still true and still the moat, but it described about a tenth of
+              what a visitor now downloads. Russell's words: "most people have
+              no idea how it can help them." So the hero leads with what she
+              DOES, and memory is the reason she can do it. */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center max-w-4xl leading-tight mb-4">
-            Your AI forgets everything.{" "}
-            <span className="gradient-text">MakoBot remembers.</span>
+            An assistant that actually{" "}
+            <span className="gradient-text">knows your work.</span>
           </h1>
 
           <p className="text-base sm:text-lg text-[#0061aa] text-center font-semibold mb-6 tracking-wide">
-            One memory, shared by every AI tool you use.
+            She remembers everything, works while you&rsquo;re away, and runs on your own PC.
           </p>
 
           <p className="text-lg sm:text-xl text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
-            MakoBot runs on your Windows PC and quietly remembers your work —
-            every project, every decision, every conversation. When you open{" "}
-            <span className="text-[#333333] font-semibold">Claude, Cursor, ChatGPT, or Gemini</span>,
-            it briefs them automatically. No more spending the first ten minutes
-            of every session re-explaining your own project.
+            Ask MakoBot for anything and she gets on with it. She{" "}
+            <span className="text-[#333333] font-semibold">reads your inbox</span> and tells
+            you what actually needs you, keeps up with your projects, handles your
+            to-do list and calendar, makes pictures and video, and can look at your
+            screen when something breaks.
+          </p>
+
+          <p className="text-lg sm:text-xl text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
+            And she never forgets. Every decision and conversation is written down and
+            kept <span className="text-[#333333] font-semibold">on your machine</span> — so
+            you stop re-explaining your own work, to her or to any other AI tool you use.
           </p>
 
           <p className="text-base text-[#777777] text-center max-w-2xl mb-8 leading-relaxed">
-            100% on your machine — no cloud, no account, no subscription. It
-            makes the AI tools you already pay for remember you.
+            Free. Runs on the Claude subscription you already have. Nothing she reads
+            leaves your computer, and she never sends an email without showing it to
+            you first.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-10">
@@ -110,8 +118,8 @@ export default function Home() {
       <section className="px-6 py-20 bg-[#eef2f7]">
         <div className="max-w-4xl mx-auto text-center">
           <SectionHeading
-            title="The problem with AI today"
-            subtitle="Every AI builder — engineer, founder, freelancer — hits the same walls"
+            title="Why another AI app?"
+            subtitle="Because the ones you have forget you every morning, and none of them can do anything while you are asleep"
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
@@ -246,60 +254,68 @@ export default function Home() {
       <section id="pillars" className="px-6 py-20">
         <div className="max-w-6xl mx-auto">
           <SectionHeading
-            title="Five pillars, one workbench"
-            subtitle="MakoBot is the local control plane for every AI you use — Memory, AI Tools, Skills, Agents, and Autopilot."
+            title="What she can actually do"
+            subtitle="Not a chat box. An assistant with a memory, a set of specialists, and the run of your own machine."
           />
 
+          {/* Rewritten 2026-08-16 against the shipping app. The previous five
+              cards described the WPF product and two claims had gone false:
+              the Skills Marketplace was cut, and "Smart Search finds any of it
+              by meaning" was never true of the shipping build — src/search.js
+              is lexical and says so in its own header. A claim on a public page
+              that the code contradicts is the one thing that must never ship. */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mt-12">
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <Glyph name="brain" className="w-8 h-8 text-[#0061aa] mb-3" />
-              <h3 className="text-base font-semibold text-[#333333] mb-2">Memory</h3>
+              <h3 className="text-base font-semibold text-[#333333] mb-2">She remembers</h3>
               <p className="text-sm text-[#555555] leading-relaxed">
-                Cross-project timeline + per-project context auto-injected into
-                CLAUDE.md, AGENTS.md, .cursorrules. A browser extension captures
-                your ChatGPT, Claude, and Gemini chats as you have them. Smart
-                Search finds any of it by meaning — on-device. MakoSync carries
-                the same brain to every computer you own, encrypted with your key.
-              </p>
-            </div>
-            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
-              <Glyph name="wand" className="w-8 h-8 text-[#0061aa] mb-3" />
-              <h3 className="text-base font-semibold text-[#333333] mb-2">AI Tools</h3>
-              <p className="text-sm text-[#555555] leading-relaxed">
-                <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@verify</code>{" "}
-                <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@audit</code>{" "}
-                <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@codereview</code>{" "}
-                <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@designreview</code>{" "}
-                <code className="bg-[#e6f0f9] px-1.5 py-0.5 rounded text-xs text-[#0061aa]">@contractreview</code>{" "}
-                — fan out to GPT, Claude, and Gemini for second opinions. Max-plan calls route through your CLI for free.
-              </p>
-            </div>
-            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
-              <Glyph name="wrench" className="w-8 h-8 text-[#0061aa] mb-3" />
-              <h3 className="text-base font-semibold text-[#333333] mb-2">Skills</h3>
-              <p className="text-sm text-[#555555] leading-relaxed">
-                Reusable skill library + God-Mode commands injected into every
-                project so any AI client picks them up automatically. Built-in{" "}
-                <span className="text-[#0061aa] font-semibold">Skills Marketplace</span> browses + installs verified Anthropic skills.
+                Every conversation, decision and project note is written down and kept
+                in a folder on your disk you can open and read. Ask what you decided
+                about a client six months ago and she looks it up instead of guessing.
+                Your other AI tools can read the same memory, so you are not
+                re-explaining yourself to each one.
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <Glyph name="agents" className="w-8 h-8 text-[#0061aa] mb-3" />
-              <h3 className="text-base font-semibold text-[#333333] mb-2">Agents</h3>
+              <h3 className="text-base font-semibold text-[#333333] mb-2">Eleven specialists</h3>
               <p className="text-sm text-[#555555] leading-relaxed">
-                Five built-in agents — Researcher · Builder · Reviewer · Triage · Archivist —
-                with assignable tasks, handoffs, recurring schedules, attachments, web fetch, and a live cost dashboard.
-                Plus <span className="text-[#0061aa] font-semibold">Dreams</span>, the idle-time agent that drafts skills and rules while you&apos;re away.
+                You talk to MakoBot; she brings in whoever the job needs — a researcher,
+                a coder, a reviewer, an archivist. Each keeps its own thread, and they
+                hand work to each other. <span className="text-[#0061aa] font-semibold">Dreams</span>{" "}
+                looks back over quiet periods and writes down what was worth keeping.
+              </p>
+            </div>
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+              <Glyph name="wand" className="w-8 h-8 text-[#0061aa] mb-3" />
+              <h3 className="text-base font-semibold text-[#333333] mb-2">Your inbox and your day</h3>
+              <p className="text-sm text-[#555555] leading-relaxed">
+                She reads your email, tells you what genuinely needs an answer, and
+                drafts replies in your voice.{" "}
+                <span className="text-[#0061aa] font-semibold">She never sends one without showing you first</span>{" "}
+                — that is not a setting you can switch off. Your to-do list and calendar
+                are hers to read and add to as well.
+              </p>
+            </div>
+            <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
+              <Glyph name="wrench" className="w-8 h-8 text-[#0061aa] mb-3" />
+              <h3 className="text-base font-semibold text-[#333333] mb-2">New abilities</h3>
+              <p className="text-sm text-[#555555] leading-relaxed">
+                A shelf of extras you can switch on: a real web browser, a folder on
+                your PC, GitHub, a database, Slack, web search. Each one says exactly
+                what it runs and what it can reach before you agree.{" "}
+                <span className="text-[#0061aa] font-semibold">You</span> install them —
+                she can only ask, and the ask appears where you will see it.
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <Glyph name="bot" className="w-8 h-8 text-[#0061aa] mb-3" />
-              <h3 className="text-base font-semibold text-[#333333] mb-2">Autopilot</h3>
+              <h3 className="text-base font-semibold text-[#333333] mb-2">She looks after herself</h3>
               <p className="text-sm text-[#555555] leading-relaxed">
-                MakoBot decides for itself which memories and skills are worth
-                keeping — good ones saved, junk discarded, stale ones archived
-                (never destroyed, always undoable). No approval queue to babysit;
-                every decision shows in a plain-English activity feed.
+                She checks that everything she does still works and says so when it does
+                not, rather than failing quietly. Her memory is backed up automatically,
+                can be locked with a passphrase, and syncs between your computers. She
+                is also on your phone, over your own private network.
               </p>
             </div>
           </div>
@@ -331,12 +347,11 @@ export default function Home() {
                 every AI tool you use.
               </p>
               <p className="text-[#555555] text-base leading-relaxed mb-4">
-                And with <span className="text-[#0061aa] font-semibold">Smart Search</span>,
-                you don&apos;t even need the exact word: type &quot;that email env
-                var problem&quot; and it finds the CONTACT_EMAIL_TO note — by{" "}
-                <span className="text-[#333333] font-semibold">meaning</span>, not
-                keywords. One click downloads a small (140&nbsp;MB) model, indexes
-                your whole memory tree, and runs 100% on your machine. Nothing
+                Results are ranked, not just matched: a line carrying all your words
+                beats one carrying a common word, an exact phrase beats scattered
+                words, and recent work edges out old work when scores tie. It needs no
+                model download and no waiting — it searches the moment you install.
+                It runs entirely on your machine. Nothing
                 leaves your computer.
               </p>
               <a
@@ -354,7 +369,7 @@ export default function Home() {
                 <li><span className="text-[#0061aa]">stripe</span> <span className="text-[#777777] font-sans not-italic ml-2">that integration</span></li>
                 <li><span className="text-[#0061aa]">404</span> <span className="text-[#777777] font-sans not-italic ml-2">which project?</span></li>
                 <li><span className="text-[#0061aa]">race condition</span> <span className="text-[#777777] font-sans not-italic ml-2">last month&apos;s fix</span></li>
-                <li><span className="text-[#0061aa]">that email env var problem</span> <span className="text-[#777777] font-sans not-italic ml-2">Smart Search finds it by meaning</span></li>
+                <li><span className="text-[#0061aa]">CONTACT_EMAIL_TO</span> <span className="text-[#777777] font-sans not-italic ml-2">that env var, ranked by how well it matches</span></li>
               </ul>
             </div>
           </div>
@@ -394,7 +409,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <SectionHeading
             title="What's in MakoBot"
-            subtitle="Built by a developer who lost too many fresh AI chats"
+            subtitle="Everything below ships in the free download — no tiers, no add-ons"
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
@@ -410,8 +425,8 @@ export default function Home() {
             />
             <FeatureCard
               icon="brain"
-              title="Smart Search (Semantic)"
-              description="Find memories by MEANING, not keywords — 'that email env var problem' finds the CONTACT_EMAIL_TO note. One click downloads a small (140 MB) embedding model and indexes your whole memory tree. Runs 100% on your machine, and upgrades both in-app search and the memory search every connected AI uses."
+              title="Search Everything"
+              description="One search across every commit, note, transcript and skill, in every project. Scored rather than just matched: all your words beats one of them, an exact phrase beats scattered words, and recent work wins a tie. No model to download and no index to wait for — it works the moment you install, entirely on your machine."
             />
             <FeatureCard
               icon="laptop"
@@ -450,8 +465,8 @@ export default function Home() {
             />
             <FeatureCard
               icon="store"
-              title="Skills Marketplace"
-              description="Browse and install verified Anthropic skills from inside MakoBot. One-click install, visible installed state, handles nested SKILL.md formats and OneDrive paths cleanly."
+              title="Connectors"
+              description="A curated shelf of extras you can switch on: a real web browser, a folder on your PC, GitHub, a Postgres database, Slack, web search. Each says exactly what it runs and what it can reach before you agree, and installing one starts it for real and only keeps it if it answers. You install them — MakoBot can only ask."
             />
             <FeatureCard
               icon="laptop"
