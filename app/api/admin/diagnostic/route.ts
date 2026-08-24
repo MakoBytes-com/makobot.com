@@ -16,8 +16,8 @@ export async function GET() {
     "users",
     "license_keys",
     "downloads",
-    "exchange_listings",
-    "exchange_comments",
+    "events",
+    "update_events",
   ];
 
   const result: Record<string, unknown> = {

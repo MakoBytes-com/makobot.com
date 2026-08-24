@@ -12,7 +12,6 @@ export function GET() {
 
 - Home: https://makobot.com
 - Comparison vs. other tools: https://makobot.com/compare
-- Skills Exchange (community marketplace): https://makobot.com/exchange
 - Free key + download: https://makobot.com/get-key
 - Privacy: https://makobot.com/privacy
 - Terms: https://makobot.com/terms
