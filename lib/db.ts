@@ -345,6 +345,113 @@ export async function setUserAdmin(userId: number, isAdmin: boolean) {
   await sql`UPDATE users SET is_admin = ${isAdmin} WHERE id = ${userId}`;
 }
 
+/**
+ * Delete a user and everything that hangs off them.
+ *
+ * NOTHING in this schema cascades from users(id) — every reference is a plain
+ * `REFERENCES users(id)`, so a bare `DELETE FROM users` throws a foreign-key
+ * violation the moment the person has a single license key, download, comment
+ * or listing. Child rows have to go first, in dependency order, inside one
+ * transaction so a failure half-way cannot leave a half-deleted account.
+ *
+ * Two deliberate choices:
+ *  - license_keys are DELETED, not orphaned. /api/validate-key looks the key up
+ *    in license_keys alone; leaving the row behind with a NULL user_id would
+ *    leave a deleted person with a working licence.
+ *  - downloads and events are DETACHED (user_id -> NULL), not deleted. Both are
+ *    analytics history; nulling keeps the totals honest while removing the link
+ *    to the person. Both columns are nullable, so this is safe.
+ */
+export async function deleteUser(userId: number) {
+  const sql = getDb();
+
+  return sql.begin(async (tx) => {
+    const before = await tx`
+      SELECT
+        (SELECT COUNT(*)::int FROM license_keys      WHERE user_id = ${userId}) AS keys,
+        (SELECT COUNT(*)::int FROM downloads         WHERE user_id = ${userId}) AS downloads,
+        (SELECT COUNT(*)::int FROM exchange_listings WHERE user_id = ${userId}) AS listings,
+        (SELECT COUNT(*)::int FROM exchange_comments WHERE user_id = ${userId}) AS comments
+    `;
+
+    // Rows this user owns on OTHER people's listings. These carry NOT NULL
+    // user_id, so they must go explicitly — the listing-level cascade below
+    // only reaches rows attached to listings that HE owns.
+    await tx`DELETE FROM exchange_comments        WHERE user_id = ${userId}`;
+    await tx`DELETE FROM exchange_reviews         WHERE user_id = ${userId}`;
+    await tx`DELETE FROM exchange_request_upvotes WHERE user_id = ${userId}`;
+    await tx`DELETE FROM exchange_requests        WHERE user_id = ${userId}`;
+    await tx`DELETE FROM exchange_follows         WHERE follower_id = ${userId} OR followed_id = ${userId}`;
+    await tx`DELETE FROM exchange_collections     WHERE user_id = ${userId}`;
+    await tx`DELETE FROM exchange_stacks          WHERE user_id = ${userId}`;
+    // Listings last of the exchange tables: ON DELETE CASCADE on listing_id
+    // sweeps up versions, collection/stack items, downloads, and any reviews or
+    // comments other people left on them.
+    await tx`DELETE FROM exchange_listings        WHERE user_id = ${userId}`;
+
+    // Keep the analytics, drop the identity.
+    await tx`UPDATE downloads SET user_id = NULL WHERE user_id = ${userId}`;
+    await tx`UPDATE events    SET user_id = NULL WHERE user_id = ${userId}`;
+
+    // Revoke the licence, then remove the person.
+    await tx`DELETE FROM license_keys WHERE user_id = ${userId}`;
+    await tx`DELETE FROM users        WHERE id = ${userId}`;
+
+    return {
+      keysRevoked: before[0].keys as number,
+      downloadsDetached: before[0].downloads as number,
+      listingsDeleted: before[0].listings as number,
+      commentsDeleted: before[0].comments as number,
+    };
+  });
+}
+
+// ─── SITE SETTINGS ───
+// Small key/value store for runtime switches that must change WITHOUT a
+// redeploy. An env var cannot do this job: Vercel only picks up a changed env
+// var on the next deployment, so flipping downloads off would take minutes and
+// a build. This is read per-request straight from Postgres.
+
+export async function ensureSettingsTable() {
+  const sql = getDb();
+  await sql`
+    CREATE TABLE IF NOT EXISTS site_settings (
+      key VARCHAR(100) PRIMARY KEY,
+      value TEXT NOT NULL,
+      updated_at TIMESTAMP DEFAULT NOW(),
+      updated_by INTEGER
+    )
+  `;
+}
+
+export async function getSetting(key: string): Promise<string | null> {
+  const sql = getDb();
+  await ensureSettingsTable();
+  const rows = await sql`SELECT value FROM site_settings WHERE key = ${key} LIMIT 1`;
+  return (rows[0]?.value as string) ?? null;
+}
+
+export async function setSetting(key: string, value: string, userId?: number | null) {
+  const sql = getDb();
+  await ensureSettingsTable();
+  await sql`
+    INSERT INTO site_settings (key, value, updated_at, updated_by)
+    VALUES (${key}, ${value}, NOW(), ${userId ?? null})
+    ON CONFLICT (key) DO UPDATE
+      SET value = EXCLUDED.value, updated_at = NOW(), updated_by = EXCLUDED.updated_by
+  `;
+}
+
+/** Downloads are ON unless the switch has been explicitly set to "off". */
+export async function downloadsEnabled(): Promise<boolean> {
+  try {
+    return (await getSetting("downloads_enabled")) !== "off";
+  } catch {
+    // Never let a settings-table problem be the thing that blocks downloads.
+    return true;
+  }
+}
+
 export async function updateUserProfile(userId: number, data: {
   username?: string;
   display_name?: string;
