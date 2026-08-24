@@ -409,7 +409,7 @@ const WALK_SCENES: { dur: number; scene: WalkScene }[] = [
     dur: 5500,
     scene: {
       kind: "shot",
-      src: "/images/walkthrough/02-activity.webp",
+      src: "/images/walkthrough/02-activity-v2.webp",
       alt: "MakoBot Activity tab — live dashboard",
       pan: "tr",
       head: "Live dashboard.",
@@ -420,7 +420,7 @@ const WALK_SCENES: { dur: number; scene: WalkScene }[] = [
     dur: 4500,
     scene: {
       kind: "shot",
-      src: "/images/walkthrough/03-projects.webp",
+      src: "/images/walkthrough/03-projects-v2.webp",
       alt: "MakoBot Projects tab — auto-discovered projects with git history",
       pan: "tl",
       head: "Auto-discovers every project.",
