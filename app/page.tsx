@@ -31,9 +31,17 @@ export default function Home() {
               and it stays that way forever if autoplay is blocked (Low Power
               Mode, data saver, reduced-motion, most mobile browsers). The robot
               has to be visible whether or not the video ever plays. */}
+          {/* VERSIONED FILENAMES - do not reuse these names when the media changes.
+              /videos/* and /images/* are served with
+              "Cache-Control: public, max-age=31536000, immutable". immutable means
+              a browser that already has the file will NEVER revalidate it - not on
+              reload, not on hard refresh. When 281c508 swapped hero.mp4 in place on
+              16 Aug, every visitor who had loaded the page kept the old bytes for a
+              YEAR, and restoring the file on the server could not reach them,
+              because the URL never changed. Bump the -vN suffix on every replacement. */}
           <video
-            src="/videos/hero.mp4"
-            poster="/images/hero-poster.jpg"
+            src="/videos/hero-robot-v2.mp4"
+            poster="/images/hero-poster-v2.jpg"
             autoPlay
             loop
             muted
