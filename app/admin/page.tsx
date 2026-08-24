@@ -67,6 +67,120 @@ function StatCard({
   );
 }
 
+/**
+ * Master switch for downloads.
+ *
+ * Backed by the site_settings table, NOT an env var: Vercel only applies a
+ * changed env var on the next deployment, so an env-var switch would take a
+ * build to take effect. This is read per-request, so flipping it here stops
+ * downloads on the very next click anywhere on the site.
+ *
+ * Rendered on every state of the dashboard — including the stats-failed
+ * state — because a struggling database is exactly when you might want to
+ * pause downloads, and that must not depend on /api/admin/stats succeeding.
+ */
+function DownloadMasterSwitch() {
+  const [enabled, setEnabled] = useState<boolean | null>(null);
+  const [message, setMessage] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [err, setErr] = useState("");
+
+  useEffect(() => {
+    fetch("/api/admin/settings")
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.error) throw new Error(d.error);
+        setEnabled(d.downloadsEnabled);
+        setMessage(d.downloadsMessage || "");
+      })
+      .catch((e) => setErr(e.message));
+  }, []);
+
+  async function save(next: boolean, msg?: string) {
+    setSaving(true);
+    setErr("");
+    try {
+      const res = await fetch("/api/admin/settings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          downloadsEnabled: next,
+          ...(msg !== undefined ? { downloadsMessage: msg } : {}),
+        }),
+      });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || "Could not save");
+      setEnabled(d.downloadsEnabled);
+      setMessage(d.downloadsMessage || "");
+    } catch (e) {
+      setErr((e as Error).message);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  const paused = enabled === false;
+
+  return (
+    <div
+      className={`rounded-xl border p-6 mb-8 ${
+        paused
+          ? "border-[#DC2626]/50 bg-[#DC2626]/5"
+          : "border-[#dbdbdb] bg-[#f8f9fb]"
+      }`}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p className="text-base font-semibold text-[#333333] mb-1">
+            Downloads {enabled === null ? "…" : paused ? "are PAUSED" : "are live"}
+          </p>
+          <p className="text-sm text-[#777777] max-w-xl leading-relaxed">
+            {paused
+              ? "Nobody can download MakoBot right now. Visitors see your message below instead of the installer."
+              : "Visitors can download MakoBot normally. Pause this to stop new downloads without taking the site down."}
+          </p>
+        </div>
+
+        <button
+          onClick={() => save(!enabled)}
+          disabled={saving || enabled === null}
+          className={`px-6 py-3 rounded-lg font-semibold text-base transition-colors disabled:opacity-50 ${
+            paused
+              ? "bg-[#10B981] hover:bg-[#0e9f6e] text-white"
+              : "bg-[#DC2626] hover:bg-[#a8232b] text-white"
+          }`}
+        >
+          {saving ? "Saving…" : paused ? "Turn downloads back on" : "Pause downloads"}
+        </button>
+      </div>
+
+      <div className="mt-4">
+        <label className="block text-sm text-[#555555] mb-2">
+          What visitors see while downloads are paused:
+        </label>
+        <div className="flex flex-wrap gap-3">
+          <input
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Downloads are paused for a short while. Please check back soon."
+            className="flex-1 min-w-[260px] bg-white border border-[#dbdbdb] rounded-lg px-4 py-2.5 text-sm text-[#333333] placeholder-[#999999] focus:outline-none focus:border-[#0061aa]"
+          />
+          <button
+            onClick={() => save(enabled ?? true, message)}
+            disabled={saving || enabled === null}
+            className="px-5 py-2.5 rounded-lg border border-[#dbdbdb] text-[#555555] font-medium hover:border-[#0061aa] hover:text-[#0061aa] transition-colors disabled:opacity-50"
+          >
+            Save message
+          </button>
+        </div>
+      </div>
+
+      {err && <p className="mt-3 text-sm text-[#DC2626]">{err}</p>}
+    </div>
+  );
+}
+
 const chartTheme = {
   bg: "#f8f9fb",
   grid: "#dbdbdb",
@@ -92,18 +206,20 @@ export default function AdminDashboard() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) {
+  // The master switch renders in these states too — if the stats API is down,
+  // that's precisely when being able to pause downloads matters.
+  if (loading || error || !stats) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <p className="text-[#777777]">Loading dashboard...</p>
-      </div>
-    );
-  }
-
-  if (error || !stats) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <p className="text-[#DC2626]">Error: {error || "Failed to load"}</p>
+      <div>
+        <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
+        <DownloadMasterSwitch />
+        <div className="flex items-center justify-center h-64">
+          {loading ? (
+            <p className="text-[#777777]">Loading dashboard...</p>
+          ) : (
+            <p className="text-[#DC2626]">Error: {error || "Failed to load"}</p>
+          )}
+        </div>
       </div>
     );
   }
@@ -113,6 +229,7 @@ export default function AdminDashboard() {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
+      <DownloadMasterSwitch />
 
       {/* Stat cards */}
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
