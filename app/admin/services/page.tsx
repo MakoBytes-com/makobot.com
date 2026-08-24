@@ -19,7 +19,7 @@ const services = [
   {
     name: "Neon",
     url: "https://console.neon.tech",
-    description: "Serverless PostgreSQL database. Stores users, license keys, downloads, analytics, and the AI Skills Exchange (listings, reviews, downloads). Project: makobot, Region: US East 1.",
+    description: "Serverless PostgreSQL database. Stores users, license keys, downloads, and analytics. Project: makobot, Region: US East 1.",
     category: "Database",
   },
   {

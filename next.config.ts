@@ -45,6 +45,17 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "raw.githubusercontent.com" },
     ],
   },
+  // The Skills Exchange was removed on 2026-08-24. Its URLs were in the sitemap
+  // for months, so they are indexed and linked from elsewhere; the embed badge
+  // was designed to be pasted onto third-party sites. Letting all of that hard
+  // 404 throws away the link equity and dead-ends real visitors, so every old
+  // path answers with a permanent redirect home instead.
+  async redirects() {
+    return [
+      { source: "/exchange", destination: "/", permanent: true },
+      { source: "/exchange/:path*", destination: "/", permanent: true },
+    ];
+  },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },

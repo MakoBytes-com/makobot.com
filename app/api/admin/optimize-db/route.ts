@@ -21,7 +21,7 @@ export async function GET() {
   const created: string[] = [];
   const errors: { name: string; error: string }[] = [];
 
-  // Each index targets a known-slow query in the admin dashboard or exchange.
+  // Each index targets a known-slow query in the admin dashboard.
   // BRIN would be even better for time-series but BTREE is universally
   // available + Supabase's autovacuum keeps them lean.
   const indexes = [
@@ -35,10 +35,6 @@ export async function GET() {
     { name: "idx_downloads_user_id", sql: `CREATE INDEX IF NOT EXISTS idx_downloads_user_id ON downloads (user_id)` },
     { name: "idx_license_keys_user_id", sql: `CREATE INDEX IF NOT EXISTS idx_license_keys_user_id ON license_keys (user_id)` },
     { name: "idx_license_keys_status", sql: `CREATE INDEX IF NOT EXISTS idx_license_keys_status ON license_keys (status)` },
-    { name: "idx_exchange_listings_status", sql: `CREATE INDEX IF NOT EXISTS idx_exchange_listings_status ON exchange_listings (status)` },
-    { name: "idx_exchange_listings_user_id", sql: `CREATE INDEX IF NOT EXISTS idx_exchange_listings_user_id ON exchange_listings (user_id)` },
-    { name: "idx_exchange_listings_created_at", sql: `CREATE INDEX IF NOT EXISTS idx_exchange_listings_created_at ON exchange_listings (created_at DESC)` },
-    { name: "idx_exchange_listings_category", sql: `CREATE INDEX IF NOT EXISTS idx_exchange_listings_category ON exchange_listings (category)` },
     { name: "idx_users_email_lower", sql: `CREATE INDEX IF NOT EXISTS idx_users_email_lower ON users (LOWER(email))` },
     { name: "idx_users_created_at", sql: `CREATE INDEX IF NOT EXISTS idx_users_created_at ON users (created_at DESC)` },
   ];
@@ -53,7 +49,7 @@ export async function GET() {
   }
 
   // ANALYZE so the planner picks up the new indexes immediately.
-  const analyzeTables = ["page_views", "events", "downloads", "license_keys", "exchange_listings", "users"];
+  const analyzeTables = ["page_views", "events", "downloads", "license_keys", "users"];
   for (const t of analyzeTables) {
     try { await sql.unsafe(`ANALYZE "${t}"`); } catch { /* skip */ }
   }

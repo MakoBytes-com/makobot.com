@@ -214,10 +214,6 @@ export default function AdminUsersPage() {
                 are deleted — their copy of MakoBot will stop validating.
               </li>
               <li>
-                Anything they posted to the Skills Exchange — listings, comments,
-                reviews, collections — is deleted.
-              </li>
-              <li>
                 Their{" "}
                 <strong className="text-[#333333]">
                   {confirming.download_count} download record(s)
