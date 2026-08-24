@@ -40,6 +40,13 @@ yarn-error.log*
 CLAUDE.md
 AGENTS.md
 .cursorrules
+# ...and the .bak copies MakoBot writes beside them. Without this line the
+# backups carry the same personal content straight into a PUBLIC repo, which
+# is how CLAUDE.md.bak / AGENTS.md.bak / .cursorrules.bak got committed.
+*.bak
+
+# Playwright MCP scratch snapshots — tool output, never source
+.playwright-mcp/
 
 # typescript
 *.tsbuildinfo
