@@ -343,20 +343,6 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="text-center md:text-right">
-            <p className="text-sm text-[#777777] mb-1">
-              Part of the{" "}
-              <span className="text-[#333333] font-medium">MakoBytes</span>{" "}
-              product family
-            </p>
-            <div className="flex gap-4 text-xs text-[#999999]">
-              <a href="https://www.makobytes.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#555555] transition-colors">PromptPixel</a>
-              <span>·</span>
-              <a href="https://aipromptshive.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#555555] transition-colors">AI Prompt Hive</a>
-              <span>·</span>
-              <span className="text-[#0061aa]">MakoBot</span>
-            </div>
-          </div>
         </div>
 
         <div className="mt-8 pt-6 border-t border-[#dbdbdb]/30 flex flex-col sm:flex-row items-center justify-between gap-4">
