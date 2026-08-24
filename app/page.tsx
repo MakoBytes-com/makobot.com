@@ -14,7 +14,6 @@ import {
   SectionHeading,
   Nav,
   Footer,
-  Walkthrough,
 } from "./components";
 
 export default function Home() {
@@ -114,10 +113,6 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Walkthrough sits BELOW the video block on plain background — video does not extend here. */}
-        <div className="px-6 pt-8 pb-24 w-full max-w-4xl mx-auto">
-          <Walkthrough />
-        </div>
       </section>
 
       {/* ─── THE PROBLEM ─── */}
