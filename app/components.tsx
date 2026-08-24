@@ -386,27 +386,21 @@ type WalkScene =
       sub?: ReactNode;
     };
 
-// Rewritten 2026-08-16 for MakoBot 3.0. The ten scenes here described the old
-// WPF app - "three pillars", "one workbench", tabs that no longer exist - and
-// the screenshots were captured on 1 May from a product that has since been
-// rebuilt as a single Electron app. Every shot below is the app as it ships
-// today, and anything private in them is blurred in the published file itself,
-// not hidden with CSS.
 const WALK_SCENES: { dur: number; scene: WalkScene }[] = [
   { dur: 3000, scene: { kind: "title" } },
   {
-    dur: 5500,
+    dur: 5000,
     scene: {
       kind: "shot",
-      src: "/images/walkthrough/01-chat.webp",
-      alt: "MakoBot's main window: a chat with her, and a sidebar of eleven specialist agents",
+      src: "/images/walkthrough/01-about.webp",
+      alt: "MakoBot About tab — three pillars: Memory, AI Tools, Skills",
       pan: "tl",
-      head: "Just talk to her.",
+      head: "Three pillars. One workbench.",
       sub: (
         <>
-          Ask for anything. Behind her sit{" "}
-          <span className="text-[#0061aa]">eleven specialists</span> — a researcher, a
-          coder, a reviewer — and she brings in whichever one the job needs.
+          <span className="text-[#0061aa]">Memory</span>{" "}·{" "}
+          <span className="text-[#0061aa]">AI Tools</span>{" "}·{" "}
+          <span className="text-[#0061aa]">Skills</span>
         </>
       ),
     },
@@ -416,38 +410,106 @@ const WALK_SCENES: { dur: number; scene: WalkScene }[] = [
     scene: {
       kind: "shot",
       src: "/images/walkthrough/02-activity.webp",
-      alt: "MakoBot's Activity panel, listing work she did on her own",
+      alt: "MakoBot Activity tab — live dashboard",
       pan: "tr",
-      head: "She works when you're not there.",
-      sub: "Reads your inbox, records what changed in your projects, checks herself — and tells you what actually needs you.",
+      head: "Live dashboard.",
+      sub: "Every project, every commit, every AI session — tracked in real time.",
+    },
+  },
+  {
+    dur: 4500,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/03-projects.webp",
+      alt: "MakoBot Projects tab — auto-discovered projects with git history",
+      pan: "tl",
+      head: "Auto-discovers every project.",
+      sub: "Full git history and AI session memory, per project.",
     },
   },
   {
     dur: 5000,
     scene: {
       kind: "shot",
-      src: "/images/walkthrough/03-projects.webp",
-      alt: "MakoBot's Projects panel, watching folders and capturing commits",
+      src: "/images/walkthrough/04-notes.webp",
+      alt: "MakoBot Notes tab — manual project decisions and context",
       pan: "bd",
-      head: "She keeps up with your work.",
-      sub: "Point her at a folder and she remembers what changed and why — so you never re-explain your own project again.",
+      head: "Capture decisions the moment you make them.",
+      sub: "Context that doesn't belong in code — saved to the right project automatically.",
     },
   },
   {
-    dur: 5500,
+    dur: 5000,
     scene: {
       kind: "shot",
-      src: "/images/walkthrough/04-connectors.webp",
-      alt: "MakoBot's Connectors shelf: a web browser, a folder, GitHub, a database, Slack, web search",
+      src: "/images/walkthrough/05-skills.webp",
+      alt: "MakoBot Skills tab — reusable AI behavior library",
+      pan: "tr",
+      head: "Reusable AI behaviors.",
+      sub: "Write a skill once — every AI tool picks it up automatically.",
+    },
+  },
+  {
+    dur: 5000,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/06-commands.webp",
+      alt: "MakoBot Commands tab — God Mode hard rules",
       pan: "tl",
-      head: "Give her new abilities.",
+      head: "Hard rules every AI tool obeys.",
+      sub: "Write them once. Every project, every session, forever.",
+    },
+  },
+  {
+    dur: 7000,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/07-plugins.webp",
+      alt: "MakoBot AI Tools — multi-model orchestration plug-ins",
+      pan: "bd",
+      head: "Five trigger words.",
       sub: (
         <>
-          A browser, GitHub, a database, web search.{" "}
-          <span className="text-[#0061aa]">You</span> install them — she can only
-          ask, and the ask shows up where you can see it.
+          <span className="text-[#0061aa]">@verify</span>{" "}·{" "}
+          <span className="text-[#0061aa]">@audit</span>{" "}·{" "}
+          <span className="text-[#0061aa]">@codereview</span>{" "}·{" "}
+          <span className="text-[#0061aa]">@designreview</span>{" "}·{" "}
+          <span className="text-[#0061aa]">@contractreview</span>
         </>
       ),
+    },
+  },
+  {
+    dur: 5000,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/08-providers.webp",
+      alt: "MakoBot AI Tools — bring your own keys for OpenAI, Google, Anthropic",
+      pan: "tr",
+      head: "Bring your own keys.",
+      sub: "OpenAI, Google, Anthropic — any combination. Your bills, your data.",
+    },
+  },
+  {
+    dur: 4500,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/09-prefs.webp",
+      alt: "MakoBot AI Tools Preferences — plain-English working style",
+      pan: "tl",
+      head: "Write your style once.",
+      sub: "Every AI tool gets briefed automatically — every session.",
+    },
+  },
+  {
+    dur: 4500,
+    scene: {
+      kind: "shot",
+      src: "/images/walkthrough/10-privacy.webp",
+      alt: "MakoBot Privacy tab — 100% local, no servers, no cloud",
+      pan: "bd",
+      head: "100% local.",
+      sub: "Zero servers. Zero cloud. Zero accounts. Zero telemetry.",
     },
   },
   { dur: 6000, scene: { kind: "cta" } },
