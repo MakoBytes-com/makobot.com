@@ -12,6 +12,7 @@ export default function GetKeyPage() {
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const [downloadError, setDownloadError] = useState("");
 
   // Declared ABOVE the effect that calls it. It used to sit below, and while
   // function declarations hoist at runtime, the React compiler flags the
@@ -58,16 +59,30 @@ export default function GetKeyPage() {
 
   async function handleDownload() {
     setDownloading(true);
+    setDownloadError("");
     try {
       const res = await fetch("/api/download", { method: "POST" });
       const data = await res.json();
+
+      // 503 = an admin has paused downloads from /admin. Without this branch
+      // the button just silently does nothing, which reads as a broken site.
+      if (!res.ok) {
+        setDownloadError(
+          data.error || "Downloads aren't available right now. Please try again shortly."
+        );
+        return;
+      }
+
       if (data.url && data.url !== "#") {
         window.location.href = data.url;
+      } else {
+        setDownloadError("The download link isn't configured. Please contact support.");
       }
-    } catch (err) {
-      console.error("Download failed:", err);
+    } catch {
+      setDownloadError("Something went wrong starting the download. Please try again.");
+    } finally {
+      setDownloading(false);
     }
-    setDownloading(false);
   }
 
   return (
@@ -162,6 +177,11 @@ export default function GetKeyPage() {
               >
                 {downloading ? "Starting download..." : "Download MakoBot Installer"}
               </button>
+              {downloadError && (
+                <p className="mt-3 rounded-lg border border-[#DC2626]/40 bg-[#DC2626]/5 px-4 py-3 text-sm text-[#333333] text-center leading-relaxed">
+                  {downloadError}
+                </p>
+              )}
               <p className="text-xs text-[#999999] text-center mt-3">
                 Windows 10/11 · Signed by Mako Logics LLC · ~53 MB · Includes installer
               </p>
