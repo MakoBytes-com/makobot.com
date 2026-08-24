@@ -26,8 +26,14 @@ export default function Home() {
       <section id="hero" className="relative">
         {/* Full-width 16:9 video banner — fits edge-to-edge horizontally, natural aspect ratio (no zoom, no crop). */}
         <div className="w-full aspect-video relative overflow-hidden bg-[#0a1628]">
+          {/* poster is the video's own first frame. Without it this box is just
+              bg-[#0a1628] — a dark navy rectangle — until 4 MB of MP4 arrives,
+              and it stays that way forever if autoplay is blocked (Low Power
+              Mode, data saver, reduced-motion, most mobile browsers). The robot
+              has to be visible whether or not the video ever plays. */}
           <video
             src="/videos/hero.mp4"
+            poster="/images/hero-poster.jpg"
             autoPlay
             loop
             muted
