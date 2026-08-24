@@ -23,9 +23,17 @@ export default function Home() {
       <Nav />
 
       {/* ─── HERO ─── */}
-      <section id="hero" className="relative">
-        {/* Full-width 16:9 video banner — fits edge-to-edge horizontally, natural aspect ratio (no zoom, no crop). */}
-        <div className="w-full aspect-video relative overflow-hidden bg-[#0a1628]">
+      {/* The robot is the BACKDROP and the headline sits on top of it, so the
+          pitch and the Download button are on screen the moment the page loads.
+          Before this, the video was a 16:9 band ABOVE the text: because the band
+          scales with viewport WIDTH, a 2560px-wide window rendered it 1431px tall
+          and pushed the h1 245px below the fold — a desktop visitor saw a robot
+          and nothing else. No headline, no CTA. The wider the monitor, the worse
+          it got. min-h is capped in vh so the hero can never outgrow the screen
+          again, whatever the width. */}
+      <section id="hero" className="relative flex items-center min-h-[88vh] overflow-hidden">
+        {/* Full-bleed robot backdrop. */}
+        <div className="absolute inset-0 z-0 overflow-hidden bg-[#0a1628]">
           {/* poster is the video's own first frame. Without it this box is just
               bg-[#0a1628] — a dark navy rectangle — until 4 MB of MP4 arrives,
               and it stays that way forever if autoplay is blocked (Low Power
@@ -50,10 +58,14 @@ export default function Home() {
             aria-hidden="true"
             className="absolute inset-0 w-full h-full object-cover"
           />
+          {/* Scrim. The body copy is dark grey (#555) on what would otherwise be a
+              mid-tone photo, so without this the paragraph fails contrast. Heaviest
+              at the bottom where the smallest text and the badges sit. */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/55 via-white/85 to-white/95" />
         </div>
 
-        {/* Hero text content sits below the video on the page background. */}
-        <div className="relative isolate flex flex-col items-center justify-center px-6 pt-16 pb-16">
+        {/* Hero text, layered over the backdrop. */}
+        <div className="relative z-10 w-full isolate flex flex-col items-center justify-center px-6 py-16">
           {/* Background glow */}
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0061aa] opacity-[0.07] blur-[120px] pointer-events-none -z-10" />
 
