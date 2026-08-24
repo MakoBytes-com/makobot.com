@@ -11,7 +11,6 @@ const navItems = [
   { href: "/admin/keys", label: "Keys", icon: "🔑" },
   { href: "/admin/versions", label: "Versions", icon: "🛑" },
   { href: "/admin/analytics", label: "Analytics", icon: "📈" },
-  { href: "/admin/exchange", label: "Exchange", icon: "🔄" },
   { href: "/admin/services", label: "Services", icon: "🔗" },
 ];
 
@@ -89,9 +88,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex gap-3 mt-3">
             <Link href="/" className="text-xs text-[#999999] hover:text-[#0061aa] transition-colors">
               &larr; Main Site
-            </Link>
-            <Link href="/exchange" className="text-xs text-[#999999] hover:text-[#0061aa] transition-colors">
-              Exchange
             </Link>
             <button onClick={() => signOut({ callbackUrl: "/" })} className="text-xs text-[#999999] hover:text-[#DC2626] transition-colors ml-auto">
               Sign Out

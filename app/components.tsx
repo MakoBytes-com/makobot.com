@@ -208,16 +208,6 @@ export function Nav() {
             Compare
           </Link>
           <Link
-            href="/exchange"
-            className="relative text-sm font-semibold text-white px-3 py-1 rounded-full bg-[#0072c4] hover:bg-[#0061aa] ring-1 ring-[#0061aa]/30 hover:shadow-lg hover:shadow-[#0061aa]/25 transition-all"
-          >
-            Skills Exchange
-            <span className="absolute -top-1.5 -right-1.5 flex h-3.5 w-3.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-[#10B981] border-2 border-[#ffffff]"></span>
-            </span>
-          </Link>
-          <Link
             href="/#download"
             className="inline-flex items-center px-5 py-2 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white text-sm font-semibold transition-colors"
           >
@@ -289,14 +279,6 @@ export function Nav() {
             className="text-sm text-[#555555]"
           >
             Compare
-          </Link>
-          <Link
-            href="/exchange"
-            onClick={() => setOpen(false)}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-white px-4 py-2 rounded-full bg-[#0072c4] ring-1 ring-[#0061aa]/30 w-fit"
-          >
-            Skills Exchange
-            <span className="flex h-2 w-2 rounded-full bg-[#10B981] animate-pulse"></span>
           </Link>
           <Link
             href="/#download"
