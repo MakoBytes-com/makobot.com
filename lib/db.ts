@@ -112,7 +112,7 @@ export async function findOrCreateUser(profile: {
     if (profile.github_username && !existing[0].github_username) {
       await sql`UPDATE users SET github_username = ${profile.github_username} WHERE id = ${existing[0].id}`;
     }
-    return existing[0];
+    return refreshProfilePicture(sql, existing[0], profile);
   }
 
   // Check if user exists by email (signed in with different provider before)
@@ -122,7 +122,7 @@ export async function findOrCreateUser(profile: {
     if (profile.github_username && !byEmail[0].github_username) {
       await sql`UPDATE users SET github_username = ${profile.github_username} WHERE id = ${byEmail[0].id}`;
     }
-    return byEmail[0];
+    return refreshProfilePicture(sql, byEmail[0], profile);
   }
 
   // Generate default username from GitHub username or email
@@ -135,6 +135,28 @@ export async function findOrCreateUser(profile: {
               username, display_name, bio, github_username, is_verified
   `;
   return result[0];
+}
+
+// The picture link was stored once, at the very first sign-in, and never
+// touched again. Google rotates profile-photo URLs, so the stored one went
+// dead and the admin list showed a broken image for the owner (2026-09-06).
+// Every sign-in now carries the provider's current link; take it whenever it
+// differs. An empty link is ignored so a provider hiccup never wipes a photo.
+async function refreshProfilePicture(
+  sql: ReturnType<typeof getDb>,
+  row: { id: number; avatar_url: string | null; name: string | null },
+  profile: { avatar_url?: string | null; name?: string | null },
+) {
+  const fresh = (profile.avatar_url || "").trim();
+  const name = (profile.name || "").trim();
+  const wantAvatar = fresh && fresh !== (row.avatar_url || "");
+  const wantName = name && !row.name;
+  if (!wantAvatar && !wantName) return row;
+  await sql`UPDATE users SET
+    avatar_url = ${wantAvatar ? fresh : row.avatar_url},
+    name = ${wantName ? name : row.name}
+    WHERE id = ${row.id}`;
+  return { ...row, avatar_url: wantAvatar ? fresh : row.avatar_url, name: wantName ? name : row.name };
 }
 
 export async function getUserByEmail(email: string) {
