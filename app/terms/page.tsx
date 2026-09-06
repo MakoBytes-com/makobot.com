@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Logo } from "../components";
+import { TERMS_LAST_UPDATED } from "@/lib/version";
 
 export const metadata: Metadata = {
   title: "Terms of Service — MakoBot",
@@ -14,7 +15,7 @@ export default function TermsPage() {
         <div className="mb-12">
           <Logo size={48} />
           <h1 className="text-3xl font-bold mt-6 mb-2">Terms of Service</h1>
-          <p className="text-sm text-[#999999]">Last updated: April 10, 2026</p>
+          <p className="text-sm text-[#999999]">Last updated: {TERMS_LAST_UPDATED}</p>
         </div>
 
         <div className="space-y-8 text-[#555555] text-base leading-relaxed">
@@ -39,8 +40,8 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold text-[#333333] mb-3">License Keys</h2>
             <p>
-              Each license key is personal to the Google account used to generate
-              it. Keys may not be shared, sold, or transferred. Mako Logics
+              Each license key is personal to the Google or GitHub account used to
+              generate it. Keys may not be shared, sold, or transferred. Mako Logics
               reserves the right to revoke keys that are misused.
             </p>
           </section>
@@ -66,7 +67,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold text-[#333333] mb-3">Contact</h2>
             <p>
-              Mako Logics<br />
+              Mako Logics LLC<br />
               Email: admin@makobot.com
             </p>
           </section>

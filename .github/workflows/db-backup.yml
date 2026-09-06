@@ -82,7 +82,12 @@ jobs:
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" "$FILE" --clobber
           else
-            gh release create "$TAG" "$FILE" \
+            # --prerelease is load-bearing: the installed app's updater reads
+            # /releases/latest on this repo, and GitHub excludes prereleases from
+            # it. Without the flag the newest nightly backup BECOMES "latest",
+            # its title has no build number, and every installed copy decides it
+            # is up to date forever (this happened 2026-08-24 → 2026-09-06).
+            gh release create "$TAG" "$FILE" --prerelease \
               --title "Database backup ${BACKUP_DATE}" \
               --notes "Automated backup of makobot taken ${BACKUP_DATE} (UTC). ${TABLES} tables, ${ROWS} rows, ${SIZE}."
           fi
@@ -110,7 +115,7 @@ jobs:
             if gh release view "$TAG" >/dev/null 2>&1; then
               gh release upload "$TAG" "${PARTS[@]}" --clobber
             else
-              gh release create "$TAG" "${PARTS[@]}" \
+              gh release create "$TAG" "${PARTS[@]}" --prerelease \
                 --title "Storage backup ${BACKUP_DATE}" \
                 --notes "Objects new or changed on ${BACKUP_DATE} (UTC): ${COUNT} of ${TOTAL} total. Reassemble with \`cat *.part-* | tar -xzf -\`. Apply after the baseline and any earlier increments."
             fi
@@ -121,7 +126,7 @@ jobs:
           # is updated only after the increment above is safely published.
           if [ -f index.json ]; then
             gh release delete storage-index --yes 2>/dev/null || true
-            gh release create storage-index index.json \
+            gh release create storage-index index.json --prerelease \
               --title "Storage index (rolling)" \
               --notes "Running index of every stored object. Rewritten each night after the increment publishes. Not a backup on its own."
           fi
