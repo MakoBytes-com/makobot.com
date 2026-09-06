@@ -159,15 +159,13 @@ html {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* 35% from the left: trims the vase on the left and the window on the
-     right, keeps the assistant's face and the whole robot in the frame. */
-  object-position: 35% 50%;
+  object-position: 0% 50%;
   display: block;
 }
 .hero-full-fade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(248, 249, 251, 0) 84%, rgba(248, 249, 251, 0.8) 95%, rgba(248, 249, 251, 1) 100%);
+  background: linear-gradient(90deg, rgba(248, 249, 251, 0) 74%, rgba(248, 249, 251, 0.85) 92%, rgba(248, 249, 251, 1) 100%);
 }
 .hero-full-copy {
   grid-column: 2;

@@ -71,16 +71,16 @@ export default function Home() {
               Free. No subscription. Nothing leaves your desk unless you send it.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <a
                 href="/get-key"
-                className="inline-flex items-center justify-center whitespace-nowrap px-6 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-base transition-colors"
+                className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-lg transition-colors"
               >
                 Get Free Key + Download
               </a>
               <a
                 href="#features"
-                className="inline-flex items-center justify-center whitespace-nowrap px-6 py-4 rounded-lg border border-[#9fb3c8] bg-white/70 hover:border-[#555555] text-[#333333] font-medium text-base transition-colors"
+                className="inline-flex items-center justify-center px-8 py-4 rounded-lg border border-[#9fb3c8] bg-white/70 hover:border-[#555555] text-[#333333] font-medium text-lg transition-colors"
               >
                 See what she does
               </a>
