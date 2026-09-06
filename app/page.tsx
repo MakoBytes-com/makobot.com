@@ -68,7 +68,7 @@ export default function Home() {
             </p>
 
             <p className="text-base text-[#555555] mb-7 leading-relaxed">
-              Free. No subscription. Nothing leaves your desk unless you send it.
+              Free. No subscription. Your data stays on your desk.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 mb-8">
@@ -88,7 +88,6 @@ export default function Home() {
 
             <div className="flex flex-wrap gap-3 mb-5">
               <AiBadge name="Claude Code" />
-              <AiBadge name="Claude.ai" />
               <AiBadge name="ChatGPT" />
               <AiBadge name="Gemini" />
               <AiBadge name="Outlook" />
