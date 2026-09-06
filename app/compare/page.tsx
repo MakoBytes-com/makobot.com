@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Logo, Nav, Footer, SectionHeading, FeatureCard } from "../components";
 
 export const metadata: Metadata = {
-  title: "How MakoBot Compares — vs. Built-in AI Memory, Claude Code Auto-Memory, OpenMemory, Pieces, Mem0",
+  title: "How MakoBot Compares — vs. Built-in AI Memory, Cloud Assistants, and Server Agents",
   description:
-    "An honest comparison: every AI now has built-in memory — and every one of them is a per-tool silo. See how MakoBot compares to Claude Code auto-memory, ChatGPT memory, OpenMemory MCP, Pieces, Zen MCP, Recallium, claude-mem, and Mem0 — and where one local brain above every tool is genuinely different.",
+    "An honest comparison. Every AI now has built-in memory and every one of them is a silo. Cloud assistants keep your mail on their servers. Server agents need a Linux box. MakoBot is one assistant on your own Windows PC that reads your mail, keeps your calendar, talks, listens, and remembers.",
   alternates: { canonical: "https://makobot.com/compare" },
 };
 
@@ -22,129 +22,116 @@ export default function ComparePage() {
         </div>
 
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center max-w-4xl leading-tight mb-6">
-          Honest comparison —{" "}
+          Honest comparison:{" "}
           <span className="gradient-text">where MakoBot fits</span>
         </h1>
 
         <p className="text-lg sm:text-xl text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
-          MakoBot makes your existing AI tools smarter — it&apos;s not a
-          replacement for them.
+          MakoBot is not a chatbot in a browser tab and not an agent on a
+          rented server. She is an assistant on your own PC.
         </p>
 
         <p className="text-base text-[#777777] text-center max-w-2xl">
-          We checked the landscape. Here&apos;s the honest read: what other
-          tools do well, where MakoBot overlaps, and where the bundle is
-          genuinely different.
+          Here is what the alternatives do well, where they overlap with her,
+          and where she is genuinely different.
         </p>
       </section>
 
-      {/* ─── POSITIONING ─── */}
+      {/* ─── THE THREE KINDS ─── */}
       <section className="px-6 py-16 max-w-5xl mx-auto w-full">
         <SectionHeading
-          title="How MakoBot is positioned"
-          subtitle="Not beside the agent loop — above it."
+          title="Three kinds of AI assistant"
+          subtitle="And the one thing each of them asks you to give up."
         />
 
-        <div className="bg-[#f8f9fb] rounded-xl border border-[#dbdbdb] p-6 sm:p-10 mb-8">
-          <p className="text-[#555555] text-base leading-relaxed mb-6">
-            Modern AI coding tools — Claude Code, Cursor, Windsurf, Aider —
-            already run their own multi-step agent loops. They read files,
-            grep for patterns, follow references, and build a plan, all
-            autonomously. That&apos;s their whole product.
-          </p>
-          <p className="text-[#555555] text-base leading-relaxed mb-6">
-            MakoBot doesn&apos;t try to replace that loop. It sits one layer
-            above as a <span className="text-[#0061aa] font-semibold">multi-model
-            second-opinion service</span> and a{" "}
-            <span className="text-[#0061aa] font-semibold">cross-project memory
-            backbone</span>. When your agent reads a file and wants a sanity
-            check, it calls{" "}
-            <code className="bg-[#e6f0f9] px-2 py-0.5 rounded text-[#0061aa]">
-              @verify
-            </code>{" "}
-            or{" "}
-            <code className="bg-[#e6f0f9] px-2 py-0.5 rounded text-[#0061aa]">
-              @audit
-            </code>{" "}
-            on MakoBot — Claude, GPT, and Gemini all weigh in. Your agent
-            keeps driving; MakoBot just makes the answers better.
-          </p>
-          <p className="text-[#555555] text-base leading-relaxed">
-            That&apos;s why MakoBot plays nicely with Claude Code, Cursor,
-            Windsurf, and Aider all at once — instead of competing with any
-            of them. The injected{" "}
-            <code className="bg-[#e6f0f9] px-2 py-0.5 rounded text-[#777777]">
-              CLAUDE.md
-            </code>
-            ,{" "}
-            <code className="bg-[#e6f0f9] px-2 py-0.5 rounded text-[#777777]">
-              AGENTS.md
-            </code>
-            , and{" "}
-            <code className="bg-[#e6f0f9] px-2 py-0.5 rounded text-[#777777]">
-              .cursorrules
-            </code>{" "}
-            files mean every tool you use sees the same context.
-          </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+          <div className="bg-[#f8f9fb] rounded-xl border border-[#dbdbdb] p-6">
+            <h3 className="text-lg font-semibold text-[#333333] mb-3">Cloud assistants</h3>
+            <p className="text-sm text-[#555555] leading-relaxed mb-3">
+              ChatGPT, Gemini, Copilot. Excellent models, always available, and
+              each now remembers you a little.
+            </p>
+            <p className="text-sm text-[#0061aa] font-semibold">
+              You give up: your mail and your memory live on their servers, and
+              what one remembers never reaches the others.
+            </p>
+          </div>
+          <div className="bg-[#f8f9fb] rounded-xl border border-[#dbdbdb] p-6">
+            <h3 className="text-lg font-semibold text-[#333333] mb-3">Server agents</h3>
+            <p className="text-sm text-[#555555] leading-relaxed mb-3">
+              Open-source agents you run on a Linux box or a rented VPS and
+              talk to through Telegram or Discord. Powerful and endlessly
+              configurable.
+            </p>
+            <p className="text-sm text-[#0061aa] font-semibold">
+              You give up: a weekend of setup, a server bill, and a chat app
+              in the middle that can read the channel.
+            </p>
+          </div>
+          <div className="bg-[#ffffff] rounded-xl border border-[#0061aa]/40 p-6">
+            <h3 className="text-lg font-semibold text-[#333333] mb-3">MakoBot</h3>
+            <p className="text-sm text-[#555555] leading-relaxed mb-3">
+              One signed Windows app. Install it, add a mailbox or a project
+              folder, and she is working. Her brain is Claude through your own
+              plan. Her memory is files on your disk.
+            </p>
+            <p className="text-sm text-[#0061aa] font-semibold">
+              You give up: Mac and Linux. She is Windows only.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* ─── THE ELEPHANT IN THE ROOM: native vendor memories (July 2026) ─── */}
+      {/* ─── VENDOR MEMORY ─── */}
       <section className="px-6 py-16 bg-[#f8f9fb]">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
-            title="The elephant in the room: every AI has memory now"
-            subtitle="Claude, ChatGPT, Gemini, Copilot, Cursor, Windsurf — all of them remember. Here's the honest difference."
+            title="Every AI has memory now"
+            subtitle="Claude, ChatGPT, Gemini, Copilot, Cursor. All of them remember. Here is the honest difference."
           />
 
           <div className="bg-[#ffffff] rounded-xl border border-[#dbdbdb] p-6 sm:p-10">
             <p className="text-[#555555] text-base leading-relaxed mb-6">
-              In 2026, built-in memory is table stakes: Claude has it (Claude
-              Code even keeps per-project auto-memory notes), ChatGPT has it,
-              Gemini and Copilot have it, Cursor and Windsurf keep their own
-              per-editor notes. If you live in exactly one AI tool, its native
-              memory may genuinely be enough — we&apos;ll say that out loud.
-            </p>
-            <p className="text-[#555555] text-base leading-relaxed mb-4">
-              Four things are still true about every one of them:
+              If you live in exactly one AI tool, its built-in memory may be
+              enough. We will say that out loud. Four things are still true
+              about every one of them.
             </p>
             <ul className="space-y-3 text-sm sm:text-base text-[#555555] leading-relaxed mb-6">
               <li>
-                <span className="text-[#333333] font-semibold">1. They&apos;re silos.</span>{" "}
-                Claude&apos;s memory doesn&apos;t reach Cursor. Cursor&apos;s doesn&apos;t
-                reach Gemini. The moment you use a second tool, your context splits.
+                <span className="text-[#333333] font-semibold">They are silos.</span>{" "}
+                What Claude remembers never reaches ChatGPT. The moment you use
+                a second tool, your context splits.
               </li>
               <li>
-                <span className="text-[#333333] font-semibold">2. They summarize.</span>{" "}
-                Native memories distill you into a few dozen bullet points. MakoBot
-                keeps the full record — every conversation, commit, and decision —
-                and searches all of it.
+                <span className="text-[#333333] font-semibold">They summarize.</span>{" "}
+                A few dozen bullet points about you. MakoBot keeps every
+                conversation, commit and decision in full, and searches all of it.
               </li>
               <li>
-                <span className="text-[#333333] font-semibold">3. Most live in their cloud.</span>{" "}
-                Your accumulated context sits on the vendor&apos;s servers, governed
-                by their retention policy. MakoBot&apos;s brain is files on your disk.
+                <span className="text-[#333333] font-semibold">They live in a cloud.</span>{" "}
+                Your accumulated context sits on the vendor&apos;s servers under
+                their retention policy. MakoBot&apos;s memory is files on your disk.
               </li>
               <li>
-                <span className="text-[#333333] font-semibold">4. They&apos;re not portable.</span>{" "}
-                Leave the product, lose the memory. MakoBot&apos;s memory follows you
-                to whatever tool you use next year.
+                <span className="text-[#333333] font-semibold">They are not portable.</span>{" "}
+                Leave the product, lose the memory. MakoBot&apos;s follows you to
+                whatever tool you use next year.
               </li>
             </ul>
             <p className="text-[#0061aa] text-base font-semibold">
-              Native memory is a retention feature for the vendor. MakoBot is a
+              Vendor memory is a retention feature for the vendor. MakoBot is a
               memory feature for you.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ─── COMPARISON TABLE ─── */}
+      {/* ─── TABLE ─── */}
       <section className="px-6 py-16 bg-[#f8f9fb]">
         <div className="max-w-6xl mx-auto">
           <SectionHeading
-            title="Side-by-side"
-            subtitle="What overlaps, what doesn't."
+            title="Side by side"
+            subtitle="What overlaps, what does not."
           />
 
           <div className="bg-[#f8f9fb] rounded-xl border border-[#dbdbdb] overflow-hidden">
@@ -154,186 +141,71 @@ export default function ComparePage() {
                   <tr className="bg-[#ffffff] text-[#333333]">
                     <th className="text-left py-4 px-4 font-semibold">Capability</th>
                     <th className="text-center py-4 px-3 font-semibold text-[#0061aa]">MakoBot</th>
-                    <th className="text-center py-4 px-3 font-semibold">Zen MCP</th>
-                    <th className="text-center py-4 px-3 font-semibold">Recallium</th>
-                    <th className="text-center py-4 px-3 font-semibold">claude-mem</th>
-                    <th className="text-center py-4 px-3 font-semibold">Mem0</th>
-                    <th className="text-center py-4 px-3 font-semibold">Multi-LLM<br/>Cross-Check</th>
+                    <th className="text-center py-4 px-3 font-semibold">ChatGPT / Gemini<br />desktop</th>
+                    <th className="text-center py-4 px-3 font-semibold">Microsoft<br />Copilot</th>
+                    <th className="text-center py-4 px-3 font-semibold">Server agents<br />(Hermes, OpenClaw)</th>
+                    <th className="text-center py-4 px-3 font-semibold">Memory tools<br />(OpenMemory, Pieces)</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <Row
-                    feature="Cross-project memory injection (auto-writes CLAUDE.md / AGENTS.md / .cursorrules)"
-                    cells={[true, false, true, false, false, false]}
-                  />
-                  <Row
-                    feature="On-device semantic search — finds memories by meaning, nothing leaves the machine"
-                    cells={[true, false, false, false, "cloud service", false]}
-                  />
-                  <Row
-                    feature="Multi-machine sync, end-to-end encrypted through YOUR storage — your key, no vendor cloud, no account (MakoSync)"
-                    cells={[true, false, false, false, "their cloud", false]}
-                  />
-                  <Row
-                    feature="Memory health monitoring (data loss, corruption, silent writers, runaway growth — plain-English alerts)"
-                    cells={[true, false, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Auto-registers its memory MCP server with Cursor, Gemini CLI, Windsurf + Claude Code — shipped in the app"
-                    cells={[true, false, false, "Claude Code only", "dev-tool setup", false]}
-                  />
-                  <Row
-                    feature="Multi-model second-opinion (verify / audit / code review / design review / contract review)"
-                    cells={[true, true, false, false, false, "verify only"]}
-                  />
-                  <Row
-                    feature="BYOK direct to providers (no proxy)"
-                    cells={[true, true, "n/a", "n/a", "API service", true]}
-                  />
-                  <Row
-                    feature="Plug-in architecture (add new tools without editing the engine)"
-                    cells={[true, true, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Skills + Commands (rules injected into every project)"
-                    cells={[true, false, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Native desktop UI (not CLI / not browser extension)"
-                    cells={[true, false, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Signed Windows installer + auto-updater"
-                    cells={[true, false, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Works with Claude Code, Cursor, Windsurf, Aider — all at once"
-                    cells={[true, "yes", "yes", "Claude Code only", "n/a", "yes"]}
-                  />
-                  <Row
-                    feature="Built-in local model (no Ollama / LM Studio required)"
-                    cells={["bundled LlamaSharp", "external (Ollama)", false, false, false, false]}
-                  />
-                  <Row
-                    feature="Five named built-in agents (Researcher · Builder · Reviewer · Triage · Archivist) with handoffs + schedules"
-                    cells={[true, "agent loop only", false, false, false, false]}
-                  />
-                  <Row
-                    feature="Idle-time agent (Dreams) — drafts skills, rules, and cleanups while you're away"
-                    cells={[true, false, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Live web-AI capture — a browser extension saves your ChatGPT, Claude & Gemini chats verbatim, locally (the only way to keep Gemini's replies)"
-                    cells={[true, false, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Built-in Skills Marketplace — browse + install verified Anthropic skills"
-                    cells={[true, false, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Autopilot — AI auto-saves good memories & skills, archives stale ones (filed, never destroyed), all in a plain-English activity feed. No queue to babysit."
-                    cells={[true, false, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Scheduled auto-backup to OneDrive or any folder"
-                    cells={[true, false, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Image vision passthrough in chat + code modes"
-                    cells={[true, false, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Cross-restart conversation continuity (--session-id / --resume)"
-                    cells={[true, false, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Built-in Chat + Code workspace (10+ provider picker, editor, terminal)"
-                    cells={[true, false, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Mobile bridge (Signal — talk to it from your phone)"
-                    cells={[true, false, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Sign in with Claude Code Max plan (every Anthropic call routes through your CLI for free)"
-                    cells={[true, false, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Built-in autonomous agent loop"
-                    cells={["uses host's", true, false, false, false, false]}
-                  />
-                  <Row
-                    feature="Designed for non-developers"
-                    cells={[true, false, false, false, false, false]}
-                  />
+                  <Row feature="Runs on your own PC, memory stored as files on your disk" cells={[true, false, false, "on your server", "partly"]} />
+                  <Row feature="Watches your inbox across Outlook, Gmail, iCloud and Yahoo" cells={[true, false, "Outlook only", "with setup", false]} />
+                  <Row feature="Tells forged mail from genuine mail using the sender's own authentication records" cells={[true, false, false, false, false]} />
+                  <Row feature="Every send, reply, forward and delete waits for your approval, and no setting can turn that off" cells={[true, "n/a", "n/a", "configurable", "n/a"]} />
+                  <Row feature="Calendar and to-do list inside the app" cells={[true, false, true, "with setup", false]} />
+                  <Row feature="Voice that never leaves the machine (local speech recognition)" cells={[true, false, false, "with setup", false]} />
+                  <Row feature="Reach it from your phone without a public server" cells={["Tailscale only", "their cloud", "their cloud", "Telegram / Discord", false]} />
+                  <Row feature="Captures your ChatGPT, Claude.ai and Gemini web chats into one memory" cells={[true, false, false, false, false]} />
+                  <Row feature="Briefs Claude Code automatically in every project" cells={[true, false, false, false, "with setup"]} />
+                  <Row feature="Full conversation history kept, never summarized away" cells={[true, false, false, true, "varies"]} />
+                  <Row feature="A second AI critiques the answer, with no tools and no ability to act" cells={[true, false, false, "multi-agent rooms", false]} />
+                  <Row feature="Signed Windows installer with a verified updater" cells={[true, true, true, false, "varies"]} />
+                  <Row feature="Setup time" cells={["minutes", "minutes", "minutes", "an afternoon", "an hour"]} />
+                  <Row feature="Ongoing cost beyond your AI plan" cells={["none", "subscription", "subscription", "server bill", "varies"]} />
+                  <Row feature="Mac and Linux" cells={[false, true, true, true, true]} />
                 </tbody>
               </table>
             </div>
           </div>
 
           <p className="text-xs text-[#999999] mt-4 text-center">
-            Comparison data based on each project&apos;s public docs and pricing pages, July 2026.
+            Based on each product&apos;s public documentation, September 2026.
           </p>
         </div>
       </section>
 
-      {/* ─── EACH COMPETITOR SHORT TAKE ─── */}
+      {/* ─── WHERE EACH WINS ─── */}
       <section className="px-6 py-16 max-w-6xl mx-auto w-full">
         <SectionHeading
-          title="Where each tool wins"
-          subtitle="None of these are bad — they're aimed at different jobs."
+          title="Where each one wins"
+          subtitle="None of these are bad. They are aimed at different people."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FeatureCard
-            icon="🧠"
-            title="Recallium"
-            description="Best-in-class cross-IDE memory. If you only need shared context between Cursor + Claude Code + VS Code and nothing else, this is the leanest path. MakoBot does the same thing AND adds AI Tools + Skills + an installer-grade UX."
+            icon="globe"
+            title="ChatGPT and Gemini desktop apps"
+            description="The best models in a polished window, on every platform. If you want a chat window and nothing more, they are hard to beat. They do not read your mail, keep your calendar, or remember what you told a different tool."
           />
           <FeatureCard
-            icon="🤖"
-            title="Zen MCP Server"
-            description="Heavy autonomous agent loops with stepwise planning, root cause analysis, and Ollama support. Best for engineers who want their MCP server to drive the analysis itself. MakoBot delegates that loop to Claude Code / Cursor and focuses on multi-model verification."
+            icon="building"
+            title="Microsoft Copilot"
+            description="If your whole life is in Microsoft 365 and you are happy for it to stay on Microsoft's servers, Copilot is deeply wired in. MakoBot uses the same Outlook, calendar and To Do accounts, but keeps the memory on your machine and also reads your Gmail."
           />
           <FeatureCard
-            icon="🗒️"
-            title="Claude Code auto-memory (native)"
-            description="Claude Code now keeps its own per-project notes and loads them each session — genuinely useful, and MakoBot works alongside it. But it's one tool, one project at a time: it doesn't know what happened in Cursor, in ChatGPT, or on your other nine projects. MakoBot is the cross-tool, cross-project layer above it."
+            icon="cpu"
+            title="Server agents (Hermes Agent, OpenClaw)"
+            description="Open source, endlessly extensible, and they run anywhere from a five-dollar VPS to a GPU cluster. Superb for engineers who want to own every piece. They assume a terminal, a server, and a chat app in front. MakoBot borrows several of their best ideas and puts them behind one installer."
           />
           <FeatureCard
-            icon="📦"
-            title="Mem0 / Letta / Zep / Memstate"
-            description="Memory-as-a-service APIs for developers building their own AI products. Not end-user tools. If you're shipping a SaaS that needs memory infrastructure, look here. If you want a desktop app that already works, look at MakoBot."
-          />
-          <FeatureCard
-            icon="🐳"
-            title="OpenMemory MCP (Mem0)"
-            description="Open-source local memory shared across MCP tools — the closest idea to MakoBot's 'one brain.' It's a developer tool: Docker, config files, manual saves, no capture of your actual work. MakoBot ships the same idea as a signed Windows app that watches your projects automatically — plus sync, health monitoring, agents, and search."
-          />
-          <FeatureCard
-            icon="🧩"
-            title="Pieces"
-            description="Polished long-term memory for developers, with cloud-assisted search and sync that runs through Pieces' own servers. If you're fine with a vendor cloud in the loop, it's solid. MakoBot keeps both on your side: semantic search runs entirely on-device, and MakoSync moves only encrypted packets through storage YOU control — your key, no account, no vendor cloud."
-          />
-          <FeatureCard
-            icon="🔍"
-            title="claude-mem"
-            description="Lightweight Claude Code session capture + replay. Single-tool, single-IDE. MakoBot's Memory pillar covers this and extends to every AI tool you use."
-          />
-          <FeatureCard
-            icon="✅"
-            title="Multi-LLM Cross-Check MCP"
-            description="The closest equivalent to MakoBot's @verify. Same idea — fan a draft answer out to multiple LLMs and return all opinions. MCP-only, no UI. MakoBot bundles this with audit / code_review / design_review / contract_review under the AI Tools tab."
-          />
-          <FeatureCard
-            icon="🌐"
-            title="MultiLLM Chrome / LLM Onestop / AskAll"
-            description="Browser-based side-by-side comparison tools. Useful for casual chat use, but not integrated with your AI coding tools. Different category."
+            icon="brain"
+            title="Memory tools (OpenMemory, Pieces, Mem0)"
+            description="Shared memory for your coding tools, some of it local and some cloud-assisted. Good at the one job. MakoBot does that job for Claude Code and any MCP client, and then also answers your mail and talks to you."
           />
         </div>
       </section>
 
-      {/* ─── WHEN TO PICK WHAT ─── */}
+      {/* ─── WHEN ─── */}
       <section className="px-6 py-16 bg-[#f8f9fb]">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
@@ -346,13 +218,12 @@ export default function ComparePage() {
               <div className="text-2xl mb-3">✓</div>
               <h3 className="text-lg font-semibold text-[#333333] mb-3">Pick MakoBot if…</h3>
               <ul className="space-y-3 text-sm text-[#555555] leading-relaxed">
-                <li>You use multiple AI coding tools and want them to share context.</li>
-                <li>You want second opinions from GPT and Gemini on Claude&apos;s answers (or vice versa).</li>
-                <li>You&apos;re not a CLI person and want a real Windows app with an installer.</li>
-                <li>You want to run audits and code reviews on demand without setting up agent infrastructure.</li>
-                <li>You want your API keys and data to stay on your machine.</li>
-                <li>You work on more than one computer and want the same memory on all of them — without a vendor cloud or another account.</li>
-                <li>You want to write rules once and have every AI tool follow them.</li>
+                <li>You want one assistant that knows your mail, your calendar and your projects, and you want all of it on your own machine.</li>
+                <li>You run Claude Code and are tired of re-explaining a project every session.</li>
+                <li>You would rather talk than type, and you do not want your voice uploaded.</li>
+                <li>You want a second AI to check an answer without giving it the keys.</li>
+                <li>You are not a terminal person and want a real Windows app with an installer.</li>
+                <li>You work on more than one computer and want the same memory on all of them without another account.</li>
               </ul>
             </div>
 
@@ -360,47 +231,14 @@ export default function ComparePage() {
               <div className="text-2xl mb-3">→</div>
               <h3 className="text-lg font-semibold text-[#333333] mb-3">Pick something else if…</h3>
               <ul className="space-y-3 text-sm text-[#555555] leading-relaxed">
-                <li>You use exactly ONE AI tool and its built-in memory feels like enough — you may not need MakoBot yet. Come back when you add a second tool.</li>
-                <li>You only need memory and nothing else — <span className="text-[#0061aa]">Recallium</span> is leaner.</li>
-                <li>You want a fully autonomous agent that drives its own multi-step analysis — <span className="text-[#0061aa]">Zen MCP</span> is heavier.</li>
-                <li>You already have Ollama / LM Studio wired up and don&apos;t want a bundled local model — <span className="text-[#0061aa]">Zen MCP</span> integrates with those; MakoBot ships its own LlamaSharp local model instead.</li>
-                <li>You&apos;re building a SaaS that needs memory infrastructure as a feature — <span className="text-[#0061aa]">Mem0</span> or <span className="text-[#0061aa]">Letta</span>.</li>
-                <li>You want a snippet manager with cloud convenience and don&apos;t mind a vendor cloud in the loop — <span className="text-[#0061aa]">Pieces</span>.</li>
-                <li>You only want side-by-side chat compare — a browser extension is enough.</li>
-                <li>You&apos;re on Mac or Linux only — MakoBot is Windows for now.</li>
+                <li>You use exactly one AI tool and its built-in memory feels like enough. Come back when you add a second.</li>
+                <li>You want an agent on a server you can reach from Telegram or Discord, and you are comfortable running one. <span className="text-[#0061aa]">Hermes Agent</span> is the strongest of those.</li>
+                <li>You only need shared memory for coding tools and nothing else. <span className="text-[#0061aa]">OpenMemory</span> is leaner.</li>
+                <li>You are building a product that needs memory as an API. <span className="text-[#0061aa]">Mem0</span> or <span className="text-[#0061aa]">Letta</span>.</li>
+                <li>You are on Mac or Linux. MakoBot is Windows for now.</li>
               </ul>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ─── THE BUNDLE ─── */}
-      <section className="px-6 py-16 max-w-5xl mx-auto w-full">
-        <SectionHeading
-          title="The bundle is the moat"
-          subtitle="None of the parts are revolutionary. The combination is."
-        />
-
-        <div className="bg-gradient-to-br from-[#f8f9fb] to-[#ffffff] rounded-xl border border-[#0061aa]/30 p-6 sm:p-10">
-          <p className="text-[#555555] text-base leading-relaxed mb-4">
-            Cross-IDE memory exists. Multi-LLM verification exists. MCP plug-in
-            architectures exist. Skills exist. The honest read: each piece is
-            available somewhere.
-          </p>
-          <p className="text-[#555555] text-base leading-relaxed mb-4">
-            MakoBot is the first to combine all of them in a{" "}
-            <span className="text-[#0061aa] font-semibold">single Windows-native
-            desktop app, with a real UI, a signed installer, an in-app updater,
-            and a license key</span> — designed for people who don&apos;t want to
-            stitch four CLI tools together.
-          </p>
-          <p className="text-[#555555] text-base leading-relaxed">
-            That&apos;s the bet:{" "}
-            <span className="text-[#333333] font-semibold">most people who would
-            benefit from these tools never will, because the existing ones
-            assume you live in a terminal.</span>{" "}
-            MakoBot is for everyone else.
-          </p>
         </div>
       </section>
 
@@ -408,11 +246,10 @@ export default function ComparePage() {
       <section className="px-6 py-20">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Try it on your own setup
+            Try her on your own setup
           </h2>
           <p className="text-[#555555] text-base mb-8">
-            Free key, free download. Runs entirely on your machine. Your keys,
-            your data, your bills.
+            Free key, free download. Runs on your machine, on your Claude plan.
           </p>
           <a
             href="/get-key"
@@ -428,8 +265,6 @@ export default function ComparePage() {
   );
 }
 
-/* ─── Local row component (richer than the existing CompetitorRow — supports
-       text labels, not just check/cross) ─── */
 function Row({
   feature,
   cells,

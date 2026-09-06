@@ -23,51 +23,48 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://makobot.com"),
   title: {
-    default: "MakoBot — One AI Memory for Claude, Cursor, ChatGPT & Every Tool You Use",
+    default: "MakoBot — The AI Assistant That Lives on Your PC and Never Forgets",
     template: "%s — MakoBot",
   },
   description:
-    "Your AI forgets everything. MakoBot remembers — one shared memory for Claude, Cursor, ChatGPT, and Gemini, 100% on your Windows PC. Every vendor's built-in memory is a silo; MakoBot is the brain above all of them. Free download.",
+    "MakoBot watches your inbox, keeps your calendar, talks and listens, and remembers every project and conversation, all on your own Windows PC. She briefs Claude Code and every AI tool you use. Free, no subscription.",
   keywords: [
-    "AI workbench",
+    "AI assistant for Windows",
+    "local AI assistant",
+    "AI email assistant",
     "AI memory",
-    "AI memory tool",
     "Claude Code memory",
-    "multi-model AI",
     "AI second opinion",
-    "AI session persistence",
-    "AI coding tools",
-    "developer tools",
-    "Cursor AI memory",
-    "ChatGPT memory",
-    "Windows app",
+    "voice assistant Windows",
+    "private AI assistant",
     "MCP server",
+    "Windows app",
     "MakoBot",
     "Mako Logics",
     "MakoBytes",
   ],
   openGraph: {
-    title: "MakoBot — One AI Memory for Claude, Cursor, ChatGPT & Every Tool You Use",
+    title: "MakoBot — The AI Assistant That Lives on Your PC and Never Forgets",
     description:
-      "Your AI forgets everything. MakoBot remembers — one shared memory for every AI tool you use, 100% on your Windows PC. Free download.",
+      "Mail, calendar, voice and memory, all on your own Windows machine. She briefs Claude Code and every AI tool you use. Free, no subscription.",
     url: "https://makobot.com",
     siteName: "MakoBot",
     type: "website",
     images: [
       {
-        url: "https://makobot.com/images/og.jpg",
-        width: 1392,
-        height: 752,
-        alt: "MakoBot — Local AI Workbench",
+        url: "https://makobot.com/images/og-v3.jpg",
+        width: 1376,
+        height: 768,
+        alt: "MakoBot, a small round silver robot with a glass dome and glowing blue eyes",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MakoBot — One AI Memory for Every Tool You Use",
+    title: "MakoBot — The AI Assistant That Lives on Your PC and Never Forgets",
     description:
-      "Your AI forgets everything. MakoBot remembers — one shared memory for Claude, Cursor, ChatGPT, and Gemini, 100% on your Windows PC.",
-    images: ["https://makobot.com/images/og.jpg"],
+      "Mail, calendar, voice and memory, all on your own Windows machine. She briefs Claude Code and every AI tool you use. Free, no subscription.",
+    images: ["https://makobot.com/images/og-v3.jpg"],
   },
 };
 
@@ -78,8 +75,8 @@ const jsonLd = {
       "@type": "SoftwareApplication",
       name: "MakoBot",
       description:
-        "Local AI Workbench for Windows. Gives every AI coding tool persistent searchable memory across every project, plus one-line plug-ins that fan out to GPT, Claude, and Gemini for second opinions on any answer.",
-      applicationCategory: "DeveloperApplication",
+        "A personal AI assistant for Windows that watches your email, keeps your calendar and to-do list, talks and listens, and remembers every project and conversation on your own machine. Briefs Claude Code and every AI tool you use.",
+      applicationCategory: "UtilitiesApplication",
       operatingSystem: "Windows 10, Windows 11",
       offers: {
         "@type": "Offer",
@@ -89,6 +86,7 @@ const jsonLd = {
       url: "https://makobot.com",
       downloadUrl: "https://makobot.com/get-key",
       softwareVersion: MAKOBOT_VERSION,
+      dateModified: SITE_LAST_UPDATED,
       author: {
         "@type": "Organization",
         name: "Mako Logics",
@@ -107,21 +105,6 @@ const jsonLd = {
       brand: {
         "@type": "Brand",
         name: "MakoBytes",
-      },
-    },
-    {
-      "@type": "VideoObject",
-      name: "MakoBot — Local AI Workbench for Windows",
-      description:
-        "Five-second hero loop showing the MakoBot local AI Workbench, the desktop app that gives every AI coding tool you use persistent memory and cross-checked second opinions.",
-      thumbnailUrl: "https://makobot.com/images/hero-poster.jpg",
-      contentUrl: "https://makobot.com/videos/hero.mp4",
-      uploadDate: SITE_LAST_UPDATED,
-      duration: "PT5S",
-      publisher: {
-        "@type": "Organization",
-        name: "Mako Logics",
-        url: "https://makobot.com",
       },
     },
   ],
