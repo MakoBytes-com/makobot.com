@@ -1,4 +1,5 @@
 "use client";
+import { Avatar } from "../../components";
 
 import { useEffect, useState } from "react";
 
@@ -133,13 +134,7 @@ export default function AdminUsersPage() {
                   <tr key={user.id} className="border-t border-[#dbdbdb]/50 hover:bg-[#dbdbdb]/20">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        {user.avatar_url ? (
-                          <img src={user.avatar_url} alt="" className="w-8 h-8 rounded-full" />
-                        ) : (
-                          <div className="w-8 h-8 rounded-full bg-[#dbdbdb] flex items-center justify-center text-xs text-[#777777]">
-                            {user.name?.charAt(0) || "?"}
-                          </div>
-                        )}
+                        <Avatar src={user.avatar_url} name={user.name} size={32} />
                         <span className="text-[#333333] font-medium">{user.name || "—"}</span>
                       </div>
                     </td>

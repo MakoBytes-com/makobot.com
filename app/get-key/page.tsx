@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { Logo } from "../components";
+import { Logo, Avatar } from "../components";
 import { MAKOBOT_BUILD } from "@/lib/version";
 
 export default function GetKeyPage() {
@@ -136,9 +136,7 @@ export default function GetKeyPage() {
         <div className="bg-[#f8f9fb] rounded-xl p-8 border border-[#dbdbdb] w-full max-w-lg">
           {/* User info */}
           <div className="flex items-center gap-3 mb-6">
-            {session.user.image && (
-              <img src={session.user.image} alt="" className="w-10 h-10 rounded-full" />
-            )}
+            <Avatar src={session.user.image} name={session.user.name} size={40} />
             <div>
               <p className="text-sm font-medium text-[#333333]">{session.user.name}</p>
               <p className="text-xs text-[#999999]">{session.user.email}</p>

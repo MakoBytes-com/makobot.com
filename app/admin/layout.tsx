@@ -3,7 +3,7 @@
 import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Logo } from "../components";
+import { Logo, Avatar } from "../components";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: "📊" },
@@ -77,9 +77,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
         <div className="p-4 border-t border-[#dbdbdb]">
           <div className="flex items-center gap-3">
-            {session.user.image && (
-              <img src={session.user.image} alt="" className="w-8 h-8 rounded-full" />
-            )}
+            <Avatar src={session.user.image} name={session.user.name} size={32} />
             <div className="min-w-0">
               <p className="text-xs font-medium text-[#333333] truncate">{session.user.name}</p>
               <p className="text-xs text-[#999999] truncate">{session.user.email}</p>

@@ -98,6 +98,40 @@ export function Logo({ size = 64 }: { size?: number }) {
   );
 }
 
+/* ─── AVATAR ───
+   A profile picture that can never render as a broken-image icon. Provider
+   photo links rotate (Google's especially), and the copy stored at first
+   sign-in goes stale. If the image fails to load, the initial takes its place. */
+export function Avatar({ src, name, size = 32 }: { src?: string | null; name?: string | null; size?: number }) {
+  const [failed, setFailed] = useState(false);
+  const initial = (name || "").trim().charAt(0).toUpperCase() || "?";
+  const dim = { width: size, height: size, fontSize: Math.max(11, Math.round(size * 0.4)) };
+  if (src && !failed) {
+    return (
+      /* eslint-disable-next-line @next/next/no-img-element */
+      <img
+        src={src}
+        alt=""
+        width={size}
+        height={size}
+        className="rounded-full flex-shrink-0 object-cover"
+        style={dim}
+        referrerPolicy="no-referrer"
+        onError={() => setFailed(true)}
+      />
+    );
+  }
+  return (
+    <div
+      className="rounded-full flex-shrink-0 bg-[#e6f0f9] text-[#0061aa] font-semibold flex items-center justify-center"
+      style={dim}
+      aria-hidden="true"
+    >
+      {initial}
+    </div>
+  );
+}
+
 /* ─── AI BADGE PILL ─── */
 /* color prop is accepted for backward compat but ignored — all chips render in
    the Bulldog-light navy via .badge-pill to keep the palette uniform. */
