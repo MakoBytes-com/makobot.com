@@ -126,6 +126,72 @@ html {
   animation: gentlePulse 6s ease-in-out infinite;
 }
 
+/* Full-picture hero (2026-09-06). The image covers the section, anchored to
+   the left so the assistant and the robot stay in frame; a fade to the page
+   colour runs across the right half so the words sit on something calm. */
+.hero-full {
+  position: relative;
+  isolation: isolate;
+  min-height: min(82vh, 820px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #eef2f7;
+}
+.hero-full > .relative {
+  width: 100%;
+}
+.hero-full-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.hero-full-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 22% 50%;
+  display: block;
+}
+.hero-full-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(248, 249, 251, 0) 38%, rgba(248, 249, 251, 0.82) 56%, rgba(248, 249, 251, 0.97) 72%, rgba(248, 249, 251, 1) 100%);
+}
+.hero-full-copy {
+  margin-left: auto;
+  max-width: 560px;
+  padding: 56px 0 64px;
+  text-align: left;
+}
+@media (max-width: 900px) {
+  .hero-full {
+    display: block;
+    min-height: 0;
+  }
+  .hero-full-media {
+    position: relative;
+    inset: auto;
+    z-index: 0;
+    aspect-ratio: 1376 / 768;
+  }
+  .hero-full-media img {
+    object-position: 50% 50%;
+  }
+  .hero-full-fade {
+    background: linear-gradient(180deg, rgba(248, 249, 251, 0) 70%, rgba(248, 249, 251, 1) 100%);
+  }
+  .hero-full-copy {
+    margin: 0 auto;
+    max-width: 640px;
+    padding: 20px 0 48px;
+    text-align: center;
+  }
+  .hero-full-copy .flex {
+    justify-content: center;
+  }
+}
+
 @keyframes gentlePulse {
   0%, 100% { filter: brightness(1) saturate(1); }
   50% { filter: brightness(1.18) saturate(1.4); }
