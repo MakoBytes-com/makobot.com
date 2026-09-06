@@ -47,9 +47,9 @@ export default function Home() {
           <div className="hero-full-fade" />
         </div>
 
-        <div className="relative max-w-6xl mx-auto px-6">
+        <div className="relative">
           <div className="hero-full-copy">
-            <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-bold leading-tight mb-4">
+            <h1 className="font-bold leading-tight mb-4">
               An assistant that lives on your PC{" "}
               <span className="gradient-text">and never forgets.</span>
             </h1>
