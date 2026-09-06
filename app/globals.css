@@ -136,7 +136,10 @@ html {
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: #eef2f7;
+  /* Must be the SAME colour the fade resolves to. It was #eef2f7 while the
+     fade went to #f8f9fb, and that one-step difference drew a hard vertical
+     line where the picture ended. */
+  background: #f8f9fb;
 }
 .hero-full > .relative {
   width: 100%;
@@ -167,7 +170,16 @@ html {
 .hero-full-fade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(248, 249, 251, 0) 84%, rgba(248, 249, 251, 0.8) 95%, rgba(248, 249, 251, 1) 100%);
+  /* A long ramp, not a lip: clear until the middle of the picture, then a
+     smooth climb to the page colour so there is no edge to find. */
+  background: linear-gradient(
+    90deg,
+    rgba(248, 249, 251, 0) 48%,
+    rgba(248, 249, 251, 0.35) 66%,
+    rgba(248, 249, 251, 0.78) 82%,
+    rgba(248, 249, 251, 0.96) 93%,
+    #f8f9fb 100%
+  );
 }
 .hero-full-copy {
   grid-column: 2;
