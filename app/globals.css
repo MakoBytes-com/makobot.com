@@ -170,14 +170,14 @@ html {
 .hero-full-fade {
   position: absolute;
   inset: 0;
-  /* A long ramp, not a lip: clear until the middle of the picture, then a
-     smooth climb to the page colour so there is no edge to find. */
+  /* Clear for two thirds of the picture, then a smooth climb to the page
+     colour over the last third. (48% start was "a bit too much".) */
   background: linear-gradient(
     90deg,
-    rgba(248, 249, 251, 0) 48%,
-    rgba(248, 249, 251, 0.35) 66%,
-    rgba(248, 249, 251, 0.78) 82%,
-    rgba(248, 249, 251, 0.96) 93%,
+    rgba(248, 249, 251, 0) 68%,
+    rgba(248, 249, 251, 0.3) 82%,
+    rgba(248, 249, 251, 0.75) 92%,
+    rgba(248, 249, 251, 0.95) 97%,
     #f8f9fb 100%
   );
 }
