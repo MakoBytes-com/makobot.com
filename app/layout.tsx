@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://makobot.com/images/og-v4.jpg",
+        url: "https://makobot.com/images/og-v5.jpg",
         width: 1376,
         height: 768,
         alt: "MakoBot, a small silver robot with a glowing blue brain, on a home-office desk beside a smiling assistant",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title: "MakoBot — The AI Assistant That Lives on Your PC and Never Forgets",
     description:
       "Mail, calendar, voice and memory, all on your own Windows machine. She briefs Claude Code and every AI tool you use. Free, no subscription.",
-    images: ["https://makobot.com/images/og-v4.jpg"],
+    images: ["https://makobot.com/images/og-v5.jpg"],
   },
 };
 
