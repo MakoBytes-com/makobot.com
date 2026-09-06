@@ -28,77 +28,77 @@ export default function Home() {
       <Nav />
 
       {/* ─── HERO ─── */}
-      <section id="hero" className="relative pt-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="relative overflow-hidden rounded-2xl border border-[#dbdbdb] bg-[#eef2f7] shadow-[0_18px_50px_rgba(29,53,84,0.12)]">
-            {/* Native 1376x768. Kept inside the content column rather than
-                stretched edge to edge, so it is never upscaled past its pixels. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={HERO_IMG}
-              alt="A smiling assistant at a home-office desk with MakoBot, a small silver robot with a glowing blue brain, sitting beside her laptop"
-              width={1376}
-              height={768}
-              fetchPriority="high"
-              decoding="async"
-              className="block w-full h-auto"
-            />
-          </div>
+      {/* The picture is the whole hero (Russell, 2026-09-06): it fills the
+          section edge to edge, anchored left so the assistant and the robot
+          stay in view, and the words sit on the right over a fade to the
+          page colour so they read at any width. Under 900px the picture
+          becomes a band on top and the words go below it. */}
+      <section id="hero" className="hero-full relative pt-20">
+        <div className="hero-full-media" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={HERO_IMG}
+            alt="A smiling assistant at a home-office desk with MakoBot, a small silver robot with a glowing blue brain, sitting beside her laptop"
+            width={1376}
+            height={768}
+            fetchPriority="high"
+            decoding="async"
+          />
+          <div className="hero-full-fade" />
         </div>
 
-        <div className="relative isolate flex flex-col items-center justify-center px-6 pt-14 pb-16">
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0061aa] opacity-[0.07] blur-[120px] pointer-events-none -z-10" />
+        <div className="relative max-w-6xl mx-auto px-6">
+          <div className="hero-full-copy">
+            <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-bold leading-tight mb-4">
+              An assistant that lives on your PC{" "}
+              <span className="gradient-text">and never forgets.</span>
+            </h1>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center max-w-4xl leading-tight mb-4">
-            An assistant that lives on your PC{" "}
-            <span className="gradient-text">and never forgets.</span>
-          </h1>
+            <p className="text-base sm:text-lg text-[#0061aa] font-semibold mb-5 tracking-wide">
+              Mail, calendar, voice, memory. All on your own Windows machine.
+            </p>
 
-          <p className="text-base sm:text-lg text-[#0061aa] text-center font-semibold mb-6 tracking-wide">
-            Mail, calendar, voice, memory. All on your own Windows machine.
-          </p>
+            <p className="text-lg text-[#333333] mb-4 leading-relaxed">
+              MakoBot watches your inbox, keeps your calendar and to-do list, talks
+              and listens, and remembers every project and every conversation. She
+              briefs{" "}
+              <span className="font-semibold">Claude Code</span> and the other AI
+              tools you already use, so nothing has to be explained twice. Her brain
+              runs on your Claude plan. Her memory stays on your disk.
+            </p>
 
-          <p className="text-lg sm:text-xl text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
-            MakoBot watches your inbox, keeps your calendar and to-do list, talks
-            and listens, and remembers every project and every conversation. She
-            briefs{" "}
-            <span className="text-[#333333] font-semibold">Claude Code</span> and
-            the other AI tools you already use, so nothing has to be explained
-            twice. Her brain runs on your Claude plan. Her memory stays on your
-            disk.
-          </p>
+            <p className="text-base text-[#555555] mb-7 leading-relaxed">
+              Free. No subscription. Nothing leaves your desk unless you send it.
+            </p>
 
-          <p className="text-base text-[#777777] text-center max-w-2xl mb-8 leading-relaxed">
-            Free. No subscription. Nothing leaves your desk unless you send it.
-          </p>
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+              <a
+                href="/get-key"
+                className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-lg transition-colors"
+              >
+                Get Free Key + Download
+              </a>
+              <a
+                href="#features"
+                className="inline-flex items-center justify-center px-8 py-4 rounded-lg border border-[#9fb3c8] bg-white/70 hover:border-[#555555] text-[#333333] font-medium text-lg transition-colors"
+              >
+                See what she does
+              </a>
+            </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 mb-10">
-            <a
-              href="/get-key"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-lg transition-colors"
-            >
-              Get Free Key + Download
-            </a>
-            <a
-              href="#features"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-lg border border-[#dbdbdb] hover:border-[#777777] text-[#555555] font-medium text-lg transition-colors"
-            >
-              See what she does
-            </a>
+            <div className="flex flex-wrap gap-3 mb-5">
+              <AiBadge name="Claude Code" />
+              <AiBadge name="Claude.ai" />
+              <AiBadge name="ChatGPT" />
+              <AiBadge name="Gemini" />
+              <AiBadge name="Outlook" />
+              <AiBadge name="Gmail" />
+            </div>
+
+            <p className="text-sm text-[#555555]">
+              Windows 10 and 11. Build {MAKOBOT_BUILD}, signed by Mako Logics LLC.
+            </p>
           </div>
-
-          <div className="flex flex-wrap justify-center gap-3 mb-6">
-            <AiBadge name="Claude Code" />
-            <AiBadge name="Claude.ai" />
-            <AiBadge name="ChatGPT" />
-            <AiBadge name="Gemini" />
-            <AiBadge name="Outlook" />
-            <AiBadge name="Gmail" />
-          </div>
-
-          <p className="text-sm text-[#999999]">
-            Windows 10 and 11. Build {MAKOBOT_BUILD}, signed by Mako Logics LLC.
-          </p>
         </div>
       </section>
 
