@@ -28,12 +28,12 @@ export default function ComparePage() {
 
         <p className="text-lg sm:text-xl text-[#555555] text-center max-w-3xl mb-4 leading-relaxed">
           MakoBot is not a chatbot in a browser tab and not an agent on a
-          rented server. She is an assistant on your own PC.
+          rented server. It is an assistant on your own PC.
         </p>
 
         <p className="text-base text-[#777777] text-center max-w-2xl">
-          Here is what the alternatives do well, where they overlap with her,
-          and where she is genuinely different.
+          Here is what the alternatives do well, where they overlap with it,
+          and where it is genuinely different.
         </p>
       </section>
 
@@ -72,11 +72,11 @@ export default function ComparePage() {
             <h3 className="text-lg font-semibold text-[#333333] mb-3">MakoBot</h3>
             <p className="text-sm text-[#555555] leading-relaxed mb-3">
               One signed Windows app. Install it, add a mailbox or a project
-              folder, and she is working. Her brain is Claude through your own
-              plan. Her memory is files on your disk.
+              folder, and it is working. Its brain is Claude through your own
+              plan. Its memory is files on your disk.
             </p>
             <p className="text-sm text-[#0061aa] font-semibold">
-              You give up: Mac and Linux. She is Windows only.
+              You give up: Mac and Linux. It is Windows only.
             </p>
           </div>
         </div>
@@ -246,7 +246,7 @@ export default function ComparePage() {
       <section className="px-6 py-20">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Try her on your own setup
+            Try it on your own setup
           </h2>
           <p className="text-[#555555] text-base mb-8">
             Free key, free download. Runs on your machine, on your Claude plan.

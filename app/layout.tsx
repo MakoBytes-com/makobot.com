@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s — MakoBot",
   },
   description:
-    "MakoBot watches your inbox, keeps your calendar, talks and listens, and remembers every project and conversation, all on your own Windows PC. She briefs Claude Code and every AI tool you use. Free, no subscription.",
+    "MakoBot watches your inbox, keeps your calendar, talks and listens, and remembers every project and conversation, all on your own Windows PC. It briefs Claude Code and every AI tool you use. Free, no subscription.",
   keywords: [
     "AI assistant for Windows",
     "local AI assistant",
@@ -46,13 +46,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "MakoBot — The AI Assistant That Lives on Your PC and Never Forgets",
     description:
-      "Mail, calendar, voice and memory, all on your own Windows machine. She briefs Claude Code and every AI tool you use. Free, no subscription.",
+      "Mail, calendar, voice and memory, all on your own Windows machine. It briefs Claude Code and every AI tool you use. Free, no subscription.",
     url: "https://makobot.com",
     siteName: "MakoBot",
     type: "website",
     images: [
       {
-        url: "https://makobot.com/images/og-v5.jpg",
+        url: "https://makobot.com/images/og-v4.jpg",
         width: 1376,
         height: 768,
         alt: "MakoBot, a small silver robot with a glowing blue brain, on a home-office desk beside a smiling assistant",
@@ -63,8 +63,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MakoBot — The AI Assistant That Lives on Your PC and Never Forgets",
     description:
-      "Mail, calendar, voice and memory, all on your own Windows machine. She briefs Claude Code and every AI tool you use. Free, no subscription.",
-    images: ["https://makobot.com/images/og-v5.jpg"],
+      "Mail, calendar, voice and memory, all on your own Windows machine. It briefs Claude Code and every AI tool you use. Free, no subscription.",
+    images: ["https://makobot.com/images/og-v4.jpg"],
   },
 };
 
