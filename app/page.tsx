@@ -20,7 +20,7 @@ import {
    bytes under an existing name reaches nobody who has already visited. Bump the
    -vN suffix on every replacement. (hero-robot-v2.mp4 was the last video hero;
    v3 is a still, built around the robot and nothing else.) */
-const HERO_IMG = "/images/hero-v5.webp";
+const HERO_IMG = "/images/hero-v4.webp";
 
 export default function Home() {
   return (
@@ -38,7 +38,7 @@ export default function Home() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={HERO_IMG}
-            alt="A smiling assistant at a home-office desk with MakoBot, a small silver robot with a glowing blue brain, sitting beside her laptop"
+            alt="A smiling assistant at a home-office desk with MakoBot, a small silver robot with a glowing blue brain, sitting beside the laptop"
             width={1376}
             height={768}
             fetchPriority="high"
@@ -60,11 +60,11 @@ export default function Home() {
 
             <p className="text-lg text-[#333333] mb-4 leading-relaxed">
               MakoBot watches your inbox, keeps your calendar and to-do list, talks
-              and listens, and remembers every project and every conversation. She
+              and listens, and remembers every project and every conversation. It
               briefs{" "}
               <span className="font-semibold">Claude Code</span> and the other AI
-              tools you already use, so nothing has to be explained twice. Her brain
-              runs on your Claude plan. Her memory stays on your disk.
+              tools you already use, so nothing has to be explained twice. Its brain
+              runs on your Claude plan. Its memory stays on your disk.
             </p>
 
             <p className="text-base text-[#555555] mb-7 leading-relaxed">
@@ -82,7 +82,7 @@ export default function Home() {
                 href="#features"
                 className="inline-flex items-center justify-center whitespace-nowrap px-6 py-4 rounded-lg border border-[#9fb3c8] bg-white/70 hover:border-[#555555] text-[#333333] font-medium text-base transition-colors"
               >
-                See what she does
+                See what it does
               </a>
             </div>
 
@@ -106,7 +106,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center">
           <SectionHeading
             title="A day with MakoBot"
-            subtitle="She is there before you sit down and still there after you leave."
+            subtitle="It is there before you sit down and still there after you leave."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
@@ -116,8 +116,8 @@ export default function Home() {
                 7:45 in the morning
               </p>
               <p className="text-[#777777] text-sm">
-                She has read the overnight mail and checked the calendar. If you
-                asked for the briefing, she says it out loud.
+                It has read the overnight mail and checked the calendar. If you
+                asked for the briefing, it reads it out loud.
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
@@ -126,7 +126,7 @@ export default function Home() {
                 The email that looks like your bank
               </p>
               <p className="text-[#777777] text-sm">
-                She checks the sender&apos;s own authentication records and tells
+                It checks the sender&apos;s own authentication records and tells
                 you whether it is genuine before you click anything.
               </p>
             </div>
@@ -148,7 +148,7 @@ export default function Home() {
       <section id="features" className="px-6 py-20">
         <div className="max-w-6xl mx-auto">
           <SectionHeading
-            title="What she does"
+            title="What it does"
             subtitle="Six things you will use every day."
           />
 
@@ -156,17 +156,17 @@ export default function Home() {
             <FeatureCard
               icon="message"
               title="Your inbox, watched"
-              description="Outlook, Gmail, iCloud and Yahoo. She watches every mailbox in the background, tells real mail from forged mail, and raises the ones that matter. She can draft and send replies, and every send waits for your approval. No setting turns that gate off."
+              description="Outlook, Gmail, iCloud and Yahoo. MakoBot watches every mailbox in the background, tells real mail from forged mail, and raises the ones that matter. It can draft and send replies, and every send waits for your approval. No setting turns that gate off."
             />
             <FeatureCard
               icon="list"
               title="Calendar and to-do"
-              description="Your Microsoft calendar and to-do list live inside the app, by month or by week. She creates and edits entries, keeps the team list separate from yours, and can read the day out."
+              description="Your Microsoft calendar and to-do list live inside the app, by month or by week. It creates and edits entries, keeps the team list separate from yours, and can read the day out."
             />
             <FeatureCard
               icon="mic"
-              title="Talk to her"
-              description="Whisper runs on your machine, so your voice never leaves it. She answers in a natural voice and starts speaking after the first sentence instead of waiting for the whole reply. Turn on the wake phrase and say her name."
+              title="Talk to it"
+              description="Whisper runs on your machine, so your voice never leaves it. MakoBot answers in a natural voice and starts speaking after the first sentence instead of waiting for the whole reply. Turn on the wake phrase and say its name."
             />
             <FeatureCard
               icon="phone"
@@ -176,12 +176,12 @@ export default function Home() {
             <FeatureCard
               icon="activity"
               title="Routines you approve"
-              description="A spoken morning briefing on weekdays, an end-of-day check, a Friday wrap-up. She suggests them once. Nothing runs until you say yes, and a routine can only look, never act."
+              description="A spoken morning briefing on weekdays, an end-of-day check, a Friday wrap-up. MakoBot suggests them once. Nothing runs until you say yes, and a routine can only look, never act."
             />
             <FeatureCard
               icon="agents"
               title="A second opinion"
-              description="One button brings another AI into the chat as a critic. It sees the conversation and her answer, is told to lead with the most serious problem, and has no tools. Only she acts, and only with your approval."
+              description="One button brings another AI into the chat as a critic. The critic sees the conversation and MakoBot's answer, is told to lead with the most serious problem, and has no tools. Only MakoBot acts, and only with your approval."
             />
           </div>
         </div>
@@ -191,7 +191,7 @@ export default function Home() {
       <section id="memory" className="px-6 py-20 bg-[#eef2f7]">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
-            title="She remembers everything"
+            title="It remembers everything"
             subtitle="Full records on your own disk. Not bullet points on someone's server."
           />
 
@@ -203,7 +203,7 @@ export default function Home() {
                 <li>Every conversation, saved in full. Never trimmed, never summarized away.</li>
                 <li>Your Claude Code sessions as readable transcripts, and every commit as it lands.</li>
                 <li>Your ChatGPT, Claude.ai and Gemini chats, captured by a small browser extension.</li>
-                <li>Notes she writes herself. A few minutes after a chat goes quiet she rereads it and saves at most two.</li>
+                <li>Notes it writes itself. A few minutes after a chat goes quiet it rereads the chat and saves at most two.</li>
               </ul>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
@@ -212,7 +212,7 @@ export default function Home() {
                 <li>Search by words or by meaning. The meaning search runs on your machine with a local model.</li>
                 <li>A backup every night, and dated archives when a file gets big. Nothing is ever deleted to make room.</li>
                 <li>An encrypted sync carries the same memory to your other computers through a folder you already use. It can only add, so a new laptop can never wipe an old desktop.</li>
-                <li>Every night or so she rereads her own notes for contradictions and patterns, and writes down what she noticed.</li>
+                <li>Every night or so it rereads its own notes for contradictions and patterns, and writes down what it noticed.</li>
               </ul>
             </div>
           </div>
@@ -224,7 +224,7 @@ export default function Home() {
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             title="The front door for Claude Code"
-            subtitle="Every AI tool has its own memory now. Every one of them is a silo. She sits above them."
+            subtitle="Every AI tool has its own memory now. Every one of them is a silo. MakoBot sits above them."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
@@ -234,19 +234,19 @@ export default function Home() {
                 Connected on its own
               </p>
               <p className="text-[#777777] text-sm leading-relaxed">
-                Add a project folder and Claude Code gets her memory tools in that
-                project automatically. She keeps the access keys healthy so
+                Add a project folder and Claude Code gets MakoBot&apos;s memory tools in that
+                project automatically. It keeps the access keys healthy so
                 nothing silently breaks.
               </p>
             </div>
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb] text-center">
               <Glyph name="dashboard" className="w-8 h-8 text-[#0061aa] mb-3 mx-auto" />
               <p className="text-[#333333] text-base font-medium mb-2">
-                She sees who is working
+                It sees who is working
               </p>
               <p className="text-[#777777] text-sm leading-relaxed">
                 Live Claude Code sessions show up in the app as they start, yours
-                in VS Code and hers in the background, so you always know what is
+                in VS Code and MakoBot&apos;s own in the background, so you always know what is
                 running.
               </p>
             </div>
@@ -256,7 +256,7 @@ export default function Home() {
                 Any tool that speaks MCP
               </p>
               <p className="text-[#777777] text-sm leading-relaxed">
-                Her memory server runs on your machine only. Cursor and any other
+                The memory server runs on your machine only. Cursor and any other
                 MCP client can search the memory, read the brain, and add a note.
               </p>
             </div>
@@ -277,7 +277,7 @@ export default function Home() {
       <section id="safety" className="px-6 py-20 bg-[#eef2f7]">
         <div className="max-w-6xl mx-auto">
           <SectionHeading
-            title="How she protects you"
+            title="How it protects you"
             subtitle="An assistant that reads your mail has to be careful. This one is."
           />
 
@@ -300,7 +300,7 @@ export default function Home() {
             <FeatureCard
               icon="shield"
               title="Knows where not to look"
-              description="She will not fetch addresses inside your own network, and she will not read Junk or Deleted mail on her own. Every send, reply, forward and delete waits for you."
+              description="It will not fetch addresses inside your own network, and it will not read Junk or Deleted mail on its own. Every send, reply, forward and delete waits for you."
             />
           </div>
         </div>
@@ -311,7 +311,7 @@ export default function Home() {
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             title="Built to keep running"
-            subtitle="She never shuts herself down, and she tells you when something is wrong."
+            subtitle="It never shuts itself down, and it tells you when something is wrong."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
@@ -338,10 +338,10 @@ export default function Home() {
         <div className="max-w-3xl mx-auto text-center">
           <Logo size={80} />
           <h2 className="text-3xl sm:text-4xl font-bold mt-8 mb-4">
-            Ready to meet her?
+            Ready to try it?
           </h2>
           <p className="text-lg text-[#555555] mb-8 max-w-xl mx-auto">
-            Download MakoBot, add a mailbox or a project folder, and let her
+            Download MakoBot, add a mailbox or a project folder, and let it
             start remembering. Free, on your machine, no subscription.
           </p>
 

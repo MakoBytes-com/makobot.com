@@ -63,7 +63,7 @@ export default function PrivacyPage() {
               </li>
               <li>
                 <span className="text-[#333333] font-medium">Microsoft&apos;s speech service</span>,
-                to turn her replies into a spoken voice. The text of the reply
+                to turn its replies into a spoken voice. The text of the reply
                 is sent for that purpose only.
               </li>
               <li>
@@ -74,7 +74,7 @@ export default function PrivacyPage() {
               <li>
                 <span className="text-[#333333] font-medium">Your own mail, calendar and AI providers</span>,
                 using credentials you enter, to do what you asked. Anthropic
-                receives the conversations you have with her, under your own
+                receives the conversations you have with it, under your own
                 Claude plan and Anthropic&apos;s terms.
               </li>
             </ul>
@@ -84,7 +84,7 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-semibold text-[#333333] mb-3">Things that only happen when you start them</h2>
             <p>
               If you ask a second AI for an opinion, the recent conversation and
-              her answer are sent to that provider with your own key, after
+              its answer are sent to that provider with your own key, after
               secrets have been scrubbed, and only after you have ticked a
               one-time consent. If you ask for an image or a video, the prompt
               goes to the generation service with your own key. If you turn on
@@ -98,7 +98,7 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-semibold text-[#333333] mb-3">What stays on your computer</h2>
             <p>
               Mailbox passwords are encrypted with Windows Data Protection and
-              are never logged or shown. Everything she remembers is stored as
+              are never logged or shown. Everything it remembers is stored as
               plain files under your Windows profile, and you can open, copy,
               back up or delete them at any time. Speech recognition runs
               locally, so audio is never uploaded. There is no usage analytics

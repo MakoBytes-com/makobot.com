@@ -198,7 +198,7 @@ export default function GetKeyPage() {
                   <li>Extract the zip and run MakoBot-Setup.exe</li>
                   <li>Follow the installer (choose desktop shortcut, start with Windows)</li>
                   <li>Paste your license key when prompted</li>
-                  <li>Add a mailbox or a project folder and she starts remembering</li>
+                  <li>Add a mailbox or a project folder and it starts remembering</li>
                 </ol>
               </div>
             </>
