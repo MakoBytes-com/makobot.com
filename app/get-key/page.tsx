@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { Logo } from "../components";
+import { MAKOBOT_BUILD } from "@/lib/version";
 
 export default function GetKeyPage() {
   const { data: session, status } = useSession();
@@ -95,7 +96,7 @@ export default function GetKeyPage() {
         Get Your Free License Key
       </h1>
       <p className="text-[#777777] text-center max-w-md mb-10">
-        Sign in with Google to generate your personal MakoBot license key and download the app.
+        Sign in with Google or GitHub to generate your personal MakoBot license key and download the app.
       </p>
 
       {status === "loading" ? (
@@ -183,7 +184,7 @@ export default function GetKeyPage() {
                 </p>
               )}
               <p className="text-xs text-[#999999] text-center mt-3">
-                Windows 10/11 · Signed by Mako Logics LLC · ~53 MB · Includes installer
+                Windows 10 and 11 · Signed by Mako Logics LLC · about 240 MB · Build {MAKOBOT_BUILD}
               </p>
               <div className="flex items-center justify-center gap-2 mt-3 px-4 py-2 rounded-lg bg-[#ffffff] border border-[#dbdbdb]/50">
                 <svg className="w-4 h-4 text-[#10B981] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
@@ -197,7 +198,7 @@ export default function GetKeyPage() {
                   <li>Extract the zip and run MakoBot-Setup.exe</li>
                   <li>Follow the installer (choose desktop shortcut, start with Windows)</li>
                   <li>Paste your license key when prompted</li>
-                  <li>Add your project folders and you&apos;re done</li>
+                  <li>Add a mailbox or a project folder and she starts remembering</li>
                 </ol>
               </div>
             </>
