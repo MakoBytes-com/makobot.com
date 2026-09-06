@@ -20,7 +20,7 @@ import {
    bytes under an existing name reaches nobody who has already visited. Bump the
    -vN suffix on every replacement. (hero-robot-v2.mp4 was the last video hero;
    v3 is a still, built around the robot and nothing else.) */
-const HERO_IMG = "/images/hero-v3.webp";
+const HERO_IMG = "/images/hero-v4.webp";
 
 export default function Home() {
   return (
@@ -36,7 +36,7 @@ export default function Home() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={HERO_IMG}
-              alt="MakoBot, a small round silver robot with a glass dome and glowing blue eyes"
+              alt="A smiling assistant at a home-office desk with MakoBot, a small silver robot with a glowing blue brain, sitting beside her laptop"
               width={1376}
               height={768}
               fetchPriority="high"
