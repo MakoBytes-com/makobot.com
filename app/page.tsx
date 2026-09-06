@@ -20,7 +20,7 @@ import {
    bytes under an existing name reaches nobody who has already visited. Bump the
    -vN suffix on every replacement. (hero-robot-v2.mp4 was the last video hero;
    v3 is a still, built around the robot and nothing else.) */
-const HERO_IMG = "/images/hero-v4.webp";
+const HERO_IMG = "/images/hero-v5.webp";
 
 export default function Home() {
   return (
