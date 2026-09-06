@@ -21,6 +21,9 @@ import {
    -vN suffix on every replacement. (hero-robot-v2.mp4 was the last video hero;
    v3 is a still, built around the robot and nothing else.) */
 const HERO_IMG = "/images/hero-v4.webp";
+/* The loop is the same picture brought to life (locked camera). The still
+   above is its poster and the whole hero for anyone with reduced motion on. */
+const HERO_VIDEO = "/videos/hero-v6.mp4";
 
 export default function Home() {
   return (
@@ -43,6 +46,18 @@ export default function Home() {
             height={768}
             fetchPriority="high"
             decoding="async"
+          />
+          <video
+            className="hero-full-video"
+            src={HERO_VIDEO}
+            poster={HERO_IMG}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+            tabIndex={-1}
           />
           <div className="hero-full-fade" />
         </div>

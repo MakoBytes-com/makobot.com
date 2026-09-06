@@ -158,7 +158,8 @@ html {
   width: 66%;
   z-index: -1;
 }
-.hero-full-media img {
+.hero-full-media img,
+.hero-full-media video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -166,6 +167,31 @@ html {
      right, keeps the assistant's face and the whole robot in the frame. */
   object-position: 35% 50%;
   display: block;
+}
+/* The loop lies exactly over the still; the still shows until the first
+   frame decodes and stays underneath in case the video never plays. */
+.hero-full-video {
+  position: absolute;
+  inset: 0;
+}
+/* The words arrive after the picture, one line after the next. */
+.hero-full-copy > * {
+  animation: heroRise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.hero-full-copy > :nth-child(1) { animation-delay: 120ms; }
+.hero-full-copy > :nth-child(2) { animation-delay: 240ms; }
+.hero-full-copy > :nth-child(3) { animation-delay: 340ms; }
+.hero-full-copy > :nth-child(4) { animation-delay: 420ms; }
+.hero-full-copy > :nth-child(5) { animation-delay: 500ms; }
+.hero-full-copy > :nth-child(6) { animation-delay: 580ms; }
+.hero-full-copy > :nth-child(7) { animation-delay: 660ms; }
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-full-video { display: none; }
+  .hero-full-copy > * { animation: none; }
 }
 .hero-full-fade {
   position: absolute;
@@ -205,7 +231,8 @@ html {
     z-index: 0;
     aspect-ratio: 1376 / 768;
   }
-  .hero-full-media img {
+  .hero-full-media img,
+  .hero-full-media video {
     object-position: 50% 50%;
   }
   .hero-full-fade {
