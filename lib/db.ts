@@ -80,6 +80,7 @@ export async function setupDatabase() {
       created_at TIMESTAMP DEFAULT NOW()
     )
   `;
+  await ensureSupportTicketsTable();
   // Backfill columns added to existing tables over time (not in original schema).
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar_type VARCHAR(50)`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar_data BYTEA`;
@@ -748,6 +749,43 @@ export async function setAppVersionStatus(
 //
 // MakoBot Build 103+ pings POST /api/update-installed right before launching
 // the auto-update installer. Lets the admin see who upgraded from what to what.
+
+let supportTableReady: Promise<void> | null = null;
+
+/**
+ * Support tickets (2026-09-06): what the help chat on the site could not
+ * answer, with the chat that came before it, for a person to answer from
+ * /admin/support. Created on first use so a fresh database needs no step.
+ */
+export function ensureSupportTicketsTable(): Promise<void> {
+  if (!supportTableReady) {
+    supportTableReady = (async () => {
+      const sql = getDb();
+      await sql`
+        CREATE TABLE IF NOT EXISTS support_tickets (
+          id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+          user_id     INTEGER REFERENCES users(id) ON DELETE SET NULL,
+          email       TEXT NOT NULL,
+          name        TEXT,
+          subject     TEXT NOT NULL,
+          message     TEXT NOT NULL,
+          transcript  JSONB NOT NULL DEFAULT '[]'::jsonb,
+          replies     JSONB NOT NULL DEFAULT '[]'::jsonb,
+          status      TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open','answered','closed')),
+          page        TEXT,
+          ip_prefix   TEXT,
+          created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+          updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+      `;
+      await sql`CREATE INDEX IF NOT EXISTS support_tickets_status_idx ON support_tickets (status, created_at DESC)`;
+    })().catch((err) => {
+      supportTableReady = null; // try again on the next call rather than caching a failure
+      throw err;
+    });
+  }
+  return supportTableReady;
+}
 
 export async function ensureUpdateEventsTable() {
   const sql = getDb();
