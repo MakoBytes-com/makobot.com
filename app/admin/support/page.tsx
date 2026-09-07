@@ -65,7 +65,9 @@ export default function AdminSupportPage() {
   }, []);
 
   useEffect(() => {
-    void load();
+    // Every state change happens after the fetch resolves, never synchronously in the effect body.
+    const t = setTimeout(() => void load(), 0);
+    return () => clearTimeout(t);
   }, [load]);
 
   const open = tickets.filter((t) => t.status === "open");
