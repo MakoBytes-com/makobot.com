@@ -14,7 +14,8 @@
 import { getDb, ensureSupportTicketsTable } from "./db";
 import { complete } from "./llm";
 import { supportKnowledge } from "./knowledge";
-import { sendMail, mailConfigured, escapeHtml, SUPPORT_ADDRESS } from "./mail";
+import { sendMail, mailConfigured, SUPPORT_ADDRESS } from "./mail";
+import { renderEmail } from "./email-template";
 
 export interface ChatTurn {
   role: "user" | "assistant";
@@ -119,12 +120,30 @@ export async function createTicket(input: {
   // Tell the owner. The visitor's message goes in full; nothing else is logged.
   const to = process.env.ALERT_EMAIL;
   if (to && mailConfigured()) {
-    const text = `New support ticket from ${t.email}${t.name ? ` (${t.name})` : ""}\n\nSubject: ${t.subject}\n\n${t.message}\n\nAnswer it at https://makobot.com/admin/support`;
+    const who = t.name ? `${t.name} <${t.email}>` : t.email;
+    const mail = renderEmail({
+      preheader: `${who}: ${t.message.slice(0, 110)}`,
+      kicker: "New support ticket",
+      title: t.subject,
+      blocks: [
+        {
+          rows: [
+            { label: "From", value: who },
+            { label: "Sent from", value: t.page ? `makobot.com${t.page}` : "makobot.com" },
+            { label: "Account", value: t.user_id ? "Signed in" : "Visitor" },
+          ],
+        },
+        { quote: t.message },
+        ...(t.transcript.length ? [{ transcript: t.transcript.slice(-8) }] : []),
+        { button: { label: "Answer it in Admin", href: "https://makobot.com/admin/support" } },
+      ],
+      outro: "Replying to this email goes straight to the person; replying from Admin keeps the answer on the ticket as well.",
+    });
     const sent = await sendMail({
       to,
       subject: `[MakoBot support] ${t.subject.slice(0, 80)}`,
-      text,
-      html: `<pre style="font:14px/1.5 Segoe UI,system-ui;white-space:pre-wrap">${escapeHtml(text)}</pre>`,
+      text: mail.text,
+      html: mail.html,
       replyTo: t.email,
     });
     if (!sent.ok) console.error("[support] owner alert did not send:", sent.error);
@@ -168,12 +187,19 @@ export async function replyTicket(id: string, by: string, text: string): Promise
     WHERE id = ${id} RETURNING *
   `;
   if (mailConfigured()) {
-    const body = `${text}\n\n--\nMakoBot support, about: ${t.subject}\nReply to this email to continue.`;
+    const first = (t.name ?? "").trim().split(/\s+/)[0];
+    const mail = renderEmail({
+      preheader: text.slice(0, 120),
+      kicker: "A reply from MakoBot support",
+      title: `About: ${t.subject}`,
+      blocks: [{ text: first ? `Hi ${first},` : "Hi," }, { quote: text }, { rows: [{ label: "You wrote", value: t.message.length > 220 ? `${t.message.slice(0, 220).trimEnd()}…` : t.message }] }],
+      outro: "Reply to this email to continue the conversation. It comes back to the same person.",
+    });
     const sent = await sendMail({
       to: t.email,
       subject: `Re: ${t.subject.slice(0, 80)}`,
-      text: body,
-      html: `<div style="font:15px/1.6 Segoe UI,system-ui;white-space:pre-wrap">${escapeHtml(body)}</div>`,
+      text: mail.text,
+      html: mail.html,
       replyTo: SUPPORT_ADDRESS,
     });
     if (!sent.ok) throw new Error(`Saved, but the email did not send (${sent.error ?? "unknown reason"}).`);
