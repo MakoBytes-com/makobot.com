@@ -241,6 +241,12 @@ export function Nav() {
             Compare
           </Link>
           <Link
+            href="/contact"
+            className="text-sm text-[#777777] hover:text-[#333333] transition-colors"
+          >
+            Contact
+          </Link>
+          <Link
             href="/#download"
             className="inline-flex items-center px-5 py-2 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white text-sm font-semibold transition-colors"
           >
@@ -314,6 +320,12 @@ export function Nav() {
             Compare
           </Link>
           <Link
+            href="/contact"
+            className="text-sm text-[#777777] hover:text-[#333333] transition-colors"
+          >
+            Contact
+          </Link>
+          <Link
             href="/#download"
             onClick={() => setOpen(false)}
             className="inline-flex items-center justify-center px-5 py-2 rounded-lg bg-[#0061aa] text-white text-sm font-semibold"
@@ -365,6 +377,7 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Mako Logics. All rights reserved.
           </p>
           <div className="flex gap-4 text-xs text-[#999999]">
+            <Link href="/contact" className="hover:text-[#555555] transition-colors">Contact</Link>
             <Link href="/privacy" className="hover:text-[#555555] transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-[#555555] transition-colors">Terms of Service</Link>
           </div>
