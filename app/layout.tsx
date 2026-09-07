@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "./providers";
 import { AnalyticsTracker } from "./analytics-tracker";
 import { BackToTop } from "./components";
+import SupportChat from "./support-chat";
 import { MAKOBOT_VERSION, SITE_LAST_UPDATED } from "@/lib/version";
 import "./globals.css";
 
@@ -137,6 +138,7 @@ export default function RootLayout({
             {children}
           </div>
           <BackToTop />
+          <SupportChat />
         </Providers>
       </body>
     </html>

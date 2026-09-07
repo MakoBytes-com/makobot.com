@@ -43,6 +43,18 @@ export default function PrivacyPage() {
               referrer, IP address) in our own database. We do not use
               advertising trackers and we do not sell or share any of this.
             </p>
+            <p className="mt-3">
+              The Help chat in the corner of the site answers from the text on
+              this site. Each question you type, with the last few messages of
+              that chat, is sent to Fireworks AI, the company that runs the
+              open-weight model behind it, to produce the answer. Nothing from
+              the chat is stored until you choose &ldquo;Talk to a person&rdquo;.
+              Then your email address, your message, and the chat so far are
+              saved as a support ticket in our database and emailed to us, and
+              a person replies from support@makobot.com. We keep tickets so we
+              can follow up; write to support@makobot.com if you want one
+              deleted.
+            </p>
           </section>
 
           <section>
@@ -127,6 +139,7 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-semibold text-[#333333] mb-3">Contact</h2>
             <p>
               Mako Logics LLC<br />
+              Support: support@makobot.com<br />
               Email: admin@makobot.com
             </p>
           </section>

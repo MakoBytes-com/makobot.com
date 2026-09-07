@@ -68,6 +68,7 @@ export default function TermsPage() {
             <h2 className="text-xl font-semibold text-[#333333] mb-3">Contact</h2>
             <p>
               Mako Logics LLC<br />
+              Support: support@makobot.com<br />
               Email: admin@makobot.com
             </p>
           </section>
