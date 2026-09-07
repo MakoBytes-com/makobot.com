@@ -12,6 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: "https://makobot.com",          lastModified: STATIC_LAST_MOD, changeFrequency: "weekly",  priority: 1 },
     { url: "https://makobot.com/get-key",  lastModified: STATIC_LAST_MOD, changeFrequency: "monthly", priority: 0.8 },
     { url: "https://makobot.com/compare",  lastModified: STATIC_LAST_MOD, changeFrequency: "monthly", priority: 0.7 },
+    { url: "https://makobot.com/contact",  lastModified: STATIC_LAST_MOD, changeFrequency: "yearly",  priority: 0.5 },
     { url: "https://makobot.com/privacy",  lastModified: STATIC_LAST_MOD, changeFrequency: "yearly",  priority: 0.3 },
     { url: "https://makobot.com/terms",    lastModified: STATIC_LAST_MOD, changeFrequency: "yearly",  priority: 0.3 },
   ];

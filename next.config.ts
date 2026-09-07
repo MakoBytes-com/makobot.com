@@ -8,13 +8,15 @@ import type { NextConfig } from "next";
 // "Content-Security-Policy-Report-Only" — the policy value itself is stable.
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com https://va.vercel-scripts.com https://vercel.live",
+  // challenges.cloudflare.com is Turnstile (script, iframe, verification
+  // calls); omit it and the captcha on the contact and help forms silently never renders.
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com https://va.vercel-scripts.com https://vercel.live https://challenges.cloudflare.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://lh3.googleusercontent.com https://avatars.githubusercontent.com https://raw.githubusercontent.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://accounts.google.com https://va.vercel-scripts.com https://vitals.vercel-insights.com https://vercel.live",
+  "connect-src 'self' https://accounts.google.com https://va.vercel-scripts.com https://vitals.vercel-insights.com https://vercel.live https://challenges.cloudflare.com",
   "media-src 'self'",
-  "frame-src 'self' https://accounts.google.com",
+  "frame-src 'self' https://accounts.google.com https://challenges.cloudflare.com",
   "form-action 'self' https://accounts.google.com",
   "object-src 'none'",
   "base-uri 'self'",

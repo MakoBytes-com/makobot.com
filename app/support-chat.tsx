@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import Turnstile from "./turnstile";
 
 /**
  * The help bubble in the corner of every public page. Chat first; a
@@ -104,16 +105,17 @@ export default function SupportChat() {
     }
   }
 
-  async function sendTicket(e: React.FormEvent) {
+  async function sendTicket(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (busy) return;
     setBusy(true);
     setError("");
+    const turnstileToken = new FormData(e.currentTarget).get("cf-turnstile-response");
     try {
       const res = await fetch("/api/support/ticket", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, message, page: path, transcript: turns.filter((x) => x !== OPENER) }),
+        body: JSON.stringify({ email, message, page: path, transcript: turns.filter((x) => x !== OPENER), turnstileToken }),
       });
       const j = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(j.error ?? "That did not send.");
@@ -231,6 +233,7 @@ export default function SupportChat() {
                   className="text-[15px] px-3 py-2.5 border border-[#cfd9e5] rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3a94d6]"
                 />
               </div>
+              <Turnstile action="support-chat" />
               {error && (
                 <p role="alert" className="m-0 text-sm text-[#a8232b] bg-[#fef2f2] border border-[#ffcaca] rounded-lg px-3 py-2">
                   {error}

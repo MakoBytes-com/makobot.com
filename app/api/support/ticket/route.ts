@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { rateLimit, clientKey, rateLimitHeaders, ipOf, ipPrefix } from "@/lib/ratelimit";
 import { createTicket, type ChatTurn } from "@/lib/support";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 /** A visitor or a signed-in user asks for a person. Makes a ticket and emails the owner. */
 
@@ -43,6 +44,15 @@ export async function POST(request: Request) {
 
   if (!email || !EMAIL_RE.test(email)) return NextResponse.json({ error: "Enter an email address we can reply to." }, { status: 400 });
   if (message.length < 5) return NextResponse.json({ error: "Tell us what is going on, in a sentence or two." }, { status: 400 });
+
+  // Every public form gets a captcha. Fail-closed when the secret is set; a
+  // signed-in user is already a known person and skips it.
+  if (!sessionEmail) {
+    const turnstile = await verifyTurnstile(typeof body.turnstileToken === "string" ? body.turnstileToken : null, ipOf(request));
+    if (!turnstile.ok) {
+      return NextResponse.json({ error: "The human check did not pass. Reload the page and try again, or email support@makobot.com." }, { status: 400 });
+    }
+  }
 
   try {
     const t = await createTicket({
