@@ -4,7 +4,7 @@ import { Logo } from "../components";
 import ContactForm from "./contact-form";
 
 export const metadata: Metadata = {
-  title: "Contact — MakoBot",
+  title: "Contact",
   description: "Ask a question, report a bug, or tell us what would make MakoBot better. A person at Mako Logics replies by email, usually the same day.",
   alternates: { canonical: "https://makobot.com/contact" },
 };

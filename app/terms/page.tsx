@@ -4,7 +4,7 @@ import { Logo } from "../components";
 import { TERMS_LAST_UPDATED } from "@/lib/version";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — MakoBot",
+  title: "Terms of Service",
   description:
     "The terms for using MakoBot, whether installed from makobot.com or the Microsoft Store, and for using makobot.com. Free license, your own accounts and Claude plan, software provided as is, Texas law.",
   alternates: { canonical: "https://makobot.com/terms" },
