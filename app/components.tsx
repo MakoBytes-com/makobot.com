@@ -98,20 +98,25 @@ export function Logo({ size = 64 }: { size?: number }) {
    Microsoft's official English badge (from get.microsoft.com), hosted locally.
    Brand rules: never redraw or recolor it, keep it a plain link. */
 export function StoreBadge({ height = 52 }: { height?: number }) {
+  /* The width must be explicit pixels, never "auto": Tailwind's preflight
+     max-width:100% plus a shrinkable flex parent collapsed an auto-width
+     badge to 0px in the hero. max-w-none + shrink-0 guard both ends. */
+  const width = Math.round(height * (161 / 44));
   return (
     <a
       href="https://apps.microsoft.com/detail/9NH5KTRLRQ7Q"
       target="_blank"
       rel="noopener"
-      className="inline-flex items-center"
+      className="inline-flex items-center flex-shrink-0"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/images/ms-store-badge-v1.svg"
         alt="Download MakoBot from the Microsoft Store"
-        width={Math.round(height * (161 / 44))}
+        width={width}
         height={height}
-        style={{ height, width: "auto" }}
+        className="max-w-none"
+        style={{ width, height }}
       />
     </a>
   );
