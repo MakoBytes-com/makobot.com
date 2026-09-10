@@ -19,6 +19,7 @@ export function llmsShortText(): string {
 - Home: https://makobot.com
 - How it compares: https://makobot.com/compare
 - Free key + download: https://makobot.com/get-key
+- Microsoft Store listing: https://apps.microsoft.com/detail/9NH5KTRLRQ7Q
 - Contact and support: https://makobot.com/contact
 - Privacy: https://makobot.com/privacy
 - Terms: https://makobot.com/terms
@@ -100,7 +101,7 @@ Mail, memory, transcripts and voice stay on the user's computer. The app contact
 
 - Website hosting: Vercel. DNS: Cloudflare.
 - Free license key: sign in with Google or GitHub at https://makobot.com/get-key.
-- Installer: a signed GitHub release asset behind an authenticated download. Also offered through the Microsoft Store, where no key is needed and updates arrive through the Store.
+- Installer: a signed GitHub release asset behind an authenticated download. Also on the Microsoft Store at https://apps.microsoft.com/detail/9NH5KTRLRQ7Q, where no key is needed and updates arrive through the Store.
 - Contact and support: https://makobot.com/contact, or support@makobot.com.
 - Product line: MakoBot and PixelCopy ship under the MakoBytes brand of Mako Logics LLC.
 
@@ -157,7 +158,7 @@ export const SUPPORT_FACTS = `
 
 ## Microsoft Store edition
 
-- MakoBot is also offered through the Microsoft Store as the same app. The Store edition installs and updates through the Store, needs no license key, and does not start with Windows on its own. The direct download from makobot.com uses a free key and updates itself with signed releases. Both keep every file on the user's own computer in the same places.
+- MakoBot is also offered through the Microsoft Store as the same app: https://apps.microsoft.com/detail/9NH5KTRLRQ7Q. The Store edition installs and updates through the Store, needs no license key, and does not start with Windows on its own. The direct download from makobot.com uses a free key and updates itself with signed releases. Both keep every file on the user's own computer in the same places.
 `;
 
 /** The block the support chat reads. */

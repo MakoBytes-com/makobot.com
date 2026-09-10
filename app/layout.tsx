@@ -86,6 +86,8 @@ const jsonLd = {
       },
       url: "https://makobot.com",
       downloadUrl: "https://makobot.com/get-key",
+      installUrl: "https://apps.microsoft.com/detail/9NH5KTRLRQ7Q",
+      sameAs: ["https://apps.microsoft.com/detail/9NH5KTRLRQ7Q"],
       softwareVersion: MAKOBOT_VERSION,
       dateModified: SITE_LAST_UPDATED,
       author: {

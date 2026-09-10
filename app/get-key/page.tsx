@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { Logo, Avatar } from "../components";
+import { Logo, Avatar, StoreBadge } from "../components";
 import { MAKOBOT_BUILD } from "@/lib/version";
 
 export default function GetKeyPage() {
@@ -187,6 +187,13 @@ export default function GetKeyPage() {
               <div className="flex items-center justify-center gap-2 mt-3 px-4 py-2 rounded-lg bg-[#ffffff] border border-[#dbdbdb]/50">
                 <svg className="w-4 h-4 text-[#10B981] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
                 <span className="text-xs text-[#777777]">Verified by <span className="text-[#333333] font-medium">Microsoft Azure Trusted Signing</span> — no SmartScreen warnings</span>
+              </div>
+
+              {/* The Store edition is the same app but needs no license key
+                  and updates through the Store (see lib/knowledge.ts). */}
+              <div className="mt-5 flex flex-col items-center gap-2">
+                <p className="text-xs text-[#999999]">Prefer the Microsoft Store? Same app — no key needed, updates arrive through the Store.</p>
+                <StoreBadge height={48} />
               </div>
 
               {/* Instructions */}
