@@ -241,32 +241,32 @@ export function Nav() {
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
         <Link href="/" className="flex items-center gap-3">
           <Logo size={36} />
-          <span className="text-lg font-bold text-[#333333]">MakoBot</span>
+          <span className="text-xl font-extrabold tracking-tight gradient-text">MakoBot</span>
         </Link>
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
           <Link
             href="/#how-it-works"
-            className="text-sm text-[#777777] hover:text-[#333333] transition-colors"
+            className="text-sm text-[#777777] hover:text-[#0061aa] transition-colors"
           >
             How It Works
           </Link>
           <Link
             href="/#features"
-            className="text-sm text-[#777777] hover:text-[#333333] transition-colors"
+            className="text-sm text-[#777777] hover:text-[#0061aa] transition-colors"
           >
             Features
           </Link>
           <Link
             href="/compare"
-            className="text-sm text-[#777777] hover:text-[#333333] transition-colors"
+            className="text-sm text-[#777777] hover:text-[#0061aa] transition-colors"
           >
             Compare
           </Link>
           <Link
             href="/contact"
-            className="text-sm text-[#777777] hover:text-[#333333] transition-colors"
+            className="text-sm text-[#777777] hover:text-[#0061aa] transition-colors"
           >
             Contact
           </Link>
@@ -279,7 +279,7 @@ export function Nav() {
           {session?.user?.isAdmin && (
             <Link
               href="/admin"
-              className="text-sm text-[#777777] hover:text-[#333333] transition-colors"
+              className="text-sm text-[#777777] hover:text-[#0061aa] transition-colors"
             >
               Admin
             </Link>
@@ -300,7 +300,7 @@ export function Nav() {
         <button
           type="button"
           onClick={() => setOpen(!open)}
-          className="md:hidden text-[#777777] hover:text-[#333333] p-2"
+          className="md:hidden text-[#777777] hover:text-[#0061aa] p-2"
           aria-label="Toggle menu"
         >
           <svg
@@ -345,7 +345,8 @@ export function Nav() {
           </Link>
           <Link
             href="/contact"
-            className="text-sm text-[#777777] hover:text-[#333333] transition-colors"
+            onClick={() => setOpen(false)}
+            className="text-sm text-[#777777] hover:text-[#0061aa] transition-colors"
           >
             Contact
           </Link>
@@ -389,7 +390,7 @@ export function Footer() {
           <div className="flex items-center gap-3">
             <Logo size={32} />
             <div>
-              <p className="text-sm font-semibold text-[#333333]">MakoBot</p>
+              <p className="text-sm font-extrabold tracking-tight gradient-text">MakoBot</p>
               <p className="text-xs text-[#999999]">by <a href="https://makologics.com" target="_blank" rel="noopener" className="hover:text-[#555555] transition-colors">Mako Logics</a></p>
             </div>
           </div>
