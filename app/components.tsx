@@ -75,26 +75,45 @@ export function BackToTop() {
   );
 }
 
-/* ─── LOGO ─── */
+/* ─── LOGO ───
+   The robot head itself — the same icon the app ships with and the Microsoft
+   Store shows. Served from /images (immutable cache), so the filename carries
+   a -vN suffix; bump it if the icon ever changes. */
 export function Logo({ size = 64 }: { size?: number }) {
-  const fontSize = Math.round(size * 0.45);
   return (
-    <div
-      className="relative rounded-full flex items-center justify-center logo-ring mx-auto"
-      style={{
-        width: size,
-        height: size,
-        background: "#ffffff",
-        border: `${Math.max(3, Math.round(size * 0.04))}px solid #0061aa`,
-      }}
+    /* eslint-disable-next-line @next/next/no-img-element */
+    <img
+      src="/images/makobot-icon-v1.webp"
+      alt=""
+      width={size}
+      height={size}
+      className="rounded-full logo-ring mx-auto select-none"
+      style={{ width: size, height: size }}
+      draggable={false}
+    />
+  );
+}
+
+/* ─── MICROSOFT STORE BADGE ───
+   Microsoft's official English badge (from get.microsoft.com), hosted locally.
+   Brand rules: never redraw or recolor it, keep it a plain link. */
+export function StoreBadge({ height = 52 }: { height?: number }) {
+  return (
+    <a
+      href="https://apps.microsoft.com/detail/9NH5KTRLRQ7Q"
+      target="_blank"
+      rel="noopener"
+      className="inline-flex items-center"
     >
-      <span
-        className="font-bold select-none"
-        style={{ fontSize, lineHeight: 1, color: "#0061aa" }}
-      >
-        M
-      </span>
-    </div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/ms-store-badge-v1.svg"
+        alt="Download MakoBot from the Microsoft Store"
+        width={Math.round(height * (161 / 44))}
+        height={height}
+        style={{ height, width: "auto" }}
+      />
+    </a>
   );
 }
 
