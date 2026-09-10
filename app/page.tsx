@@ -12,6 +12,7 @@ import {
   SectionHeading,
   Nav,
   Footer,
+  StoreBadge,
 } from "./components";
 
 /* VERSIONED FILENAMES for everything under /images and /videos. They are served
@@ -86,13 +87,16 @@ export default function Home() {
               Free. No subscription. Your data stays on your desk.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-8">
               <a
                 href="/get-key"
                 className="inline-flex items-center justify-center whitespace-nowrap px-6 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-base transition-colors"
               >
                 Get Free Key + Download
               </a>
+              <div className="flex justify-center">
+                <StoreBadge height={56} />
+              </div>
               <a
                 href="#features"
                 className="inline-flex items-center justify-center whitespace-nowrap px-6 py-4 rounded-lg border border-[#9fb3c8] bg-white/70 hover:border-[#555555] text-[#333333] font-medium text-base transition-colors"
@@ -360,12 +364,15 @@ export default function Home() {
             start remembering. Free, on your machine, no subscription.
           </p>
 
-          <a
-            href="/get-key"
-            className="inline-flex items-center justify-center px-10 py-5 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-xl transition-colors blue-glow"
-          >
-            Get Free Key + Download
-          </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href="/get-key"
+              className="inline-flex items-center justify-center px-10 py-5 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-xl transition-colors blue-glow"
+            >
+              Get Free Key + Download
+            </a>
+            <StoreBadge height={64} />
+          </div>
 
           <p className="mt-4 text-sm text-[#999999]">
             Windows 10 and 11 · about 240 MB · Build {MAKOBOT_BUILD} · Digitally signed by Mako Logics LLC
