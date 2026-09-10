@@ -203,6 +203,7 @@ export default function GetKeyPage() {
                   <li>Extract the zip and run MakoBot-Setup.exe</li>
                   <li>Follow the installer (choose desktop shortcut, start with Windows)</li>
                   <li>Paste your license key when prompted</li>
+                  <li>Sign in with your Claude account (Pro or Max) in Settings — MakoBot&apos;s brain runs on your own Claude plan</li>
                   <li>Add a mailbox or a project folder and it starts remembering</li>
                 </ol>
               </div>
