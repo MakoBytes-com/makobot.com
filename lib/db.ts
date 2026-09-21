@@ -168,7 +168,7 @@ export async function getUserByEmail(email: string) {
   // BYTEA) over the wire on every request to every page on the site.
   //
   // Build 102: LOWER() comparison on both sides. Google sometimes sends
-  // mixed-case emails (e.g. "Russell.Sailors@gmail.com") in profile.email
+  // mixed-case emails (e.g. "First.Last@example.com") in profile.email
   // even though the same account's stored row is lowercase. Without this
   // case-insensitive match, the session callback silently misses the user
   // and returns is_admin = undefined, locking the owner out of /admin.
