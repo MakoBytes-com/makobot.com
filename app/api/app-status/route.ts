@@ -8,7 +8,7 @@ import { getAppVersionStatus, getLatestApprovedAppVersion, ensureAppVersionsTabl
 // Response shape (always 200, never an error — defensive client design):
 //   {
 //     "currentVersion": "2.0.0.103",
-//     "status": "ok" | "deprecated" | "blocked" | "unknown",
+//     "status": "ok" | "deprecated" | "blocked" | "unknown" | "error",
 //     "message": "...optional message to show user...",
 //     "latestVersion": "2.0.0.105",
 //     "downloadUrl": "https://www.makobot.com/api/download"
@@ -30,15 +30,21 @@ export async function GET(request: NextRequest) {
     if (version) row = await getAppVersionStatus(version);
     latest = await getLatestApprovedAppVersion();
   } catch {
-    // DB error — return permissive defaults so a temporary outage on our side
-    // doesn't kill clients in the field.
-    return cacheableJson({
+    // DB error — say so, rather than claiming "ok". An outage must not lock
+    // anyone out, and it doesn't: the app treats "error" (and any word it does
+    // not know) as "no answer" and keeps working. But "ok" is a real answer,
+    // and it told a BLOCKED build its block was lifted, so the withdrawn
+    // build's background jobs restarted for as long as the database was down.
+    // Not cached: an outage answer must not outlive the outage at the edge.
+    const res = NextResponse.json({
       currentVersion: version || null,
-      status: "ok",
+      status: "error",
       message: null,
       latestVersion: null,
       downloadUrl: "https://www.makobot.com/api/download",
     });
+    res.headers.set("Cache-Control", "no-store");
+    return res;
   }
 
   return cacheableJson({
