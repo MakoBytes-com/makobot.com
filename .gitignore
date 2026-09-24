@@ -59,3 +59,6 @@ next-env.d.ts
 .mcp.json.*
 .cursor/mcp.json
 .cursor/mcp.json.*
+
+# per-machine Claude settings (points notes at the OneDrive hub; path differs per computer)
+.claude/settings.local.json
