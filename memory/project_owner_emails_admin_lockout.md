@@ -1,11 +1,11 @@
 ---
 name: project_owner_emails_admin_lockout
-description: makobot.com /admin is gated on users.is_admin from the DB; OWNER_EMAILS is the re-promote net, and its Mako half is inert because that address has never signed in.
+description: makobot.com /admin is gated on users.is_admin from the DB; OWNER_EMAILS (the re-promote net) is exactly admin@makobytes.com since 2026-09-25, Gmail removed, proven live.
 metadata:
   node_type: memory
   type: project
   originSessionId: 14bab693-7138-4bdd-9d93-43d967594269
-  modified: 2026-09-25T01:46:50.270Z
+  modified: 2026-09-25T02:19:42.273Z
 ---
 
 `/admin` on makobot.com renders "Admin Access Required" whenever
@@ -63,14 +63,44 @@ create a second Cloud Identity.
   Live site 200, all headers, no console errors.
 - DB at that moment: id 1 Gmail `is_admin = TRUE`, id 2 community, no
   `admin@makobytes.com` row.
-- **Blocked on:** Google's one-time SMS code for `admin@makobytes.com`
-  (needs Russell's phone). Check MakoBot memory for the makobytes tab
-  confirming it signs in.
-- **Step 2, once it signs in:** sign in to makobot.com with Google as
-  `admin@makobytes.com` (Playwright), confirm a `users` row with
-  `is_admin = TRUE`, then PATCH `jaalrsdlOon7RamW` to just
-  `admin@makobytes.com`, redeploy, verify live. The Gmail row keeps its
-  DB `is_admin`, so Russell keeps normal access.
+- (Was blocked on Google's SMS challenge; the makobytes tab cleared it
+  with Steven Thurmond's phone later that night.)
+
+## DONE 2026-09-25T02:12Z — OWNER_EMAILS is now exactly `admin@makobytes.com`
+
+- Signed in to LIVE makobot.com with Google as `admin@makobytes.com`
+  (Playwright, no SMS prompt). That created **users id 4**,
+  `admin@makobytes.com`, promoted to `is_admin = TRUE` by the OWNER_EMAILS
+  net on its first sign-in. /admin Dashboard rendered.
+- `jaalrsdlOon7RamW` metadata re-checked (only OWNER_EMAILS entry, type
+  encrypted, target exactly `["production"]`), PATCHed in place to
+  `admin@makobytes.com`. Redeployed `dpl_36vTHQQnorMYaGnvjKCdKM8Fs2mg`,
+  READY. Signed out (/admin then shows "Admin Access Required"), signed
+  back in as admin@makobytes.com → Dashboard. Temp re-pull: exact value, no
+  BOM, no CR, no `eyJ2IjoidjIi`, no Gmail anywhere in production env.
+- Users now: id 1 Gmail `is_admin = TRUE` (Russell's normal access, kept
+  by the DB flag, not by OWNER_EMAILS), id 2 community, id 4
+  admin@makobytes.com `is_admin = TRUE`.
+- **Lockout recovery path from now on:** sign in with Google as
+  admin@makobytes.com. Google may send its "verify it's you" codes for that
+  account to Steven Thurmond's mobile.
+- `rsailors@makologics.com` dropped from the list — it was inert (M365,
+  can never do Google/GitHub OAuth).
+- Local `.env.local` never held OWNER_EMAILS or the Gmail. A stale
+  gitignored `.env.production` (2026-05-01 plaintext pull of prod secrets,
+  never committed) was deleted.
+
+Same session, found while checking headers: the bare domain was a Vercel
+domain-level redirect, which answers before next.config and sent only
+`max-age=63072000` HSTS. Moved it into `next.config.ts` `redirects()` (host
+`makobot.com` → `https://www.makobot.com/:path*`, commit `6fc36ca`) and set
+the Vercel domain's redirect to null, so the 308 now carries the full header
+set. The Google OAuth callback lands on the apex and survives the hop
+(proven by a live sign-in). Then pointed every canonical, og:url, JSON-LD
+url, sitemap entry and robots Sitemap line at www (commit `fef339f`) — they
+had all named the apex, i.e. a canonical that redirects. **If the apex
+ever needs to become primary, re-add the redirect in the Vercel domain
+settings only after removing the next.config rule, or it loops.**
 
 `ALERT_EMAIL` = `admin@makobot.com` and `MAIL_FROM` =
 `MakoBot <support@makobot.com>` — already product addresses, no personal
