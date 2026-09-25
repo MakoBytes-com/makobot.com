@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 14bab693-7138-4bdd-9d93-43d967594269
-  modified: 2026-09-21T09:36:02.389Z
+  modified: 2026-09-25T01:46:50.270Z
 ---
 
 `/admin` on makobot.com renders "Admin Access Required" whenever
@@ -45,6 +45,32 @@ admin today (that comes from `users.is_admin`, still TRUE), but it would
 disarm the only working lockout insurance and leave a net pointing at an
 identity that cannot sign in. Do not remove it until a Mako identity has
 actually signed in once and been seen in `public.users`.
+
+## Gmail removal in progress, 2026-09-24
+
+Goal: get the personal Gmail out of `OWNER_EMAILS` without ever leaving the
+net pointed only at identities that cannot sign in. The Mako identity is
+**`admin@makobytes.com`**, a free Google Cloud Identity created by the
+makobytes.com session (password: `C:\Dev\makobytes.com\.env.local`,
+`GOOGLE_ADMIN_ACCOUNT_PASSWORD`). Decision: makobot.com reuses it. Do NOT
+create a second Cloud Identity.
+
+- **Step 1 DONE 2026-09-25T01:42Z.** Env entry `jaalrsdlOon7RamW` (target
+  asserted exactly `["production"]`, type encrypted) PATCHed in place to
+  `russell.sailors@gmail.com,rsailors@makologics.com,admin@makobytes.com`.
+  Redeployed prod (`dpl_6wvED1oxRXoxMJhnjXKZjuHQTPXc`, same commit
+  `11dbe6e`). Re-pulled to temp: exact value, no BOM, no CR, no ciphertext.
+  Live site 200, all headers, no console errors.
+- DB at that moment: id 1 Gmail `is_admin = TRUE`, id 2 community, no
+  `admin@makobytes.com` row.
+- **Blocked on:** Google's one-time SMS code for `admin@makobytes.com`
+  (needs Russell's phone). Check MakoBot memory for the makobytes tab
+  confirming it signs in.
+- **Step 2, once it signs in:** sign in to makobot.com with Google as
+  `admin@makobytes.com` (Playwright), confirm a `users` row with
+  `is_admin = TRUE`, then PATCH `jaalrsdlOon7RamW` to just
+  `admin@makobytes.com`, redeploy, verify live. The Gmail row keeps its
+  DB `is_admin`, so Russell keeps normal access.
 
 `ALERT_EMAIL` = `admin@makobot.com` and `MAIL_FROM` =
 `MakoBot <support@makobot.com>` — already product addresses, no personal

@@ -25,6 +25,10 @@ _Migrated 2026-07-25 from the old Desktop-path memory folder (project moved to
 - [Walkthrough component](project_walkthrough_component.md) — **no longer rendered** as of 2026-08-24; component still exists in components.tsx.
 - [Immutable cache: curl ≠ what Russell sees](feedback_immutable_cache_verify_what_user_sees.md) — /videos/* and /images/* are `immutable` for a year. Replacing media in place NEVER reaches existing visitors. Version the filename; check Cache-Control before claiming a media fix is live.
 - [The site changes itself via automation](project_site_changes_itself_via_automation.md) — Dependabot auto-merge + nightly backup workflows push to master and auto-deploy. ALWAYS `git fetch` first; a clean tree ≠ matching production.
-- [OWNER_EMAILS / admin lockout](project_owner_emails_admin_lockout.md) — /admin gates on `users.is_admin` from the DB; the OWNER_EMAILS re-promote net was unset until 2026-08-24. Also: `vercel env pull` blanks all Sensitive values.
+- [OWNER_EMAILS / admin lockout](project_owner_emails_admin_lockout.md) — /admin gates on `users.is_admin` from the DB; the OWNER_EMAILS re-promote net was unset until 2026-08-24. **Gmail removal half-done 2026-09-24**: admin@makobytes.com added, swap waits on its Google SMS verification. Also: `vercel env pull` blanks all Sensitive values.
 
 Note: aipromptshive.com memory used to live here by mistake. It has been moved to `c--...-Web-Projects-aipromptshive-com/memory/`. If you're working on aipromptshive.com, pull that folder's MEMORY.md instead.
+- [feedback no purple](feedback_no_purple.md) — Russell does not like purple in UI — use blue, grey, white, silver for core colors
+- [feedback provide links](feedback_provide_links.md) — Russell wants clickable links to every page or change being discussed
+- [feedback security warnings](feedback_security_warnings.md) — Always flag security risks before building, never let Russell discover them after
+- [reference azure signing](reference_azure_signing.md) — Azure Trusted Signing account details for code-signing MakoBot — resource names, role assignments, and remaining steps
