@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
     "MakoBot privacy policy. Your mail, memory, transcripts and voice stay on your computer. What the app connects to, what the website and the Microsoft Store collect, how long we keep support tickets, and your rights.",
-  alternates: { canonical: "https://makobot.com/privacy" },
+  alternates: { canonical: "https://www.makobot.com/privacy" },
 };
 
 function H({ children }: { children: React.ReactNode }) {

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "How MakoBot Compares — vs. Built-in AI Memory, Cloud Assistants, and Server Agents",
   description:
     "An honest comparison. Every AI now has built-in memory and every one of them is a silo. Cloud assistants keep your mail on their servers. Server agents need a Linux box. MakoBot is one assistant on your own Windows PC that reads your mail, keeps your calendar, talks, listens, and remembers.",
-  alternates: { canonical: "https://makobot.com/compare" },
+  alternates: { canonical: "https://www.makobot.com/compare" },
 };
 
 export default function ComparePage() {

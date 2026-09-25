@@ -20,6 +20,6 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "FacebookBot", allow: "/", disallow: ["/admin/", "/api/"] },
       { userAgent: "Bytespider", disallow: "/" },
     ],
-    sitemap: "https://makobot.com/sitemap.xml",
+    sitemap: "https://www.makobot.com/sitemap.xml",
   };
 }

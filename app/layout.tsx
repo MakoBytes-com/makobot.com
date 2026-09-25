@@ -22,7 +22,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://makobot.com"),
+  metadataBase: new URL("https://www.makobot.com"),
   title: {
     default: "MakoBot — The AI Assistant That Lives on Your PC and Never Forgets",
     template: "%s — MakoBot",
@@ -48,12 +48,12 @@ export const metadata: Metadata = {
     title: "MakoBot — The AI Assistant That Lives on Your PC and Never Forgets",
     description:
       "Mail, calendar, voice and memory, all on your own Windows machine. It briefs Claude Code and every AI tool you use. Free, no subscription.",
-    url: "https://makobot.com",
+    url: "https://www.makobot.com",
     siteName: "MakoBot",
     type: "website",
     images: [
       {
-        url: "https://makobot.com/images/og-v4.jpg",
+        url: "https://www.makobot.com/images/og-v4.jpg",
         width: 1376,
         height: 768,
         alt: "MakoBot, a small silver robot with a glowing blue brain, on a home-office desk beside a smiling assistant",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     title: "MakoBot — The AI Assistant That Lives on Your PC and Never Forgets",
     description:
       "Mail, calendar, voice and memory, all on your own Windows machine. It briefs Claude Code and every AI tool you use. Free, no subscription.",
-    images: ["https://makobot.com/images/og-v4.jpg"],
+    images: ["https://www.makobot.com/images/og-v4.jpg"],
   },
 };
 
@@ -84,8 +84,8 @@ const jsonLd = {
         price: "0",
         priceCurrency: "USD",
       },
-      url: "https://makobot.com",
-      downloadUrl: "https://makobot.com/get-key",
+      url: "https://www.makobot.com",
+      downloadUrl: "https://www.makobot.com/get-key",
       installUrl: "https://apps.microsoft.com/detail/9NH5KTRLRQ7Q",
       sameAs: ["https://apps.microsoft.com/detail/9NH5KTRLRQ7Q"],
       softwareVersion: MAKOBOT_VERSION,
@@ -93,18 +93,18 @@ const jsonLd = {
       author: {
         "@type": "Organization",
         name: "Mako Logics",
-        url: "https://makobot.com",
+        url: "https://www.makobot.com",
       },
     },
     {
       "@type": "WebSite",
       name: "MakoBot",
-      url: "https://makobot.com",
+      url: "https://www.makobot.com",
     },
     {
       "@type": "Organization",
       name: "Mako Logics",
-      url: "https://makobot.com",
+      url: "https://www.makobot.com",
       brand: {
         "@type": "Brand",
         name: "MakoBytes",
