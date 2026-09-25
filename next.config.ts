@@ -52,8 +52,21 @@ const nextConfig: NextConfig = {
   // was designed to be pasted onto third-party sites. Letting all of that hard
   // 404 throws away the link equity and dead-ends real visitors, so every old
   // path answers with a permanent redirect home instead.
+  //
+  // The bare domain redirects to www here rather than in Vercel's domain
+  // settings: a domain-level redirect is answered before this config runs, so
+  // it went out with Vercel's short default HSTS (no includeSubDomains, no
+  // preload). Done here, headers() below applies to the 308 as well. The query
+  // string passes through untouched, which the Google OAuth callback on
+  // makobot.com/api/auth/callback/google relies on.
   async redirects() {
     return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "makobot.com" }],
+        destination: "https://www.makobot.com/:path*",
+        permanent: true,
+      },
       { source: "/exchange", destination: "/", permanent: true },
       { source: "/exchange/:path*", destination: "/", permanent: true },
     ];
