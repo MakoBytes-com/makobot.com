@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { MAKOBOT_BUILD } from "@/lib/version";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "https://makobot.com" },
+  alternates: { canonical: "https://www.makobot.com" },
 };
 import {
   Logo,
