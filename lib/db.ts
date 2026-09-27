@@ -257,8 +257,10 @@ export async function deleteUser(userId: number) {
     // while they do, their NOT NULL user_id foreign keys still block a delete.
     // So: clean them only if they are actually there. to_regclass returns NULL
     // for a missing relation instead of raising, which a bare DELETE would.
+    // Unqualified on purpose: the site's database login points search_path at
+    // its own folder (schema "makobot" in the shared Mako Logics project).
     const [{ present }] = await tx`
-      SELECT to_regclass('public.exchange_listings') IS NOT NULL AS present
+      SELECT to_regclass('exchange_listings') IS NOT NULL AS present
     `;
 
     if (present) {
