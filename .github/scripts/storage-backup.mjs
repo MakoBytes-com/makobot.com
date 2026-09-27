@@ -76,10 +76,20 @@ async function listBucket(bucket) {
   return found;
 }
 
+// In a shared company project every site's buckets sit side by side, so a site
+// names its own in BACKUP_BUCKETS (comma-separated; "none" = this site has no
+// buckets) and never copies another site's files. "*" or unset = every bucket.
 async function listBuckets() {
   const res = await fetch(`${URL_BASE}/storage/v1/bucket`, { headers });
   if (!res.ok) throw new Error(`bucket list: HTTP ${res.status}`);
-  return (await res.json()).map((b) => b.name ?? b.id);
+  const all = (await res.json()).map((b) => b.name ?? b.id);
+  const want = process.env.BACKUP_BUCKETS;
+  if (want === undefined || want.trim() === "*") return all;
+  if (want.trim() === "none") return [];
+  const mine = want.split(",").map((s) => s.trim()).filter(Boolean);
+  const missing = mine.filter((b) => !all.includes(b));
+  if (missing.length) throw new Error(`bucket(s) not found: ${missing.join(", ")}`);
+  return mine;
 }
 
 // ------------------------------------------------------------ previous index

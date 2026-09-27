@@ -46,7 +46,14 @@ const OUT = resolve("backup-out");
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 
-const headers = { apikey: KEY, Authorization: `Bearer ${KEY}` };
+// Sites that live in their own folder (schema) of a shared company project set
+// BACKUP_DB_SCHEMA, so the dump reads that folder and no other site's tables.
+const SCHEMA = process.env.BACKUP_DB_SCHEMA || "";
+const headers = {
+  apikey: KEY,
+  Authorization: `Bearer ${KEY}`,
+  ...(SCHEMA ? { "Accept-Profile": SCHEMA } : {}),
+};
 
 // PostgREST publishes an OpenAPI document at the API root listing every table
 // it exposes. Discovering tables this way means a new table is backed up the

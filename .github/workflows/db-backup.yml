@@ -66,6 +66,8 @@ jobs:
           BACKUP_SUPABASE_URL: ${{ secrets.BACKUP_SUPABASE_URL }}
           BACKUP_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.BACKUP_SUPABASE_SERVICE_ROLE_KEY }}
           BACKUP_PROJECT_NAME: makobot
+          # This site's folder inside its company's Supabase project (repo variable; unset = public).
+          BACKUP_DB_SCHEMA: ${{ vars.BACKUP_DB_SCHEMA }}
         run: node .github/scripts/db-backup.mjs
 
       - name: Publish the database backup
@@ -98,6 +100,8 @@ jobs:
           BACKUP_SUPABASE_URL: ${{ secrets.BACKUP_SUPABASE_URL }}
           BACKUP_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.BACKUP_SUPABASE_SERVICE_ROLE_KEY }}
           BACKUP_PROJECT_NAME: makobot
+          # Only this site's own buckets (repo variable, comma-separated; "none" = no buckets; unset = every bucket).
+          BACKUP_BUCKETS: ${{ vars.BACKUP_BUCKETS || '*' }}
           GH_TOKEN: ${{ github.token }}
         run: node .github/scripts/storage-backup.mjs
 
