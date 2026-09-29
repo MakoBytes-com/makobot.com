@@ -45,7 +45,8 @@ export async function sendMail(input: { to: string; subject: string; text: strin
   }
 
   try {
-    const res = await fetch(`https://api.cloudflare.com/client/v4/accounts/${account}/email/sending/send`, {
+    // Through the Mako mail gate (MakoBytes-com/mail-gate): CLOUDFLARE_EMAIL_TOKEN holds this site's gate password, and the gate lets it send only as its own domain.
+    const res = await fetch(`https://mako-mail-gate.makologics.workers.dev/client/v4/accounts/${account}/email/sending/send`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
       body: JSON.stringify({
