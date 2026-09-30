@@ -239,7 +239,10 @@ export async function setUserAdmin(userId: number, isAdmin: boolean) {
  *    leave a deleted person with a working licence.
  *  - downloads and events are DETACHED (user_id -> NULL), not deleted. Both are
  *    analytics history; nulling keeps the totals honest while removing the link
- *    to the person. Both columns are nullable, so this is safe.
+ *    to the person. Their IP address and browser are cleared too, which
+ *    identify a person as surely as the link does. All nullable, so safe.
+ *  - support tickets are DELETED (by user and by email), and app update checks
+ *    lose the licence key, IP and browser — the privacy page promises both.
  */
 export async function deleteUser(userId: number) {
   const sql = getDb();

@@ -116,16 +116,7 @@ export async function createTicket(input: {
     RETURNING *
   `;
   const t = rowToTicket(rows[0] as Record<string, unknown>);
-
-  // The privacy page says tickets are kept for up to two years, then deleted.
-  // Done whenever a ticket arrives rather than by a separate timer: it runs as
-  // often as tickets come in, which is all it needs to. Never fatal — the
-  // visitor's ticket is already saved.
-  try {
-    await sql`DELETE FROM support_tickets WHERE created_at < NOW() - INTERVAL '730 days'`;
-  } catch (err) {
-    console.error("support ticket retention purge failed", err);
-  }
+  await purgeOldTickets();
 
   // Tell the owner. The visitor's message goes in full; nothing else is logged.
   const to = process.env.ALERT_EMAIL;
@@ -163,8 +154,23 @@ export async function createTicket(input: {
   return t;
 }
 
+/**
+ * The privacy page says tickets are kept for up to two years, then deleted.
+ * Run whenever a ticket arrives and whenever the admin list is opened — the
+ * two things that happen whenever the support desk is in use, so no separate
+ * timer is needed. Never fatal: the caller's own work has already happened.
+ */
+async function purgeOldTickets() {
+  try {
+    await getDb()`DELETE FROM support_tickets WHERE created_at < NOW() - INTERVAL '730 days'`;
+  } catch (err) {
+    console.error("support ticket retention purge failed", err);
+  }
+}
+
 export async function listTickets(status?: TicketStatus): Promise<Ticket[]> {
   await ensureSupportTable();
+  await purgeOldTickets();
   const sql = getDb();
   const rows = status
     ? await sql`SELECT * FROM support_tickets WHERE status = ${status} ORDER BY created_at DESC LIMIT 200`
