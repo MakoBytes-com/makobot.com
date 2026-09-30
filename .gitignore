@@ -62,3 +62,6 @@ next-env.d.ts
 
 # per-machine Claude settings (points notes at the OneDrive hub; path differs per computer)
 .claude/settings.local.json
+
+# Claude working notes — personal, never public (the repo is public for the release feed)
+memory/

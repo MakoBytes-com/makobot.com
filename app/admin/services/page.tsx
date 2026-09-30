@@ -37,7 +37,7 @@ const services = [
   {
     name: "Azure Portal (Code Signing)",
     url: "https://portal.azure.com/#view/Microsoft_Azure_TrustedSigning",
-    description: `Azure Trusted Signing for code-signing the MakoBot desktop app. Account: [removed]. Resource: makologics (East US). Signing active — every build signed by Mako Logics LLC. Intermediate CA rotates (EOC CA 04, AOC CA 03, AOC CA 04) — Build ${MAKOBOT_BUILD} currently live.`,
+    description: `Azure Trusted Signing for code-signing the MakoBot desktop app. Resource: makologics (East US). Signing active — every build signed by Mako Logics LLC. Intermediate CA rotates (EOC CA 04, AOC CA 03, AOC CA 04) — Build ${MAKOBOT_BUILD} currently live.`,
     category: "Security",
   },
   {
