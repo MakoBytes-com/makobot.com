@@ -49,7 +49,10 @@ export default function PrivacyPage() {
 
           <section>
             <H>What the app sends, and to whom</H>
-            <p className="mb-3">The app makes a small number of outbound connections on its own. None of them carry your mail, memory or conversations.</p>
+            <p className="mb-3">
+              The app makes a small number of outbound connections on its own. Apart from the voice, described below, none of them carry your mail,
+              memory or conversations.
+            </p>
             <ul className="list-disc list-inside space-y-2">
               <li>
                 <span className="text-[#333333] font-medium">makobot.com</span>, to activate a license key (direct-download edition only) and, about once
@@ -61,8 +64,9 @@ export default function PrivacyPage() {
                 edition updates through the Microsoft Store).
               </li>
               <li>
-                <span className="text-[#333333] font-medium">Microsoft&apos;s speech service</span>, to turn its replies into a spoken voice. The text of
-                the reply is sent for that purpose only.
+                <span className="text-[#333333] font-medium">Microsoft&apos;s speech service</span>, to turn what it says into a spoken voice. The text
+                being spoken is sent for that purpose only: its replies, and, if you have spoken email alerts on, the short summary of each alert (who it
+                is from and why it matters). Turn the voice off in Settings and nothing is sent.
               </li>
               <li>
                 <span className="text-[#333333] font-medium">Hugging Face</span>, once, to download the speech-recognition and search models that then run
@@ -75,7 +79,8 @@ export default function PrivacyPage() {
               </li>
               <li>
                 <span className="text-[#333333] font-medium">Your own mail, calendar and to-do providers</span>, using credentials you enter, to do what
-                you asked.
+                you asked. To reach a Microsoft mailbox the app uses an open-source helper, which is downloaded from the npm registry the first time you
+                connect one.
               </li>
             </ul>
             <p className="mt-3">
@@ -89,10 +94,13 @@ export default function PrivacyPage() {
             <H>Things that only happen when you start them</H>
             <p>
               If you ask a second AI for an opinion, the recent conversation and its answer are sent to that provider with your own key, after secrets
-              have been scrubbed, and only after you have ticked a one-time consent. If you ask for an image or a video, the prompt goes to the generation
-              service with your own key. If you turn on sync between your computers, encrypted packets are written to a folder you choose; the passphrase
-              never leaves your machine, so your storage provider sees only scrambled data. If you install the browser extension, it sends your ChatGPT,
-              Claude.ai and Gemini web conversations to the app on the same computer, and nowhere else.
+              have been scrubbed, and only after you have ticked a one-time consent. If you ask for an image or a video, the prompt goes to CrazyRouter,
+              the generation service, with your own key, along with any picture you give it to work from. If you turn on sync between your computers,
+              encrypted packets are written to a folder you choose; the passphrase never leaves your machine, so your storage provider sees only
+              scrambled data. If you choose a shared memory folder instead, a plain copy of your memory is written there so your other computers can
+              read it, so pick a folder only you can reach. If you install the browser extension, it sends your ChatGPT, Claude.ai and Gemini web
+              conversations to the app on the same computer, and nowhere else. If you switch on the site checks or Night Shift, the app uses the GitHub
+              and Vercel sign-ins already on your computer to read your own repositories and deployments, and visits your own sites.
             </p>
           </section>
 
