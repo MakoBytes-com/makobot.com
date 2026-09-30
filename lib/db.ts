@@ -280,9 +280,32 @@ export async function deleteUser(userId: number) {
       await tx`DELETE FROM exchange_listings        WHERE user_id = ${userId}`;
     }
 
-    // Keep the analytics, drop the identity.
-    await tx`UPDATE downloads SET user_id = NULL WHERE user_id = ${userId}`;
-    await tx`UPDATE events    SET user_id = NULL WHERE user_id = ${userId}`;
+    // The privacy page promises a deleted account takes its support tickets
+    // with it. Tickets carry the email (user_id only SETs NULL on delete), so
+    // they are removed by both. Guarded like the tables above, in case an
+    // older database has never created them.
+    const [{ tickets }] = await tx`SELECT to_regclass('support_tickets') IS NOT NULL AS tickets`;
+    if (tickets) {
+      await tx`
+        DELETE FROM support_tickets
+        WHERE user_id = ${userId}
+           OR lower(email) = (SELECT lower(email) FROM users WHERE id = ${userId})
+      `;
+    }
+    // App update checks carry the licence key, IP and browser; the key goes
+    // below, and nothing should still tie those rows to this person.
+    const [{ updates }] = await tx`SELECT to_regclass('update_events') IS NOT NULL AS updates`;
+    if (updates) {
+      await tx`
+        UPDATE update_events SET license_key = NULL, ip = NULL, user_agent = NULL
+        WHERE license_key IN (SELECT key FROM license_keys WHERE user_id = ${userId})
+      `;
+    }
+
+    // Keep the analytics, drop the identity — the IP address and browser too,
+    // which identify a person as surely as the account link does.
+    await tx`UPDATE downloads SET user_id = NULL, ip = NULL, user_agent = NULL WHERE user_id = ${userId}`;
+    await tx`UPDATE events    SET user_id = NULL, ip = NULL WHERE user_id = ${userId}`;
 
     // Revoke the licence, then remove the person.
     await tx`DELETE FROM license_keys WHERE user_id = ${userId}`;

@@ -117,6 +117,16 @@ export async function createTicket(input: {
   `;
   const t = rowToTicket(rows[0] as Record<string, unknown>);
 
+  // The privacy page says tickets are kept for up to two years, then deleted.
+  // Done whenever a ticket arrives rather than by a separate timer: it runs as
+  // often as tickets come in, which is all it needs to. Never fatal — the
+  // visitor's ticket is already saved.
+  try {
+    await sql`DELETE FROM support_tickets WHERE created_at < NOW() - INTERVAL '730 days'`;
+  } catch (err) {
+    console.error("support ticket retention purge failed", err);
+  }
+
   // Tell the owner. The visitor's message goes in full; nothing else is logged.
   const to = process.env.ALERT_EMAIL;
   if (to && mailConfigured()) {
