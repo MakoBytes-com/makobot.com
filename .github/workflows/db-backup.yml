@@ -15,6 +15,8 @@
 #   backup-<date>    full database dump, one gzipped JSON per table
 #   storage-<date>   storage objects new or changed since the last run
 #   storage-index    the running index the increments are computed against
+#   ledger-<date>    MakoBot memory ledger (makobot_ledger + makobot_ledger_byo),
+#                    separate job, own 14-release retention
 #
 # RESTORE: replay supabase/migrations/ for the schema, load each table from
 # backup-<date>, then apply the storage baseline followed by each storage
@@ -146,6 +148,89 @@ jobs:
           # permanently. Only the full database dumps roll over.
           gh release list --limit 300 --json tagName \
             --jq '.[].tagName | select(startswith("backup-"))' \
+            | sort -r | tail -n +15 | while read -r old; do
+              echo "removing $old"
+              gh release delete "$old" --yes --cleanup-tag || true
+            done
+
+  # MakoBot's cross-machine memory ledger (desktop-app sync data). It lives in
+  # the same Mako company Supabase project as the makobot schema, in its own
+  # schemas: makobot_ledger (live) and makobot_ledger_byo. makobot_ledger_test is
+  # test data and is deliberately NOT backed up (it is also not exposed to the
+  # API). service_role has SELECT only on these schemas; anon/authenticated
+  # have nothing, and RLS is off, so never grant them anything.
+  #
+  # A separate job so a ledger failure can never skip or change the makobot
+  # dump, the storage backup, or the backup-* retention above. Its releases use
+  # their own tag prefix (ledger-<date>) and their own 14-release prune.
+  #
+  # This backup belongs HERE and never on the MakoBot desktop-app repo: that
+  # repo's releases drive the installed app's auto-updater.
+  ledger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Check the secrets are present
+        env:
+          U: ${{ secrets.BACKUP_SUPABASE_URL }}
+          K: ${{ secrets.BACKUP_SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ -z "$U" ] || [ -z "$K" ]; then
+            echo "::error::BACKUP_SUPABASE_URL / BACKUP_SUPABASE_SERVICE_ROLE_KEY are not set on this repository."
+            exit 1
+          fi
+          echo "BACKUP_DATE=$(date -u +%F)" >> "$GITHUB_ENV"
+
+      - name: Dump makobot_ledger
+        env:
+          BACKUP_SUPABASE_URL: ${{ secrets.BACKUP_SUPABASE_URL }}
+          BACKUP_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.BACKUP_SUPABASE_SERVICE_ROLE_KEY }}
+          BACKUP_PROJECT_NAME: makobot-ledger
+          BACKUP_DB_SCHEMA: makobot_ledger
+        run: node .github/scripts/db-backup.mjs
+
+      - name: Dump makobot_ledger_byo
+        env:
+          BACKUP_SUPABASE_URL: ${{ secrets.BACKUP_SUPABASE_URL }}
+          BACKUP_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.BACKUP_SUPABASE_SERVICE_ROLE_KEY }}
+          BACKUP_PROJECT_NAME: makobot-ledger-byo
+          BACKUP_DB_SCHEMA: makobot_ledger_byo
+        run: node .github/scripts/db-backup.mjs
+
+      - name: Publish the ledger backup
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG="ledger-${BACKUP_DATE}"
+          FILES=("makobot-ledger-${BACKUP_DATE}.tar.gz" "makobot-ledger-byo-${BACKUP_DATE}.tar.gz")
+          NOTES="Automated backup of MakoBot's memory ledger taken ${BACKUP_DATE} (UTC)."
+          for F in "${FILES[@]}"; do
+            mkdir -p m && tar -xzf "$F" -C m ./manifest.json
+            NOTES="${NOTES} ${F}: $(node -p "require('./m/manifest.json').tables.length") tables, $(node -p "require('./m/manifest.json').total_rows") rows, $(du -h "$F" | cut -f1)."
+            rm -rf m
+          done
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "${FILES[@]}" --clobber
+          else
+            # --prerelease keeps these out of /releases/latest (see above).
+            gh release create "$TAG" "${FILES[@]}" --prerelease \
+              --title "Ledger backup ${BACKUP_DATE}" --notes "$NOTES"
+          fi
+
+      - name: Keep the last 14 ledger backups
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release list --limit 300 --json tagName \
+            --jq '.[].tagName | select(startswith("ledger-"))' \
             | sort -r | tail -n +15 | while read -r old; do
               echo "removing $old"
               gh release delete "$old" --yes --cleanup-tag || true
