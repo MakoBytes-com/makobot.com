@@ -32,7 +32,7 @@ export default function Home() {
       <Nav />
 
       {/* ─── HERO ─── */}
-      {/* The picture is the whole hero (the owner, 2026-09-06): it fills the
+      {/* The picture is the whole hero (owner decision, 2026-09-06): it fills the
           section edge to edge, anchored left so the assistant and the robot
           stay in view, and the words sit on the right over a fade to the
           page colour so they read at any width. Under 900px the picture
