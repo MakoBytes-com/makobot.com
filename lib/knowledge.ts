@@ -7,9 +7,13 @@ import { MAKOBOT_BUILD, MAKOBOT_VERSION } from "./version";
  * fact here and all three move together.
  */
 
-const versionLine = `Current release: version ${MAKOBOT_VERSION.replace(/\.0$/, "")}, build ${MAKOBOT_BUILD} (September 2026).`;
+// `build` comes from latestBuild() (lib/build.ts) — the registered release —
+// with the version.ts constant only as the no-database fallback.
+const versionLineFor = (build: string) =>
+  `Current release: version ${MAKOBOT_VERSION.replace(/\.0$/, "")}, build ${build}.`;
 
-export function llmsShortText(): string {
+export function llmsShortText(build: string = MAKOBOT_BUILD): string {
+  const versionLine = versionLineFor(build);
   return `# MakoBot — a personal AI assistant that lives on your Windows PC and never forgets
 
 > MakoBot is a free Windows desktop application from Mako Logics LLC. It runs a Claude-powered assistant on the user's own machine. It watches the user's email across Outlook, Gmail, iCloud and Yahoo, tells genuine mail from forged mail using the sender's authentication records, keeps the user's Microsoft calendar and to-do list, listens through a local speech model so audio never leaves the machine, speaks with a natural voice, and can be reached from a phone over the user's own private Tailscale network. It remembers everything: one brain file across all of the user's work, a context file per project, every conversation saved in full, Claude Code sessions saved as transcripts, commits recorded as they happen, and ChatGPT, Claude.ai and Gemini chats captured by a browser extension. Memory is searchable by words or by meaning, entirely on the machine, backed up nightly, and can be synced encrypted across the user's own computers. It is the front door for Claude Code: every project the user adds gets its memory tools automatically, and any MCP client can use them. Every send, reply, forward and delete waits for the user's approval, and no setting can turn that off. Mailbox passwords are sealed with Windows data protection, secrets are scrubbed before anything is written, and updates run only when signed by Mako Logics LLC. The app never shuts itself down and runs a daily self-check that reports facts. Its brain is Claude, on the user's own Anthropic API key, which Anthropic bills for what it uses. There is no subscription. ${versionLine}
@@ -31,7 +35,8 @@ export function llmsShortText(): string {
 `;
 }
 
-export function llmsFullText(): string {
+export function llmsFullText(build: string = MAKOBOT_BUILD): string {
+  const versionLine = versionLineFor(build);
   return `# MakoBot — a personal AI assistant that lives on your Windows PC and never forgets
 
 ## What it is
@@ -164,6 +169,6 @@ export const SUPPORT_FACTS = `
 `;
 
 /** The block the support chat reads. */
-export function supportKnowledge(): string {
-  return `${llmsFullText()}\n${SUPPORT_FACTS}`;
+export function supportKnowledge(build: string = MAKOBOT_BUILD): string {
+  return `${llmsFullText(build)}\n${SUPPORT_FACTS}`;
 }

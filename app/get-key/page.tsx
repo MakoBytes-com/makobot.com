@@ -4,10 +4,11 @@ import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { Logo, Avatar, StoreBadge } from "../components";
-import { MAKOBOT_BUILD } from "@/lib/version";
+import { useShownBuild } from "@/lib/use-build";
 
 export default function GetKeyPage() {
   const { data: session, status } = useSession();
+  const MAKOBOT_BUILD = useShownBuild();
   const [licenseKey, setLicenseKey] = useState<string | null>(null);
   const [tier, setTier] = useState<string>("");
   const [loading, setLoading] = useState(false);

@@ -1,9 +1,9 @@
 "use client";
 
-import { MAKOBOT_BUILD } from "@/lib/version";
+import { useShownBuild } from "@/lib/use-build";
 import { VERCEL_DASHBOARD_BASE } from "@/lib/vercel-team";
 
-const services = [
+const services: Array<{ name: string; url: string; description: string; category: string; showsBuild?: boolean }> = [
   {
     name: "Vercel",
     url: `${VERCEL_DASHBOARD_BASE}/makobot-com`,
@@ -37,14 +37,15 @@ const services = [
   {
     name: "Azure Portal (Code Signing)",
     url: "https://portal.azure.com/#view/Microsoft_Azure_TrustedSigning",
-    description: `Azure Trusted Signing for code-signing the MakoBot desktop app. Resource: makologics (East US). Signing active — every build signed by Mako Logics LLC. Intermediate CA rotates (EOC CA 04, AOC CA 03, AOC CA 04) — Build ${MAKOBOT_BUILD} currently live.`,
+    description: "Azure Trusted Signing for code-signing the MakoBot desktop app. Resource: makologics (East US). Every build's app and installer are signed by Mako Logics LLC; a fresh short-lived certificate is issued per signing, so the intermediate CA name changes from build to build.",
     category: "Security",
   },
   {
     name: "GitHub Releases (Downloads)",
     url: "https://github.com/MakoBytes-com/makobot.com/releases",
-    description: `MakoBot-Setup.zip (desktop app installer, signed with Azure Trusted Signing) is hosted on GitHub Releases on the makobot.com repo. v2.0.0 Build ${MAKOBOT_BUILD} is the current release. Ships the self-healing ClaudeInjector fix, reference-based skills injection (232 KB → 12 KB per project file), and segment-rotation logging so nothing is ever dropped. Auto-updater is in-app since Build 78 — users update without leaving MakoBot. The /get-key download button points here via the DOWNLOAD_URL env var.`,
+    description: "MakoBot-Setup.zip (the signed desktop installer) is a release asset on the makobot.com repo. The tag v2.0.0 is reused and the release is retitled \"Build N\" on every publish; the app's own update check compares against that title. publish.ps1 also registers each build in the App Versions list, which is where this site reads the current build number from. The /get-key download button points here via the DOWNLOAD_URL env var.",
     category: "Distribution",
+    showsBuild: true,
   },
   {
     name: "Google Search Console",
@@ -55,6 +56,7 @@ const services = [
 ];
 
 export default function AdminServicesPage() {
+  const build = useShownBuild();
   return (
     <div>
       <h1 className="text-2xl font-bold text-[#333333] mb-2">Services & Vendors</h1>
@@ -79,7 +81,10 @@ export default function AdminServicesPage() {
                     {s.category}
                   </span>
                 </div>
-                <p className="text-sm text-[#777777] leading-relaxed">{s.description}</p>
+                <p className="text-sm text-[#777777] leading-relaxed">
+                  {s.description}
+                  {s.showsBuild ? ` Current release: Build ${build}.` : ""}
+                </p>
                 <p className="text-xs text-[#999999] mt-2 group-hover:text-[#0061aa] transition-colors">{s.url}</p>
               </div>
               <svg className="w-5 h-5 text-[#999999] group-hover:text-[#0061aa] transition-colors shrink-0 mt-1" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">

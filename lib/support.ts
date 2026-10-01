@@ -14,6 +14,7 @@
 import { getDb, ensureSupportTicketsTable } from "./db";
 import { complete } from "./llm";
 import { supportKnowledge } from "./knowledge";
+import { latestBuild } from "./build";
 import { sendMail, mailConfigured, SUPPORT_ADDRESS } from "./mail";
 import { renderEmail } from "./email-template";
 
@@ -43,7 +44,7 @@ export async function answerSupport(turns: ChatTurn[]): Promise<ChatAnswer> {
     .join("\n");
   const r = await complete({
     system: SYSTEM,
-    user: `<<<KNOWLEDGE\n${supportKnowledge()}\nKNOWLEDGE>>>\n\nConversation so far:\n${history}\n\nReply to the visitor's last message.`,
+    user: `<<<KNOWLEDGE\n${supportKnowledge(await latestBuild())}\nKNOWLEDGE>>>\n\nConversation so far:\n${history}\n\nReply to the visitor's last message.`,
     maxTokens: 2500,
     temperature: 0.3,
   });
