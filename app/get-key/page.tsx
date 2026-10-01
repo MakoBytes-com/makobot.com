@@ -203,7 +203,13 @@ export default function GetKeyPage() {
                   <li>Extract the zip and run MakoBot-Setup.exe</li>
                   <li>Follow the installer (choose desktop shortcut, start with Windows)</li>
                   <li>Paste your license key when prompted</li>
-                  <li>Sign in with your Claude account (Pro or Max) in Settings — MakoBot&apos;s brain runs on your own Claude plan</li>
+                  <li>
+                    Paste your own Anthropic API key when it asks (make one at{" "}
+                    <a href="https://console.anthropic.com/settings/keys" className="underline" target="_blank" rel="noopener noreferrer">
+                      console.anthropic.com
+                    </a>
+                    ) — MakoBot&apos;s brain runs on it, and Anthropic bills that account for what it uses
+                  </li>
                   <li>Add a mailbox or a project folder and it starts remembering</li>
                 </ol>
               </div>

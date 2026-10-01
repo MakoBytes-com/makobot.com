@@ -6,7 +6,7 @@ import { TERMS_LAST_UPDATED } from "@/lib/version";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "The terms for using MakoBot, whether installed from makobot.com or the Microsoft Store, and for using makobot.com. Free license, your own accounts and Claude plan, software provided as is, Texas law.",
+    "The terms for using MakoBot, whether installed from makobot.com or the Microsoft Store, and for using makobot.com. Free license, your own accounts and Anthropic API key, software provided as is, Texas law.",
   alternates: { canonical: "https://www.makobot.com/terms" },
 };
 
@@ -79,9 +79,9 @@ export default function TermsPage() {
           <section>
             <H>What you need to bring</H>
             <p>
-              MakoBot&apos;s assistant runs on Claude, a service of Anthropic. To get answers you sign in with your own Claude subscription inside the
-              app. Mako Logics does not sell, resell, or include a Claude subscription, and your use of Claude is governed by Anthropic&apos;s terms and
-              your agreement with them. Mail, calendar, and to-do features use your own Microsoft, Google, Apple, or Yahoo accounts under those
+              MakoBot&apos;s assistant runs on Claude, a service of Anthropic. To get answers you add your own Anthropic API key inside the app,
+              and Anthropic bills that account for what MakoBot uses. Mako Logics does not sell, resell, or include an API key or any Claude
+              subscription, and your use of Claude is governed by Anthropic&apos;s terms and your agreement with them. Mail, calendar, and to-do features use your own Microsoft, Google, Apple, or Yahoo accounts under those
               providers&apos; terms. Optional features that call other AI, speech, image, or network services use keys or accounts you supply. We are not
               responsible for those services, their availability, their charges, or what they do with data you send them.
             </p>

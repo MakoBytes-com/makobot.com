@@ -80,11 +80,11 @@ export default function Home() {
               briefs{" "}
               <span className="font-semibold">Claude Code</span> and the other AI
               tools you already use, so nothing has to be explained twice. Its brain
-              runs on your Claude plan. Its memory stays on your disk.
+              is Claude, on your own Anthropic API key. Its memory stays on your disk.
             </p>
 
             <p className="text-base text-[#555555] mb-7 leading-relaxed">
-              Free. No subscription. Your data stays on your desk.
+              Free. No subscription. Anthropic bills your key for what Claude does, and your data stays on your desk.
             </p>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-8">
@@ -185,7 +185,7 @@ export default function Home() {
             <FeatureCard
               icon="mic"
               title="Talk to it"
-              description="Whisper runs on your machine, so your voice never leaves it. MakoBot answers in a natural voice and starts speaking after the first sentence instead of waiting for the whole reply. Turn on the wake phrase and say its name."
+              description="Whisper runs on your machine, so your voice never leaves it. Switch the spoken voice on and MakoBot answers in a natural voice (Microsoft's online speech service), starting after the first sentence instead of waiting for the whole reply. Turn on the wake phrase and say its name."
             />
             <FeatureCard
               icon="phone"
@@ -344,7 +344,7 @@ export default function Home() {
             <div className="bg-[#f8f9fb] rounded-xl p-6 border border-[#dbdbdb]">
               <ul className="space-y-3 text-sm text-[#555555] leading-relaxed">
                 <li><span className="text-[#333333] font-semibold">Files that heal.</span> If a settings or memory file is ever corrupted, the damaged copy is set aside and a fresh one is written. Nothing is lost silently.</li>
-                <li><span className="text-[#333333] font-semibold">A cost meter</span> on every chat, measured against your Claude plan, so you can see the spend before the limit sees you.</li>
+                <li><span className="text-[#333333] font-semibold">A cost meter</span> on every chat, showing what it has cost on your Anthropic account, so you see the spend as it happens.</li>
                 <li><span className="text-[#333333] font-semibold">Updates that verify themselves.</span> Download, check the signature, then run. Never the other way round.</li>
               </ul>
             </div>
