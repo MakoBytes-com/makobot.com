@@ -6,8 +6,10 @@ import {
   setAppVersionStatus,
   upsertAppVersion,
 } from "@/lib/db";
+import { refreshShownBuild } from "@/lib/build";
 
-// Admin CRUD for the app_versions kill-switch table.
+// Admin CRUD for the app_versions kill-switch table. Any change can move the
+// latest approved build, which the site prints — so each one refreshes it.
 
 export async function GET() {
   const session = await auth();
@@ -35,6 +37,7 @@ export async function POST(req: NextRequest) {
 
     await ensureAppVersionsTable();
     await upsertAppVersion({ version, buildNumber, status, message });
+    refreshShownBuild();
     return NextResponse.json({ ok: true });
   } catch (err) {
     return NextResponse.json({ error: (err as Error).message }, { status: 500 });
@@ -55,6 +58,7 @@ export async function PATCH(req: NextRequest) {
     }
     const message = typeof body.message === "string" ? body.message : null;
     await setAppVersionStatus(version, status, message);
+    refreshShownBuild();
     return NextResponse.json({ ok: true });
   } catch (err) {
     return NextResponse.json({ error: (err as Error).message }, { status: 500 });

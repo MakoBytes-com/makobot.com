@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
-import { MAKOBOT_BUILD } from "@/lib/version";
+import { latestBuild } from "@/lib/build";
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://www.makobot.com" },
 };
+
+// Static, regenerated hourly and the moment a new build is registered, so
+// "Build N" below follows the release instead of a setting nobody bumps.
+export const revalidate = 3600;
 import {
   Logo,
   AiBadge,
@@ -26,7 +30,8 @@ const HERO_IMG = "/images/hero-v4.webp";
    above is its poster and the whole hero for anyone with reduced motion on. */
 const HERO_VIDEO = "/videos/hero-v6.mp4";
 
-export default function Home() {
+export default async function Home() {
+  const MAKOBOT_BUILD = await latestBuild();
   return (
     <main className="flex flex-col min-h-screen">
       <Nav />

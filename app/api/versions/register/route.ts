@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ensureAppVersionsTable, upsertAppVersion } from "@/lib/db";
+import { refreshShownBuild } from "@/lib/build";
 
 // Secret-gated version registration for the publish pipeline.
 //
@@ -33,6 +34,8 @@ export async function POST(req: NextRequest) {
 
     await ensureAppVersionsTable();
     await upsertAppVersion({ version, buildNumber, status: "ok", message: null });
+    // The site shows the registered build (lib/build.ts) — follow it now.
+    refreshShownBuild();
     return NextResponse.json({ ok: true, version, buildNumber });
   } catch (err) {
     return NextResponse.json({ error: String(err) }, { status: 500 });
