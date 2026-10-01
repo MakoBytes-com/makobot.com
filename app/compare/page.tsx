@@ -249,7 +249,7 @@ export default function ComparePage() {
             Try it on your own setup
           </h2>
           <p className="text-[#555555] text-base mb-8">
-            Free key, free download. Runs on your machine, on your Claude plan.
+            Free key, free download. Runs on your machine, on your own Anthropic API key.
           </p>
           <a
             href="/get-key"
