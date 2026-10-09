@@ -51,10 +51,12 @@ export default function PrivacyPage() {
               save&rdquo; in Settings are replaced wherever MakoBot saves text. If a file in a cloud folder MakoBot reads (a sync or sharing folder) is
               online-only, your sync provider downloads it so MakoBot can read it. When it
               looks at your screen (because you asked, or, if you chose &ldquo;Let it work on its own&rdquo;, because it decided to), it saves a
-              picture of each monitor in your Pictures\MakoBot\screen folder and sends it to Anthropic. Speech recognition runs on your machine, so
+              picture of each monitor in the screen folder inside MakoBot&apos;s Media folder and sends it to Anthropic. Pictures and videos it
+              makes, and those screen pictures, are kept in a Media folder inside MakoBot&apos;s Local AppData folder unless you choose another folder
+              in Settings; MakoBot never saves them to a personal OneDrive. Speech recognition runs on your machine, so
               audio is never uploaded. Backups go to MakoBot&apos;s own data folder unless you choose another folder in Settings, and older copies are
               kept for up to a year (daily, weekly and monthly); they are plain files unless you set a backup passphrase, and if you choose a
-              cloud-synced folder, that provider holds a copy. When you add a project, MakoBot adds (or refreshes) a &ldquo;makobot&rdquo; entry in
+              cloud-synced folder, that provider holds a copy (MakoBot will not use a personal OneDrive). When you add a project, MakoBot adds (or refreshes) a &ldquo;makobot&rdquo; entry in
               that project&apos;s .mcp.json file, and in .cursor/mcp.json where you use Cursor, so those tools can reach its memory; it adds those file
               names to the project&apos;s .gitignore so the local access key is never committed; and it refreshes the key in its own entry in Cursor,
               Gemini CLI or Windsurf settings you already have. MakoBot keeps a count of which of its screens you open, on your computer only, and never
@@ -63,7 +65,7 @@ export default function PrivacyPage() {
               it in Settings. It never looks there unless you ask. Your own Claude Code hooks run only if you switch that on. Removing a conversation
               in the app moves it to a &ldquo;deleted&rdquo; folder inside the data folder, so it can be brought back; delete that file by hand to
               erase it. Uninstalling leaves your data in place so nothing is lost by accident (the downloaded installer offers to delete it). To remove
-              everything, delete MakoBot&apos;s folders in your Local and Roaming AppData folders and in Pictures, the &ldquo;makobot&rdquo; entries it
+              everything, delete MakoBot&apos;s folders in your Local and Roaming AppData folders (and the pictures folder, if you chose one in Settings), the &ldquo;makobot&rdquo; entries it
               added to your projects&apos; .mcp.json files, and the entries starting with ms-365-mcp-server in Windows Credential Manager (your Microsoft
               mailbox sign-ins).
             </p>
