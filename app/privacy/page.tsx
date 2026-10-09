@@ -51,7 +51,7 @@ export default function PrivacyPage() {
               save&rdquo; in Settings are replaced wherever MakoBot saves text. If a file in a cloud folder MakoBot reads (a sync or sharing folder) is
               online-only, your sync provider downloads it so MakoBot can read it. When it
               looks at your screen (because you asked, or, if you chose &ldquo;Let it work on its own&rdquo;, because it decided to), it saves a
-              picture of each monitor in the screen folder inside MakoBot&apos;s pictures folder and sends it to Anthropic. Pictures and videos it
+              picture of each monitor in the screen folder inside MakoBot&apos;s Media folder and sends it to Anthropic. Pictures and videos it
               makes, and those screen pictures, are kept in a Media folder inside MakoBot&apos;s Local AppData folder unless you choose another folder
               in Settings; MakoBot never saves them to a personal OneDrive. Speech recognition runs on your machine, so
               audio is never uploaded. Backups go to MakoBot&apos;s own data folder unless you choose another folder in Settings, and older copies are
