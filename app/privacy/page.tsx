@@ -204,8 +204,9 @@ export default function PrivacyPage() {
             <H>Support chat, contact page and tickets</H>
             <p>
               The Help chat in the corner of the site answers from the text on this site. Each question you type, with the last few messages of that
-              chat, is sent to Fireworks AI, the company that runs the open-weight model behind it, to produce the answer; Fireworks does not train on it
-              and we do not store it. Nothing from the chat is kept until you choose &ldquo;Talk to a person&rdquo;. Then your email address, your message
+              chat, is sent to Anthropic, the company that makes the Claude model behind it, to produce the answer. Under its commercial terms
+              Anthropic does not train its models on it, and we do not store it. Nothing from the chat is kept until you choose &ldquo;Talk to a
+              person&rdquo;. Then your email address, your message
               and the chat so far are saved as a support ticket in our database, emailed to us, and answered by a person from support@makobot.com.
               Messages sent through the contact page or by email become tickets the same way. We keep the first three parts of your IP address with a
               ticket to tell one visitor from many; never the whole address. Tickets are kept for up to two years so we can follow up on a repeat problem,

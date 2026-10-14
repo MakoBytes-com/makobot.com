@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { rateLimit, clientKey, rateLimitHeaders } from "@/lib/ratelimit";
 import { answerSupport, type ChatTurn } from "@/lib/support";
-import { llmConfigured } from "@/lib/llm";
+import { llmConfigured, describeFailure } from "@/lib/llm";
+import { recordChatFailure, recordChatSuccess } from "@/lib/support-health";
 
 /**
  * The support chat. Public, rate-limited, short messages only, nothing
@@ -24,6 +25,7 @@ export async function POST(request: Request) {
     );
   }
   if (!llmConfigured()) {
+    await recordChatFailure("ANTHROPIC_API_KEY is not set on the site.", false);
     return NextResponse.json({ answer: "The assistant is not available right now. Use 'Talk to a person' and we will answer by email.", escalate: true });
   }
 
@@ -42,9 +44,12 @@ export async function POST(request: Request) {
   if (!turns.length || turns[turns.length - 1].role !== "user") return NextResponse.json({ error: "Say something first." }, { status: 400 });
   try {
     const a = await answerSupport(turns);
+    await recordChatSuccess();
     return NextResponse.json(a);
   } catch (err) {
     console.error("[support-chat] failed:", err);
+    const { reason, billing } = describeFailure(err);
+    await recordChatFailure(reason, billing);
     return NextResponse.json({ answer: "I could not answer just now. Use 'Talk to a person' and we will reply by email.", escalate: true });
   }
 }

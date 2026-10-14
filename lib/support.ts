@@ -44,9 +44,9 @@ export async function answerSupport(turns: ChatTurn[]): Promise<ChatAnswer> {
     .join("\n");
   const r = await complete({
     system: SYSTEM,
-    user: `<<<KNOWLEDGE\n${supportKnowledge(await latestBuild())}\nKNOWLEDGE>>>\n\nConversation so far:\n${history}\n\nReply to the visitor's last message.`,
-    maxTokens: 2500,
-    temperature: 0.3,
+    context: `<<<KNOWLEDGE\n${supportKnowledge(await latestBuild())}\nKNOWLEDGE>>>`,
+    user: `Conversation so far:\n${history}\n\nReply to the visitor's last message.`,
+    maxTokens: 4000,
   });
   const escalate = /\[\[ESCALATE\]\]/.test(r.text);
   const answer = r.text.replace(/\[\[ESCALATE\]\]/g, "").trim();
