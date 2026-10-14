@@ -154,7 +154,6 @@ export default function ComparePage() {
                   <Row feature="Every send, reply, forward and delete waits for your approval, and no setting can turn that off" cells={[true, "n/a", "n/a", "configurable", "n/a"]} />
                   <Row feature="Calendar and to-do list inside the app" cells={[true, false, true, "with setup", false]} />
                   <Row feature="Voice that never leaves the machine (local speech recognition)" cells={[true, false, false, "with setup", false]} />
-                  <Row feature="Reach it from your phone without a public server" cells={["Tailscale only", "their cloud", "their cloud", "Telegram / Discord", false]} />
                   <Row feature="Captures your ChatGPT, Claude.ai and Gemini web chats into one memory" cells={[true, false, false, false, false]} />
                   <Row feature="Briefs Claude Code automatically in every project" cells={[true, false, false, false, "with setup"]} />
                   <Row feature="Full conversation history kept, never summarized away" cells={[true, false, false, true, "varies"]} />
