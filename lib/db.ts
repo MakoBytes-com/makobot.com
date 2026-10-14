@@ -197,8 +197,8 @@ export async function getAllUsers(limit = 100, offset = 0) {
   // response. NextResponse JSON-serializes a Buffer as {type, data:[...]}
   // which is ~3× the byte size of the original buffer; on /admin/users
   // with multiple avatared users this dominated response time.
-  // avatar_url + the /api/exchange/avatar/:id endpoint already render
-  // images correctly — avatar_data is only needed by that endpoint.
+  // avatar_url renders the picture. avatar_data held uploads for the Skills
+  // Exchange, removed 2026-08-24, and nothing reads it any more.
   const sql = getDb();
   return sql`
     SELECT
