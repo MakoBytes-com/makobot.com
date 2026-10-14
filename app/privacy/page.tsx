@@ -128,7 +128,7 @@ export default function PrivacyPage() {
               47777. Nothing listens on a public interface. The connection uses HTTPS with a certificate issued by Tailscale, and asking for that
               certificate makes your computer&apos;s Tailscale name visible in public certificate logs. The iPhone app connects with a pairing key
               kept in the iPhone&apos;s Keychain. Notifications to a paired iPhone go only through Apple&apos;s Push Notification service, sent
-              directly from your own PC; no Google, Microsoft or Mozilla push service is involved. MakoBot never sends one while you are looking at
+              directly from your own PC. MakoBot never sends one while you are looking at
               the iPhone app, and by default it sends one only after your PC has had no keyboard or mouse input for two minutes, unless you choose
               &ldquo;Even when I&apos;m at this computer&rdquo;. By default the lock screen says only what kind of thing is waiting; who it is from
               and what it is about are shown only if you turn that on in Settings, because a lock screen can be read by anyone holding the phone.
