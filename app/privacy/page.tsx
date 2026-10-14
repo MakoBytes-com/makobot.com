@@ -140,9 +140,12 @@ export default function PrivacyPage() {
           <section>
             <H>Things that only happen when you start them</H>
             <p>
-              If you ask a second AI for an opinion, the recent conversation and its answer are sent to that provider with your own key, and only after
-              you have ticked a one-time consent. Keys and tokens in the earlier conversation are removed first, and if your question or the answer
-              itself contains one, MakoBot refuses to send it. If you ask for an image or a video, the prompt goes to CrazyRouter,
+              If you ask a second AI for an opinion, the recent conversation and its answer are sent to that provider with your own key, or, for
+              ChatGPT, under your own ChatGPT sign-in, and only after you have ticked a one-time consent. Keys and tokens in the earlier conversation
+              are removed first, and if your question or the answer itself contains one, MakoBot refuses to send it. If you choose &ldquo;Continue
+              with ChatGPT&rdquo; in Settings, you sign in to OpenAI in your browser and let MakoBot use your ChatGPT Plus or Pro plan for these
+              opinions; the sign-in is kept on your computer, encrypted with Windows Data Protection, and Disconnect asks OpenAI to cancel it. If you
+              ask for an image or a video, the prompt goes to CrazyRouter,
               the generation service, with your own key, along with any picture you give it to work from. When you save or test a key, MakoBot sends
               that provider a one-word test question (or, for Brave Search, a one-word search) to check the key works; nothing of yours goes with it.
               When you add a mailbox, MakoBot signs in to its sending server to check replies will work, and sends nothing. If you turn on sync between your computers,
