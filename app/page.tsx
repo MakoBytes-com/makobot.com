@@ -173,10 +173,11 @@ export default async function Home() {
         <div className="max-w-6xl mx-auto">
           <SectionHeading
             title="What it does"
-            subtitle="Six things you will use every day."
+            subtitle="Five things you will use every day."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+          {/* Six columns on wide screens so the second row of two sits centred. */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 lg:*:col-span-2 lg:[&>*:nth-child(4)]:col-start-2 gap-6 mt-12">
             <FeatureCard
               icon="message"
               title="Your inbox, watched"
@@ -191,11 +192,6 @@ export default async function Home() {
               icon="mic"
               title="Talk to it"
               description="Whisper runs on your machine, so your voice never leaves it. Switch the spoken voice on and MakoBot answers in a natural voice (Microsoft's online speech service), starting after the first sentence instead of waiting for the whole reply. Turn on the wake phrase and say its name."
-            />
-            <FeatureCard
-              icon="phone"
-              title="From your phone"
-              description="A private chat page over your own Tailscale network, with push notifications to your iPhone. If Tailscale is not running there is no page at all. Nothing else listens on the network."
             />
             <FeatureCard
               icon="activity"

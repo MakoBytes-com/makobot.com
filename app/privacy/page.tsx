@@ -118,14 +118,22 @@ export default function PrivacyPage() {
             </ul>
             <p className="mt-3">
               The app also listens on your computer&apos;s own loopback address so other programs on the same PC, such as Claude Code or a browser
-              extension you install, can read its memory. That listener is protected by a token and is never reachable from the network. The optional
-              phone page is served only on your own private Tailscale network, and switching it on asks Tailscale for a security certificate, which
-              makes your computer&apos;s Tailscale name visible in public certificate logs. (An instant-mail relay for Microsoft 365 exists that only a
-              hand-placed setup file can switch on; it uses Tailscale Funnel to receive Microsoft&apos;s new-mail signals at one web address. A normal
-              install never has it.) If you pair a phone for notifications, each alert travels to your
-              phone through its maker&apos;s push service (Apple, Google, Microsoft or Mozilla), encrypted so that service cannot read it. By default
-              the notification says only that something needs you; who it is from and a one-line summary are included only if you turn that on in
-              Settings, because a lock screen can be read by anyone holding the phone.
+              extension you install, can read its memory. That listener is protected by a token and is never reachable from the network. (An
+              instant-mail relay for Microsoft 365 exists that only a hand-placed setup file can switch on; it uses Tailscale Funnel to receive
+              Microsoft&apos;s new-mail signals at one web address. A normal install never has it.)
+            </p>
+            <p className="mt-3">
+              MakoBot has a companion iPhone app that is private and is not available to the public. If one is paired, the desktop app answers it
+              through a connection (an API, not a web page) that runs only on your computer&apos;s own private Tailscale network address, on port
+              47777. Nothing listens on a public interface. The connection uses HTTPS with a certificate issued by Tailscale, and asking for that
+              certificate makes your computer&apos;s Tailscale name visible in public certificate logs. The iPhone app connects with a pairing key
+              kept in the iPhone&apos;s Keychain. Notifications to a paired iPhone go only through Apple&apos;s Push Notification service, sent
+              directly from your own PC; no Google, Microsoft or Mozilla push service is involved. MakoBot never sends one while you are looking at
+              the iPhone app, and by default it sends one only after your PC has had no keyboard or mouse input for two minutes, unless you choose
+              &ldquo;Even when I&apos;m at this computer&rdquo;. By default the lock screen says only what kind of thing is waiting; who it is from
+              and what it is about are shown only if you turn that on in Settings, because a lock screen can be read by anyone holding the phone.
+              The Apple device token of each iPhone registered for notifications is stored on your PC, in a file called phone-devices.json in
+              MakoBot&apos;s Roaming AppData folder, and is sent nowhere except to Apple when a notification goes out.
             </p>
           </section>
 
@@ -223,7 +231,10 @@ export default function PrivacyPage() {
               <li>Ask us what we hold about you and we will send it to the email address on the account.</li>
               <li>Ask us to correct anything we hold about you that is wrong.</li>
               <li>Uninstall the app and delete what it stored, as listed under &ldquo;What the app keeps, and where&rdquo; above.</li>
-              <li>Turn off the voice, the second-opinion feature, sync, the phone page or any mailbox in Settings, and that connection stops.</li>
+              <li>
+                Turn off the voice, the second-opinion feature, sync, the iPhone connection, iPhone notifications or any mailbox in Settings, and
+                that connection stops.
+              </li>
               <li>
                 We do not sell personal information and we do not share it for cross-context advertising, so there is nothing to opt out of. Residents
                 of California and other states with privacy laws may exercise the rights above by writing to support@makobot.com, or through an
