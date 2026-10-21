@@ -61,7 +61,7 @@ export default function PrivacyPage() {
               names to the project&apos;s .gitignore so the local access key is never committed; and it refreshes the key in its own entry in Cursor,
               Gemini CLI or Windsurf settings you already have. MakoBot keeps a count of which of its screens you open, on your computer only, and never
               sends it anywhere. If you press &ldquo;Find it in my projects&rdquo; in Settings, MakoBot looks for a
-              CrazyRouter key in the .env.local file of the projects it watches and copies that one key into its own encrypted store; you can remove
+              picture or video service key in the .env.local file of the projects it watches and copies that key into its own encrypted store; you can remove
               it in Settings. It never looks there unless you ask. Your own Claude Code hooks run only if you switch that on. Removing a conversation
               in the app moves it to a &ldquo;deleted&rdquo; folder inside the data folder, so it can be brought back; delete that file by hand to
               erase it. Uninstalling leaves your data in place so nothing is lost by accident (the downloaded installer offers to delete it). To remove
@@ -145,8 +145,8 @@ export default function PrivacyPage() {
               are removed first, and if your question or the answer itself contains one, MakoBot refuses to send it. If you choose &ldquo;Continue
               with ChatGPT&rdquo; in Settings, you sign in to OpenAI in your browser and let MakoBot use your ChatGPT Plus or Pro plan for these
               opinions; the sign-in is kept on your computer, encrypted with Windows Data Protection, and Disconnect asks OpenAI to cancel it. If you
-              ask for an image or a video, the prompt goes to CrazyRouter,
-              the generation service, with your own key, along with any picture you give it to work from. When you save or test a key, MakoBot sends
+              ask for an image or a video, the prompt goes to the picture or video
+              generation service you connected, with your own key, along with any picture you give it to work from. When you save or test a key, MakoBot sends
               that provider a one-word test question (or, for Brave Search, a one-word search) to check the key works; nothing of yours goes with it.
               When you add a mailbox, MakoBot signs in to its sending server to check replies will work, and sends nothing. If you turn on sync between your computers,
               encrypted packets are written to a folder or a database of your own that you choose; the passphrase never leaves your machine, so your
