@@ -148,6 +148,15 @@ jobs:
           '
 
       # The audit's own verdict, independent of whether the portal heard it.
-      - name: Fail on high or critical
+      #
+      # Production scope fails on high or critical: that is code a visitor can
+      # reach. The full scope fails on critical only. A dev-only HIGH (build
+      # tooling that never ships) is still in the portal report above, but it
+      # must not turn this red: braces GHSA-vfj7-8cjw-p6xm has no patched
+      # release at all, and it kept every eslint-config-next repo failing week
+      # after week, which is how a red audit stops being read (2026-10-22).
+      - name: Fail on production high/critical, or any critical
         if: always()
-        run: npm audit --audit-level=high
+        run: |
+          npm audit --omit=dev --audit-level=high
+          npm audit --audit-level=critical
