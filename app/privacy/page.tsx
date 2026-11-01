@@ -144,7 +144,12 @@ export default function PrivacyPage() {
               ChatGPT, under your own ChatGPT sign-in, and only after you have ticked a one-time consent. Keys and tokens in the earlier conversation
               are removed first, and if your question or the answer itself contains one, MakoBot refuses to send it. If you choose &ldquo;Continue
               with ChatGPT&rdquo; in Settings, you sign in to OpenAI in your browser and let MakoBot use your ChatGPT Plus or Pro plan for these
-              opinions; the sign-in is kept on your computer, encrypted with Windows Data Protection, and Disconnect asks OpenAI to cancel it. If you
+              opinions; the sign-in is kept on your computer, encrypted with Windows Data Protection, and Disconnect asks OpenAI to cancel it.
+              If you hand a job to ChatGPT, MakoBot runs OpenAI&apos;s Codex, which you install and sign in to yourself with your own ChatGPT
+              account. It is given the recent conversation, with keys and tokens removed, and it reads and changes files only inside that
+              chat&apos;s project folder; what it reads goes to OpenAI under your ChatGPT plan. It starts only after the same one-time consent, it
+              never commits, pushes or sends anything, and every file it changes is shown to you with an Undo. When an audit asks ChatGPT for a
+              second opinion, Codex reads the project the same way but cannot change anything. If you
               ask for an image or a video, the prompt goes to the picture or video
               generation service you connected, with your own key, along with any picture you give it to work from. When you save or test a key, MakoBot sends
               that provider a one-word test question (or, for Brave Search, a one-word search) to check the key works; nothing of yours goes with it.
@@ -152,8 +157,9 @@ export default function PrivacyPage() {
               encrypted packets are written to a folder or a database of your own that you choose; the passphrase never leaves your machine, so your
               storage provider sees only scrambled data. If you choose a shared memory folder instead, a plain copy of your memory is written there so your other computers can
               read it, with this computer&apos;s name and a random ID that tells your computers apart, so pick a folder only you can reach. If you install the browser extension, it sends your ChatGPT, Claude.ai and Gemini web
-              conversations to the app on the same computer, and nowhere else. If you switch on the site checks or Night Shift, the app uses the GitHub
-              and Vercel sign-ins already on your computer to read your own repositories and deployments, and visits your own sites. If you install a
+              conversations to the app on the same computer, and nowhere else. If you switch on the site checks, or press Fix in Watchdog, the app uses the GitHub
+              and Vercel sign-ins already on your computer to read your own repositories and deployments, and visits your own sites; Fix also
+              pushes the repair it makes to your own repository. If you install a
               connector, it is downloaded from the npm registry (or, for GitHub, reached on GitHub&apos;s own server) and talks to the service it is
               for, with the details you give it.
             </p>
