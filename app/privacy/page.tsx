@@ -198,6 +198,11 @@ export default function PrivacyPage() {
               share any of this.
             </p>
             <p className="mt-3">
+              MakoBot is offline for now. If you ask to be told when it is back, we keep the email address you give us, the part of the site you
+              signed up from, the first three parts of your IP address and the time, in our own database. We use it to send you one email when the
+              next release is out and for nothing else. Ask us at support@makobot.com and we will take you off the list.
+            </p>
+            <p className="mt-3">
               In short, the categories we hold are: identifiers (name, email address, profile picture, license key, IP address), internet activity on
               this site (downloads, page views, browser), and what you write to support. They come from you, your sign-in provider and your browser, and
               we use them only to issue and check keys, run and secure the site, and answer you. Account details are kept while your account exists;

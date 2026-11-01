@@ -2,229 +2,66 @@
 
 import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
-import { useState, useEffect } from "react";
-import { Logo, Avatar, StoreBadge } from "../components";
-import { useShownBuild } from "@/lib/use-build";
+import { Logo } from "../components";
+import NotifySignup from "../notify-signup";
+import { OFFLINE_HEADING, OFFLINE_BODY } from "@/lib/offline";
 
+/**
+ * MakoBot is offline (lib/offline.ts, 2026-11-01): no keys are handed out and
+ * nothing downloads, so this page is the waitlist signup. It must still offer
+ * sign-in, because it is NextAuth's sign-in page (lib/auth.ts) and the only
+ * way into /admin. The key-and-download flow it used to carry is in git
+ * history (before this commit) for the relaunch.
+ */
 export default function GetKeyPage() {
   const { data: session, status } = useSession();
-  const MAKOBOT_BUILD = useShownBuild();
-  const [licenseKey, setLicenseKey] = useState<string | null>(null);
-  const [tier, setTier] = useState<string>("");
-  const [loading, setLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [downloading, setDownloading] = useState(false);
-  const [downloadError, setDownloadError] = useState("");
 
-  // Declared ABOVE the effect that calls it. It used to sit below, and while
-  // function declarations hoist at runtime, the React compiler flags the
-  // forward reference ("Cannot access variable before it is declared") — a
-  // real ordering smell, not a false positive. Moving it is the fix; a
-  // suppression would just have hidden the question.
-  async function fetchOrGenerateKey() {
-    setLoading(true);
-    try {
-      // Try to get existing key
-      let res = await fetch("/api/keys");
-      let data = await res.json();
-
-      if (data.key) {
-        setLicenseKey(data.key);
-        setTier(data.tier);
-      } else {
-        // Generate new key
-        res = await fetch("/api/keys", { method: "POST" });
-        data = await res.json();
-        setLicenseKey(data.key);
-        setTier(data.tier);
-      }
-    } catch (err) {
-      console.error("Failed to get key:", err);
-    }
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    if (session?.user) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- Syncing with something outside React — a server-action result, an external widget, or a browser API that does not exist during SSR. The read can only happen after mount, and acting on what it returns means setting state here. Turnstile cases are load-bearing: tokens are single-use, so a failed submit MUST reset the widget or the next attempt replays a spent token.
-      fetchOrGenerateKey();
-    }
-  }, [session]);
-
-
-  async function copyKey() {
-    if (!licenseKey) return;
-    await navigator.clipboard.writeText(licenseKey);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }
-
-  async function handleDownload() {
-    setDownloading(true);
-    setDownloadError("");
-    try {
-      const res = await fetch("/api/download", { method: "POST" });
-      const data = await res.json();
-
-      // 503 = an admin has paused downloads from /admin. Without this branch
-      // the button just silently does nothing, which reads as a broken site.
-      if (!res.ok) {
-        setDownloadError(
-          data.error || "Downloads aren't available right now. Please try again shortly."
-        );
-        return;
-      }
-
-      if (data.url && data.url !== "#") {
-        window.location.href = data.url;
-      } else {
-        setDownloadError("The download link isn't configured. Please contact support.");
-      }
-    } catch {
-      setDownloadError("Something went wrong starting the download. Please try again.");
-    } finally {
-      setDownloading(false);
-    }
+  // NextAuth sends people here with ?callbackUrl=/admin; send them back there.
+  function signInWith(provider: "google" | "github") {
+    const cb = new URLSearchParams(window.location.search).get("callbackUrl");
+    const safe = cb && cb.startsWith("/") && !cb.startsWith("//") ? cb : "/get-key";
+    signIn(provider, { redirectTo: safe });
   }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-20">
-      {/* Background glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-[#0061aa] opacity-[0.05] blur-[120px] pointer-events-none" />
 
       <Logo size={80} />
-      <h1 className="text-3xl sm:text-4xl font-bold mt-8 mb-3 text-center">
-        Get Your Free License Key
-      </h1>
-      <p className="text-[#777777] text-center max-w-md mb-10">
-        Sign in with Google or GitHub to generate your personal MakoBot license key and download the app.
-      </p>
+      <h1 className="text-3xl sm:text-4xl font-bold mt-8 mb-3 text-center">{OFFLINE_HEADING}</h1>
+      <p className="text-[#555555] text-center max-w-md mb-10 leading-relaxed">{OFFLINE_BODY}</p>
 
-      {status === "loading" ? (
-        <div className="bg-[#f8f9fb] rounded-xl p-8 border border-[#dbdbdb] w-full max-w-md text-center">
-          <p className="text-[#777777]">Loading...</p>
-        </div>
-      ) : !session ? (
-        /* ─── SIGN IN ─── */
-        <div className="bg-[#f8f9fb] rounded-xl p-8 border border-[#dbdbdb] w-full max-w-md space-y-3">
-          <button
-            onClick={() => signIn("google")}
-            className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-lg bg-white hover:bg-gray-100 text-gray-800 font-semibold text-base transition-colors"
-          >
-            <svg width="20" height="20" viewBox="0 0 48 48">
-              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-              <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-            </svg>
-            Sign in with Google
-          </button>
-          <button
-            onClick={() => signIn("github")}
-            className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-lg bg-[#24292e] hover:bg-[#2f363d] text-white font-semibold text-base transition-colors"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-            </svg>
-            Sign in with GitHub
-          </button>
-          <p className="text-xs text-[#999999] text-center mt-4">
-            We only use your email to generate your key. No spam, ever.
-          </p>
-        </div>
-      ) : (
-        /* ─── KEY + DOWNLOAD ─── */
-        <div className="bg-[#f8f9fb] rounded-xl p-8 border border-[#dbdbdb] w-full max-w-lg">
-          {/* User info */}
-          <div className="flex items-center gap-3 mb-6">
-            <Avatar src={session.user.image} name={session.user.name} size={40} />
-            <div>
-              <p className="text-sm font-medium text-[#333333]">{session.user.name}</p>
-              <p className="text-xs text-[#999999]">{session.user.email}</p>
-            </div>
-          </div>
+      <div className="bg-[#f8f9fb] rounded-xl p-8 border border-[#dbdbdb] w-full max-w-lg flex justify-center">
+        <NotifySignup source="get-key" />
+      </div>
 
-          {loading ? (
-            <p className="text-[#777777] text-center py-4">Generating your key...</p>
-          ) : licenseKey ? (
-            <>
-              {/* License key display */}
-              <div className="mb-6">
-                <label className="text-xs text-[#777777] uppercase tracking-wider mb-2 block">
-                  Your License Key
-                </label>
-                <div className="flex items-center gap-2">
-                  <code className="flex-1 bg-[#ffffff] border border-[#dbdbdb] rounded-lg px-4 py-3 text-[#0061aa] font-mono text-lg tracking-wider select-all">
-                    {licenseKey}
-                  </code>
-                  <button
-                    onClick={copyKey}
-                    className="px-4 py-3 rounded-lg bg-[#dbdbdb] hover:bg-[#777777] text-sm text-[#333333] transition-colors whitespace-nowrap"
-                  >
-                    {copied ? "Copied!" : "Copy"}
-                  </button>
-                </div>
-                <p className="text-xs text-[#999999] mt-2">
-                  Tier: <span className="text-[#10B981] font-medium capitalize">{tier}</span> — Paste this key into MakoBot on first launch.
-                </p>
-              </div>
-
-              {/* Download button */}
-              <button
-                onClick={handleDownload}
-                disabled={downloading}
-                className="w-full px-6 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] disabled:opacity-50 text-white font-semibold text-lg transition-colors blue-glow"
-              >
-                {downloading ? "Starting download..." : "Download MakoBot Installer"}
-              </button>
-              {downloadError && (
-                <p className="mt-3 rounded-lg border border-[#DC2626]/40 bg-[#DC2626]/5 px-4 py-3 text-sm text-[#333333] text-center leading-relaxed">
-                  {downloadError}
-                </p>
-              )}
-              <p className="text-xs text-[#999999] text-center mt-3">
-                Windows 10 and 11 · Signed by Mako Logics LLC · about 240 MB · Build {MAKOBOT_BUILD}
-              </p>
-              <div className="flex items-center justify-center gap-2 mt-3 px-4 py-2 rounded-lg bg-[#ffffff] border border-[#dbdbdb]/50">
-                <svg className="w-4 h-4 text-[#10B981] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
-                <span className="text-xs text-[#777777]">Verified by <span className="text-[#333333] font-medium">Microsoft Azure Trusted Signing</span> — no SmartScreen warnings</span>
-              </div>
-
-              {/* The Store edition is the same app but needs no license key
-                  and updates through the Store (see lib/knowledge.ts). */}
-              <div className="mt-5 flex flex-col items-center gap-2">
-                <p className="text-xs text-[#999999]">Prefer the Microsoft Store? Same app — no key needed, updates arrive through the Store.</p>
-                <StoreBadge height={48} />
-              </div>
-
-              {/* Instructions */}
-              <div className="mt-6 p-4 rounded-lg bg-[#ffffff] border border-[#dbdbdb]">
-                <p className="text-sm font-medium text-[#333333] mb-2">Quick Start:</p>
-                <ol className="text-sm text-[#777777] space-y-1 list-decimal list-inside">
-                  <li>Extract the zip and run MakoBot-Setup.exe</li>
-                  <li>Follow the installer (choose desktop shortcut, start with Windows)</li>
-                  <li>Paste your license key when prompted</li>
-                  <li>
-                    Paste your own Anthropic API key when it asks (make one at{" "}
-                    <a href="https://console.anthropic.com/settings/keys" className="underline" target="_blank" rel="noopener noreferrer">
-                      console.anthropic.com
-                    </a>
-                    ) — MakoBot&apos;s brain runs on it, and Anthropic bills that account for what it uses
-                  </li>
-                  <li>Add a mailbox or a project folder and it starts remembering</li>
-                </ol>
-              </div>
-            </>
+      {status !== "loading" && (
+        <div className="mt-8 text-sm text-[#7a8aa0] text-center">
+          {session?.user ? (
+            session.user.isAdmin ? (
+              <Link href="/admin" className="underline hover:no-underline text-[#0061aa]">
+                Go to admin
+              </Link>
+            ) : (
+              <span>Signed in as {session.user.email}</span>
+            )
           ) : (
-            <p className="text-[#DC2626] text-center py-4">
-              Something went wrong generating your key. Please refresh and try again.
-            </p>
+            <span>
+              Site admin? Sign in with{" "}
+              <button type="button" onClick={() => signInWith("google")} className="underline hover:no-underline">
+                Google
+              </button>{" "}
+              or{" "}
+              <button type="button" onClick={() => signInWith("github")} className="underline hover:no-underline">
+                GitHub
+              </button>
+              .
+            </span>
           )}
         </div>
       )}
 
-      {/* Back to home */}
-      <Link href="/" className="mt-8 text-sm text-[#999999] hover:text-[#777777] transition-colors">
+      <Link href="/" className="mt-6 text-sm text-[#999999] hover:text-[#777777] transition-colors">
         &larr; Back to makobot.com
       </Link>
     </div>

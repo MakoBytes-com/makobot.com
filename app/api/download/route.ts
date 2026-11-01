@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { trackDownload, trackEvent, downloadsEnabled, getSetting } from "@/lib/db";
+import { MAKOBOT_OFFLINE, OFFLINE_MESSAGE } from "@/lib/offline";
 
 export async function POST(req: NextRequest) {
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
+  // Taken offline by the owner (lib/offline.ts). Not tied to the database, so a
+  // settings outage cannot reopen downloads while the product is pulled.
+  if (MAKOBOT_OFFLINE) {
+    return NextResponse.json({ error: OFFLINE_MESSAGE, paused: true }, { status: 503 });
   }
 
   // Master switch. Checked BEFORE the download is recorded, so a paused period

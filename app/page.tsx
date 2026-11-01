@@ -16,8 +16,9 @@ import {
   SectionHeading,
   Nav,
   Footer,
-  StoreBadge,
 } from "./components";
+import NotifySignup from "./notify-signup";
+import { OFFLINE_BADGE, OFFLINE_HEADING, OFFLINE_BODY } from "@/lib/offline";
 
 /* VERSIONED FILENAMES for everything under /images and /videos. They are served
    with "Cache-Control: public, max-age=31536000, immutable", so a browser that
@@ -92,16 +93,19 @@ export default async function Home() {
               Free. No subscription. Anthropic bills your key for what Claude does, and your data stays on your desk.
             </p>
 
+            {/* Offline since 2026-11-01 (lib/offline.ts): no download, no Store
+                badge. The button goes to the signup in the download section. */}
+            <p className="inline-block text-sm font-semibold text-[#8a4b00] bg-[#fffbeb] border border-[#f5d9a8] rounded-lg px-3 py-2 mb-4">
+              {OFFLINE_BADGE}
+            </p>
+
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-8">
               <a
-                href="/get-key"
+                href="#download"
                 className="inline-flex items-center justify-center whitespace-nowrap px-6 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-base transition-colors"
               >
-                Get Free Key + Download
+                Get notified when it&apos;s back
               </a>
-              <div className="flex justify-center">
-                <StoreBadge height={56} />
-              </div>
               <a
                 href="#features"
                 className="inline-flex items-center justify-center whitespace-nowrap px-6 py-4 rounded-lg border border-[#9fb3c8] bg-white/70 hover:border-[#555555] text-[#333333] font-medium text-base transition-colors"
@@ -119,7 +123,7 @@ export default async function Home() {
             </div>
 
             <p className="text-sm text-[#555555]">
-              Windows 10 and 11. Build {MAKOBOT_BUILD}, signed by Mako Logics LLC.
+              Windows 10 and 11. Last release: build {MAKOBOT_BUILD}.
             </p>
           </div>
         </div>
@@ -358,29 +362,15 @@ export default async function Home() {
         <div className="max-w-3xl mx-auto text-center">
           <Logo size={80} />
           <h2 className="text-3xl sm:text-4xl font-bold mt-8 mb-4">
-            Ready to try it?
+            {OFFLINE_HEADING}
           </h2>
           <p className="text-lg text-[#555555] mb-8 max-w-xl mx-auto">
-            Download MakoBot, add a mailbox or a project folder, and let it
-            start remembering. Free, on your machine, no subscription.
+            {OFFLINE_BODY}
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="/get-key"
-              className="inline-flex items-center justify-center px-10 py-5 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-xl transition-colors blue-glow"
-            >
-              Get Free Key + Download
-            </a>
-            <StoreBadge height={64} />
+          <div className="flex justify-center">
+            <NotifySignup source="download" size="lg" />
           </div>
-
-          <p className="mt-4 text-sm text-[#999999]">
-            Windows 10 and 11 · about 240 MB · Build {MAKOBOT_BUILD} · Digitally signed by Mako Logics LLC
-          </p>
-          <p className="mt-2 text-xs text-[#777777]">
-            Verified by Microsoft Azure Trusted Signing, so there are no SmartScreen warnings
-          </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <AiBadge name="Claude Code" />

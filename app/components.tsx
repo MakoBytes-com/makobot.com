@@ -96,7 +96,9 @@ export function Logo({ size = 64 }: { size?: number }) {
 
 /* ─── MICROSOFT STORE BADGE ───
    Microsoft's official English badge (from get.microsoft.com), hosted locally.
-   Brand rules: never redraw or recolor it, keep it a plain link. */
+   Brand rules: never redraw or recolor it, keep it a plain link.
+   UNUSED while MakoBot is offline (lib/offline.ts): the Store listing is
+   pulled. Kept for the relaunch. */
 export function StoreBadge({ height = 52 }: { height?: number }) {
   /* The width must be explicit pixels, never "auto": Tailwind's preflight
      max-width:100% plus a shrinkable flex parent collapsed an auto-width
@@ -274,7 +276,7 @@ export function Nav() {
             href="/#download"
             className="inline-flex items-center px-5 py-2 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white text-sm font-semibold transition-colors"
           >
-            Download
+            Get notified
           </Link>
           {session?.user?.isAdmin && (
             <Link
@@ -355,7 +357,7 @@ export function Nav() {
             onClick={() => setOpen(false)}
             className="inline-flex items-center justify-center px-5 py-2 rounded-lg bg-[#0061aa] text-white text-sm font-semibold"
           >
-            Download
+            Get notified
           </Link>
           {session?.user?.isAdmin && (
             <Link

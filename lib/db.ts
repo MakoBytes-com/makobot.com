@@ -357,6 +357,44 @@ export async function setSetting(key: string, value: string, userId?: number | n
   `;
 }
 
+// ─── RELEASE WAITLIST ───
+// MakoBot was taken offline on 2026-11-01 (Store listing pulled, downloads
+// stopped; see lib/offline.ts). Visitors leave an email here to hear about the
+// next release. Unqualified like every table here: the site's login keeps
+// search_path on schema "makobot" in the Mako Logics project.
+
+export async function ensureWaitlistTable() {
+  const sql = getDb();
+  await sql`
+    CREATE TABLE IF NOT EXISTS release_waitlist (
+      id SERIAL PRIMARY KEY,
+      email VARCHAR(255) UNIQUE NOT NULL,
+      source VARCHAR(40),
+      ip_prefix VARCHAR(64),
+      created_at TIMESTAMP DEFAULT NOW()
+    )
+  `;
+}
+
+/** Adds an email to the waitlist. Returns false when it was already on it. */
+export async function joinWaitlist(email: string, source: string | null, ipPrefixValue: string | null): Promise<boolean> {
+  const sql = getDb();
+  await ensureWaitlistTable();
+  const rows = await sql`
+    INSERT INTO release_waitlist (email, source, ip_prefix)
+    VALUES (${email}, ${source}, ${ipPrefixValue})
+    ON CONFLICT (email) DO NOTHING
+    RETURNING id
+  `;
+  return rows.length > 0;
+}
+
+export async function listWaitlist() {
+  const sql = getDb();
+  await ensureWaitlistTable();
+  return sql`SELECT id, email, source, created_at FROM release_waitlist ORDER BY created_at DESC LIMIT 2000`;
+}
+
 /** Downloads are ON unless the switch has been explicitly set to "off". */
 export async function downloadsEnabled(): Promise<boolean> {
   try {

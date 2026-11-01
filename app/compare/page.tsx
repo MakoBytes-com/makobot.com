@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Logo, Nav, Footer, SectionHeading, FeatureCard } from "../components";
 
 export const metadata: Metadata = {
@@ -245,17 +246,17 @@ export default function ComparePage() {
       <section className="px-6 py-20">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Try it on your own setup
+            Want to know when it&apos;s back?
           </h2>
           <p className="text-[#555555] text-base mb-8">
-            Free key, free download. Runs on your machine, on your own Anthropic API key.
+            MakoBot has been taken offline while the team works on the next release. Drop your email address so we can let you know when it returns.
           </p>
-          <a
-            href="/get-key"
+          <Link
+            href="/#download"
             className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[#0061aa] hover:bg-[#004d88] text-white font-semibold text-lg transition-colors"
           >
-            Get Free Key + Download
-          </a>
+            Get notified
+          </Link>
         </div>
       </section>
 

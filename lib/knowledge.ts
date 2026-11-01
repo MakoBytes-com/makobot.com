@@ -10,7 +10,12 @@ import { MAKOBOT_BUILD, MAKOBOT_VERSION } from "./version";
 // `build` comes from latestBuild() (lib/build.ts) — the registered release —
 // with the version.ts constant only as the no-database fallback.
 const versionLineFor = (build: string) =>
-  `Current release: version ${MAKOBOT_VERSION.replace(/\.0$/, "")}, build ${build}.`;
+  `Last release: version ${MAKOBOT_VERSION.replace(/\.0$/, "")}, build ${build}.`;
+
+// Offline since 2026-11-01 (lib/offline.ts). Said up front so neither an AI
+// crawler nor the support chat sends anyone looking for a download.
+const AVAILABILITY_LINE =
+  "Availability: MakoBot is currently offline and cannot be downloaded from makobot.com or the Microsoft Store while we build the next release. Enter your email address at https://makobot.com/get-key to be notified when it returns.";
 
 export function llmsShortText(build: string = MAKOBOT_BUILD): string {
   const versionLine = versionLineFor(build);
@@ -18,12 +23,13 @@ export function llmsShortText(build: string = MAKOBOT_BUILD): string {
 
 > MakoBot is a free Windows desktop application from Mako Logics LLC. It runs a Claude-powered assistant on the user's own machine. It scans messages in Outlook, Gmail, iCloud and Yahoo to separate real mail from fakes by checking the sender's authentication records. The tool also manages the user's Microsoft calendar and to-do list. Audio stays on the device because it uses a local speech model for listening, and the system replies in a natural voice. It remembers everything: one brain file across all of the user's work, a context file per project, every conversation saved in full, Claude Code sessions saved as transcripts, commits recorded as they happen, and ChatGPT, Claude.ai and Gemini chats captured by a browser extension. Memory is searchable by words or by meaning, entirely on the machine, backed up nightly, and can be synced encrypted across the user's own computers. It is the front door for Claude Code: every project the user adds gets its memory tools automatically, and any MCP client can use them. Every send, reply, forward and delete waits for the user's approval, and no setting can turn that off. Mailbox passwords are sealed with Windows data protection, secrets are scrubbed before anything is written, and updates run only when signed by Mako Logics LLC. The app never shuts itself down and runs a daily self-check that reports facts. Its brain is Claude, on the user's own Anthropic API key, which Anthropic bills for what it uses. There is no subscription. ${versionLine}
 
+${AVAILABILITY_LINE}
+
 ## Key URLs
 
 - Home: https://makobot.com
 - How it compares: https://makobot.com/compare
-- Free key + download: https://makobot.com/get-key
-- Microsoft Store listing: https://apps.microsoft.com/detail/9NH5KTRLRQ7Q
+- Get notified when it is back: https://makobot.com/get-key
 - Contact and support: https://makobot.com/contact
 - Privacy: https://makobot.com/privacy
 - Terms: https://makobot.com/terms
@@ -43,7 +49,9 @@ export function llmsFullText(build: string = MAKOBOT_BUILD): string {
 
 MakoBot is a free Windows desktop application from Mako Logics LLC. It runs a Claude-powered assistant on the user's own computer. It lives in a chat window with tabs, has a face, talks and listens, and remembers. Its brain is Claude through the user's own Anthropic API key. Everything it stores stays on the user's disk. There is no Mako Logics server in the middle of any conversation, no subscription, and the app never shuts itself down.
 
-${versionLine} Windows 10 and 11. The installer is about 240 MB and is digitally signed by Mako Logics LLC through Microsoft Azure Trusted Signing.
+${versionLine} Windows 10 and 11.
+
+${AVAILABILITY_LINE}
 
 ## What it does
 
@@ -99,13 +107,12 @@ ${versionLine} Windows 10 and 11. The installer is about 240 MB and is digitally
 
 ## Privacy in one paragraph
 
-Files, mailbox passwords and voice recordings stay on the user's computer. Text the assistant reads or writes (chats, and any mail, calendar or memory it looks at to answer) goes to Anthropic under the user's own Anthropic API key, including a few background jobs MakoBot runs itself (a memory review after a chat, a daily look back over its notes that can be switched off, a daily self-check); Mako Logics never receives it. The app contacts makobot.com to activate a license key and to check service status, GitHub to look for signed updates (direct download only), Microsoft's speech service to produce its voice when the voice is switched on, and Hugging Face once to download the local speech and search models. Any extras like a second-opinion AI or image generation wait until the user asks for them, relying on the user's own keys or ChatGPT sign-in once secrets are scrubbed. The website collects an email address to issue a free license key and keeps basic page-view counts in its own database. See https://makobot.com/privacy.
+Files, mailbox passwords and voice recordings stay on the user's computer. Text the assistant reads or writes (chats, and any mail, calendar or memory it looks at to answer) goes to Anthropic under the user's own Anthropic API key, including a few background jobs MakoBot runs itself (a memory review after a chat, a daily look back over its notes that can be switched off, a daily self-check); Mako Logics never receives it. The app contacts makobot.com to activate a license key and to check service status, GitHub to look for signed updates (direct download only), Microsoft's speech service to produce its voice when the voice is switched on, and Hugging Face once to download the local speech and search models. Any extras like a second-opinion AI or image generation wait until the user asks for them, relying on the user's own keys or ChatGPT sign-in once secrets are scrubbed. The website keeps the email address of anyone who asks to be told when MakoBot is back, the accounts and license keys issued before it went offline, and basic page-view counts, all in its own database. See https://makobot.com/privacy.
 
 ## Distribution
 
 - Website hosting: Vercel. DNS: Cloudflare.
-- Free license key: sign in with Google or GitHub at https://makobot.com/get-key.
-- Installer: a signed GitHub release asset behind an authenticated download. Also on the Microsoft Store at https://apps.microsoft.com/detail/9NH5KTRLRQ7Q, where no key is needed and updates arrive through the Store.
+- Availability: offline. There is no download and no Microsoft Store listing at the moment. Anyone interested can leave an email at https://makobot.com/get-key to hear when the next release is out.
 - Contact and support: https://makobot.com/contact, or support@makobot.com.
 - Product line: MakoBot and PixelCopy ship under the MakoBytes brand of Mako Logics LLC.
 
@@ -129,13 +136,13 @@ If anything in this document conflicts with the live site, the live site is auth
 export const SUPPORT_FACTS = `
 ## Getting it and installing it
 
-- Getting the app: go to https://makobot.com/get-key, sign in with Google or GitHub, and the page shows a free license key and the download button. The download is a zip of about 240 MB containing MakoBot-Setup.exe. Run the setup; Windows SmartScreen should show the publisher as Mako Logics LLC because the installer is signed.
+- Getting the app: MakoBot is offline for now. It cannot be downloaded from makobot.com and it is no longer on the Microsoft Store while the next release is built, and no new license keys are being issued. Anyone who wants it can leave an email at https://makobot.com/get-key and will get one email when it is back. There is no date yet; do not promise one.
 - The license key is free and does not expire. It is entered once, inside the app, when it first asks. The same key works on more than one of the user's own computers.
 - Requirements: Windows 10 or 11, 64-bit. An internet connection for Claude. An Anthropic API key with credit on its account, which the user creates at https://console.anthropic.com/settings/keys (credit is added under Billing there). Anthropic bills that account for what MakoBot uses. A Claude Pro or Max plan does not include API use, so it cannot stand in for a key. MakoBot does not sell, resell or include a key.
 - Connecting the brain: paste the key on the welcome screen the first time MakoBot opens, or later in Settings, then Brain. MakoBot sends Anthropic a one-word test message with it before saving, and stores it encrypted with Windows data protection. Until a key is added the app opens and shows its screens but cannot answer.
 - If you want the second opinion to run on your own ChatGPT Plus or Pro subscription rather than an OpenAI API key, you can use Sign in with ChatGPT. Find the option under Settings, Brain and click Continue with ChatGPT to activate it. Keep in mind that this setup does not swap out your Anthropic API key, which MakoBot still requires to generate its own answers.
 - "It says it needs an API key" or "out of credit": the key is missing, was copied incompletely, or its Anthropic account has no credit. Check Billing at console.anthropic.com, then paste the key again in Settings, Brain.
-- Updates: the direct-download app checks MakoBot's release list on GitHub on its own and offers each new build (the Microsoft Store edition updates through the Store). An update is downloaded, its digital signature is checked (it must be signed by Mako Logics LLC), and only then is it run. The current build number is shown at the bottom of the app's Settings and at the bottom of makobot.com.
+- Updates: while MakoBot is offline no updates are being published, so a copy that is already installed stays on the build it has. When updates resume, the app downloads each one, checks its digital signature (it must be signed by Mako Logics LLC), and only then runs it. The build number is shown at the bottom of the app's Settings.
 - Quitting: MakoBot keeps running in the background when its window is closed. To exit fully, right-click its icon in the Windows system tray (bottom right, near the clock) and choose Quit. It never shuts itself down.
 - Uninstalling: Windows Settings, Apps, Installed apps, MakoBot, Uninstall. The memory folder is left in place on purpose so nothing is lost; the user can delete it by hand if they want it gone.
 
@@ -163,9 +170,9 @@ export const SUPPORT_FACTS = `
 - A bug, a crash, an update that will not install, a mailbox that stops syncing, a lost key, or anything about the user's own data: hand off to a person. The log file named above and the build number help a lot.
 - Support email: support@makobot.com, or the contact page at https://makobot.com/contact. A person answers, usually the same day.
 
-## Microsoft Store edition
+## Microsoft Store
 
-- MakoBot is also offered through the Microsoft Store as the same app: https://apps.microsoft.com/detail/9NH5KTRLRQ7Q. The Store edition installs and updates through the Store, needs no license key, and does not start with Windows on its own. The direct download from makobot.com uses a free key and updates itself with signed releases. Both keep every file on the user's own computer in the same places.
+- MakoBot has been taken off the Microsoft Store for now. A copy someone installed from the Store earlier keeps working and keeps its files in the same places as the direct download; it gets no new updates while the product is offline.
 `;
 
 /** The block the support chat reads. */

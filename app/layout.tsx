@@ -85,9 +85,9 @@ const jsonLd = {
         priceCurrency: "USD",
       },
       url: "https://www.makobot.com",
-      downloadUrl: "https://www.makobot.com/get-key",
-      installUrl: "https://apps.microsoft.com/detail/9NH5KTRLRQ7Q",
-      sameAs: ["https://apps.microsoft.com/detail/9NH5KTRLRQ7Q"],
+      // No downloadUrl / installUrl / Store sameAs while MakoBot is offline
+      // (lib/offline.ts): schema must not point search engines at a download
+      // or a Store listing that no longer exists. Restore them on relaunch.
       softwareVersion: MAKOBOT_VERSION,
       dateModified: SITE_LAST_UPDATED,
       author: {
