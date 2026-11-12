@@ -89,6 +89,12 @@ export default function PrivacyPage() {
                 edition updates through the Microsoft Store).
               </li>
               <li>
+                <span className="text-[#333333] font-medium">The npm registry</span>, every few hours, to download a newer Claude engine from Anthropic
+                so new Claude models appear without waiting for a MakoBot update (direct-download edition only). The download is checked against its
+                published fingerprint and Anthropic&apos;s signature before it is used, and nothing about you is sent: no account, key or conversation,
+                only an ordinary download request.
+              </li>
+              <li>
                 <span className="text-[#333333] font-medium">Microsoft&apos;s speech service</span>, to turn what it says into a spoken voice. The text
                 being spoken is sent for that purpose only: anything it reads aloud, which is its replies, spoken routine briefings, and, if you have
                 spoken email alerts on, the short summary of each alert (who it is from and why it matters). The voice starts switched off; nothing is
