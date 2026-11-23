@@ -16,7 +16,14 @@ export function getDb() {
   // connection — even fast queries summed to multi-second total latency,
   // and a single slow query stalled the whole dashboard. Supabase pooler
   // handles 5 simultaneous connections per Vercel function fine.
-  _sql = postgres(url, { ssl: "require", prepare: false, max: 5 });
+  //
+  // max_pipeline: 1 — REQUIRED on postgres v4 behind Supabase's transaction
+  // pooler (port 6543). v4 pipelines several queries onto one connection when
+  // all are busy, and through the pooler those pipelined queries never answer:
+  // the admin dashboard's parallel queries hung forever (tested 2026-11-23,
+  // postgres 4.1.1; v3.4.9 did not). One query in flight per connection keeps
+  // the 5-way parallelism above and removes the hang.
+  _sql = postgres(url, { ssl: "require", prepare: false, max: 5, max_pipeline: 1 });
   return _sql;
 }
 
